@@ -1,9 +1,7 @@
-import { NAV_LINKS } from "@/content/site";
-
-type SectionId = (typeof NAV_LINKS)[number]["id"];
+import { Hero } from "@/components/sections/Hero";
 
 type PlaceholderSection = {
-  id: SectionId;
+  id: string;
   number: string;
   label: string;
   surface: string;
@@ -12,15 +10,8 @@ type PlaceholderSection = {
   hint?: string;
 };
 
-const SECTIONS: readonly PlaceholderSection[] = [
-  {
-    id: "hero",
-    number: "01",
-    label: "Accueil",
-    surface: "bg-ink-50",
-    numberClass: "text-mint-700",
-    labelClass: "text-ink-950",
-  },
+// Sections encore en placeholder — remplacées au fil des phases 1.4b → 1.4f.
+const PLACEHOLDER_SECTIONS: readonly PlaceholderSection[] = [
   {
     id: "pourquoi",
     number: "02",
@@ -67,7 +58,8 @@ const SECTIONS: readonly PlaceholderSection[] = [
 export default function Home() {
   return (
     <>
-      {SECTIONS.map((section) => (
+      <Hero />
+      {PLACEHOLDER_SECTIONS.map((section) => (
         <section
           key={section.id}
           id={section.id}

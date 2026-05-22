@@ -66,3 +66,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Respect du prefers-reduced-motion : neutralise les animations et
+   transitions CSS pour les utilisateurs qui ont activé la préférence.
+   Motion (via useReducedMotion) est déjà géré côté composant. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
