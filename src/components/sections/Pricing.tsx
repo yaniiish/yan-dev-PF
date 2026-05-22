@@ -18,7 +18,7 @@ const VITRINE_FEATURES = [
   "Responsive mobile, tablette, desktop",
   "SEO local de base",
   "Formulaire de contact",
-  "Mise en ligne sous 2 à 3 semaines",
+  "Mise en ligne rapide",
 ] as const;
 
 const PREMIUM_DESCRIPTION =
@@ -54,7 +54,7 @@ export function Pricing() {
               price="490 €"
               priceNote="paiement unique à la livraison"
               recurring="+ 30 €/mois"
-              recurringNote="hébergement, mises à jour et modifications mineures"
+              recurringNote="nom de domaine, hébergement, mises à jour et modifications mineures"
               features={VITRINE_FEATURES}
               ctaLabel="Démarrer mon projet"
             />

@@ -21,7 +21,7 @@ const EXAMPLES: readonly Example[] = [
   {
     badge: "Classique",
     title: "Site clair et efficace",
-    body: "Sobre, lisible, rapide. Mis en ligne en 2 à 3 semaines.",
+    body: "Sobre, lisible, rapide. Mis en ligne rapidement.",
     audience: "Boulangerie · Artisan · Restaurant",
     tone: "light",
   },
