@@ -1,4 +1,4 @@
-import { NAV_LINKS, SITE_NAME } from "@/content/site";
+import { NAV_LINKS } from "@/content/site";
 
 type SectionId = (typeof NAV_LINKS)[number]["id"];
 
@@ -67,68 +67,31 @@ const SECTIONS: readonly PlaceholderSection[] = [
 export default function Home() {
   return (
     <>
-      <DebugNav />
-      <main id="main">
-        {SECTIONS.map((section) => (
-          <section
-            key={section.id}
-            id={section.id}
-            className={`flex min-h-screen items-center justify-center ${section.surface}`}
-          >
-            <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-6 text-center md:px-10 lg:px-16">
-              <span
-                className={`font-mono text-xs uppercase tracking-widest ${section.numberClass}`}
-              >
-                {section.number} — {section.label}
-              </span>
-              <h2
-                className={`font-serif text-[clamp(2rem,3.5vw+1rem,3.75rem)] font-medium leading-[1.05] tracking-tight ${section.labelClass}`}
-              >
-                {section.label}
-              </h2>
-              {section.hint ? (
-                <p className="max-w-[60ch] text-sm text-ink-300">
-                  {section.hint}
-                </p>
-              ) : null}
-            </div>
-          </section>
-        ))}
-      </main>
-    </>
-  );
-}
-
-/**
- * Mini barre de navigation de debug — uniquement pour la Phase 0.
- * Sera remplacée par la vraie Navbar à l'étape 1.3.
- */
-function DebugNav() {
-  return (
-    <nav
-      aria-label="Navigation de debug"
-      className="sticky top-0 z-40 border-b border-ink-300/60 bg-ink-50/80 backdrop-blur-sm"
-    >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6 md:h-20 md:px-10 lg:px-16">
-        <a
-          href="#hero"
-          className="font-sans text-base font-semibold tracking-tight text-ink-950"
+      {SECTIONS.map((section) => (
+        <section
+          key={section.id}
+          id={section.id}
+          className={`flex min-h-screen items-center justify-center ${section.surface}`}
         >
-          {SITE_NAME}
-        </a>
-        <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-ink-700">
-          {NAV_LINKS.map((link) => (
-            <li key={link.id}>
-              <a
-                href={link.href}
-                className="rounded-md px-2 py-1 transition-colors hover:text-ink-950"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </nav>
+          <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-6 text-center md:px-10 lg:px-16">
+            <span
+              className={`font-mono text-xs uppercase tracking-widest ${section.numberClass}`}
+            >
+              {section.number} — {section.label}
+            </span>
+            <h2
+              className={`font-serif text-[clamp(2rem,3.5vw+1rem,3.75rem)] font-medium leading-[1.05] tracking-tight ${section.labelClass}`}
+            >
+              {section.label}
+            </h2>
+            {section.hint ? (
+              <p className="max-w-[60ch] text-sm text-ink-300">
+                {section.hint}
+              </p>
+            ) : null}
+          </div>
+        </section>
+      ))}
+    </>
   );
 }
