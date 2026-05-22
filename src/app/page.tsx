@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/Hero";
+import { Services } from "@/components/sections/Services";
 import { Why } from "@/components/sections/Why";
 
 type PlaceholderSection = {
@@ -11,16 +12,8 @@ type PlaceholderSection = {
   hint?: string;
 };
 
-// Sections encore en placeholder — remplacées au fil des phases 1.4c → 1.4f.
+// Sections encore en placeholder — remplacées au fil des phases 1.4d → 1.4f.
 const PLACEHOLDER_SECTIONS: readonly PlaceholderSection[] = [
-  {
-    id: "services",
-    number: "03",
-    label: "Services",
-    surface: "bg-mint-50/40",
-    numberClass: "text-mint-700",
-    labelClass: "text-ink-950",
-  },
   {
     id: "exemples",
     number: "04",
@@ -53,6 +46,7 @@ export default function Home() {
     <>
       <Hero />
       <Why />
+      <Services />
       {PLACEHOLDER_SECTIONS.map((section) => (
         <section
           key={section.id}
