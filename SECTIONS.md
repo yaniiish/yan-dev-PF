@@ -1,0 +1,367 @@
+# SECTIONS.md — yan-dev
+
+> Spec UI détaillée, section par section. Pour les **textes**, lire `CONTENT.md`. Pour les **styles**, lire `DESIGN_SYSTEM.md`. Ce fichier décrit la **mise en page, la composition et le comportement**.
+
+---
+
+## Règles communes à toutes les sections
+
+- Chaque section est un `<section id="...">`, ancrée pour la navbar.
+- Chaque section commence par un `SectionLabel` (numéro mono mint) + un `<h2>` serif.
+- Padding vertical standard : `py-24 md:py-32 lg:py-40`. Hero : `min-h-[90svh]`.
+- Container intérieur : `mx-auto max-w-7xl px-6 md:px-10 lg:px-16`.
+- Animations d'entrée : wrapper `<FadeIn>` au scroll, voir `DESIGN_SYSTEM.md` §7.
+- Toujours respecter `prefers-reduced-motion`.
+
+---
+
+## 1. NAVBAR
+
+### Structure
+- Position : `sticky top-0 z-50`.
+- Hauteur : `h-16 md:h-20`.
+- Background : transparent au sommet de page, devient `bg-ink-50/80 backdrop-blur-md border-b border-ink-300/50` après ~30px de scroll (détecter via `useScroll` de Motion ou IntersectionObserver).
+- Layout : `flex items-center justify-between`.
+- Gauche : mark `Yan-dev`.
+- Centre (md+) : liens.
+- Droite : CTA primaire `sm` ou `md`.
+
+### Mobile (`< md`)
+- Liens cachés, remplacés par un bouton menu (icône `Menu` de lucide).
+- Au clic : sheet plein écran qui descend avec liens en colonne, gros texte (`text-2xl`), CTA en bas.
+- Animer avec Motion (fade + slide), pas de lib externe.
+
+### A11y
+- Bouton menu : `aria-expanded`, `aria-controls`.
+- Liens actifs : observer la section visible (IntersectionObserver) et appliquer `text-mint-700 underline decoration-2 underline-offset-8`.
+
+---
+
+## 2. HERO (`#hero`)
+
+### Layout desktop (≥ lg)
+- 2 colonnes : `grid grid-cols-12 gap-8 items-center`.
+- Colonne gauche : `col-span-7` — texte.
+- Colonne droite : `col-span-5` — card de présentation.
+
+### Layout tablet (md)
+- 2 colonnes : `col-span-6` / `col-span-6`.
+
+### Layout mobile (`< md`)
+- 1 colonne. Card de présentation passe **sous** le texte. Card plus compacte (avatar à gauche, texte à droite dans la card).
+
+### Colonne gauche (texte)
+Empilement vertical :
+1. `SectionLabel` mono `01 — Accueil`
+2. `<h1>` (Instrument Serif, display-1) — phrase d'accroche validée. **La fin "pensé pour vous faire trouver" est dans un `<span>` souligné `decoration-mint-500`.** Pas d'italique. Voir `CONTENT.md` §3 pour le snippet exact.
+3. `<p>` lead — sous-titre
+4. `<div className="flex flex-wrap gap-3 mt-8">` avec CTA primaire + secondaire
+
+### Colonne droite (card présentation)
+- Composant `<PresentationCard>`.
+- `rounded-3xl border border-ink-300/60 bg-card p-8 shadow-lg shadow-ink-950/5`.
+- Contenu vertical :
+  - `<Image>` avatar : 120×120 desktop, 80×80 mobile. `rounded-3xl` (à tester contre cercle).
+  - Nom (`font-serif text-h3`)
+  - Sous-titre métier (`text-ink-500 text-small`)
+  - Petite séparation (`<hr className="border-ink-300/60" />`)
+  - Pitch (paragraphe body)
+  - Chips (`Next.js`, `SEO local`, `Réponse sous 24h`) — `inline-flex items-center px-3 py-1 rounded-xl border border-ink-300 text-micro font-mono`.
+
+### Background
+- `<FallingPattern>` en absolute behind, `color="var(--color-mint-500)"`, `blurIntensity="1em"`.
+- Wrapper hero en `relative overflow-hidden`.
+- Texte et card en `relative z-10`.
+
+### Animation
+- Stagger : SectionLabel → H1 → lead → CTAs → card (délai 0.06s entre chaque).
+- Card : entrée par `y: 24 → 0`, `opacity: 0 → 1`, durée 0.6s, easing out.
+
+---
+
+## 3. POURQUOI (`#pourquoi`)
+
+### Layout
+- Container standard.
+- `SectionLabel` + H2 (à gauche, max-w-3xl).
+- Lead sous H2, `max-w-2xl`, `text-ink-500`.
+- Grille de **4 cards** :
+  - Desktop : `grid grid-cols-2 gap-6 lg:gap-8 mt-16`
+  - Mobile : `grid-cols-1 gap-4`
+
+### Card "raison"
+- `rounded-2xl border border-ink-300/60 bg-card p-6 md:p-8`.
+- Structure interne :
+  - Petit numéro mono (`01`, `02`...) en `text-mint-700 font-mono text-micro`.
+  - H3 (sans serif, semibold).
+  - Paragraphe body, `text-ink-700`.
+- Hover : `transition-shadow hover:shadow-md hover:border-mint-500/40`.
+
+### Background
+- `<BGPattern variant="grid" mask="fade-edges" fill="var(--color-ink-300)" />` derrière la section, opacity réduite via classe.
+
+### Animation
+- Stagger sur les cards (0.08s).
+- Chaque card : `y: 16 → 0`, `opacity: 0 → 1`.
+
+---
+
+## 4. SERVICES (`#services`)
+
+### Layout
+- Comme Pourquoi mais grille de **4 cards** (`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`).
+- Cards plus hautes (icône en haut, plus de respiration).
+
+### Card service
+- `rounded-2xl border border-ink-300/60 bg-card p-6 md:p-7`.
+- Structure :
+  - Icône (lucide, taille 24, `text-mint-700`) dans un cercle `size-12 rounded-2xl bg-mint-50 flex items-center justify-center`.
+  - Numéro `01` mono mint.
+  - H3 titre service.
+  - Description body.
+
+### Icônes suggérées (lucide-react)
+- `01 Site vitrine sur mesure` → `LayoutTemplate`
+- `02 Référencement local` → `Search` ou `MapPin`
+- `03 Formulaire de contact` → `Mail` ou `Send`
+- `04 Hébergement & maintenance` → `Server` ou `Wrench`
+
+### Background
+- Section neutre (fond `bg-ink-50`), pas de pattern → on alterne avec Pourquoi.
+
+---
+
+## 5. EXEMPLES (`#exemples`)
+
+### Layout (MVP — statique)
+- `SectionLabel` + H2 + lead.
+- Grille `grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mt-16`.
+- 2 cards "exemple", chacune :
+  - Image / placeholder visuel ratio `aspect-[4/3]`, `rounded-2xl overflow-hidden`.
+  - Sous l'image : badge (`Classique` / `Premium`), titre, courte description.
+
+### Placeholder visuel (en attendant vrais screenshots)
+- Bloc avec dégradé subtil mint + grid pattern dessus, OU mockup wireframe en SVG.
+- À discuter avec Yan. Ne **pas** mettre des images stock photo génériques.
+
+### Phase 2
+- Remplacer la grille par un carrousel Three.js (React Three Fiber).
+- Voir `ROADMAP.md` phase 2.
+
+---
+
+## 6. TARIFS (`#tarifs`)
+
+### Layout
+- `SectionLabel` + H2 + lead.
+- Grille `grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mt-16 max-w-5xl mx-auto`.
+- 2 cards tarif.
+
+### Card tarif
+- `rounded-3xl border bg-card p-8 md:p-10 flex flex-col`.
+- Si "le plus demandé" → badge en haut + `border-mint-500` plus marquée.
+- Structure :
+  - Badge `Le plus demandé` ou `Sur mesure` (chip mono mint en haut).
+  - Nom de l'offre (H3).
+  - Prix principal **en display-2 serif** + petite mention sous le prix.
+  - Récurrent (`+ 30 €/mois`) en `text-h3` + mention.
+  - `<hr>` mince.
+  - Liste à puces — chaque item avec icône `Check` lucide en `text-mint-700`.
+  - **Spacer flex-1** (pousse le CTA en bas).
+  - CTA primaire pleine largeur.
+
+### Note finale
+- Sous les cards, paragraphe `text-small text-ink-500 max-w-3xl mx-auto text-center`.
+
+### Background
+- Optionnel : section plus sombre `bg-ink-950 text-ink-50`. À tester. Si fait, adapter les cards (fond `bg-ink-50/95`).
+- Au MVP, partir sur **fond clair standard** pour rester safe.
+
+---
+
+## 7. CONTACT (`#contact`)
+
+### Layout
+- 2 colonnes desktop (`grid-cols-1 lg:grid-cols-2 gap-12`).
+- Gauche : `SectionLabel` + H2 + lead + bloc "alternative contact direct" + (optionnel) un visuel.
+- Droite : le formulaire dans une card `rounded-2xl border bg-card p-8`.
+
+### Formulaire
+- Tous les inputs : `rounded-md border border-ink-300 bg-card px-4 py-3 text-base focus:outline-2 focus:outline-mint-700` (le `text-base` = 16px est **obligatoire** pour empêcher le zoom automatique iOS au focus sur mobile).
+- Labels au-dessus de chaque champ, `text-small font-medium text-ink-700`.
+- Astérisque rouge `*` pour requis.
+- Honeypot `<input type="text" name="website" tabIndex={-1} className="sr-only" autoComplete="off" />`.
+- Bouton submit pleine largeur `lg` (toujours `w-full`, mobile et desktop).
+- `inputMode` adapté : `inputMode="email"` sur email, `inputMode="tel"` sur téléphone (déclenche le bon clavier mobile).
+- `autoComplete` : `email`, `tel`, `organization-title` (activité), `off` sur le honeypot.
+
+### Comportement (client component)
+- Validation Zod côté serveur ET côté client (mêmes schémas).
+- État : `idle | loading | success | error`.
+- Sur succès → animation : formulaire fade-out, message succès fade-in.
+- Sur erreur de champ → ring rouge `outline-2 outline-error` + texte erreur sous le champ.
+
+---
+
+## 8. FOOTER
+
+### Layout
+- Background `bg-ink-950 text-ink-50`.
+- Container max-w-7xl.
+- Padding `py-16 md:py-20`.
+- Grid `grid-cols-1 md:grid-cols-3 gap-12`.
+
+### Sous le grid
+- Séparateur `border-t border-ink-700/40 mt-12 pt-8`.
+- Layout horizontal : copyright à gauche, liens légaux à droite.
+- Texte en `text-small text-ink-300`.
+
+---
+
+## 9. Ordre de rendu dans `page.tsx`
+
+```tsx
+<>
+  <Navbar />
+  <main id="main">
+    <Hero />
+    <Why />
+    <Services />
+    <Examples />
+    <Pricing />
+    <Contact />
+  </main>
+  <Footer />
+</>
+```
+
+---
+
+## 10. Responsive — référence complète
+
+> Le responsive n'est PAS une finition. Chaque section doit être pensée mobile d'abord, puis enrichie sur les tailles supérieures. Toute section livrée doit cocher la checklist en bas de cette page.
+
+### 10.1 Mobile first
+
+- Tailwind est mobile first par défaut : les classes sans préfixe s'appliquent à toutes les tailles ; `sm:`, `md:`, `lg:`, `xl:` les surchargent **vers le haut**.
+- Toujours écrire les classes de base **pour mobile**, puis ajouter les variantes desktop.
+  - ✅ `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4`
+  - ❌ `grid grid-cols-4 sm:grid-cols-2 sm:grid-cols-1`
+
+### 10.2 Breakpoints (Tailwind par défaut)
+
+| Préfixe | min-width | Cible |
+|---------|-----------|-------|
+| (aucun) | 0 | Mobile (portrait) |
+| `sm:` | 640px | Mobile (paysage) / petite tablette |
+| `md:` | 768px | Tablette portrait |
+| `lg:` | 1024px | Tablette paysage / petit desktop |
+| `xl:` | 1280px | Desktop standard |
+
+**Largeurs à tester systématiquement avant validation :**
+- **375px** (iPhone SE / petits Android) — la pire largeur, c'est le filtre dur
+- **390px** (iPhone moderne)
+- **768px** (iPad portrait)
+- **1024px** (iPad paysage / laptop entrée de gamme)
+- **1440px** (laptop standard)
+- **1920px** (desktop large)
+
+### 10.3 Règles transversales
+
+#### Container & padding horizontal
+Toujours : `mx-auto max-w-7xl px-6 md:px-10 lg:px-16`.
+- Jamais moins de `px-6` sur mobile (sinon le texte colle aux bords).
+- Jamais plus de `px-16` desktop (sinon les sections ont l'air vides).
+
+#### Padding vertical des sections
+- Section standard : `py-20 md:py-28 lg:py-36`. (Pour info, j'ai allégé par rapport au `py-24 md:py-32 lg:py-40` du début — on garde la version originale, mais sur mobile **jamais en dessous de `py-20`**).
+- Hero : `min-h-[90svh]` mobile (svh, pas vh — pour gérer la barre URL des navigateurs mobiles), `min-h-[88vh]` desktop.
+
+#### Typographie fluide
+- Tous les titres `h1`/`h2` utilisent `clamp()` (déjà défini dans `DESIGN_SYSTEM.md` §3.2). Pas besoin de classes responsive sur les titres principaux : le clamp gère.
+- Pour le body, taille fixe `text-base` (16px) — pas de réduction sur mobile.
+
+#### Touch targets (mobile)
+- **Tous les éléments interactifs ≥ 44×44px sur mobile** (WCAG AAA et recommandation Apple/Google).
+- Boutons : taille `lg` (52px) en CTA principaux, jamais en dessous de `md` (44px) sur mobile.
+- Liens dans la navbar mobile : `py-4` au minimum dans le menu plein écran.
+- Inputs : `min-h-12` (48px) — déjà couvert par les paddings standards des inputs.
+- Icônes-boutons : zone cliquable `size-11` même si l'icône fait `size-5` à l'intérieur.
+
+#### Espacements adaptatifs
+- Gap dans une grille : `gap-4` mobile, `gap-6 lg:gap-8` desktop.
+- Espace entre titre H2 et contenu d'une section : `mt-10 md:mt-12 lg:mt-16`.
+- Marge entre CTA primaire et secondaire (hero) : `flex flex-col gap-3 sm:flex-row sm:gap-3` (empilés sur très petit écran).
+
+#### Images
+- Toutes via `next/image` avec `sizes` correct, exemple : `sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"`.
+- Avatar hero : 80×80 mobile, 120×120 md, 160×160 lg.
+- **Jamais** d'image en `width/height` fixe sans `sizes` (cause des layout shifts).
+
+#### Texte tronqué et débordements
+- `min-w-0` sur les enfants de flex/grid pour éviter le débordement (notamment dans la card de présentation hero qui contient des chips).
+- `overflow-hidden` sur les sections avec `FallingPattern` ou `BGPattern` en absolute pour éviter scroll horizontal accidentel.
+- `break-words` sur les paragraphes contenant des liens email / URLs.
+
+### 10.4 Comportements spécifiques par section
+
+#### Navbar (rappel SECTIONS §1)
+- **< md** : liens cachés → bouton hamburger → sheet plein écran descendant.
+  - Sheet : `fixed inset-0 z-50 bg-ink-50` avec liens en colonne, `text-2xl font-serif`, `py-6` entre liens (touch target).
+  - CTA primaire en bas du sheet, pleine largeur.
+  - Bouton fermeture en haut à droite, `aria-label="Fermer le menu"`.
+- **≥ md** : liens horizontaux + CTA à droite, comme spec actuelle.
+
+#### Hero
+- **< md** : 1 colonne. Ordre vertical : SectionLabel → H1 → lead → CTAs (empilés en colonne) → **PresentationCard sous le texte**, dans une version compacte (avatar à gauche, infos à droite, dans la card).
+- **md** : grille 6/6, card à droite, layout plus aéré.
+- **lg+** : grille 7/5, card plus grande.
+- Le `FallingPattern` doit rester visible mais non envahissant sur mobile — vérifier que `blurIntensity` est suffisant pour ne pas écraser la lecture du texte sur petit écran.
+
+#### Pourquoi
+- **< md** : `grid-cols-1 gap-4`
+- **md** : `grid-cols-2 gap-6`
+- **lg+** : `grid-cols-2 gap-8` (on reste en 2 colonnes même desktop : 4 cards en grille 2×2 plus lisible que 1×4)
+
+#### Services
+- **< md** : `grid-cols-1 gap-4`
+- **md** : `grid-cols-2 gap-6`
+- **lg+** : `grid-cols-4 gap-6` (les 4 services sur une ligne — vérifier que les textes tiennent sans coupure agressive)
+
+#### Exemples
+- **< md** : `grid-cols-1 gap-6`, cards empilées
+- **md+** : `grid-cols-2 gap-8`
+- Les images placeholders gardent un `aspect-[4/3]` à toutes les tailles.
+
+#### Tarifs
+- **< md** : `grid-cols-1 gap-6`, cards empilées (la "Le plus demandé" en premier)
+- **md+** : `grid-cols-2 gap-8`, cards côte à côte de même hauteur (`flex flex-col`, CTA poussé en bas avec `flex-1`)
+
+#### Contact
+- **< md** : 1 colonne, texte d'intro au-dessus du formulaire, formulaire pleine largeur.
+- **lg+** : `grid-cols-2 gap-12`, texte à gauche, form à droite.
+- **Formulaire mobile** :
+  - `input` et `textarea` en pleine largeur, `w-full`.
+  - `type="email"`, `type="tel"`, `inputMode="email"` / `inputMode="tel"` pour déclencher le bon clavier mobile.
+  - Bouton submit `w-full` toujours (mobile ET desktop, pour cohérence).
+  - `autoComplete` correctement renseigné (`email`, `tel`, `off` pour le honeypot).
+
+#### Footer
+- **< md** : `grid-cols-1 gap-8`, colonnes empilées.
+- **md+** : `grid-cols-3 gap-12` comme spec.
+- Ligne du bas (copyright + liens légaux) : `flex flex-col gap-4 md:flex-row md:items-center md:justify-between`.
+
+### 10.5 Checklist QA responsive (à valider AVANT de marquer une section "done")
+
+Pour chaque section livrée :
+
+- [ ] Testée visuellement à **375px** sans scroll horizontal ni élément qui dépasse
+- [ ] Testée à **768px** : layout intermédiaire propre (pas juste mobile élargi ou desktop rétréci)
+- [ ] Testée à **1440px** : ne paraît pas vide, container max-w respecté
+- [ ] Tous les boutons / liens cliquables ≥ 44×44px sur mobile
+- [ ] Aucun texte coupé par `overflow: hidden` non voulu
+- [ ] Aucune image sans `sizes` correct (vérifier devtools)
+- [ ] Aucun layout shift au chargement (CLS = 0 sur la section)
+- [ ] Les `FallingPattern` / `BGPattern` ne créent pas de scroll horizontal (parent `overflow-hidden`)
+- [ ] La navigation au clavier fonctionne (Tab traverse les éléments dans l'ordre logique)
+- [ ] Sur mobile : `prefers-reduced-motion` testé (devtools → Rendering → "Emulate CSS prefers-reduced-motion") : les animations doivent disparaître ou être instantanées
