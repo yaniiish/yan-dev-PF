@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { cn } from "@/lib/utils";
 
-const H1 = "Un site web clair, moderne et rapide.";
+const H1_PRE = "Un site web clair,";
+const H1_POST = "moderne et rapide.";
 
 const LEAD =
   "Je crée des sites vitrines modernes et rapides pour artisans, commerçants et indépendants — du site classique au site plus premium. Un site qui inspire confiance et vous rend visible sur Google.";
@@ -23,14 +24,21 @@ export function Hero() {
       id="hero"
       className="relative min-h-[90svh] overflow-hidden pb-20 pt-10 md:min-h-[88vh] md:pb-28 md:pt-12 lg:pb-32 lg:pt-16"
     >
-      <BGPattern variant="grid" mask="fade-edges" />
+      <BGPattern
+        variant="grid"
+        mask="fade-edges"
+        fill="color-mix(in oklch, var(--color-ink-300) 50%, transparent)"
+      />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-6 lg:col-span-7">
             <FadeIn x={-48} duration={0.7}>
               <h1 className="font-serif text-[clamp(2.5rem,5vw+1rem,5.5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
-                {H1}
+                {H1_PRE}{" "}
+                <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
+                  {H1_POST}
+                </span>
               </h1>
               <p className="mt-6 max-w-[60ch] text-[clamp(1.125rem,0.5vw+1rem,1.25rem)] leading-relaxed text-ink-700">
                 {LEAD}
