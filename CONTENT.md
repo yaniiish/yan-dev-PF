@@ -31,34 +31,27 @@
 
 ## 3. Section HERO
 
-### Identifiant section
-`01 — Accueil`
+> **Note** : pas de `SectionLabel` numéroté en haut du Hero (décision Phase 1.4a — pas pertinent en première section). Les autres sections gardent leur SectionLabel.
 
-### Sur-titre (badge mono)
-`Studio web indépendant`
+### Phrase d'accroche (H1) — VALIDÉE Phase 1.4a
 
-### Phrase d'accroche (H1) — VALIDÉE
-
-> Un site web clair, moderne et rapide, pensé pour vous faire trouver.
+> Un site web clair, moderne et rapide.
 
 **Traitement typo (verrouillé) :**
 - Police : `font-serif` (Instrument Serif), display-1, `font-medium`, `tracking-tight`, `leading-[1.05]`, couleur `text-ink-950`.
-- **La partie "pensé pour vous faire trouver" est soulignée en mint.**
+- **La partie "moderne et rapide." est soulignée en mint** pour donner du caractère à la phrase d'accroche.
 - **Pas d'italique** nulle part dans le H1.
-- Implémentation : wrapper la fin du H1 dans un `<span>` avec `underline decoration-mint-500 decoration-[3px] underline-offset-[6px] decoration-wavy` (à tester aussi en `decoration-solid` simple — comparer en code).
+- Implémentation : wrapper la fin du H1 dans un `<span>` avec `underline decoration-mint-500 decoration-[3px] underline-offset-[6px]` (decoration solide, pas wavy).
 - Pas de couleur sur le texte lui-même : reste `text-ink-950`. Seul le soulignement est mint.
 
 ```tsx
 <h1 className="font-serif text-[clamp(2.5rem,5vw+1rem,5.5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
-  Un site web clair, moderne et rapide,{" "}
+  Un site web clair,{" "}
   <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
-    pensé pour vous faire trouver
+    moderne et rapide.
   </span>
-  .
 </h1>
 ```
-
-> Tester aussi `decoration-wavy` vs `decoration-solid` — décision finale au visuel. Ne **jamais** mettre la phrase en italique.
 
 ### Sous-titre (lead)
 > Je crée des sites vitrines modernes et rapides pour artisans, commerçants et indépendants — du site classique au site plus premium. Un site qui inspire confiance et vous rend visible sur Google.
@@ -70,19 +63,20 @@
 
 ### Card de présentation (à droite du hero)
 
-- **Avatar :** image fournie (`/public/avatar-yan.webp`), cadre `rounded-3xl` ou cercle (à tester).
-- **Nom :** `Yan`
-- **Sous-titre :** `Développeur web indépendant`
-- **Pitch (2 lignes max) :**
-  > Passionné d'informatique depuis toujours, je serai ravi de mettre mes compétences à votre service. Vous travaillez en direct avec moi, sans intermédiaire.
-- **Mini-tags / chips sous le pitch :**
-  - `Next.js`
-  - `SEO local`
-  - `Réponse sous 24h`
+- **Avatar :** image fournie (`/public/avatar/avatar-yan.JPG`), **rond** (`rounded-full`), petite taille (~56px) à gauche du bloc nom+rôle.
+- **Nom :** `Yan` (font-serif, ~xl)
+- **Rôle :** `DÉVELOPPEUR · INDÉPENDANT` en mono mint uppercase tracking-widest (style cohérent avec les SectionLabel).
+- **Citation entre guillemets français `«&nbsp;»`, font-serif :**
+  > Passionné d'informatique depuis toujours, je serai ravi de mettre mes compétences à votre service.
+- **Sous-tagline (sous la citation, plus discrète) :**
+  > Je travaille en direct, sans intermédiaire.
+- **Indicateur de disponibilité (en bas, séparé par une fine bordure) :** point mint pulsant (`animate-ping`) + texte `Disponible actuellement`.
+- **Plus de chips Next.js / SEO local / Réponse sous 24h** (trop technique pour la cible).
+- **Comportement :** la card est légèrement inclinée (`-rotate-[3deg]`) et se redresse au hover (`hover:rotate-0`, transition 500ms ease-out).
 
 ### Background hero
-- `FallingPattern` avec couleur `var(--color-mint-500)`, blur ~1em, opacity 50-70%.
-  (à tester contre `var(--color-ink-300)` pour version plus sobre.)
+- `<BGPattern variant="grid" mask="fade-edges" />` avec fill en `color-mix(in oklch, var(--color-ink-300) 50%, transparent)` pour rester subtil sous le texte. Validé Phase 1.2 contre FallingPattern.
+- Section en `relative overflow-hidden min-h-[100svh]` (PC), contenu en `relative z-10` top-aligné avec un `pt` qui laisse respirer la navbar.
 
 ---
 
