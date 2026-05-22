@@ -34,7 +34,7 @@ const REASONS: readonly Reason[] = [
   {
     number: "04",
     title: "Vous vous fondez dans la masse",
-    body: "Un site qui vous ressemble — pas un template vu mille fois — vous démarque immédiatement de la concurrence.",
+    body: "Un site qui vous ressemble. Vous démarque immédiatement de la concurrence.",
   },
 ] as const;
 
@@ -58,10 +58,10 @@ export function Why() {
 
         <Stagger
           className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4 lg:gap-5"
-          staggerChildren={0.08}
+          staggerChildren={0.18}
         >
           {REASONS.map((reason) => (
-            <FadeIn key={reason.number} inside x={-24} y={0}>
+            <FadeIn key={reason.number} inside x={-32} y={0} duration={0.65}>
               <Card
                 className={cn(
                   "h-full p-5 md:p-6",
