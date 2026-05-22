@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ----------------------------------------------------------------------------
+   Design tokens — voir DESIGN_SYSTEM.md §2 et §3
+   Toute couleur/typo/radius affichée passe par ces variables.
+---------------------------------------------------------------------------- */
+
+@theme {
+  /* Mint */
+  --color-mint-50: #bfffed;
+  --color-mint-100: #98fbcb;
+  --color-mint-500: #5bc178;
+  --color-mint-700: #3b9d58;
+  --color-mint-900: #1f5a33;
+
+  /* Ink (neutres légèrement teintés vert) */
+  --color-ink-50: #f7f9f7;
+  --color-ink-100: #eef1ee;
+  --color-ink-300: #b8bfbb;
+  --color-ink-500: #5c6660;
+  --color-ink-700: #2b332e;
+  --color-ink-950: #0a0f0c;
+
+  /* Alias sémantiques */
+  --color-background: var(--color-ink-50);
+  --color-foreground: var(--color-ink-950);
+  --color-muted: var(--color-ink-500);
+  --color-border: var(--color-ink-300);
+  --color-card: #ffffff;
+  --color-primary: var(--color-mint-500);
+  --color-primary-hover: var(--color-mint-700);
+  --color-accent-soft: var(--color-mint-50);
+
+  /* États */
+  --color-error: #e5484d;
+  --color-warning: #f5a524;
+  --color-success: var(--color-mint-500);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-instrument-serif);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ----------------------------------------------------------------------------
+   Resets et règles globales — voir ARCHITECTURE.md §3.5 et §3.5bis
+---------------------------------------------------------------------------- */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 64px;
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 80px;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
