@@ -7,8 +7,8 @@
 ## Règles communes à toutes les sections
 
 - Chaque section est un `<section id="...">`, ancrée pour la navbar.
-- Chaque section commence par un `SectionLabel` (numéro mono mint) + un `<h2>` serif.
-- Padding vertical standard : `py-24 md:py-32 lg:py-40`. Hero : `min-h-[90svh]`.
+- La plupart des sections commencent par un `SectionLabel` (numéro mono mint) + un `<h2>` serif. **Exception** : le Hero n'a pas de SectionLabel (décision Phase 1.4a — pas pertinent en première section).
+- Padding vertical standard : `py-24 md:py-32 lg:py-40`. Hero : `min-h-[100svh]` sur md+ (pleine hauteur de viewport).
 - Container intérieur : `mx-auto max-w-7xl px-6 md:px-10 lg:px-16`.
 - Animations d'entrée : wrapper `<FadeIn>` au scroll, voir `DESIGN_SYSTEM.md` §7.
 - Toujours respecter `prefers-reduced-motion`.
@@ -37,10 +37,10 @@
 
 ---
 
-## 2. HERO (`#hero`)
+## 2. HERO (`#hero`) — implémenté Phase 1.4a
 
 ### Layout desktop (≥ lg)
-- 2 colonnes : `grid grid-cols-12 gap-8 items-center`.
+- 2 colonnes : `grid grid-cols-12 md:items-center gap-8`.
 - Colonne gauche : `col-span-7` — texte.
 - Colonne droite : `col-span-5` — card de présentation.
 
@@ -48,34 +48,38 @@
 - 2 colonnes : `col-span-6` / `col-span-6`.
 
 ### Layout mobile (`< md`)
-- 1 colonne. Card de présentation passe **sous** le texte. Card plus compacte (avatar à gauche, texte à droite dans la card).
+- 1 colonne. Card de présentation passe **sous** le texte. Card plus compacte (avatar rond à gauche du nom dans la card).
+
+### Section wrapper
+- Section : `relative overflow-hidden py-10 md:flex md:min-h-[100svh] md:flex-col md:pb-0 md:pt-28 lg:pt-32`.
+- Sur md+ : pleine hauteur de viewport, contenu top-aligné avec un `pt` qui laisse respirer la navbar (≈ navbar height + 32px).
 
 ### Colonne gauche (texte)
-Empilement vertical :
-1. `SectionLabel` mono `01 — Accueil`
-2. `<h1>` (Instrument Serif, display-1) — phrase d'accroche validée. **La fin "pensé pour vous faire trouver" est dans un `<span>` souligné `decoration-mint-500`.** Pas d'italique. Voir `CONTENT.md` §3 pour le snippet exact.
-3. `<p>` lead — sous-titre
-4. `<div className="flex flex-wrap gap-3 mt-8">` avec CTA primaire + secondaire
+Empilement vertical (pas de SectionLabel — cf. règles communes) :
+1. `<h1>` (Instrument Serif, display-1) — "Un site web clair, **moderne et rapide.**". La fin "moderne et rapide." est dans un `<span>` souligné `decoration-mint-500 decoration-[3px] underline-offset-[6px]`. Pas d'italique. Voir `CONTENT.md` §3 pour le snippet exact.
+2. `<p>` lead — sous-titre (`max-w-[60ch]`, `clamp(1.125rem,0.5vw+1rem,1.25rem)`)
+3. `<div className="flex flex-col gap-3 sm:flex-row mt-8">` avec CTA primaire (`Discuter de mon projet`) + secondaire (`Voir mes tarifs`)
 
 ### Colonne droite (card présentation)
-- Composant `<PresentationCard>`.
-- `rounded-3xl border border-ink-300/60 bg-card p-8 shadow-lg shadow-ink-950/5`.
-- Contenu vertical :
-  - `<Image>` avatar : 120×120 desktop, 80×80 mobile. `rounded-3xl` (à tester contre cercle).
-  - Nom (`font-serif text-h3`)
-  - Sous-titre métier (`text-ink-500 text-small`)
-  - Petite séparation (`<hr className="border-ink-300/60" />`)
-  - Pitch (paragraphe body)
-  - Chips (`Next.js`, `SEO local`, `Réponse sous 24h`) — `inline-flex items-center px-3 py-1 rounded-xl border border-ink-300 text-micro font-mono`.
+- Composant `<PresentationCard>` (inline dans `Hero.tsx`).
+- Wrapper avec rotation `-rotate-[3deg] transition-transform duration-500 ease-out hover:rotate-0` → la card est inclinée et se redresse au hover.
+- Card : `rounded-3xl border border-ink-300/60 bg-card p-6 md:p-7 shadow-lg shadow-ink-950/5`.
+- Contenu :
+  - Top : avatar rond `size-14` à gauche (`rounded-full object-cover`) + bloc nom/rôle à droite (`Yan` en serif text-xl, `DÉVELOPPEUR · INDÉPENDANT` en mono mint uppercase text-[0.7rem] tracking-widest).
+  - Citation en `<blockquote>` font-serif text-lg avec guillemets français `«&nbsp;»` (espace insécable inside).
+  - Sous-tagline `Je travaille en direct, sans intermédiaire.` (text-sm ink-500).
+  - Séparateur `border-t border-ink-300/60`.
+  - Indicateur de disponibilité : dot mint `animate-ping` + texte `Disponible actuellement`.
 
 ### Background
-- `<BGPattern variant="grid" mask="fade-edges" fill="var(--color-ink-300)" />` (taille par défaut 24px). Validé Phase 1.2 contre FallingPattern, le grid donne un cadre plus calme et lisible. Voir `DESIGN_SYSTEM.md` §6.1.
-- Wrapper hero en `relative overflow-hidden`.
+- `<BGPattern variant="grid" mask="fade-edges" />` avec `fill="color-mix(in oklch, var(--color-ink-300) 50%, transparent)"` pour rester subtil sous le lead. Voir `DESIGN_SYSTEM.md` §6.1.
 - Texte et card en `relative z-10`.
 
 ### Animation
-- Stagger : SectionLabel → H1 → lead → CTAs → card (délai 0.06s entre chaque).
-- Card : entrée par `y: 24 → 0`, `opacity: 0 → 1`, durée 0.6s, easing out.
+- Slide-in latéral (Phase 1.4a) :
+  - Colonne gauche : `<FadeIn x={-48} duration={0.7}>` autour de tout le bloc texte.
+  - Colonne droite : `<FadeIn x={48} y={0} duration={0.7}>` autour du wrapper rotatif + card.
+- Pas de stagger interne (volonté d'un slide-in unique smooth par colonne).
 
 ---
 
@@ -313,10 +317,10 @@ Toujours : `mx-auto max-w-7xl px-6 md:px-10 lg:px-16`.
 - **≥ md** : liens horizontaux + CTA à droite, comme spec actuelle.
 
 #### Hero
-- **< md** : 1 colonne. Ordre vertical : SectionLabel → H1 → lead → CTAs (empilés en colonne) → **PresentationCard sous le texte**, dans une version compacte (avatar à gauche, infos à droite, dans la card).
-- **md** : grille 6/6, card à droite, layout plus aéré.
-- **lg+** : grille 7/5, card plus grande.
-- Le `BGPattern` grid doit rester subtil sur mobile — vérifier que le `mask=fade-edges` masque bien les bords pour ne pas distraire la lecture sur petit écran. Si nécessaire, réduire l'opacité via une classe wrapper.
+- **< md** : 1 colonne. Ordre vertical : H1 → lead → CTAs (empilés en colonne) → **PresentationCard sous le texte** (avatar rond à gauche du nom, citation + sous-tagline + indicateur dispo en colonne dans la card). Pas de pleine hauteur viewport — section content-driven avec `py-10`.
+- **md** : grille 6/6, card à droite, layout plus aéré. Pleine hauteur viewport (`min-h-[100svh]`), contenu top-aligné (`pt-28`).
+- **lg+** : grille 7/5, card plus grande, `pt-32`.
+- Le `BGPattern` grid utilise `fill="color-mix(in oklch, var(--color-ink-300) 50%, transparent)"` pour rester subtil sous le lead — pas besoin de wrapper opacity supplémentaire.
 
 #### Pourquoi
 - **< md** : `grid-cols-1 gap-4`
