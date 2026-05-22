@@ -204,34 +204,32 @@ Petit badge mono mint : `01 / Hero`, `02 / Pourquoi`, etc.
 
 ## 6. Backgrounds & textures
 
-Yan aime deux choses : **grid background** (fond blanc/noir, masqué en `fade-edges`) et **falling pattern** (les "pluies" de points qui descendent).
+Deux composants livrés : **grid background** (fond blanc/noir, masqué en `fade-edges`) — retenu pour le Hero — et **falling pattern** (les "pluies" de points qui descendent) — conservé en réserve pour usage futur.
 
-### 6.1 Règles d'usage
+### 6.1 Règles d'usage (mises à jour Phase 1.2)
 
-- **Hero** : `FallingPattern` en fond, couleur `var(--color-mint-500)` ou `var(--color-ink-300)` (à tester, garder la version la plus subtile). Le pattern doit rester **discret** : ne pas dominer le texte. Augmenter `blurIntensity` ou réduire l'opacité globale (`opacity-50` à `opacity-70`) si besoin.
-- **Section "Pourquoi"** ou **"Services"** : `BGPattern variant="grid"` avec `mask="fade-edges"`, `fill="var(--color-ink-300)"`. Très subtil.
-- **Section tarifs** : fond plein `bg-ink-950` avec texte clair pour casser le rythme une fois dans la page. (à valider, optionnel)
-- **Pas deux backgrounds décoratifs collés** : alterner section décorée / section neutre.
+- **Hero** : `<BGPattern variant="grid" mask="fade-edges" />` (fill par défaut `var(--color-ink-300)`, size 24px). Validé visuellement contre FallingPattern, le grid donne un cadre plus calme et lisible. Le contenu Hero doit être en `relative z-10` au-dessus.
+- **Section "Pourquoi" / "Services" / "Exemples" / "Contact"** : **pas de background décoratif par défaut.** On tranche section par section pendant le dev : si une section paraît trop nue à côté du Hero ou des Tarifs, ajouter un BGPattern subtil (`dots`, `diagonal-stripes`, etc.). **Ne pas réutiliser `grid` sur ces sections** — risque de répliquer le Hero et de brouiller le rythme.
+- **Section "Tarifs"** : fond plein `bg-ink-950` avec texte clair pour casser le rythme. (à valider, optionnel)
+- **Règle d'alternance** : ne pas mettre deux backgrounds décoratifs sur deux sections consécutives. La séquence type est Hero (grid) → Pourquoi (neutre) → Services (neutre) → Exemples (neutre) → Tarifs (dark) → Contact (neutre).
 
-### 6.2 Composants disponibles (déjà fournis et adaptés)
+**`FallingPattern` : conservé en réserve.** Pas utilisé au MVP suite à la décision Phase 1.2. Le composant reste disponible dans `src/components/backgrounds/` pour un usage futur (Phase 2 ou itération design). Le retirer pour de bon nécessiterait l'aval de Yan.
 
-Le code prêt à copier se trouve dans le dossier `components-source/backgrounds/` (livré avec ces specs) :
+### 6.2 Composants disponibles (copiés en Phase 1.2)
 
-- `components-source/backgrounds/FallingPattern.tsx` → à copier dans `src/components/backgrounds/FallingPattern.tsx`
-- `components-source/backgrounds/BGPattern.tsx` → à copier dans `src/components/backgrounds/BGPattern.tsx`
+Les deux composants ont été copiés depuis `components-source/backgrounds/` vers `src/components/backgrounds/` lors de la Phase 1.2 :
 
-**Adaptations déjà faites par rapport au code source initial de Yan :**
+- `src/components/backgrounds/FallingPattern.tsx`
+- `src/components/backgrounds/BGPattern.tsx`
+
+**Adaptations faites par rapport au code source initial :**
 - Imports `motion/react` (Motion package, ex-Framer Motion).
 - Couleurs par défaut alignées sur les tokens du design system (`var(--color-primary)`, `var(--color-background)`, `var(--color-ink-300)`).
 - Typo corrigée (`geBgImage` → `getBgImage`).
 - Pas de variant `dark:` (dark mode reporté Phase 2).
+- **Fix Phase 1.2 sur BGPattern** : retrait du `z-[-10]` qui cachait le pattern sous le `bg-color` du parent (sans `isolate`). Ajout de `pointer-events-none`. **Important** : le fichier dans `components-source/` garde encore le bug — ne pas le copier tel quel à nouveau.
 
-**Prérequis à valider avant copie :**
-1. `motion` installé (`pnpm add motion`)
-2. `cn()` créé dans `src/lib/utils.ts` (avec `clsx` + `tailwind-merge` installés)
-3. Tokens CSS présents dans `globals.css` (§2.4)
-
-Voir aussi `components-source/README.md` pour les exemples d'usage dans Hero et section Pourquoi.
+**Note d'usage pour BGPattern :** le parent doit être `relative overflow-hidden`, le contenu en `relative z-10` au-dessus du pattern.
 
 ---
 
