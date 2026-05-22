@@ -1,5 +1,6 @@
 import { Examples } from "@/components/sections/Examples";
 import { Hero } from "@/components/sections/Hero";
+import { Pricing } from "@/components/sections/Pricing";
 import { Services } from "@/components/sections/Services";
 import { Why } from "@/components/sections/Why";
 
@@ -13,17 +14,8 @@ type PlaceholderSection = {
   hint?: string;
 };
 
-// Sections encore en placeholder — remplacées au fil des phases 1.4e → 1.4f.
+// Sections encore en placeholder — remplacées en phase 1.4f.
 const PLACEHOLDER_SECTIONS: readonly PlaceholderSection[] = [
-  {
-    id: "tarifs",
-    number: "05",
-    label: "Tarifs",
-    surface: "bg-ink-950",
-    numberClass: "text-mint-500",
-    labelClass: "text-ink-50",
-    hint: "Section sombre pour casser le rythme.",
-  },
   {
     id: "contact",
     number: "06",
@@ -41,6 +33,7 @@ export default function Home() {
       <Why />
       <Services />
       <Examples />
+      <Pricing />
       {PLACEHOLDER_SECTIONS.map((section) => (
         <section
           key={section.id}
