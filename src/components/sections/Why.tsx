@@ -61,12 +61,13 @@ export function Why() {
           staggerChildren={0.08}
         >
           {REASONS.map((reason) => (
-            <FadeIn key={reason.number} inside>
+            <FadeIn key={reason.number} inside x={-24} y={0}>
               <Card
                 className={cn(
                   "h-full p-5 md:p-6",
-                  "transition duration-200",
-                  "hover:border-mint-500/40 hover:shadow-md",
+                  "shadow-md shadow-ink-950/5",
+                  "transition duration-300 ease-out",
+                  "hover:-translate-y-1 hover:border-mint-500/40 hover:shadow-xl hover:shadow-ink-950/10",
                 )}
               >
                 <span className="font-mono text-xs uppercase tracking-widest text-mint-700">
