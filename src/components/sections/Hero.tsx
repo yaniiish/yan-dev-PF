@@ -22,7 +22,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden py-10 md:flex md:min-h-[100svh] md:flex-col md:justify-center md:py-20 lg:py-24"
+      className="relative overflow-hidden py-10 md:flex md:min-h-[100svh] md:flex-col md:justify-center md:pb-0 md:pt-20"
     >
       <BGPattern
         variant="grid"
