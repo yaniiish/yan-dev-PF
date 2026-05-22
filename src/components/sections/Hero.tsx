@@ -22,7 +22,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden pb-24 pt-10 md:pb-32 md:pt-16 lg:pb-40 lg:pt-20"
+      className="relative overflow-hidden py-10 md:flex md:min-h-[100svh] md:flex-col md:justify-center md:py-20 lg:py-24"
     >
       <BGPattern
         variant="grid"
@@ -30,7 +30,7 @@ export function Hero() {
         fill="color-mix(in oklch, var(--color-ink-300) 50%, transparent)"
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-16">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center md:gap-8">
           <div className="md:col-span-6 lg:col-span-7">
             <FadeIn x={-48} duration={0.7}>
