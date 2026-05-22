@@ -69,7 +69,7 @@ Empilement vertical :
   - Chips (`Next.js`, `SEO local`, `Réponse sous 24h`) — `inline-flex items-center px-3 py-1 rounded-xl border border-ink-300 text-micro font-mono`.
 
 ### Background
-- `<FallingPattern>` en absolute behind, `color="var(--color-mint-500)"`, `blurIntensity="1em"`.
+- `<BGPattern variant="grid" mask="fade-edges" fill="var(--color-ink-300)" />` (taille par défaut 24px). Validé Phase 1.2 contre FallingPattern, le grid donne un cadre plus calme et lisible. Voir `DESIGN_SYSTEM.md` §6.1.
 - Wrapper hero en `relative overflow-hidden`.
 - Texte et card en `relative z-10`.
 
@@ -98,7 +98,7 @@ Empilement vertical :
 - Hover : `transition-shadow hover:shadow-md hover:border-mint-500/40`.
 
 ### Background
-- `<BGPattern variant="grid" mask="fade-edges" fill="var(--color-ink-300)" />` derrière la section, opacity réduite via classe.
+- Pas de background décoratif par défaut (cf. `DESIGN_SYSTEM.md` §6.1) : le grid est désormais réservé au Hero pour éviter la répétition. Section laissée sur fond neutre (`bg-ink-50` ou `bg-card`). Si la section paraît trop nue côte à côte avec Hero (grid) et Tarifs (dark), on pourra ajouter ponctuellement un BGPattern subtil (`dots` ou `diagonal-stripes`) — à valider visuellement au moment de coder.
 
 ### Animation
 - Stagger sur les cards (0.08s).
@@ -316,7 +316,7 @@ Toujours : `mx-auto max-w-7xl px-6 md:px-10 lg:px-16`.
 - **< md** : 1 colonne. Ordre vertical : SectionLabel → H1 → lead → CTAs (empilés en colonne) → **PresentationCard sous le texte**, dans une version compacte (avatar à gauche, infos à droite, dans la card).
 - **md** : grille 6/6, card à droite, layout plus aéré.
 - **lg+** : grille 7/5, card plus grande.
-- Le `FallingPattern` doit rester visible mais non envahissant sur mobile — vérifier que `blurIntensity` est suffisant pour ne pas écraser la lecture du texte sur petit écran.
+- Le `BGPattern` grid doit rester subtil sur mobile — vérifier que le `mask=fade-edges` masque bien les bords pour ne pas distraire la lecture sur petit écran. Si nécessaire, réduire l'opacité via une classe wrapper.
 
 #### Pourquoi
 - **< md** : `grid-cols-1 gap-4`
