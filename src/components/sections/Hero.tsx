@@ -3,11 +3,9 @@ import { BGPattern } from "@/components/backgrounds/BGPattern";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 import { cn } from "@/lib/utils";
 
-const H1_PRE = "Un site web clair, moderne et rapide,";
-const H1_POST = "pensé pour vous faire trouver";
+const H1 = "Un site web clair, moderne et rapide.";
 
 const LEAD =
   "Je crée des sites vitrines modernes et rapides pour artisans, commerçants et indépendants — du site classique au site plus premium. Un site qui inspire confiance et vous rend visible sur Google.";
@@ -31,13 +29,8 @@ export function Hero() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-6 lg:col-span-7">
             <FadeIn x={-48} duration={0.7}>
-              <SectionLabel number="01">Accueil</SectionLabel>
-              <h1 className="mt-4 font-serif text-[clamp(2.5rem,5vw+1rem,5.5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
-                {H1_PRE}{" "}
-                <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
-                  {H1_POST}
-                </span>
-                .
+              <h1 className="font-serif text-[clamp(2.5rem,5vw+1rem,5.5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
+                {H1}
               </h1>
               <p className="mt-6 max-w-[60ch] text-[clamp(1.125rem,0.5vw+1rem,1.25rem)] leading-relaxed text-ink-700">
                 {LEAD}
