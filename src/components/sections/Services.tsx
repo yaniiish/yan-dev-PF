@@ -40,7 +40,7 @@ const SERVICES: readonly Service[] = [
   {
     number: "04",
     title: "Hébergement & maintenance",
-    body: "Je gère l'hébergement, les mises à jour et les petites modifications du quotidien. Vous n'avez rien à toucher.",
+    body: "Je gère le nom de domaine, l'hébergement, les mises à jour et les petites modifications du quotidien. Vous n'avez rien à toucher.",
     Icon: Server,
   },
 ] as const;
