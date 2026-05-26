@@ -4,10 +4,10 @@ import { Card } from "@/components/ui/Card";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { cn } from "@/lib/utils";
 
-const H2 = "Pas de site, c'est des clients qui passent à côté.";
+const H2 = "Pas de site ? Des clients passent à côté de vous.";
 
 const LEAD =
-  "Aujourd'hui, tout le monde cherche sur Google avant de pousser la porte. Sans site clair, vous êtes invisible — ou pire, vous renvoyez une image qui ne vous ressemble plus.";
+  "Aujourd'hui, vos clients cherchent des réponses rapides, claires et rassurantes avant même de vous contacter. Un site bien pensé vous permet d'être visible, de centraliser vos informations et de donner une image professionnelle dès le premier regard.";
 
 type Reason = {
   number: string;
@@ -18,23 +18,18 @@ type Reason = {
 const REASONS: readonly Reason[] = [
   {
     number: "01",
-    title: "Vous restez introuvable",
-    body: "Sans site bien référencé, vous n'apparaissez pas quand on tape « [votre métier] près de chez moi ». Vos concurrents, eux, oui.",
+    title: "Être visible au bon moment",
+    body: "La plupart des clients se décident en ligne avant même de vous appeler. Votre site devient votre vitrine, disponible 24h/24.",
   },
   {
     number: "02",
-    title: "Vos infos sont éparpillées",
-    body: "Horaires sur Google, menu sur Facebook, prix sur Instagram… Un site, c'est un seul endroit clair où tout est à jour.",
+    title: "Centraliser l'essentiel",
+    body: "Horaires, tarifs, réalisations : tout est clair, à jour et réuni au même endroit. Fini les infos éparpillées.",
   },
   {
     number: "03",
-    title: "Vous perdez en crédibilité",
-    body: "Un site daté ou inexistant donne une impression de « ils sont encore là ? ». Un site propre rassure et donne envie d'appeler.",
-  },
-  {
-    number: "04",
-    title: "Vous vous fondez dans la masse",
-    body: "Un site qui vous ressemble. Vous démarque immédiatement de la concurrence.",
+    title: "Inspirer confiance",
+    body: "Un site bien conçu crée une première impression forte, avant même le premier contact. Et souvent, c'est ce qui fait la différence.",
   },
 ] as const;
 
@@ -57,7 +52,7 @@ export function Why() {
         </FadeIn>
 
         <Stagger
-          className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4 lg:gap-5"
+          className="mt-10 grid grid-cols-1 gap-4 lg:mt-12 lg:grid-cols-3 lg:gap-5"
           staggerChildren={0.18}
         >
           {REASONS.map((reason) => (
