@@ -1,9 +1,14 @@
 "use client";
 
-import { useId, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { FadeIn } from "@/components/motion/FadeIn";
-import { Stagger } from "@/components/motion/Stagger";
+import { useId, useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "motion/react";
 import { easings } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -24,104 +29,143 @@ export function WhyAccordion({
   defaultOpenIndex = 0,
 }: WhyAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number>(defaultOpenIndex);
-  const reduceMotion = useReducedMotion();
   const baseId = useId();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Progress 0 → 1 calculé à partir de la position du container dans le
+  // viewport. 0 = haut du container juste à 85% du viewport (= en train
+  // d'entrer par le bas). 1 = bas du container remonté à 30% du viewport.
+  // Cette plage couvre toute la durée pendant laquelle Pourquoi est visible.
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 85%", "end 30%"],
+  });
 
   function toggle(idx: number) {
     setOpenIndex((current) => (current === idx ? -1 : idx));
   }
 
   return (
-    <Stagger
-      className="flex flex-col gap-3"
-      staggerChildren={0.25}
-      delayChildren={0.3}
+    <div ref={containerRef} className="flex flex-col gap-3">
+      {reasons.map((reason, idx) => (
+        <WhyAccordionItem
+          key={reason.number}
+          reason={reason}
+          idx={idx}
+          isOpen={openIndex === idx}
+          onToggle={() => toggle(idx)}
+          baseId={baseId}
+          scrollProgress={scrollYProgress}
+        />
+      ))}
+    </div>
+  );
+}
+
+type WhyAccordionItemProps = {
+  reason: Reason;
+  idx: number;
+  isOpen: boolean;
+  onToggle: () => void;
+  baseId: string;
+  scrollProgress: MotionValue<number>;
+};
+
+// Plages de progress par card. Espacées pour que le user doive scroller
+// "un peu plus" entre chaque card. Card 0 entre dans la plage 0-20%,
+// card 1 entre 30-50%, card 2 entre 60-80%. Au-delà de 80%, tout reste
+// stable visible.
+const CARD_RANGES: ReadonlyArray<readonly [number, number]> = [
+  [0.0, 0.2],
+  [0.3, 0.5],
+  [0.6, 0.8],
+];
+
+function WhyAccordionItem({
+  reason,
+  idx,
+  isOpen,
+  onToggle,
+  baseId,
+  scrollProgress,
+}: WhyAccordionItemProps) {
+  const reduceMotion = useReducedMotion();
+  const headerId = `${baseId}-header-${idx}`;
+  const panelId = `${baseId}-panel-${idx}`;
+
+  const [start, end] = CARD_RANGES[idx] ?? [0, 0.2];
+
+  const opacity = useTransform(
+    scrollProgress,
+    [start, end],
+    reduceMotion ? [1, 1] : [0, 1],
+  );
+  const x = useTransform(
+    scrollProgress,
+    [start, end],
+    reduceMotion ? [0, 0] : [48, 0],
+  );
+
+  return (
+    <motion.div
+      style={{ opacity, x }}
+      className={cn(
+        "overflow-hidden rounded-2xl border bg-card",
+        "transition-[border-color,box-shadow] duration-300 ease-out",
+        isOpen
+          ? "border-mint-500/40 shadow-lg shadow-ink-950/5"
+          : "border-ink-300/60 shadow-sm hover:border-ink-300 hover:shadow-md",
+      )}
     >
-      {reasons.map((reason, idx) => {
-        const isOpen = openIndex === idx;
-        const headerId = `${baseId}-header-${idx}`;
-        const panelId = `${baseId}-panel-${idx}`;
+      <button
+        type="button"
+        id={headerId}
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
+        className={cn(
+          "flex w-full items-center justify-between gap-4 px-5 py-5 text-left md:px-6 md:py-6",
+          "focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-mint-700",
+        )}
+      >
+        <h3 className="font-serif text-xl font-medium leading-tight text-ink-950 md:text-2xl">
+          {reason.title}
+        </h3>
+        <span
+          aria-hidden="true"
+          className={cn(
+            "shrink-0 font-mono text-2xl font-semibold tracking-tight md:text-3xl",
+            "transition-colors duration-300",
+            isOpen ? "text-mint-700" : "text-mint-500",
+          )}
+        >
+          {reason.number}
+        </span>
+      </button>
 
-        return (
-          <FadeIn
-            key={reason.number}
-            inside
-            x={48}
-            y={0}
-            duration={0.8}
+      <AnimatePresence initial={false}>
+        {isOpen ? (
+          <motion.div
+            key="panel"
+            id={panelId}
+            role="region"
+            aria-labelledby={headerId}
+            initial={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            animate={
+              reduceMotion ? { opacity: 1 } : { height: "auto", opacity: 1 }
+            }
+            exit={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: easings.out }}
+            className="overflow-hidden"
           >
-            <div
-              className={cn(
-                "overflow-hidden rounded-2xl border bg-card",
-                "transition-[border-color,box-shadow] duration-300 ease-out",
-                isOpen
-                  ? "border-mint-500/40 shadow-lg shadow-ink-950/5"
-                  : "border-ink-300/60 shadow-sm hover:border-ink-300 hover:shadow-md",
-              )}
-            >
-              <button
-                type="button"
-                id={headerId}
-                onClick={() => toggle(idx)}
-                aria-expanded={isOpen}
-                aria-controls={panelId}
-                className={cn(
-                  "flex w-full items-center justify-between gap-4 px-5 py-5 text-left md:px-6 md:py-6",
-                  "focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-mint-700",
-                )}
-              >
-                <h3 className="font-serif text-xl font-medium leading-tight text-ink-950 md:text-2xl">
-                  {reason.title}
-                </h3>
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    "shrink-0 font-mono text-2xl font-semibold tracking-tight md:text-3xl",
-                    "transition-colors duration-300",
-                    isOpen ? "text-mint-700" : "text-mint-500",
-                  )}
-                >
-                  {reason.number}
-                </span>
-              </button>
-
-              <AnimatePresence initial={false}>
-                {isOpen ? (
-                  <motion.div
-                    key="panel"
-                    id={panelId}
-                    role="region"
-                    aria-labelledby={headerId}
-                    initial={
-                      reduceMotion
-                        ? { opacity: 0 }
-                        : { height: 0, opacity: 0 }
-                    }
-                    animate={
-                      reduceMotion
-                        ? { opacity: 1 }
-                        : { height: "auto", opacity: 1 }
-                    }
-                    exit={
-                      reduceMotion
-                        ? { opacity: 0 }
-                        : { height: 0, opacity: 0 }
-                    }
-                    transition={{ duration: 0.3, ease: easings.out }}
-                    className="overflow-hidden"
-                  >
-                    <div className="border-t border-ink-300/60 px-5 py-5 md:px-6 md:py-6">
-                      <p className="text-base leading-relaxed text-ink-700">
-                        {reason.body}
-                      </p>
-                    </div>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
+            <div className="border-t border-ink-300/60 px-5 py-5 md:px-6 md:py-6">
+              <p className="text-base leading-relaxed text-ink-700">
+                {reason.body}
+              </p>
             </div>
-          </FadeIn>
-        );
-      })}
-    </Stagger>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </motion.div>
   );
 }
