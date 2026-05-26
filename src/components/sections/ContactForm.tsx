@@ -112,7 +112,7 @@ export function ContactForm() {
           id={`${baseId}-activity`}
           name="activity"
           type="text"
-          label="Votre activité"
+          label="Votre activité / entreprise"
           required
           autoComplete="organization-title"
           placeholder="Boulangerie, cabinet, restaurant…"
