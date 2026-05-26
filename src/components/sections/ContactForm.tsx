@@ -47,9 +47,34 @@ export function ContactForm() {
     setStatus("loading");
 
     try {
-      // Phase 1.5 : remplacer par fetch("/api/contact") quand la route existe.
-      // Pour l'instant, mock 800ms puis succès systématique.
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(result.data),
+      });
+
+      if (!response.ok) {
+        // Erreur 400 : on récupère les erreurs de champ pour les afficher.
+        if (response.status === 400) {
+          const payload = (await response.json().catch(() => null)) as
+            | { errors?: Partial<Record<keyof ContactInput, string[]>> }
+            | null;
+          if (payload?.errors) {
+            const apiErrors: FieldErrors = {};
+            for (const [key, messages] of Object.entries(payload.errors)) {
+              if (messages && messages.length > 0) {
+                apiErrors[key as keyof ContactInput] = messages[0];
+              }
+            }
+            setErrors(apiErrors);
+            setStatus("idle");
+            return;
+          }
+        }
+        setStatus("error");
+        return;
+      }
+
       setStatus("success");
     } catch {
       setStatus("error");
