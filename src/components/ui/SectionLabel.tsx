@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 
 type SectionLabelProps = {
-  number: string;
+  /** Numéro optionnel (ex "02"). S'il est omis, seul le label s'affiche. */
+  number?: string;
   children: React.ReactNode;
   className?: string;
 };
@@ -18,7 +19,8 @@ export function SectionLabel({
         className,
       )}
     >
-      {number} — {children}
+      {number ? `${number} — ` : ""}
+      {children}
     </span>
   );
 }
