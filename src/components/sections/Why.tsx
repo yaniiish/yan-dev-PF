@@ -30,7 +30,7 @@ export function Why() {
     <section id="pourquoi" className="bg-card py-16 md:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start lg:gap-16">
-          <FadeIn className="lg:col-span-5">
+          <FadeIn x={-48} duration={0.8} className="lg:col-span-5">
             <SectionLabel>Pourquoi</SectionLabel>
             <h2 className="mt-3 font-serif text-[clamp(1.875rem,2.5vw+1rem,3rem)] font-medium leading-[1.1] tracking-tight text-ink-950">
               {H2}
@@ -40,14 +40,9 @@ export function Why() {
             </p>
           </FadeIn>
 
-          <FadeIn
-            x={32}
-            y={0}
-            duration={0.65}
-            className="lg:col-span-7"
-          >
+          <div className="lg:col-span-7">
             <WhyAccordion reasons={REASONS} />
-          </FadeIn>
+          </div>
         </div>
       </div>
     </section>
