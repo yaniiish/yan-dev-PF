@@ -73,10 +73,8 @@
 
 > **Principe** : pour chaque section, on travaille **design** + **wording** dans la même branche. Si une décision change un fichier de spec (`CONTENT.md`, `SECTIONS.md`, `DESIGN_SYSTEM.md`), on aligne la doc dans la même branche ou via un follow-up `docs/*`.
 
-### 2.1 — Revue Hero
-- [ ] Audit design Hero (proportions, hiérarchie, card de présentation, animations slide-in)
-- [ ] Audit wording H1 + lead + sous-tagline card
-- [ ] Branche `feat/hero-revue`
+### 2.1 — Revue Hero ✅ (validée en l'état)
+- [x] Hero validé tel qu'implémenté en Phase 1.4a — pas de seconde passe nécessaire (décision 2026-05).
 
 ### 2.2 — Revue Pourquoi
 - [ ] Audit cards (densité, hover, anim stagger)
