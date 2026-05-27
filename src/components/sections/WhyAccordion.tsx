@@ -1,9 +1,12 @@
 "use client";
 
 import { useId, useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
 import {
   AnimatePresence,
   motion,
+  useMotionValue,
+  useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -32,13 +35,24 @@ export function WhyAccordion({
   const baseId = useId();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Progress 0 → 1 calculé à partir de la position du container dans le
-  // viewport. 0 = haut du container juste à 85% du viewport (= en train
-  // d'entrer par le bas). 1 = bas du container remonté à 30% du viewport.
-  // Cette plage couvre toute la durée pendant laquelle Pourquoi est visible.
+  // Scroll progress 0 → 1 :
+  //   - 0 quand le haut du container vient juste d'entrer par le bas du viewport
+  //   - 1 quand le haut du container atteint le centre du viewport
+  // → l'animation des 3 cards est entièrement terminée quand Pourquoi est
+  //   "bien en place" à l'écran (avant que la section ne sorte).
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 85%", "end 30%"],
+    offset: ["start end", "start center"],
+  });
+
+  // Latch monotonique : on garde le max de progress jamais atteint pour
+  // que les cards ne disparaissent JAMAIS quand on remonte (ou quand le
+  // user revient sur la section).
+  const maxProgress = useMotionValue(0);
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest > maxProgress.get()) {
+      maxProgress.set(latest);
+    }
   });
 
   function toggle(idx: number) {
@@ -55,7 +69,7 @@ export function WhyAccordion({
           isOpen={openIndex === idx}
           onToggle={() => toggle(idx)}
           baseId={baseId}
-          scrollProgress={scrollYProgress}
+          scrollProgress={maxProgress}
         />
       ))}
     </div>
@@ -71,14 +85,13 @@ type WhyAccordionItemProps = {
   scrollProgress: MotionValue<number>;
 };
 
-// Plages de progress par card. Espacées pour que le user doive scroller
-// "un peu plus" entre chaque card. Card 0 entre dans la plage 0-20%,
-// card 1 entre 30-50%, card 2 entre 60-80%. Au-delà de 80%, tout reste
-// stable visible.
+// Plages de progress par card. Les 3 cards complètent leur animation
+// avant que le progress atteigne 1 (= haut de Pourquoi au centre du
+// viewport). Gaps de 5% entre cards pour un effet "scroll un peu plus".
 const CARD_RANGES: ReadonlyArray<readonly [number, number]> = [
-  [0.0, 0.2],
-  [0.3, 0.5],
-  [0.6, 0.8],
+  [0.0, 0.3],
+  [0.35, 0.65],
+  [0.7, 1.0],
 ];
 
 function WhyAccordionItem({
@@ -93,7 +106,7 @@ function WhyAccordionItem({
   const headerId = `${baseId}-header-${idx}`;
   const panelId = `${baseId}-panel-${idx}`;
 
-  const [start, end] = CARD_RANGES[idx] ?? [0, 0.2];
+  const [start, end] = CARD_RANGES[idx] ?? [0, 0.3];
 
   const opacity = useTransform(
     scrollProgress,
@@ -131,16 +144,26 @@ function WhyAccordionItem({
         <h3 className="font-serif text-xl font-medium leading-tight text-ink-950 md:text-2xl">
           {reason.title}
         </h3>
-        <span
-          aria-hidden="true"
-          className={cn(
-            "shrink-0 font-mono text-2xl font-semibold tracking-tight md:text-3xl",
-            "transition-colors duration-300",
-            isOpen ? "text-mint-700" : "text-mint-500",
-          )}
-        >
-          {reason.number}
-        </span>
+        <div className="flex shrink-0 items-center gap-3 md:gap-4">
+          <ChevronDown
+            size={20}
+            aria-hidden="true"
+            className={cn(
+              "text-ink-500 transition-transform duration-300 ease-out",
+              isOpen && "rotate-180 text-mint-700",
+            )}
+          />
+          <span
+            aria-hidden="true"
+            className={cn(
+              "font-mono text-2xl font-semibold tracking-tight md:text-3xl",
+              "transition-colors duration-300",
+              isOpen ? "text-mint-700" : "text-mint-500",
+            )}
+          >
+            {reason.number}
+          </span>
+        </div>
       </button>
 
       <AnimatePresence initial={false}>
