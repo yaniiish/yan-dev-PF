@@ -15,7 +15,7 @@ export function Contact() {
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
           <FadeIn>
-            <SectionLabel number="06">Contact</SectionLabel>
+            <SectionLabel>Contact</SectionLabel>
             <h2 className="mt-3 font-serif text-[clamp(1.875rem,2.5vw+1rem,3rem)] font-medium leading-[1.1] tracking-tight text-ink-950">
               {H2}
             </h2>
