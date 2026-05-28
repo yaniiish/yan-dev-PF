@@ -64,32 +64,61 @@ export function Services() {
         </FadeIn>
 
         <Stagger
-          className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4 lg:gap-5"
+          className={cn(
+            "relative mt-12 grid grid-cols-1 gap-y-8 sm:grid-cols-2 sm:gap-x-4 sm:gap-y-10",
+            "lg:mt-16 lg:grid-cols-4 lg:gap-x-5 lg:gap-y-0",
+          )}
           staggerChildren={0.18}
         >
+          {/* Timeline horizontale (lg+ uniquement). Passe pile au centre
+              vertical des cercles (top = 24px, soit demi-hauteur de h-12). */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-0 right-0 top-6 hidden h-px bg-mint-500/30 lg:block"
+          />
+
           {SERVICES.map(({ number, title, body, Icon }) => (
             <FadeIn key={number} inside x={-32} y={0} duration={0.65}>
-              <Card
-                className={cn(
-                  "h-full p-5 md:p-6",
-                  "shadow-md shadow-ink-950/5",
-                  "transition duration-300 ease-out",
-                  "hover:-translate-y-1 hover:border-mint-500/40 hover:shadow-xl hover:shadow-ink-950/10",
-                )}
-              >
-                <div className="flex size-12 items-center justify-center rounded-2xl bg-mint-50 text-mint-700">
-                  <Icon size={24} aria-hidden="true" />
+              <div className="group/item flex h-full flex-col">
+                {/* Cercle icône posé sur la timeline */}
+                <div className="relative z-10 mb-5 flex h-12 justify-center lg:mb-6">
+                  <div
+                    className={cn(
+                      "flex size-12 items-center justify-center rounded-full border-2 bg-card",
+                      "transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out",
+                      "border-mint-500/30",
+                      "group-hover/item:scale-110 group-hover/item:border-mint-500 group-hover/item:bg-mint-500",
+                      "group-hover/item:shadow-[0_0_0_8px_color-mix(in_oklch,var(--color-mint-500)_18%,transparent)]",
+                    )}
+                  >
+                    <Icon
+                      size={20}
+                      aria-hidden="true"
+                      className="text-mint-700 transition-colors duration-300 ease-out group-hover/item:text-ink-950"
+                    />
+                  </div>
                 </div>
-                <span className="mt-5 block font-mono text-xs uppercase tracking-widest text-mint-700">
-                  {number}
-                </span>
-                <h3 className="mt-2 font-sans text-lg font-semibold leading-snug text-ink-950">
-                  {title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-700">
-                  {body}
-                </p>
-              </Card>
+
+                {/* Card */}
+                <Card
+                  className={cn(
+                    "h-full p-5 md:p-6",
+                    "shadow-md shadow-ink-950/5",
+                    "transition duration-300 ease-out",
+                    "group-hover/item:-translate-y-1 group-hover/item:border-mint-500/40 group-hover/item:shadow-xl group-hover/item:shadow-ink-950/10",
+                  )}
+                >
+                  <span className="font-mono text-xs uppercase tracking-widest text-mint-700">
+                    {number}
+                  </span>
+                  <h3 className="mt-2 font-sans text-lg font-semibold leading-snug text-ink-950">
+                    {title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-700">
+                    {body}
+                  </p>
+                </Card>
+              </div>
             </FadeIn>
           ))}
         </Stagger>
