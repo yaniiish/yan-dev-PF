@@ -45,7 +45,7 @@ export function Examples() {
           </div>
         </FadeIn>
 
-        <FadeIn y={24} className="mt-12 lg:mt-14">
+        <FadeIn y={24} className="mx-auto mt-12 max-w-4xl lg:mt-14">
           <ExamplesCarousel projects={PROJECTS} />
         </FadeIn>
 
