@@ -4,10 +4,10 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { CONTACT_EMAIL } from "@/content/site";
 import { ContactForm } from "./ContactForm";
 
-const H2 = "Une idée, une question ? Écrivez-moi.";
+const H2 = "Contactez-moi ici.";
 
 const LEAD =
-  "Je réponds sous 24h (jours ouvrés). Pas de bot, pas d'agence intermédiaire — c'est moi qui lis et qui réponds.";
+  "Je réponds sous 24h (jours ouvrés). Pas de bot, pas d'agence intermédiaire, c'est moi qui lis et qui réponds.";
 
 export function Contact() {
   return (
