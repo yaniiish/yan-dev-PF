@@ -14,15 +14,15 @@ const FOOTNOTE =
   "Pas de frais cachés. Pas d'engagement long terme sur la maintenance — résiliable à tout moment avec un préavis d'un mois.";
 
 const VITRINE_FEATURES = [
-  "Site one-page sur mesure",
+  "Site moderne et rapide sur mesure",
   "Responsive mobile, tablette, desktop",
-  "SEO local de base",
+  "SEO de base",
   "Formulaire de contact",
   "Mise en ligne rapide",
 ] as const;
 
 const PREMIUM_DESCRIPTION =
-  "Animations avancées, design poussé, plusieurs pages, intégrations spécifiques (réservation, boutique simple…). On échange, je vous fais une proposition adaptée.";
+  "Animations avancées, design poussé, projets de plus grande envergure, intégrations spécifiques (réservation, boutique simple…). On échange, je vous fais une proposition adaptée.";
 
 export function Pricing() {
   return (
