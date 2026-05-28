@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const H2 = "Ce que je mets en place pour vous.";
 
 const LEAD =
-  "Tout est inclus dans l'offre de base. Pas de surprise, pas d'options cachées.";
+  "Tout inclus, sans surprise. Et toujours ouvert à vos besoins spécifiques.";
 
 type Service = {
   number: string;
@@ -22,13 +22,13 @@ const SERVICES: readonly Service[] = [
   {
     number: "01",
     title: "Site vitrine sur mesure",
-    body: "Un site one-page moderne, responsive (mobile, tablette, ordinateur), conçu autour de votre activité. Pas de template recyclé.",
+    body: "Un site moderne, responsive (mobile, tablette, ordinateur), conçu autour de votre activité et vos couleurs. Pas de template recyclé.",
     Icon: LayoutTemplate,
   },
   {
     number: "02",
-    title: "Référencement local",
-    body: "Les bases SEO bien faites : balises, structure, vitesse, fiche Google Business, schema.org local. De quoi remonter sur les recherches du coin.",
+    title: "Référencement",
+    body: "Les bases SEO bien faites : balises, structure, vitesse et schema.org. Pour remonter dans les recherches de votre secteur.",
     Icon: MapPin,
   },
   {
