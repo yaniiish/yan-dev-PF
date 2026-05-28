@@ -27,15 +27,15 @@ const SERVICES: readonly Service[] = [
   },
   {
     number: "02",
-    title: "Référencement",
-    body: "Les bases SEO bien faites : balises, structure, vitesse et schema.org. Pour remonter dans les recherches de votre secteur.",
-    Icon: MapPin,
-  },
-  {
-    number: "03",
     title: "Formulaire de contact",
     body: "Un formulaire simple qui vous envoie directement les demandes par email. Protégé contre le spam, prêt à l'emploi.",
     Icon: Send,
+  },
+  {
+    number: "03",
+    title: "Référencement",
+    body: "Les bases SEO bien faites : balises, structure, vitesse et schema.org. Pour remonter dans les recherches de votre secteur.",
+    Icon: MapPin,
   },
   {
     number: "04",
