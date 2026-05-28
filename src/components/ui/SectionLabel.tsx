@@ -1,17 +1,17 @@
 import { cn } from "@/lib/utils";
 
 type SectionLabelProps = {
-  /** Numéro optionnel (ex "02"). S'il est omis, seul le label s'affiche. */
-  number?: string;
   children: React.ReactNode;
   className?: string;
 };
 
-export function SectionLabel({
-  number,
-  children,
-  className,
-}: SectionLabelProps) {
+/**
+ * Étiquette d'introduction de section. Affiche systématiquement un em-dash
+ * en préfixe pour donner un signal visuel discret avant le label.
+ *
+ * Ex : `<SectionLabel>Services</SectionLabel>` → `— SERVICES`
+ */
+export function SectionLabel({ children, className }: SectionLabelProps) {
   return (
     <span
       className={cn(
@@ -19,8 +19,7 @@ export function SectionLabel({
         className,
       )}
     >
-      {number ? `${number} — ` : ""}
-      {children}
+      — {children}
     </span>
   );
 }

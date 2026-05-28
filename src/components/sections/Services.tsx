@@ -52,7 +52,7 @@ export function Services() {
         <FadeIn>
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-12">
             <div className="max-w-3xl">
-              <SectionLabel number="03">Services</SectionLabel>
+              <SectionLabel>Services</SectionLabel>
               <h2 className="mt-3 font-serif text-[clamp(1.875rem,2.5vw+1rem,3rem)] font-medium leading-[1.1] tracking-tight text-ink-950">
                 {H2}
               </h2>
