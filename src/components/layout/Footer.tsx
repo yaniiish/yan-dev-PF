@@ -57,20 +57,10 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-ink-700/40 pt-8 text-sm text-ink-300 md:flex-row md:items-center md:justify-between">
+        <div className="mt-12 border-t border-ink-700/40 pt-8 text-sm text-ink-300">
           <p>
             © {year} {SITE_NAME} — Tous droits réservés.
           </p>
-          <ul className="flex gap-6">
-            <li>
-              <a
-                href="#"
-                className="transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
-              >
-                Mentions légales
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
     </footer>
