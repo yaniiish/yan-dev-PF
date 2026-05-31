@@ -160,99 +160,84 @@ function Slide({
 }) {
   return (
     <div
-      className="relative aspect-[16/9] w-full shrink-0"
+      className="flex w-full shrink-0 flex-col bg-card"
       role="tabpanel"
       aria-roledescription="slide"
       aria-label={`${project.title} (${index + 1} sur ${total})`}
       aria-hidden={!isCurrent}
     >
       {project.image ? (
-        <ImageSlide project={project} />
+        <ImageMedia image={project.image} />
       ) : (
-        <PlaceholderSlide project={project} />
+        <PlaceholderMedia />
       )}
+      <Caption project={project} />
     </div>
   );
 }
 
-function ImageSlide({ project }: { project: Project }) {
-  if (!project.image) return null;
-
+function ImageMedia({
+  image,
+}: {
+  image: NonNullable<Project["image"]>;
+}) {
   return (
-    <>
+    <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-ink-300/60">
       <Image
-        src={project.image.src}
-        alt={project.image.alt}
-        width={project.image.width}
-        height={project.image.height}
+        src={image.src}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 896px"
         priority={false}
         className="absolute inset-0 size-full object-cover"
       />
-      {/* Overlay sombre solide sur la moitié basse + fade smooth vers le
-          haut. Garantit que le texte (numéro, titre, description, bouton)
-          reste lisible même quand le screenshot a son propre titre serif
-          dans la même zone (cas mobile où la card est compressée). */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-ink-950 from-45% to-transparent"
-      />
-      <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 p-6 sm:p-8 md:p-10">
-        <p className="font-mono text-xs uppercase tracking-widest text-mint-100">
-          {project.label}
-        </p>
-        <h3 className="font-serif text-2xl font-medium leading-tight text-ink-50 sm:text-3xl md:text-4xl">
-          {project.title}
-        </h3>
-        {project.description ? (
-          <p className="text-sm text-ink-300 sm:text-base">
-            {project.description}
-          </p>
-        ) : null}
-        {project.href ? (
-          <a
-            href={project.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              "mt-2 inline-flex w-fit items-center gap-2 rounded-xl border border-ink-50/30 bg-ink-50/10 px-4 py-2 text-sm font-medium text-ink-50 backdrop-blur-sm",
-              "transition duration-300 ease-out hover:border-mint-500/60 hover:bg-mint-500 hover:text-ink-950",
-              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-500",
-            )}
-          >
-            Voir le site
-            <ExternalLink size={14} aria-hidden="true" />
-          </a>
-        ) : null}
-      </div>
-    </>
+    </div>
   );
 }
 
-function PlaceholderSlide({ project }: { project: Project }) {
+function PlaceholderMedia() {
   return (
-    <>
-      <div className="absolute inset-0 bg-gradient-to-br from-mint-50 via-ink-50 to-ink-100" />
+    <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-ink-300/60 bg-gradient-to-br from-mint-50 via-ink-50 to-ink-100">
       <BGPattern
         variant="grid"
         mask="fade-edges"
         fill="color-mix(in oklch, var(--color-ink-300) 55%, transparent)"
       />
-      <div className="relative z-10 flex h-full items-center justify-center px-6">
-        <div className="text-center">
-          <p className="font-mono text-xs uppercase tracking-widest text-mint-700 sm:text-sm">
-            {project.label}
-          </p>
-          <p className="mt-4 font-serif text-3xl font-medium leading-tight text-ink-950 sm:text-4xl md:text-5xl">
-            {project.title}
-          </p>
-          {project.description ? (
-            <p className="mt-4 text-sm text-ink-500 sm:text-base">
-              {project.description}
-            </p>
-          ) : null}
-        </div>
-      </div>
-    </>
+    </div>
+  );
+}
+
+function Caption({ project }: { project: Project }) {
+  return (
+    <div className="flex flex-col gap-2 p-5 sm:p-6 md:p-7">
+      <p className="font-mono text-xs uppercase tracking-widest text-mint-700">
+        {project.label}
+      </p>
+      <h3 className="font-serif text-xl font-medium leading-tight text-ink-950 sm:text-2xl md:text-[1.75rem]">
+        {project.title}
+      </h3>
+      {project.description ? (
+        <p className="text-sm text-ink-500 sm:text-base">
+          {project.description}
+        </p>
+      ) : null}
+      {project.href ? (
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(
+            "mt-2 inline-flex w-fit items-center gap-2 text-sm font-medium text-mint-700",
+            "underline decoration-mint-500 decoration-2 underline-offset-4",
+            "transition-colors duration-200 hover:text-mint-900 hover:decoration-mint-900",
+            "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700",
+          )}
+        >
+          Voir le site
+          <ExternalLink size={14} aria-hidden="true" />
+        </a>
+      ) : null}
+    </div>
   );
 }
