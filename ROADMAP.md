@@ -107,20 +107,13 @@
 
 ## Phase 3 — QA, mise en ligne et domaine (anciennement 1.7 → 1.9)
 
-> À attaquer **après** la Phase 2.
+> Phase 2 terminée, on passe à la mise en ligne.
 
-### 3.1 — QA responsive et accessibilité
-- [ ] **QA responsive complète** pour chaque section : checklist `SECTIONS.md` §10.5 à **375px / 390px / 768px / 1024px / 1440px**.
-- [ ] Tester sur **device réel** (iPhone + Android Chrome).
-- [ ] Vérifier qu'aucune page ne provoque de scroll horizontal sur mobile.
-- [ ] Navbar mobile (sheet plein écran) testée à fond.
-- [ ] **Touch targets ≥ 44px** vérifiés.
-- [ ] **Formulaire mobile** : claviers natifs corrects, zoom auto désactivé.
-- [ ] Lighthouse desktop ≥ 95 perf / 100 a11y / 100 SEO / 100 best-practices.
-- [ ] **Lighthouse mobile** ≥ 90 perf / 100 a11y / 100 SEO.
-- [ ] Pas de console warning en prod.
-- [ ] Finaliser favicon dédié + apple-touch-icon.
-- [ ] Supprimer la route `/test-backgrounds` (temporaire).
+### 3.1 — QA responsive et accessibilité ✅ (validé par Yan)
+- [x] **QA responsive** validée manuellement par Yan (375 → 1440 OK).
+- [x] Route `/test-backgrounds` supprimée (cleanup pré-deploy).
+- [ ] Lighthouse desktop ≥ 95 / mobile ≥ 90 (à mesurer une fois deployé).
+- [ ] Favicon dédié + apple-touch-icon (default Next pour l'instant, à finaliser quand Yan aura un asset).
 
 ### 3.2 — Mise en ligne sur Vercel (sans domaine définitif)
 - [ ] Déploiement Vercel (URL `.vercel.app` provisoire)
