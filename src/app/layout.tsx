@@ -88,7 +88,14 @@ export default function RootLayout({
       lang="fr"
       className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      <body
+        className="flex min-h-full flex-col"
+        // Les extensions de navigateur (ColorZilla, ComposeAI, etc.) injectent
+        // des attributs sur <body> avant que React n'hydrate, ce qui declenche
+        // une erreur d'hydratation. suppressHydrationWarning ne touche que ce
+        // niveau et ignore ces attributs externes. Sans effet sur le rendu.
+        suppressHydrationWarning
+      >
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-ink-950 focus:px-4 focus:py-2 focus:text-ink-50 focus:outline-2 focus:outline-offset-2 focus:outline-mint-700"
