@@ -10,22 +10,36 @@ const LEAD =
 
 const PROJECTS: readonly Project[] = [
   {
-    id: "p1",
+    id: "restaurant",
     label: "Projet 01",
-    title: "Projet 1",
-    description: "Visuel à venir.",
+    title: "Site exemple restaurant",
+    description: "Aperçu du site complet.",
+    href: "https://site-pf-2.vercel.app/",
+    image: {
+      src: "/projects/restaurant.png",
+      alt: "Aperçu du header du site exemple restaurant",
+      width: 1618,
+      height: 910,
+    },
   },
   {
-    id: "p2",
+    id: "boulangerie",
     label: "Projet 02",
-    title: "Projet 2",
-    description: "Visuel à venir.",
+    title: "Site exemple boulangerie",
+    description: "Aperçu du site complet.",
+    href: "https://site-pf-1.vercel.app/",
+    image: {
+      src: "/projects/boulangerie.png",
+      alt: "Aperçu du header du site exemple boulangerie",
+      width: 1618,
+      height: 910,
+    },
   },
   {
-    id: "p3",
+    id: "soon",
     label: "Projet 03",
-    title: "Projet 3",
-    description: "Visuel à venir.",
+    title: "D'autres projets sont à venir.",
+    description: "",
   },
 ] as const;
 
