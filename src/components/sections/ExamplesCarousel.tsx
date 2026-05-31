@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { BGPattern } from "@/components/backgrounds/BGPattern";
 import { easings } from "@/lib/motion";
@@ -12,6 +13,15 @@ export type Project = {
   label: string;
   title: string;
   description: string;
+  /** Lien externe vers le site (slides image uniquement). */
+  href?: string;
+  /** Screenshot du projet. Si absent, la slide affiche un visuel placeholder. */
+  image?: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
 };
 
 type ExamplesCarouselProps = {
@@ -59,9 +69,7 @@ export function ExamplesCarousel({ projects }: ExamplesCarouselProps) {
         </motion.div>
       </div>
 
-      {/* Controls */}
       <div className="mt-6 flex flex-col-reverse items-center justify-between gap-4 sm:flex-row">
-        {/* Dots */}
         <div
           className="flex items-center gap-2"
           role="tablist"
@@ -89,7 +97,6 @@ export function ExamplesCarousel({ projects }: ExamplesCarouselProps) {
           })}
         </div>
 
-        {/* Arrows + counter */}
         <div className="flex items-center gap-4">
           <span
             className="font-mono text-xs uppercase tracking-widest text-ink-500"
@@ -140,24 +147,6 @@ function CarouselArrow({
   );
 }
 
-const SLIDE_GRADIENTS: ReadonlyArray<{
-  gradient: string;
-  isDark: boolean;
-}> = [
-  {
-    gradient: "bg-gradient-to-br from-mint-50 via-ink-50 to-ink-100",
-    isDark: false,
-  },
-  {
-    gradient: "bg-gradient-to-br from-ink-950 via-ink-700 to-ink-950",
-    isDark: true,
-  },
-  {
-    gradient: "bg-gradient-to-br from-mint-100 via-mint-50 to-ink-50",
-    isDark: false,
-  },
-];
-
 function Slide({
   project,
   index,
@@ -169,8 +158,6 @@ function Slide({
   isCurrent: boolean;
   total: number;
 }) {
-  const style = SLIDE_GRADIENTS[index % SLIDE_GRADIENTS.length];
-
   return (
     <div
       className="relative aspect-[16/9] w-full shrink-0"
@@ -179,50 +166,90 @@ function Slide({
       aria-label={`${project.title} (${index + 1} sur ${total})`}
       aria-hidden={!isCurrent}
     >
-      <div className={cn("absolute inset-0", style.gradient)} />
+      {project.image ? (
+        <ImageSlide project={project} />
+      ) : (
+        <PlaceholderSlide project={project} />
+      )}
+    </div>
+  );
+}
+
+function ImageSlide({ project }: { project: Project }) {
+  if (!project.image) return null;
+
+  return (
+    <>
+      <Image
+        src={project.image.src}
+        alt={project.image.alt}
+        width={project.image.width}
+        height={project.image.height}
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 896px"
+        priority={false}
+        className="absolute inset-0 size-full object-cover"
+      />
+      {/* Overlay gradient bottom-up pour la lisibilité du texte */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-ink-950/30 to-transparent"
+      />
+      <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 p-6 sm:p-8 md:p-10">
+        <p className="font-mono text-xs uppercase tracking-widest text-mint-100">
+          {project.label}
+        </p>
+        <h3 className="font-serif text-2xl font-medium leading-tight text-ink-50 sm:text-3xl md:text-4xl">
+          {project.title}
+        </h3>
+        {project.description ? (
+          <p className="text-sm text-ink-300 sm:text-base">
+            {project.description}
+          </p>
+        ) : null}
+        {project.href ? (
+          <a
+            href={project.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              "mt-2 inline-flex w-fit items-center gap-2 rounded-xl border border-ink-50/30 bg-ink-50/10 px-4 py-2 text-sm font-medium text-ink-50 backdrop-blur-sm",
+              "transition duration-300 ease-out hover:border-mint-500/60 hover:bg-mint-500 hover:text-ink-950",
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-500",
+            )}
+          >
+            Voir le site
+            <ExternalLink size={14} aria-hidden="true" />
+          </a>
+        ) : null}
+      </div>
+    </>
+  );
+}
+
+function PlaceholderSlide({ project }: { project: Project }) {
+  return (
+    <>
+      <div className="absolute inset-0 bg-gradient-to-br from-mint-50 via-ink-50 to-ink-100" />
       <BGPattern
         variant="grid"
         mask="fade-edges"
-        fill={
-          style.isDark
-            ? "color-mix(in oklch, var(--color-mint-500) 22%, transparent)"
-            : "color-mix(in oklch, var(--color-ink-300) 55%, transparent)"
-        }
+        fill="color-mix(in oklch, var(--color-ink-300) 55%, transparent)"
       />
-      {style.isDark ? (
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(circle_at_center,_color-mix(in_oklch,var(--color-mint-500)_15%,transparent)_0%,_transparent_60%)]"
-        />
-      ) : null}
       <div className="relative z-10 flex h-full items-center justify-center px-6">
         <div className="text-center">
-          <p
-            className={cn(
-              "font-mono text-xs uppercase tracking-widest sm:text-sm",
-              style.isDark ? "text-mint-100" : "text-mint-700",
-            )}
-          >
+          <p className="font-mono text-xs uppercase tracking-widest text-mint-700 sm:text-sm">
             {project.label}
           </p>
-          <p
-            className={cn(
-              "mt-4 font-serif text-3xl font-medium leading-tight sm:text-4xl md:text-5xl",
-              style.isDark ? "text-ink-50" : "text-ink-950",
-            )}
-          >
+          <p className="mt-4 font-serif text-3xl font-medium leading-tight text-ink-950 sm:text-4xl md:text-5xl">
             {project.title}
           </p>
-          <p
-            className={cn(
-              "mt-4 text-sm sm:text-base",
-              style.isDark ? "text-ink-300" : "text-ink-500",
-            )}
-          >
-            {project.description}
-          </p>
+          {project.description ? (
+            <p className="mt-4 text-sm text-ink-500 sm:text-base">
+              {project.description}
+            </p>
+          ) : null}
         </div>
       </div>
-    </div>
+    </>
   );
 }
