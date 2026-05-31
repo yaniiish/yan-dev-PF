@@ -189,10 +189,13 @@ function ImageSlide({ project }: { project: Project }) {
         priority={false}
         className="absolute inset-0 size-full object-cover"
       />
-      {/* Overlay gradient bottom-up pour la lisibilité du texte */}
+      {/* Overlay sombre solide sur la moitié basse + fade smooth vers le
+          haut. Garantit que le texte (numéro, titre, description, bouton)
+          reste lisible même quand le screenshot a son propre titre serif
+          dans la même zone (cas mobile où la card est compressée). */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-t from-ink-950/85 via-ink-950/30 to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-ink-950 from-45% to-transparent"
       />
       <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-2 p-6 sm:p-8 md:p-10">
         <p className="font-mono text-xs uppercase tracking-widest text-mint-100">
