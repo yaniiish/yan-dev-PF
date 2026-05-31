@@ -69,7 +69,9 @@ export const metadata: Metadata = {
   // Tant que le domaine final n'est pas en place, on bloque l'indexation
   // (cf. ARCHITECTURE.md §3.7). À retirer à la bascule prod (Phase 1.9).
   robots: { index: false, follow: false },
-  icons: { icon: "/favicon.ico" },
+  // Les fichiers src/app/icon.svg et src/app/apple-icon.png sont detectes
+  // automatiquement par Next.js (App Router) — pas besoin de declarer
+  // explicitement les icons ici.
 };
 
 export const viewport: Viewport = {

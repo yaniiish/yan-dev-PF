@@ -52,7 +52,6 @@ export function Pricing() {
               highlight
               offer="Site vitrine"
               price="490 €"
-              priceNote="paiement unique à la livraison"
               recurring="+ 30 €/mois"
               recurringNote="nom de domaine, hébergement, mises à jour et modifications mineures"
               features={VITRINE_FEATURES}
@@ -83,7 +82,7 @@ type PricingCardProps = {
   badge: string;
   offer: string;
   price: string;
-  priceNote: string;
+  priceNote?: string;
   recurring?: string;
   recurringNote?: string;
   features?: readonly string[];
@@ -131,7 +130,9 @@ function PricingCard({
         <p className="font-serif text-[clamp(2rem,2vw+1rem,2.75rem)] font-medium leading-none text-ink-950">
           {price}
         </p>
-        <p className="mt-1.5 text-xs text-ink-500">{priceNote}</p>
+        {priceNote ? (
+          <p className="mt-1.5 text-xs text-ink-500">{priceNote}</p>
+        ) : null}
       </div>
 
       {recurring ? (
