@@ -9,7 +9,7 @@ type SectionLabelProps = {
  * Étiquette d'introduction de section. Affiche systématiquement un em-dash
  * en préfixe pour donner un signal visuel discret avant le label.
  *
- * Ex : `<SectionLabel>Services</SectionLabel>` → `— SERVICES`
+ * Ex : `<SectionLabel>Services</SectionLabel>` → `/ SERVICES`
  */
 export function SectionLabel({ children, className }: SectionLabelProps) {
   return (
@@ -19,7 +19,7 @@ export function SectionLabel({ children, className }: SectionLabelProps) {
         className,
       )}
     >
-      — {children}
+      / {children}
     </span>
   );
 }

@@ -9,7 +9,7 @@ const H1_PRE = "Un site web clair,";
 const H1_POST = "moderne et rapide.";
 
 const LEAD =
-  "Je crée des sites vitrines modernes et rapides pour artisans, commerçants et indépendants — du site classique au site plus premium. Un site qui inspire confiance et vous rend visible sur Google.";
+  "Je crée des sites vitrines modernes et rapides pour artisans, commerçants et indépendants : du site classique au site plus premium. Un site qui inspire confiance et vous rend visible sur Google.";
 
 const PRESENT_NAME = "Yan";
 const PRESENT_ROLE = "Développeur · Indépendant";

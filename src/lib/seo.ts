@@ -64,7 +64,7 @@ export const PROFESSIONAL_SERVICE_LD = {
       price: "30",
       priceCurrency: "EUR",
       description:
-        "Mensuel — nom de domaine, hébergement, mises à jour et modifications mineures.",
+        "Mensuel : nom de domaine, hébergement, mises à jour et modifications mineures.",
     },
   ],
 } as const;

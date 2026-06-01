@@ -11,7 +11,7 @@ const LEAD =
   "Le prix annoncé est le prix payé. Si votre projet sort du cadre, on en parle et on adapte ensemble.";
 
 const FOOTNOTE =
-  "Pas de frais cachés. Pas d'engagement long terme sur la maintenance — résiliable à tout moment avec un préavis d'un mois.";
+  "Pas de frais cachés. Pas d'engagement long terme sur la maintenance, résiliable à tout moment avec un préavis d'un mois.";
 
 const VITRINE_FEATURES = [
   "Site moderne et rapide sur mesure",

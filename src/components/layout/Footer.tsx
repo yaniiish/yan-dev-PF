@@ -17,7 +17,7 @@ export function Footer() {
               {SITE_NAME}
             </p>
             <p className="mt-3 max-w-xs text-sm text-ink-300">
-              Studio web freelance — basé à {CITY}, à votre service partout en
+              Studio web freelance, basé à {CITY}, à votre service partout en
               France.
             </p>
           </div>
@@ -59,7 +59,7 @@ export function Footer() {
 
         <div className="mt-12 border-t border-ink-700/40 pt-8 text-sm text-ink-300">
           <p>
-            © {year} {SITE_NAME} — Tous droits réservés.
+            © {year} {SITE_NAME}. Tous droits réservés.
           </p>
         </div>
       </div>

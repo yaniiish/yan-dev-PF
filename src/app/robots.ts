@@ -4,14 +4,12 @@ import { SITE_URL } from "@/lib/seo";
 /**
  * Robots.txt.
  *
- * **Tant que le domaine n'est pas acheté**, on bloque l'indexation côté
- * `robots.ts` ET côté metadata.robots pour ne pas indexer l'URL
- * `.vercel.app` provisoire. À basculer en `allow: "/"` lors de l'étape
- * Phase 1.9 (ROADMAP).
+ * Indexation ouverte depuis la mise en ligne sur le domaine `yan-dev.fr`
+ * (Phase 3.3). Tout le site est autorisé au crawl.
  */
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [{ userAgent: "*", disallow: "/" }],
+    rules: [{ userAgent: "*", allow: "/" }],
     sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

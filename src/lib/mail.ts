@@ -71,7 +71,7 @@ export async function sendContactMail(payload: ContactMailPayload) {
     from: `Formulaire yan-dev <${from}>`,
     to,
     replyTo: payload.email,
-    subject: `Nouveau contact — ${payload.activity}`,
+    subject: `Nouveau contact : ${payload.activity}`,
     text,
   });
 }
