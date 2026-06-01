@@ -1,16 +1,16 @@
 import { NextResponse } from "next/server";
 import { ContactSchema } from "@/lib/schema";
+import { sendContactMail } from "@/lib/mail";
+
+// nodemailer requiert les API Node (net/tls) : pas d'edge runtime.
+export const runtime = "nodejs";
 
 /**
  * Route de soumission du formulaire de contact.
  *
- * **Phase 1.5 (MVP, sans domaine)** : valide le payload côté serveur, check
- * le honeypot, logge la soumission et renvoie 200. Aucun mail n'est envoyé.
- *
- * **TODO Phase 1.9 (achat du domaine)** : remplacer le `console.log` par
- * un envoi via Resend (ou SMTP). Voir ROADMAP.md §1.9. Les variables d'env
- * `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` sont prévues
- * pour ça (cf. ARCHITECTURE.md §7).
+ * Valide le payload côté serveur, check le honeypot, puis envoie le mail
+ * via SMTP OVH/Zimbra (compte `contact@yan-dev.fr`). Voir `lib/mail.ts` et
+ * ARCHITECTURE.md §7 pour les variables d'environnement.
  */
 export async function POST(request: Request) {
   let body: unknown;
@@ -40,15 +40,24 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  // Debug log pour la phase MVP. À retirer / remplacer par l'envoi mail
-  // en Phase 1.9.
-  console.log("[contact] nouvelle soumission", {
-    email: parsed.data.email,
-    activity: parsed.data.activity,
-    phone: parsed.data.phone || "(non renseigné)",
-    messageLength: parsed.data.message.length,
-    receivedAt: new Date().toISOString(),
-  });
+  try {
+    await sendContactMail({
+      email: parsed.data.email,
+      phone: parsed.data.phone ?? "",
+      activity: parsed.data.activity,
+      message: parsed.data.message,
+    });
+  } catch (error) {
+    console.error("[contact] échec envoi mail", error);
+    return NextResponse.json(
+      {
+        ok: false,
+        message:
+          "L'envoi a échoué. Réessayez ou écrivez-nous directement par mail.",
+      },
+      { status: 500 },
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }

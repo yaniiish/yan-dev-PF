@@ -49,6 +49,40 @@ Voir le tableau récapitulatif en bas de `ROADMAP.md`. Les principales :
 - Resend vs Nodemailer (peut attendre la Phase 1.9, à l'achat du domaine)
 - Hébergement long terme (Vercel ou autre)
 
+## Envoi du mail de contact (formulaire)
+
+Le formulaire de contact envoie un mail via **SMTP OVH/Zimbra** (compte
+`contact@yan-dev.fr`). Pas de service tiers.
+
+- Helper : `src/lib/mail.ts` (nodemailer) — transporteur SMTP `ssl0.ovh.net:465`.
+- Route : `src/app/api/contact/route.ts` — valide (Zod), check honeypot, envoie.
+- Le mail part **de** `contact@yan-dev.fr` **vers** `contact@yan-dev.fr`, avec
+  `Reply-To` = email du visiteur (on répond directement au prospect).
+
+### Variables d'environnement requises
+
+Voir `.env.example`. En local, dupliquer vers `.env.local` et renseigner
+`SMTP_PASS` (mot de passe de la boîte `contact@yan-dev.fr`).
+
+| Variable | Valeur |
+|----------|--------|
+| `SMTP_HOST` | `ssl0.ovh.net` |
+| `SMTP_PORT` | `465` |
+| `SMTP_USER` | `contact@yan-dev.fr` |
+| `SMTP_PASS` | mot de passe de la boîte (secret) |
+| `CONTACT_FROM_EMAIL` | `contact@yan-dev.fr` |
+| `CONTACT_TO_EMAIL` | `contact@yan-dev.fr` |
+
+En prod : saisir ces variables dans **Vercel → Settings → Environment
+Variables** (Production + Preview). `SMTP_PASS` n'est **jamais** commit.
+
+### Tester en local
+
+```bash
+pnpm dev
+# soumettre le formulaire, vérifier la réception dans la webmail Zimbra
+```
+
 ## Premier prompt suggéré à Claude Code
 
 Une fois ces fichiers en place et un projet Next.js initialisé :
