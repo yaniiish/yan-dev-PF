@@ -221,17 +221,28 @@ CONTACT_FROM_EMAIL=
 ## 7. Variables d'environnement (récap)
 
 ```
-# .env.local (jamais commit, à dupliquer en .env.example commit vide)
+# .env.local (jamais commit, à dupliquer en .env.example)
 
 # URL publique du site — placeholder tant que pas de domaine
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
-# Mail (à compléter quand Resend choisi)
-RESEND_API_KEY=
-CONTACT_TO_EMAIL=
-CONTACT_FROM_EMAIL=
+# Mail — envoi du formulaire via SMTP OVH/Zimbra (choix Phase 3.3)
+SMTP_HOST=ssl0.ovh.net
+SMTP_PORT=465
+SMTP_USER=contact@yan-dev.fr
+SMTP_PASS=                       # mot de passe boîte, jamais commit
+CONTACT_FROM_EMAIL=contact@yan-dev.fr
+CONTACT_TO_EMAIL=contact@yan-dev.fr
 ```
+
+> Décision Phase 3.3 : envoi via **SMTP OVH/Zimbra** (et non Resend), pour
+> réutiliser le compte `contact@yan-dev.fr` déjà authentifié (SPF/DKIM/DMARC).
+> Helper : `src/lib/mail.ts` (nodemailer).
 
 En preview/prod Vercel, redéfinir `NEXT_PUBLIC_SITE_URL` avec :
 - Preview : l'URL `.vercel.app` du déploiement
 - Prod : le vrai domaine quand acheté
+
+Les variables `SMTP_*` et `CONTACT_*` sont à saisir dans **Vercel → Settings
+→ Environment Variables** (Production + Preview). `SMTP_PASS` ne doit jamais
+être commit.
