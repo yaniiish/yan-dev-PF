@@ -6,10 +6,10 @@
 
 export const SITE_NAME = "Yan-dev";
 
-export const SITE_TAGLINE = "Studio web indépendant — basé à Caen";
+export const SITE_TAGLINE = "Studio web indépendant, basé à Caen";
 
 export const SITE_DESCRIPTION =
-  "Studio web freelance basé à Caen, opérant partout en France. Sites vitrines modernes et rapides pour artisans, commerçants et indépendants — du site simple au site premium sur mesure.";
+  "Studio web freelance basé à Caen, opérant partout en France. Sites vitrines modernes et rapides pour artisans, commerçants et indépendants : du site simple au site premium sur mesure.";
 
 export const CITY = "Caen";
 

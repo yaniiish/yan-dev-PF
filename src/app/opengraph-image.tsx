@@ -5,7 +5,7 @@ import { ImageResponse } from "next/og";
 // 1200×630 = ratio standard Facebook/Twitter/LinkedIn.
 
 export const runtime = "edge";
-export const alt = "Yan-dev — Studio web freelance à Caen";
+export const alt = "Yan-dev : studio web freelance à Caen";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -56,7 +56,7 @@ export default async function OpengraphImage() {
               textTransform: "uppercase",
             }}
           >
-            01 — Studio web indépendant
+            01 / Studio web indépendant
           </div>
           <div
             style={{

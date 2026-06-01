@@ -25,9 +25,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 const TITLE_DEFAULT =
-  "Yan-dev — Création de sites vitrines modernes | Freelance à Caen";
+  "Yan-dev : création de sites vitrines modernes | Freelance à Caen";
 const DESCRIPTION =
-  "Studio web freelance basé à Caen, opérant partout en France. Sites vitrines modernes et rapides pour artisans, commerçants et indépendants — du site simple au site premium sur mesure. À partir de 490 €.";
+  "Studio web freelance basé à Caen, opérant partout en France. Sites vitrines modernes et rapides pour artisans, commerçants et indépendants : du site simple au site premium sur mesure. À partir de 490 €.";
 const OG_DESCRIPTION =
   "Sites vitrines modernes pour artisans, commerçants et indépendants. Basé à Caen, j'opère partout en France. SEO local inclus. À partir de 490 €.";
 
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: TITLE_DEFAULT,
-    template: "%s — Yan-dev",
+    template: "%s | Yan-dev",
   },
   description: DESCRIPTION,
   keywords: [
@@ -57,20 +57,19 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: SITE_URL,
     siteName: "Yan-dev",
-    title: "Yan-dev — Sites vitrines modernes | Freelance à Caen",
+    title: "Yan-dev : sites vitrines modernes | Freelance à Caen",
     description: OG_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yan-dev — Sites vitrines modernes",
+    title: "Yan-dev : sites vitrines modernes",
     description:
       "Sites vitrines clairs et rapides pour commerçants et indépendants. Freelance à Caen.",
   },
-  // Tant que le domaine final n'est pas en place, on bloque l'indexation
-  // (cf. ARCHITECTURE.md §3.7). À retirer à la bascule prod (Phase 1.9).
-  robots: { index: false, follow: false },
+  // Indexation ouverte depuis la mise en ligne sur yan-dev.fr (Phase 3.3).
+  robots: { index: true, follow: true },
   // Les fichiers src/app/icon.svg et src/app/apple-icon.png sont detectes
-  // automatiquement par Next.js (App Router) — pas besoin de declarer
+  // automatiquement par Next.js (App Router), pas besoin de declarer
   // explicitement les icons ici.
 };
 
