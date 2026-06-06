@@ -23,8 +23,21 @@ const PROJECTS: readonly Project[] = [
     },
   },
   {
-    id: "boulangerie",
+    id: "coffee",
     label: "Projet 02",
+    title: "Site exemple coffee shop",
+    description: "Aperçu du site complet.",
+    href: "https://greencp-test.vercel.app/",
+    image: {
+      src: "/projects/coffee.png",
+      alt: "Aperçu du header du site exemple coffee shop",
+      width: 1618,
+      height: 910,
+    },
+  },
+  {
+    id: "boulangerie",
+    label: "Projet 03",
     title: "Site exemple boulangerie",
     description: "Aperçu du site complet.",
     href: "https://site-pf-1.vercel.app/",
@@ -37,7 +50,7 @@ const PROJECTS: readonly Project[] = [
   },
   {
     id: "soon",
-    label: "Projet 03",
+    label: "Projet 04",
     title: "D'autres projets sont à venir.",
     description: "",
   },
