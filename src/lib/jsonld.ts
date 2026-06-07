@@ -13,7 +13,7 @@ function absolute(path: string): string {
 
 type Crumb = { name: string; path: string };
 
-/** Fil d'ariane — BreadcrumbList. `path` relatif (ex: "/prix-site-vitrine"). */
+/** Fil d'ariane (BreadcrumbList). `path` relatif (ex: "/prix-site-vitrine"). */
 export function breadcrumbLd(items: ReadonlyArray<Crumb>) {
   return {
     "@context": "https://schema.org",
@@ -29,7 +29,7 @@ export function breadcrumbLd(items: ReadonlyArray<Crumb>) {
 
 type QaItem = { question: string; answer: string };
 
-/** Section FAQ — FAQPage. */
+/** Section FAQ (FAQPage). */
 export function faqLd(items: ReadonlyArray<QaItem>) {
   return {
     "@context": "https://schema.org",
@@ -51,7 +51,7 @@ type ServiceInput = {
   price?: string;
 };
 
-/** Page d'offre/service — Service rattaché au ProfessionalService Yan-dev. */
+/** Page d'offre/service (Service) rattachée au ProfessionalService Yan-dev. */
 export function serviceLd({ name, description, path, price }: ServiceInput) {
   return {
     "@context": "https://schema.org",

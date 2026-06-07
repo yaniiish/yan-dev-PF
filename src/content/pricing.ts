@@ -1,5 +1,5 @@
 /**
- * Contenu tarifs — source unique partagée par la section Tarifs de la home
+ * Contenu tarifs : source unique partagée par la section Tarifs de la home
  * (components/sections/Pricing.tsx) et la page /prix-site-vitrine.
  * Tout texte affiché vient d'ici (cf. CONTENT.md).
  */
@@ -72,7 +72,7 @@ export const PRIX_PAGE = {
   whyLabel: "Pourquoi ce prix",
   whyTitle: "Un site à 490 €, ce n'est pas un site au rabais.",
   whyBody:
-    "Le prix vient du format — un site clair, sur mesure, sans intermédiaire ni surcouche inutile —, pas de la qualité. Vous avez un code moderne, un site rapide, responsive et référencé localement.",
+    "Le prix vient du format (un site clair, sur mesure, sans intermédiaire ni surcouche inutile), pas de la qualité. Vous avez un code moderne, un site rapide, responsive et référencé localement.",
   faqLabel: "FAQ",
   faqTitle: "Questions fréquentes sur le prix",
   faq: [
@@ -94,7 +94,7 @@ export const PRIX_PAGE = {
     {
       question: "Un site pas cher est-il vraiment professionnel ?",
       answer:
-        "Oui. Le tarif bas vient du format — un site vitrine clair, sur mesure, en direct sans agence —, pas d'un travail bâclé : code moderne, performances et référencement local soignés.",
+        "Oui. Le tarif bas vient du format (un site vitrine clair, sur mesure, en direct sans agence), pas d'un travail bâclé : code moderne, performances et référencement local soignés.",
     },
     {
       question: "Et pour un site plus ambitieux ?",
