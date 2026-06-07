@@ -303,3 +303,32 @@ Réutilise les deux cartes validées (`Site vitrine` 490 € + 30 €/mois ; `Si
 - **Section Tarifs (#tarifs)** : lien contextuel sous la footnote, `Le prix d'un site vitrine en détail →` (→ `/prix-site-vitrine`).
 - **Footer** : colonne `Ressources` avec le lien `Prix d'un site vitrine` (→ `/prix-site-vitrine`).
 - **Navbar** : inchangée, `Tarifs` reste l'ancre `#tarifs` (expérience one-page préservée).
+
+---
+
+## 13. Pages métier `/site-internet/[metier]` (V2 SEO, longue traîne)
+
+> Pages data-driven (source unique : `src/content/metiers.ts`), une entrée = une page. Cible : `site internet [métier]`. Template partagé : en-tête, enjeux, exemple en ligne, rappel tarif, FAQ, liens connexes, CTA. Schema `Service` + `FAQPage` + `BreadcrumbList`. Libellés de structure communs dans `METIER_LABELS` (`Pourquoi`, `Exemple`, `Tarif`, `FAQ`, `À voir aussi`, etc.). Priorité : coffee shop, puis restaurant.
+
+### Coffee shop (`/site-internet/coffee-shop`)
+Cible aussi `site internet café`. Exemple en ligne : `https://greencp-test.vercel.app/` (visuel `/projects/coffee.png`).
+
+- **Meta title :** `Création de site internet pour coffee shop, dès 490 €`
+- **Meta description :** `Un site web moderne pour votre coffee shop ou votre café : carte, horaires, ambiance et visibilité sur Google. Dès 490 €, livré rapidement. Freelance à Caen, partout en France.`
+- **Fil d'ariane :** `Accueil › Site internet pour coffee shop`
+- **H1 :** `Un site internet pour votre coffee shop`
+- **Chapô :** `Votre coffee shop mérite mieux qu'une simple page Instagram. Un site clair qui met en avant votre carte, votre ambiance et vos horaires, et qui vous rend visible sur Google quand on cherche un café dans le coin. Dès 490 €.`
+- **Enjeux (Pourquoi un site pour votre coffee shop) :**
+  - `Sortir sur Google` : `Quand on cherche un café ou un coffee shop dans votre ville, un site bien référencé vous fait apparaître, avec votre adresse et vos horaires.`
+  - `Donner envie avant la visite` : `Photos de vos boissons, de la salle, de l'ambiance : on donne envie de pousser la porte.`
+  - `Des infos toujours à jour` : `Horaires, adresse, carte, événements : tout au même endroit, modifiable en un message.`
+  - `Ne plus dépendre d'Instagram seul` : `Les réseaux complètent un site, mais vous ne maîtrisez ni l'algorithme ni le référencement. Un site, c'est chez vous.`
+- **FAQ :**
+  1. **Combien coûte un site pour un coffee shop ?** → `À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.`
+  2. **J'ai déjà un Instagram, ai-je vraiment besoin d'un site ?** → `Instagram complète bien un site mais ne le remplace pas : vous n'apparaissez pas sur Google et vous dépendez de l'algorithme. Un site vous rend trouvable et reste à vous.`
+  3. **Puis-je afficher ma carte et mes horaires ?** → `Oui : carte, horaires, adresse, galerie photo et liens vers vos réseaux, tout est prévu.`
+  4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
+- **CTA :** titre `Envie d'un site pour votre coffee shop ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`, boutons `Discuter de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
+
+### Restaurant (`/site-internet/restaurant`)
+À faire après validation du coffee shop (même template, copy dédiée).
