@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Stagger } from "@/components/motion/Stagger";
 import { PricingCard } from "@/components/pricing/PricingCard";
@@ -6,6 +7,7 @@ import {
   PRICING_FOOTNOTE,
   PRICING_PLANS,
   PRICING_SECTION,
+  PRIX_PATH,
 } from "@/content/pricing";
 
 export function Pricing() {
@@ -40,6 +42,16 @@ export function Pricing() {
         <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-ink-500">
           {PRICING_FOOTNOTE}
         </p>
+
+        <div className="mt-6 text-center">
+          <a
+            href={PRIX_PATH}
+            className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold tracking-tight text-mint-700 transition-colors hover:text-mint-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+          >
+            {PRICING_SECTION.pageLinkLabel}
+            <ArrowRight size={16} aria-hidden="true" />
+          </a>
+        </div>
       </div>
     </section>
   );

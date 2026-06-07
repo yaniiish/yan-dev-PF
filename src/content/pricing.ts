@@ -4,6 +4,9 @@
  * Tout texte affiché vient d'ici (cf. CONTENT.md).
  */
 
+/** Route de la page d'intention tarifs (source unique). */
+export const PRIX_PATH = "/prix-site-vitrine";
+
 export type PricingPlan = {
   badge: string;
   offer: string;
@@ -57,6 +60,8 @@ export const PRICING_FOOTNOTE =
 export const PRICING_SECTION = {
   h2: "Des tarifs clairs, sans devis à rallonge.",
   lead: "Le prix annoncé est le prix payé. Si votre projet sort du cadre, on en parle et on adapte ensemble.",
+  /** Lien vers la page d'intention dédiée (maillage interne). */
+  pageLinkLabel: "Le prix d'un site vitrine en détail",
 } as const;
 
 /** Page d'intention /prix-site-vitrine (cible : prix / site vitrine pas cher). */

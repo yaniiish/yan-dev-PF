@@ -298,3 +298,8 @@ Réutilise les deux cartes validées (`Site vitrine` 490 € + 30 €/mois ; `Si
 - **Titre :** `Un projet de site en tête ?`
 - **Texte :** `Dites-moi votre activité en deux lignes, je vous réponds avec une estimation claire.`
 - **Boutons :** `Discuter de mon projet` (→ `/#contact`) + `Voir des exemples` (→ `/#exemples`)
+
+### Accès depuis la home (maillage interne)
+- **Section Tarifs (#tarifs)** : lien contextuel sous la footnote, `Le prix d'un site vitrine en détail →` (→ `/prix-site-vitrine`).
+- **Footer** : colonne `Ressources` avec le lien `Prix d'un site vitrine` (→ `/prix-site-vitrine`).
+- **Navbar** : inchangée, `Tarifs` reste l'ancre `#tarifs` (expérience one-page préservée).

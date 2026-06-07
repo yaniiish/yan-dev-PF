@@ -11,16 +11,15 @@ import {
   PRICING_FOOTNOTE,
   PRICING_PLANS,
   PRIX_PAGE,
+  PRIX_PATH,
 } from "@/content/pricing";
 import { breadcrumbLd, faqLd, serviceLd } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/seo";
 
-const PATH = "/prix-site-vitrine";
-
 export const metadata: Metadata = buildMetadata({
   title: PRIX_PAGE.metaTitle,
   description: PRIX_PAGE.metaDescription,
-  path: PATH,
+  path: PRIX_PATH,
 });
 
 const H2_CLASSES =
@@ -32,14 +31,14 @@ export default function PrixSiteVitrinePage() {
       <JsonLd
         data={breadcrumbLd([
           { name: "Accueil", path: "/" },
-          { name: PRIX_PAGE.breadcrumbLabel, path: PATH },
+          { name: PRIX_PAGE.breadcrumbLabel, path: PRIX_PATH },
         ])}
       />
       <JsonLd
         data={serviceLd({
           name: "Création de site vitrine",
           description: PRIX_PAGE.metaDescription,
-          path: PATH,
+          path: PRIX_PATH,
           price: "490",
         })}
       />

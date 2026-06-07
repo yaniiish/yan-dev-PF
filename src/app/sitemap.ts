@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { PRIX_PATH } from "@/content/pricing";
 import { SITE_URL } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -11,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${SITE_URL}/prix-site-vitrine`,
+      url: `${SITE_URL}${PRIX_PATH}`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
