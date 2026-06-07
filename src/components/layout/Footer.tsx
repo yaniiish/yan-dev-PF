@@ -31,7 +31,7 @@ export function Footer() {
               {NAV_LINKS.map((link) => (
                 <li key={link.id}>
                   <a
-                    href={link.href}
+                    href={`/${link.href}`}
                     className="text-sm text-ink-50 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
                   >
                     {link.label}
