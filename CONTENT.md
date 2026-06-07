@@ -331,4 +331,21 @@ Cible aussi `site internet café`. Exemple en ligne : `https://greencp-test.verc
 - **CTA :** titre `Envie d'un site pour votre coffee shop ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`, boutons `Discuter de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
 
 ### Restaurant (`/site-internet/restaurant`)
-À faire après validation du coffee shop (même template, copy dédiée).
+Exemple en ligne : `https://site-pf-2.vercel.app/` (visuel `/projects/restaurant.png`). Point clé demandé par Yan : préciser que le **changement de carte est compris dans les 30 €/mois**.
+
+- **Meta title :** `Création de site internet pour restaurant, dès 490 €`
+- **Meta description :** `Un site web moderne pour votre restaurant : carte, horaires, réservation et visibilité sur Google. Changement de carte compris dans l'abonnement. Dès 490 €. Freelance à Caen, partout en France.`
+- **Fil d'ariane :** `Accueil › Site internet pour restaurant`
+- **H1 :** `Un site internet pour votre restaurant`
+- **Chapô :** `Vos clients regardent votre carte et vos horaires en ligne avant de réserver. Un site clair et moderne les rassure, met l'eau à la bouche et vous rend visible sur Google quand on cherche où manger dans le coin. Dès 490 €.`
+- **Enjeux (Pourquoi un site pour votre restaurant) :**
+  - `Être trouvé sur Google` : `Quand on cherche un restaurant dans votre ville, un site bien référencé vous fait apparaître, avec votre adresse, vos horaires et votre carte.`
+  - `Donner envie de réserver` : `Photos de vos plats, de la salle, de l'ambiance : on donne envie de venir avant même de pousser la porte.`
+  - `Une carte qui évolue sans surcoût` : `Vous changez de menu chaque saison ? La mise à jour de la carte est comprise dans l'abonnement de 30 €/mois, il suffit de me l'envoyer.`
+  - `Réservation et contact simplifiés` : `Téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.`
+- **FAQ :**
+  1. **Combien coûte un site pour un restaurant ?** → `À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.`
+  2. **Puis-je changer ma carte régulièrement ?** → `Oui. La mise à jour de votre carte est comprise dans l'abonnement de 30 €/mois : vous m'envoyez les changements et je les mets en ligne.`
+  3. **Peut-on ajouter la réservation en ligne ?** → `Oui : lien vers votre outil de réservation, téléphone cliquable ou formulaire de contact, selon ce que vous préférez.`
+  4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
+- **CTA :** titre `Envie d'un site pour votre restaurant ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`, boutons `Discuter de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
