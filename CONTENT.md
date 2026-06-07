@@ -267,3 +267,34 @@ Sous le formulaire :
 - [ ] Nom de domaine
 - [ ] Page mentions légales (texte fourni par Yan)
 - [ ] Décision finale "afficher un téléphone ou pas" (volontairement reporté)
+
+---
+
+## 12. Page `/prix-site-vitrine` (V2 SEO — page d'intention)
+
+> Page dédiée ciblant les requêtes `prix site vitrine` / `site vitrine pas cher` / `tarif site internet`. Source unique du contenu : `src/content/pricing.ts`. Réutilise les tarifs validés de la section Tarifs (cartes, footnote). Décisions Yan (2026-06) : **pas de délai de livraison annoncé**, **pas de mention de propriété du site**.
+
+- **Meta title :** `Prix d'un site vitrine : combien ça coûte ? Dès 490 €`
+- **Meta description :** `Le prix d'un site vitrine professionnel : à partir de 490 € tout compris, livré rapidement. Tarifs clairs, sans devis à rallonge ni frais cachés. Freelance à Caen, partout en France.`
+- **Fil d'ariane :** `Accueil › Prix d'un site vitrine`
+- **H1 :** `Combien coûte un site vitrine ?`
+- **Chapô :** `Un site vitrine professionnel coûte 490 € à la création chez Yan-dev, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le prix annoncé est le prix payé : pas de devis gonflé, pas de frais cachés, pas d'engagement.`
+
+### Bloc « Le détail des tarifs »
+Réutilise les deux cartes validées (`Site vitrine` 490 € + 30 €/mois ; `Site premium` sur devis) et la footnote.
+
+### Bloc « Pourquoi ce prix »
+- **Titre :** `Un site à 490 €, ce n'est pas un site au rabais.`
+- **Corps :** `Le prix vient du format — un site clair, sur mesure, sans intermédiaire ni surcouche inutile —, pas de la qualité. Vous avez un code moderne, un site rapide, responsive et référencé localement.`
+
+### Bloc FAQ (alimente le schema FAQPage)
+1. **Combien coûte un site vitrine ?** — `Chez Yan-dev, un site vitrine sur mesure coûte 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour mineures. Le tarif est annoncé d'avance, sans surprise.`
+2. **Qu'est-ce qui est compris dans le prix ?** — `Le site sur mesure, responsive (mobile, tablette, ordinateur), le référencement de base, un formulaire de contact et la mise en ligne. Le nom de domaine et l'hébergement sont inclus dans l'abonnement mensuel.`
+3. **Y a-t-il un engagement ?** — `Non. L'abonnement mensuel est résiliable à tout moment, avec un préavis d'un mois.`
+4. **Un site pas cher est-il vraiment professionnel ?** — `Oui. Le tarif bas vient du format — un site vitrine clair, sur mesure, en direct sans agence —, pas d'un travail bâclé : code moderne, performances et référencement local soignés.`
+5. **Et pour un site plus ambitieux ?** — `C'est possible, sur devis : animations avancées, design poussé, réservation ou boutique simple. On en discute et je vous fais une proposition adaptée.`
+
+### Bloc CTA
+- **Titre :** `Un projet de site en tête ?`
+- **Texte :** `Dites-moi votre activité en deux lignes, je vous réponds avec une estimation claire.`
+- **Boutons :** `Discuter de mon projet` (→ `/#contact`) + `Voir des exemples` (→ `/#exemples`)
