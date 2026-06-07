@@ -77,7 +77,7 @@ export const PRIX_PAGE = {
   whyLabel: "Pourquoi ce prix",
   whyTitle: "Un site à 490 €, ce n'est pas un site au rabais.",
   whyBody:
-    "Le prix vient du format (un site clair, sur mesure, sans intermédiaire ni surcouche inutile), pas de la qualité. Vous avez un code moderne, un site rapide, responsive et référencé localement.",
+    "Le prix vient du format (un site clair, sur mesure, sans intermédiaire ni surcouche inutile). Vous avez un code moderne, un site rapide, responsive et référencé localement.",
   faqLabel: "FAQ",
   faqTitle: "Questions fréquentes sur le prix",
   faq: [

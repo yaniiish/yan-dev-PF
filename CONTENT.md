@@ -285,7 +285,7 @@ Réutilise les deux cartes validées (`Site vitrine` 490 € + 30 €/mois ; `Si
 
 ### Bloc « Pourquoi ce prix »
 - **Titre :** `Un site à 490 €, ce n'est pas un site au rabais.`
-- **Corps :** `Le prix vient du format (un site clair, sur mesure, sans intermédiaire ni surcouche inutile), pas de la qualité. Vous avez un code moderne, un site rapide, responsive et référencé localement.`
+- **Corps :** `Le prix vient du format (un site clair, sur mesure, sans intermédiaire ni surcouche inutile). Vous avez un code moderne, un site rapide, responsive et référencé localement.`
 
 ### Bloc FAQ (alimente le schema FAQPage)
 1. **Combien coûte un site vitrine ?** → `Chez Yan-dev, un site vitrine sur mesure coûte 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour mineures. Le tarif est annoncé d'avance, sans surprise.`
