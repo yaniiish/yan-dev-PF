@@ -346,6 +346,6 @@ Exemple en ligne : `https://site-pf-2.vercel.app/` (visuel `/projects/restaurant
 - **FAQ :**
   1. **Combien coûte un site pour un restaurant ?** → `À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.`
   2. **Puis-je changer ma carte régulièrement ?** → `Oui. La mise à jour de votre carte est comprise dans l'abonnement de 30 €/mois : vous m'envoyez les changements et je les mets en ligne.`
-  3. **Peut-on ajouter la réservation en ligne ?** → `Oui : lien vers votre outil de réservation, téléphone cliquable ou formulaire de contact, selon ce que vous préférez.`
+  3. **Peut-on ajouter la réservation en ligne ?** → `Oui : lien vers votre outil de réservation, numéro de téléphone cliquable ou formulaire de contact, selon ce que vous préférez.`
   4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
 - **CTA :** titre `Envie d'un site pour votre restaurant ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`, boutons `Discuter de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).

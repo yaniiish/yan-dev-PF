@@ -178,7 +178,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Peut-on ajouter la réservation en ligne ?",
         answer:
-          "Oui : lien vers votre outil de réservation, téléphone cliquable ou formulaire de contact, selon ce que vous préférez.",
+          "Oui : lien vers votre outil de réservation, numéro de téléphone cliquable ou formulaire de contact, selon ce que vous préférez.",
       },
       {
         question: "Je ne suis pas à Caen, c'est possible ?",
