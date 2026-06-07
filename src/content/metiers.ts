@@ -59,6 +59,25 @@ export const METIER_LABELS = {
   ctaSecondary: "Voir les tarifs",
 } as const;
 
+/** Contenu de la page index /site-internet (landing « tous métiers »). */
+export const METIERS_PAGE = {
+  path: METIERS_BASE,
+  /** Libellé du lien footer + niveau de fil d'ariane intermédiaire. */
+  navLabel: "Tous les métiers",
+  breadcrumbLabel: "Sites internet par métier",
+  metaTitle: "Création de site internet pour commerçants et artisans, dès 490 €",
+  metaDescription:
+    "Un site vitrine moderne pour votre commerce, quel que soit votre métier : visibilité sur Google, infos à jour, dès 490 €. Exemples par métier. Freelance à Caen, partout en France.",
+  h1: "Un site internet pour votre métier",
+  lead: "Coffee shop, restaurant, boulangerie ou toute autre activité : je conçois des sites vitrines clairs et modernes, adaptés à votre métier, qui vous rendent visible sur Google. Dès 490 €.",
+  gridLabel: "Exemples",
+  gridTitle: "Des exemples par métier",
+  allTitle: "Votre métier n'est pas dans la liste ?",
+  allText: "Ce ne sont que des exemples. Je conçois un site pour n'importe quelle activité : artisan, indépendant, profession libérale, association... Le principe reste le même, adapté à vos besoins.",
+  allCtaLabel: "Parler de mon projet",
+  allCtaSecondaryLabel: "Voir les tarifs",
+} as const;
+
 export const METIERS: readonly Metier[] = [
   {
     slug: "coffee-shop",
@@ -187,6 +206,71 @@ export const METIERS: readonly Metier[] = [
       },
     ],
     ctaTitle: "Envie d'un site pour votre restaurant ?",
+    ctaText:
+      "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
+  },
+  {
+    slug: "boulangerie",
+    navLabel: "Boulangerie",
+    serviceName: "Création de site internet pour boulangerie",
+    metaTitle: "Création de site internet pour boulangerie, dès 490 €",
+    metaDescription:
+      "Un site web moderne pour votre boulangerie : produits, horaires, commandes et visibilité sur Google. Dès 490 €, livré rapidement. Freelance à Caen, partout en France.",
+    breadcrumbLabel: "Site internet pour boulangerie",
+    h1: "Un site internet pour votre boulangerie",
+    lead: "Vos clients cherchent vos horaires, vos produits et savoir si vous prenez les commandes avant de passer. Un site clair les renseigne et vous rend visible sur Google quand on cherche une boulangerie dans le coin. Dès 490 €.",
+    enjeuxTitle: "Pourquoi un site pour votre boulangerie",
+    enjeux: [
+      {
+        title: "Sortir sur Google",
+        body: "Quand on cherche une boulangerie près de soi, un site bien référencé vous fait apparaître, avec vos horaires et votre adresse.",
+      },
+      {
+        title: "Mettre vos produits en valeur",
+        body: "Pains, viennoiseries, pâtisseries, gâteaux sur commande : de belles photos donnent envie.",
+      },
+      {
+        title: "Annoncer horaires et fermetures",
+        body: "Jours de fermeture, congés, horaires de fêtes : une info à jour évite à vos clients de se déplacer pour rien.",
+      },
+      {
+        title: "Faciliter les commandes",
+        body: "Gâteaux d'occasion, commandes de pain : on met en avant un numéro de téléphone cliquable ou un formulaire pour réserver.",
+      },
+    ],
+    example: {
+      description: "Un site exemple complet pour boulangerie, en ligne.",
+      href: "https://site-pf-1.vercel.app/",
+      image: {
+        src: "/projects/boulangerie.png",
+        alt: "Aperçu du site exemple pour boulangerie",
+        width: 1618,
+        height: 910,
+      },
+    },
+    faq: [
+      {
+        question: "Combien coûte un site pour une boulangerie ?",
+        answer:
+          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+      },
+      {
+        question: "Puis-je afficher mes produits et mes horaires ?",
+        answer:
+          "Oui : vos produits en photo, vos horaires, vos jours de fermeture et votre adresse, tout est prévu.",
+      },
+      {
+        question: "Peut-on gérer les commandes (gâteaux, pain) ?",
+        answer:
+          "Oui : numéro de téléphone cliquable ou formulaire de réservation pour que vos clients commandent facilement.",
+      },
+      {
+        question: "Je ne suis pas à Caen, c'est possible ?",
+        answer:
+          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+      },
+    ],
+    ctaTitle: "Envie d'un site pour votre boulangerie ?",
     ctaText:
       "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
   },

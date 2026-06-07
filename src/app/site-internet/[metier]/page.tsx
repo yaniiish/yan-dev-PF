@@ -15,6 +15,7 @@ import {
   getMetier,
   METIER_LABELS,
   METIERS,
+  METIERS_PAGE,
   metierPath,
 } from "@/content/metiers";
 import { PRIX_PATH } from "@/content/pricing";
@@ -60,6 +61,11 @@ export default async function MetierPage({ params }: Params) {
       href: PRIX_PATH,
       description: METIER_LABELS.relatedPricingDesc,
     },
+    {
+      label: METIERS_PAGE.navLabel,
+      href: METIERS_PAGE.path,
+      description: METIERS_PAGE.breadcrumbLabel,
+    },
     ...related.map((item) => ({
       label: item.navLabel,
       href: metierPath(item.slug),
@@ -72,6 +78,7 @@ export default async function MetierPage({ params }: Params) {
       <JsonLd
         data={breadcrumbLd([
           { name: "Accueil", path: "/" },
+          { name: METIERS_PAGE.breadcrumbLabel, path: METIERS_PAGE.path },
           { name: metier.breadcrumbLabel, path },
         ])}
       />
@@ -90,6 +97,7 @@ export default async function MetierPage({ params }: Params) {
           <Breadcrumb
             items={[
               { name: "Accueil", href: "/" },
+              { name: METIERS_PAGE.breadcrumbLabel, href: METIERS_PAGE.path },
               { name: metier.breadcrumbLabel },
             ]}
           />

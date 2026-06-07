@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { METIERS, metierPath } from "@/content/metiers";
+import { METIERS, METIERS_PAGE, metierPath } from "@/content/metiers";
 import { PRIX_PATH } from "@/content/pricing";
 import { SITE_URL } from "@/lib/seo";
 
@@ -14,6 +14,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${SITE_URL}${PRIX_PATH}`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}${METIERS_PAGE.path}`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,

@@ -42,6 +42,20 @@ export function faqLd(items: ReadonlyArray<QaItem>) {
   };
 }
 
+/** Liste d'éléments (page index métiers) : ItemList. */
+export function itemListLd(items: ReadonlyArray<Crumb>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      url: absolute(item.path),
+    })),
+  };
+}
+
 type ServiceInput = {
   name: string;
   description: string;
