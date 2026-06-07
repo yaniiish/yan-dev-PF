@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/Button";
@@ -21,6 +22,12 @@ export function Navbar() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const reduceMotion = useReducedMotion();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  // Hors de la home, les ancres (#pourquoi…) doivent pointer vers la home,
+  // sinon elles ne mènent nulle part sur une page interne.
+  const resolveHref = (hash: string) => (isHome ? hash : `/${hash}`);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -84,7 +91,7 @@ export function Navbar() {
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6 md:h-20 md:px-10 lg:px-16">
           <a
-            href="#hero"
+            href={isHome ? "#hero" : "/"}
             className="font-sans text-base font-semibold tracking-tight text-ink-950"
           >
             {SITE_NAME}
@@ -100,7 +107,7 @@ export function Navbar() {
                 return (
                   <li key={link.id}>
                     <a
-                      href={link.href}
+                      href={resolveHref(link.href)}
                       aria-current={isActive ? "true" : undefined}
                       className={cn(
                         "rounded-md px-1 py-1 transition-colors hover:text-ink-950",
@@ -118,7 +125,7 @@ export function Navbar() {
           </nav>
 
           <div className="hidden md:block">
-            <Button href="#contact" size="sm">
+            <Button href={resolveHref("#contact")} size="sm">
               Discuter de mon projet
             </Button>
           </div>
@@ -180,7 +187,7 @@ export function Navbar() {
                     return (
                       <li key={link.id}>
                         <a
-                          href={link.href}
+                          href={resolveHref(link.href)}
                           onClick={closeMenu}
                           aria-current={isActive ? "true" : undefined}
                           className={cn(
@@ -199,7 +206,7 @@ export function Navbar() {
               </nav>
 
               <Button
-                href="#contact"
+                href={resolveHref("#contact")}
                 size="lg"
                 className="w-full"
                 onClick={closeMenu}
