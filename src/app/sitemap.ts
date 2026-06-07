@@ -1,14 +1,22 @@
 import type { MetadataRoute } from "next";
+import { PRIX_PATH } from "@/content/pricing";
 import { SITE_URL } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
   return [
     {
       url: SITE_URL,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: "monthly",
       priority: 1,
     },
-    // À ajouter quand créées : /mentions-legales, pages locales SEO Phase 3...
+    {
+      url: `${SITE_URL}${PRIX_PATH}`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    // À ajouter quand créées : pages métier /site-internet/[metier], /mentions-legales...
   ];
 }
