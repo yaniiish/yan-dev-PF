@@ -4,6 +4,7 @@ import {
   NAV_LINKS,
   SITE_NAME,
 } from "@/content/site";
+import { METIERS, metierPath } from "@/content/metiers";
 import { PRIX_PAGE, PRIX_PATH } from "@/content/pricing";
 
 export function Footer() {
@@ -54,6 +55,16 @@ export function Footer() {
                   {PRIX_PAGE.breadcrumbLabel}
                 </a>
               </li>
+              {METIERS.map((metier) => (
+                <li key={metier.slug}>
+                  <a
+                    href={metierPath(metier.slug)}
+                    className="text-sm text-ink-50 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+                  >
+                    {metier.navLabel}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 

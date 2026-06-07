@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { METIERS, metierPath } from "@/content/metiers";
 import { PRIX_PATH } from "@/content/pricing";
 import { SITE_URL } from "@/lib/seo";
 
@@ -17,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
-    // À ajouter quand créées : pages métier /site-internet/[metier], /mentions-legales...
+    ...METIERS.map((metier) => ({
+      url: `${SITE_URL}${metierPath(metier.slug)}`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    // À ajouter quand créée : /mentions-legales...
   ];
 }
