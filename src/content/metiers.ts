@@ -151,7 +151,7 @@ export const METIERS: readonly Metier[] = [
       },
       {
         title: "Réservation et contact simplifiés",
-        body: "Téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.",
+        body: "Numéro de téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.",
       },
     ],
     example: {

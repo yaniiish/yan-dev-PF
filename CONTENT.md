@@ -342,7 +342,7 @@ Exemple en ligne : `https://site-pf-2.vercel.app/` (visuel `/projects/restaurant
   - `Être trouvé sur Google` : `Quand on cherche un restaurant dans votre ville, un site bien référencé vous fait apparaître, avec votre adresse, vos horaires et votre carte.`
   - `Donner envie de réserver` : `Photos de vos plats, de la salle, de l'ambiance : on donne envie de venir avant même de pousser la porte.`
   - `Une carte qui évolue sans surcoût` : `Vous changez de menu chaque saison ? La mise à jour de la carte est comprise dans l'abonnement de 30 €/mois, il suffit de me l'envoyer.`
-  - `Réservation et contact simplifiés` : `Téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.`
+  - `Réservation et contact simplifiés` : `Numéro de téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.`
 - **FAQ :**
   1. **Combien coûte un site pour un restaurant ?** → `À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.`
   2. **Puis-je changer ma carte régulièrement ?** → `Oui. La mise à jour de votre carte est comprise dans l'abonnement de 30 €/mois : vous m'envoyez les changements et je les mets en ligne.`
