@@ -349,3 +349,30 @@ Exemple en ligne : `https://site-pf-2.vercel.app/` (visuel `/projects/restaurant
   3. **Peut-on ajouter la réservation en ligne ?** → `Oui : lien vers votre outil de réservation, numéro de téléphone cliquable ou formulaire de contact, selon ce que vous préférez.`
   4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
 - **CTA :** titre `Envie d'un site pour votre restaurant ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`, boutons `Discuter de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
+
+### Boulangerie (`/site-internet/boulangerie`)
+Exemple en ligne : `https://site-pf-1.vercel.app/` (visuel `/projects/boulangerie.png`).
+
+- **Meta title :** `Création de site internet pour boulangerie, dès 490 €`
+- **Meta description :** `Un site web moderne pour votre boulangerie : produits, horaires, commandes et visibilité sur Google. Dès 490 €, livré rapidement. Freelance à Caen, partout en France.`
+- **Fil d'ariane :** `Accueil › Sites internet par métier › Site internet pour boulangerie`
+- **H1 :** `Un site internet pour votre boulangerie`
+- **Chapô :** `Vos clients cherchent vos horaires, vos produits et savoir si vous prenez les commandes avant de passer. Un site clair les renseigne et vous rend visible sur Google quand on cherche une boulangerie dans le coin. Dès 490 €.`
+- **Enjeux :** Sortir sur Google ; Mettre vos produits en valeur ; Annoncer horaires et fermetures ; Faciliter les commandes (numéro de téléphone cliquable ou formulaire).
+- **FAQ :** prix ; produits et horaires ; commandes (gâteaux, pain) ; à distance.
+- **CTA :** `Envie d'un site pour votre boulangerie ?`
+
+---
+
+## 14. Page index métiers `/site-internet` (landing « tous métiers »)
+
+> Landing SEO large (cible `site internet commerçant / artisan`) + hub des pages métier. Source : `METIERS_PAGE` dans `src/content/metiers.ts`. Le fil d'ariane des pages métier passe à 3 niveaux (`Accueil › Sites internet par métier › métier`).
+
+- **Meta title :** `Création de site internet pour commerçants et artisans, dès 490 €`
+- **Meta description :** `Un site vitrine moderne pour votre commerce, quel que soit votre métier : visibilité sur Google, infos à jour, dès 490 €. Exemples par métier. Freelance à Caen, partout en France.`
+- **Fil d'ariane :** `Accueil › Sites internet par métier`
+- **H1 :** `Un site internet pour votre métier`
+- **Chapô :** `Coffee shop, restaurant, boulangerie ou toute autre activité : je conçois des sites vitrines clairs et modernes, adaptés à votre métier, qui vous rendent visible sur Google. Dès 490 €.`
+- **Grille :** une carte par métier (visuel + nom), lien vers chaque page métier.
+- **Bloc « tous métiers » (clôture, point clé demandé par Yan) :** titre `Votre métier n'est pas dans la liste ?`, texte `Ce ne sont que des exemples. Je conçois un site pour n'importe quelle activité : artisan, indépendant, profession libérale, association... Le principe reste le même, adapté à vos besoins.`, boutons `Parler de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
+- **Footer :** la colonne `Ressources` liste désormais `Prix d'un site vitrine` + un seul lien `Tous les métiers` (→ `/site-internet`), au lieu de lister chaque métier.
