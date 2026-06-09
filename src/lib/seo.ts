@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { CITY, CONTACT_EMAIL, SITE_NAME } from "@/content/site";
 
 /**
- * URL publique du site. Fallback localhost tant que le domaine n'est pas
- * acheté (cf. ROADMAP.md §1.9). En prod Vercel, NEXT_PUBLIC_SITE_URL est
- * défini dans les env vars.
+ * URL publique du site. En prod Vercel, NEXT_PUBLIC_SITE_URL doit être défini
+ * (= https://yan-dev.fr). Le fallback pointe sur le domaine de prod (et NON
+ * localhost) pour qu'une variable oubliée ne fasse jamais fuiter des URLs
+ * localhost dans le sitemap / les canonical / le JSON-LD. En dev local,
+ * `.env.local` met NEXT_PUBLIC_SITE_URL=http://localhost:3000.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://yan-dev.fr";
 
 /**
  * JSON-LD ProfessionalService — voir SEO.md §4.
