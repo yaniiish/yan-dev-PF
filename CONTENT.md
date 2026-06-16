@@ -311,7 +311,7 @@ Réutilise les deux cartes validées (`Site vitrine` 490 € + 30 €/mois ; `Si
 > Pages data-driven (source unique : `src/content/metiers.ts`), une entrée = une page. Cible : `site internet [métier]`. Template partagé : en-tête, enjeux, exemple en ligne, rappel tarif, FAQ, liens connexes, CTA. Schema `Service` + `FAQPage` + `BreadcrumbList`. Libellés de structure communs dans `METIER_LABELS` (`Pourquoi`, `Exemple`, `Tarif`, `FAQ`, `À voir aussi`, etc.). Priorité : coffee shop, puis restaurant.
 
 ### Coffee shop (`/site-internet/coffee-shop`)
-Cible aussi `site internet café`. Exemple en ligne : `https://greencp-test.vercel.app/` (visuel `/projects/coffee.png`).
+Cible aussi `site internet café`. Devanture (vignette de la grille index) : Lumio `https://lumio-coffee.vercel.app/` (visuel `/projects/lumio.png`). Section exemple de l'article : carrousel de deux exemples, Lumio puis GreenCP `https://greencp-test.vercel.app/` (visuel `/projects/coffee.png`).
 
 - **Meta title :** `Création de site internet pour coffee shop, dès 490 €`
 - **Meta description :** `Un site web moderne pour votre coffee shop ou votre café : carte, horaires, ambiance et visibilité sur Google. Dès 490 €, livré rapidement. Freelance à Caen, partout en France.`
@@ -361,6 +361,26 @@ Exemple en ligne : `https://site-pf-1.vercel.app/` (visuel `/projects/boulangeri
 - **Enjeux :** Sortir sur Google ; Mettre vos produits en valeur ; Annoncer horaires et fermetures ; Faciliter les commandes (numéro de téléphone cliquable ou formulaire).
 - **FAQ :** prix ; produits et horaires ; commandes (gâteaux, pain) ; à distance.
 - **CTA :** `Envie d'un site pour votre boulangerie ?`
+
+### Architecte d'intérieur (`/site-internet/architecte-interieur`)
+Cible aussi `site internet décorateur d'intérieur`. Angle : pour ce métier du design, un site clean et soigné est vraiment important (le site prouve l'œil du pro). Exemple en ligne : Atelier Lumé `https://atelier-lume-kappa.vercel.app/` (visuel `/projects/atelier-lume.png`).
+
+- **Meta title :** `Création de site internet pour architecte d'intérieur, dès 490 €`
+- **Meta description :** `Un site web soigné pour architecte ou décorateur d'intérieur : portfolio de vos réalisations, identité forte et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.`
+- **Fil d'ariane :** `Accueil › Sites internet par métier › Site internet pour architecte d'intérieur`
+- **H1 :** `Un site internet pour votre activité d'architecte d'intérieur`
+- **Chapô :** `Pour un architecte d'intérieur, le site n'est pas un détail : c'est la première preuve de votre sens du design. Un site clair, épuré et soigné met en valeur vos réalisations, inspire confiance et vous rend visible sur Google quand on cherche un architecte ou un décorateur d'intérieur. Dès 490 €.`
+- **Enjeux (Pourquoi un site soigné est essentiel pour un architecte d'intérieur) :**
+  - `Votre site prouve votre œil` : `Pour un métier du design, un site daté ou brouillon décrédibilise. Un site épuré et bien composé montre tout de suite votre niveau d'exigence.`
+  - `Mettre vos réalisations en valeur` : `Un portfolio soigné, de belles photos avant/après, des projets bien présentés : on donne envie de vous confier un intérieur.`
+  - `Sortir sur Google` : `Quand on cherche un architecte ou un décorateur d'intérieur dans votre région, un site bien référencé vous fait apparaître avec votre univers et vos coordonnées.`
+  - `Inspirer confiance avant le premier rendez-vous` : `Présentation de votre démarche, de votre parcours et de vos honoraires : un site clair rassure des clients qui s'apprêtent à investir dans leur lieu de vie.`
+- **FAQ :**
+  1. **Combien coûte un site pour un architecte d'intérieur ?** → `À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.`
+  2. **Pourquoi un site soigné est-il si important pour ce métier ?** → `Parce que votre site est une vitrine de votre travail : un visiteur juge votre sens du design en quelques secondes. Un site épuré et bien construit inspire confiance et reflète la qualité de vos projets.`
+  3. **Peut-on présenter mon portfolio et mes réalisations ?** → `Oui : galeries de projets, photos avant/après, descriptions de chantiers et témoignages clients, tout est prévu pour valoriser votre travail.`
+  4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
+- **CTA :** titre `Envie d'un site à la hauteur de vos projets ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`, boutons `Discuter de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
 
 ---
 

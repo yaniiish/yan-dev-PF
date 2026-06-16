@@ -6,6 +6,7 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { Stagger } from "@/components/motion/Stagger";
 import { Breadcrumb } from "@/components/seo/Breadcrumb";
 import { CtaBlock } from "@/components/seo/CtaBlock";
+import { ExampleCarousel } from "@/components/seo/ExampleCarousel";
 import { Faq } from "@/components/seo/Faq";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { RelatedLinks } from "@/components/seo/RelatedLinks";
@@ -143,35 +144,46 @@ export default async function MetierPage({ params }: Params) {
         <div className="mx-auto max-w-5xl px-6 md:px-10 lg:px-16">
           <FadeIn>
             <SectionLabel>{METIER_LABELS.example}</SectionLabel>
-            <h2 className={H2_CLASSES}>{METIER_LABELS.exampleTitle}</h2>
+            <h2 className={H2_CLASSES}>
+              {metier.examples.length > 1
+                ? METIER_LABELS.exampleTitlePlural
+                : METIER_LABELS.exampleTitle}
+            </h2>
           </FadeIn>
           <FadeIn y={24} className="mt-10">
-            <div className="overflow-hidden rounded-3xl border border-ink-300/60 bg-card shadow-md shadow-ink-950/5">
-              <div className="relative aspect-[16/9] w-full border-b border-ink-300/60">
-                <Image
-                  src={metier.example.image.src}
-                  alt={metier.example.image.alt}
-                  width={metier.example.image.width}
-                  height={metier.example.image.height}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 1024px"
-                  className="absolute inset-0 size-full object-cover"
-                />
+            {metier.examples.length > 1 ? (
+              <ExampleCarousel
+                examples={metier.examples}
+                ctaLabel={METIER_LABELS.exampleCta}
+              />
+            ) : (
+              <div className="overflow-hidden rounded-3xl border border-ink-300/60 bg-card shadow-md shadow-ink-950/5">
+                <div className="relative aspect-[16/9] w-full border-b border-ink-300/60">
+                  <Image
+                    src={metier.examples[0].image.src}
+                    alt={metier.examples[0].image.alt}
+                    width={metier.examples[0].image.width}
+                    height={metier.examples[0].image.height}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 1024px"
+                    className="absolute inset-0 size-full object-cover"
+                  />
+                </div>
+                <div className="flex flex-col gap-3 p-5 sm:p-6 md:p-7">
+                  <p className="text-sm text-ink-500 sm:text-base">
+                    {metier.examples[0].description}
+                  </p>
+                  <a
+                    href={metier.examples[0].href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex w-fit items-center gap-2 text-sm font-medium text-mint-700 underline decoration-mint-500 decoration-2 underline-offset-4 transition-colors duration-200 hover:text-mint-900 hover:decoration-mint-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+                  >
+                    {METIER_LABELS.exampleCta}
+                    <ExternalLink size={14} aria-hidden="true" />
+                  </a>
+                </div>
               </div>
-              <div className="flex flex-col gap-3 p-5 sm:p-6 md:p-7">
-                <p className="text-sm text-ink-500 sm:text-base">
-                  {metier.example.description}
-                </p>
-                <a
-                  href={metier.example.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex w-fit items-center gap-2 text-sm font-medium text-mint-700 underline decoration-mint-500 decoration-2 underline-offset-4 transition-colors duration-200 hover:text-mint-900 hover:decoration-mint-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
-                >
-                  {METIER_LABELS.exampleCta}
-                  <ExternalLink size={14} aria-hidden="true" />
-                </a>
-              </div>
-            </div>
+            )}
           </FadeIn>
         </div>
       </section>
