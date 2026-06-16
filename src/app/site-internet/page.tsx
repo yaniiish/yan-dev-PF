@@ -83,10 +83,10 @@ export default function MetiersIndexPage() {
                 >
                   <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-ink-300/60">
                     <Image
-                      src={metier.example.image.src}
-                      alt={metier.example.image.alt}
-                      width={metier.example.image.width}
-                      height={metier.example.image.height}
+                      src={metier.examples[0].image.src}
+                      alt={metier.examples[0].image.alt}
+                      width={metier.examples[0].image.width}
+                      height={metier.examples[0].image.height}
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 384px"
                       className="absolute inset-0 size-full object-cover"
                     />

@@ -35,7 +35,8 @@ export type Metier = {
   lead: string;
   enjeuxTitle: string;
   enjeux: readonly MetierEnjeu[];
-  example: MetierExample;
+  /** Exemples en ligne. Le 1er sert de devanture (vignette de la grille index). */
+  examples: readonly MetierExample[];
   faq: readonly MetierFaq[];
   ctaTitle: string;
   ctaText: string;
@@ -46,6 +47,7 @@ export const METIER_LABELS = {
   enjeux: "Pourquoi",
   example: "Exemple",
   exampleTitle: "Un exemple concret",
+  exampleTitlePlural: "Des exemples en ligne",
   exampleCta: "Voir l'exemple en ligne",
   pricing: "Tarif",
   pricingCallout: "Tout compris, à partir de 490 € à la création.",
@@ -108,16 +110,28 @@ export const METIERS: readonly Metier[] = [
         body: "Les réseaux complètent un site, mais vous ne maîtrisez ni l'algorithme ni le référencement. Un site, c'est chez vous.",
       },
     ],
-    example: {
-      description: "Un site exemple complet pour coffee shop, en ligne.",
-      href: "https://greencp-test.vercel.app/",
-      image: {
-        src: "/projects/coffee.png",
-        alt: "Aperçu du site exemple pour coffee shop",
-        width: 1618,
-        height: 910,
+    examples: [
+      {
+        description: "Lumio, un site exemple complet pour coffee shop, en ligne.",
+        href: "https://lumio-coffee.vercel.app/",
+        image: {
+          src: "/projects/lumio.png",
+          alt: "Aperçu du site exemple pour coffee shop Lumio",
+          width: 1618,
+          height: 910,
+        },
       },
-    },
+      {
+        description: "GreenCP, un autre exemple de site pour coffee shop, en ligne.",
+        href: "https://greencp-test.vercel.app/",
+        image: {
+          src: "/projects/coffee.png",
+          alt: "Aperçu du site exemple pour coffee shop GreenCP",
+          width: 1618,
+          height: 910,
+        },
+      },
+    ],
     faq: [
       {
         question: "Combien coûte un site pour un coffee shop ?",
@@ -173,16 +187,18 @@ export const METIERS: readonly Metier[] = [
         body: "Numéro de téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.",
       },
     ],
-    example: {
-      description: "Un site exemple complet pour restaurant, en ligne.",
-      href: "https://site-pf-2.vercel.app/",
-      image: {
-        src: "/projects/restaurant.png",
-        alt: "Aperçu du site exemple pour restaurant",
-        width: 1618,
-        height: 910,
+    examples: [
+      {
+        description: "Un site exemple complet pour restaurant, en ligne.",
+        href: "https://site-pf-2.vercel.app/",
+        image: {
+          src: "/projects/restaurant.png",
+          alt: "Aperçu du site exemple pour restaurant",
+          width: 1618,
+          height: 910,
+        },
       },
-    },
+    ],
     faq: [
       {
         question: "Combien coûte un site pour un restaurant ?",
@@ -238,16 +254,18 @@ export const METIERS: readonly Metier[] = [
         body: "Gâteaux d'occasion, commandes de pain : on met en avant un numéro de téléphone cliquable ou un formulaire pour réserver.",
       },
     ],
-    example: {
-      description: "Un site exemple complet pour boulangerie, en ligne.",
-      href: "https://site-pf-1.vercel.app/",
-      image: {
-        src: "/projects/boulangerie.png",
-        alt: "Aperçu du site exemple pour boulangerie",
-        width: 1618,
-        height: 910,
+    examples: [
+      {
+        description: "Un site exemple complet pour boulangerie, en ligne.",
+        href: "https://site-pf-1.vercel.app/",
+        image: {
+          src: "/projects/boulangerie.png",
+          alt: "Aperçu du site exemple pour boulangerie",
+          width: 1618,
+          height: 910,
+        },
       },
-    },
+    ],
     faq: [
       {
         question: "Combien coûte un site pour une boulangerie ?",
@@ -271,6 +289,74 @@ export const METIERS: readonly Metier[] = [
       },
     ],
     ctaTitle: "Envie d'un site pour votre boulangerie ?",
+    ctaText:
+      "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
+  },
+  {
+    slug: "architecte-interieur",
+    navLabel: "Architecte d'intérieur",
+    serviceName: "Création de site internet pour architecte d'intérieur",
+    metaTitle: "Création de site internet pour architecte d'intérieur, dès 490 €",
+    metaDescription:
+      "Un site web soigné pour architecte ou décorateur d'intérieur : portfolio de vos réalisations, identité forte et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.",
+    breadcrumbLabel: "Site internet pour architecte d'intérieur",
+    h1: "Un site internet pour votre activité d'architecte d'intérieur",
+    lead: "Pour un architecte d'intérieur, le site n'est pas un détail : c'est la première preuve de votre sens du design. Un site clair, épuré et soigné met en valeur vos réalisations, inspire confiance et vous rend visible sur Google quand on cherche un architecte ou un décorateur d'intérieur. Dès 490 €.",
+    enjeuxTitle: "Pourquoi un site soigné est essentiel pour un architecte d'intérieur",
+    enjeux: [
+      {
+        title: "Votre site prouve votre œil",
+        body: "Pour un métier du design, un site daté ou brouillon décrédibilise. Un site épuré et bien composé montre tout de suite votre niveau d'exigence.",
+      },
+      {
+        title: "Mettre vos réalisations en valeur",
+        body: "Un portfolio soigné, de belles photos avant/après, des projets bien présentés : on donne envie de vous confier un intérieur.",
+      },
+      {
+        title: "Sortir sur Google",
+        body: "Quand on cherche un architecte ou un décorateur d'intérieur dans votre région, un site bien référencé vous fait apparaître avec votre univers et vos coordonnées.",
+      },
+      {
+        title: "Inspirer confiance avant le premier rendez-vous",
+        body: "Présentation de votre démarche, de votre parcours et de vos honoraires : un site clair rassure des clients qui s'apprêtent à investir dans leur lieu de vie.",
+      },
+    ],
+    examples: [
+      {
+        description:
+          "Atelier Lumé, un site exemple d'architecte d'intérieur au design soigné, en ligne.",
+        href: "https://atelier-lume-kappa.vercel.app/",
+        image: {
+          src: "/projects/atelier-lume.png",
+          alt: "Aperçu du site exemple pour architecte d'intérieur Atelier Lumé",
+          width: 1618,
+          height: 910,
+        },
+      },
+    ],
+    faq: [
+      {
+        question: "Combien coûte un site pour un architecte d'intérieur ?",
+        answer:
+          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+      },
+      {
+        question: "Pourquoi un site soigné est-il si important pour ce métier ?",
+        answer:
+          "Parce que votre site est une vitrine de votre travail : un visiteur juge votre sens du design en quelques secondes. Un site épuré et bien construit inspire confiance et reflète la qualité de vos projets.",
+      },
+      {
+        question: "Peut-on présenter mon portfolio et mes réalisations ?",
+        answer:
+          "Oui : galeries de projets, photos avant/après, descriptions de chantiers et témoignages clients, tout est prévu pour valoriser votre travail.",
+      },
+      {
+        question: "Je ne suis pas à Caen, c'est possible ?",
+        answer:
+          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+      },
+    ],
+    ctaTitle: "Envie d'un site à la hauteur de vos projets ?",
     ctaText:
       "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
   },
