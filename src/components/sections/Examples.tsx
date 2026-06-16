@@ -10,49 +10,69 @@ const LEAD =
 
 const PROJECTS: readonly Project[] = [
   {
-    id: "restaurant",
+    id: "lumio",
     label: "Projet 01",
-    title: "Site exemple restaurant",
-    description: "Aperçu du site complet.",
-    href: "https://site-pf-2.vercel.app/",
+    title: "Lumio-coffee",
+    description: "Coffee shop",
+    href: "https://lumio-coffee.vercel.app/",
     image: {
-      src: "/projects/restaurant.png",
-      alt: "Aperçu du header du site exemple restaurant",
+      src: "/projects/lumio.png",
+      alt: "Aperçu du site exemple coffee shop Lumio-coffee",
       width: 1618,
       height: 910,
     },
   },
   {
-    id: "coffee",
+    id: "restaurant",
     label: "Projet 02",
-    title: "Site exemple coffee shop",
-    description: "Aperçu du site complet.",
-    href: "https://greencp-test.vercel.app/",
+    title: "L'océan",
+    description: "Restaurant",
+    href: "https://site-pf-2.vercel.app/",
     image: {
-      src: "/projects/coffee.png",
-      alt: "Aperçu du header du site exemple coffee shop",
+      src: "/projects/restaurant.png",
+      alt: "Aperçu du site exemple restaurant L'océan",
+      width: 1618,
+      height: 910,
+    },
+  },
+  {
+    id: "atelier-lume",
+    label: "Projet 03",
+    title: "Atelier Lumé",
+    description: "Architecte d'intérieur",
+    href: "https://atelier-lume-kappa.vercel.app/",
+    image: {
+      src: "/projects/atelier-lume.png",
+      alt: "Aperçu du site exemple architecte d'intérieur Atelier Lumé",
       width: 1618,
       height: 910,
     },
   },
   {
     id: "boulangerie",
-    label: "Projet 03",
-    title: "Site exemple boulangerie",
-    description: "Aperçu du site complet.",
+    label: "Projet 04",
+    title: "Boulangerie Bonheur",
+    description: "Boulangerie",
     href: "https://site-pf-1.vercel.app/",
     image: {
       src: "/projects/boulangerie.png",
-      alt: "Aperçu du header du site exemple boulangerie",
+      alt: "Aperçu du site exemple boulangerie Boulangerie Bonheur",
       width: 1618,
       height: 910,
     },
   },
   {
-    id: "soon",
-    label: "Projet 04",
-    title: "D'autres projets sont à venir.",
-    description: "",
+    id: "greencp",
+    label: "Projet 05",
+    title: "GreenCP",
+    description: "Coffee shop",
+    href: "https://greencp-test.vercel.app/",
+    image: {
+      src: "/projects/coffee.png",
+      alt: "Aperçu du site exemple coffee shop GreenCP",
+      width: 1618,
+      height: 910,
+    },
   },
 ] as const;
 
@@ -72,7 +92,7 @@ export function Examples() {
           </div>
         </FadeIn>
 
-        <FadeIn y={24} className="mx-auto mt-12 max-w-4xl lg:mt-14">
+        <FadeIn y={24} className="mt-12 lg:mt-14">
           <ExamplesCarousel projects={PROJECTS} />
         </FadeIn>
 
