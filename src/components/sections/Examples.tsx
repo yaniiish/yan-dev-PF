@@ -74,6 +74,19 @@ const PROJECTS: readonly Project[] = [
       height: 910,
     },
   },
+  {
+    id: "cerf-dore",
+    label: "Projet 06",
+    title: "Le Cerf Doré",
+    description: "Bistrot",
+    href: "https://cerf-dore.vercel.app/",
+    image: {
+      src: "/projects/cerf-dore.png",
+      alt: "Aperçu du site exemple bistrot Le Cerf Doré",
+      width: 1618,
+      height: 910,
+    },
+  },
 ] as const;
 
 export function Examples() {
