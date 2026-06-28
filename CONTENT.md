@@ -382,6 +382,26 @@ Cible aussi `site internet décorateur d'intérieur`. Angle : pour ce métier du
   4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
 - **CTA :** titre `Envie d'un site à la hauteur de vos projets ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`, boutons `Discuter de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
 
+### Bistrot et brasserie (`/site-internet/bistrot-brasserie`)
+Cible `site internet bistrot` et `brasserie`. Angle de différenciation vs restaurant : convivialité, ardoise du jour / plat du jour, esprit de quartier. Exemple en ligne : Le Cerf Doré `https://cerf-dore.vercel.app/` (visuel `/projects/cerf-dore.png`).
+
+- **Meta title :** `Création de site internet pour bistrot ou brasserie, dès 490 €`
+- **Meta description :** `Un site web convivial pour votre bistrot ou brasserie : ardoise du jour, formules, horaires et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.`
+- **Fil d'ariane :** `Accueil › Sites internet par métier › Site internet pour bistrot ou brasserie`
+- **H1 :** `Un site internet pour votre bistrot ou brasserie`
+- **Chapô :** `Un bon bistrot se vit autant qu'il se mange. Un site clair et chaleureux met en avant votre ardoise du jour, vos formules et votre ambiance, et vous rend visible sur Google quand on cherche un bistrot ou une brasserie dans le coin. Dès 490 €.`
+- **Enjeux (Pourquoi un site pour votre bistrot ou brasserie) :**
+  - `Sortir sur Google` : `Quand on cherche un bistrot ou une brasserie près de soi, un site bien référencé vous fait apparaître, avec votre adresse, vos horaires et votre carte.`
+  - `Faire passer l'ambiance` : `Photos de la salle, du comptoir, de l'assiette : on retrouve en ligne l'esprit convivial qui fait revenir vos habitués.`
+  - `Une ardoise qui change sans surcoût` : `Plat du jour, formule de midi, suggestions : la mise à jour de votre carte est comprise dans l'abonnement de 30 €/mois, il suffit de me l'envoyer.`
+  - `Réservation et contact simplifiés` : `Numéro de téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.`
+- **FAQ :**
+  1. **Combien coûte un site pour un bistrot ou une brasserie ?** → `À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.`
+  2. **Puis-je changer mon ardoise et mes formules régulièrement ?** → `Oui. La mise à jour de votre carte et de votre plat du jour est comprise dans l'abonnement de 30 €/mois : vous m'envoyez les changements et je les mets en ligne.`
+  3. **Peut-on ajouter la réservation en ligne ?** → `Oui : lien vers votre outil de réservation, numéro de téléphone cliquable ou formulaire de contact, selon ce que vous préférez.`
+  4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
+- **CTA :** titre `Envie d'un site pour votre bistrot ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`, boutons `Discuter de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
+
 ---
 
 ## 14. Page index métiers `/site-internet` (landing « tous métiers »)

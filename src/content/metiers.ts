@@ -360,6 +360,73 @@ export const METIERS: readonly Metier[] = [
     ctaText:
       "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
   },
+  {
+    slug: "bistrot-brasserie",
+    navLabel: "Bistrot et brasserie",
+    serviceName: "Création de site internet pour bistrot et brasserie",
+    metaTitle: "Création de site internet pour bistrot ou brasserie, dès 490 €",
+    metaDescription:
+      "Un site web convivial pour votre bistrot ou brasserie : ardoise du jour, formules, horaires et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.",
+    breadcrumbLabel: "Site internet pour bistrot ou brasserie",
+    h1: "Un site internet pour votre bistrot ou brasserie",
+    lead: "Un bon bistrot se vit autant qu'il se mange. Un site clair et chaleureux met en avant votre ardoise du jour, vos formules et votre ambiance, et vous rend visible sur Google quand on cherche un bistrot ou une brasserie dans le coin. Dès 490 €.",
+    enjeuxTitle: "Pourquoi un site pour votre bistrot ou brasserie",
+    enjeux: [
+      {
+        title: "Sortir sur Google",
+        body: "Quand on cherche un bistrot ou une brasserie près de soi, un site bien référencé vous fait apparaître, avec votre adresse, vos horaires et votre carte.",
+      },
+      {
+        title: "Faire passer l'ambiance",
+        body: "Photos de la salle, du comptoir, de l'assiette : on retrouve en ligne l'esprit convivial qui fait revenir vos habitués.",
+      },
+      {
+        title: "Une ardoise qui change sans surcoût",
+        body: "Plat du jour, formule de midi, suggestions : la mise à jour de votre carte est comprise dans l'abonnement de 30 €/mois, il suffit de me l'envoyer.",
+      },
+      {
+        title: "Réservation et contact simplifiés",
+        body: "Numéro de téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.",
+      },
+    ],
+    examples: [
+      {
+        description: "Le Cerf Doré, un site exemple complet pour bistrot, en ligne.",
+        href: "https://cerf-dore.vercel.app/",
+        image: {
+          src: "/projects/cerf-dore.png",
+          alt: "Aperçu du site exemple pour bistrot Le Cerf Doré",
+          width: 1618,
+          height: 910,
+        },
+      },
+    ],
+    faq: [
+      {
+        question: "Combien coûte un site pour un bistrot ou une brasserie ?",
+        answer:
+          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+      },
+      {
+        question: "Puis-je changer mon ardoise et mes formules régulièrement ?",
+        answer:
+          "Oui. La mise à jour de votre carte et de votre plat du jour est comprise dans l'abonnement de 30 €/mois : vous m'envoyez les changements et je les mets en ligne.",
+      },
+      {
+        question: "Peut-on ajouter la réservation en ligne ?",
+        answer:
+          "Oui : lien vers votre outil de réservation, numéro de téléphone cliquable ou formulaire de contact, selon ce que vous préférez.",
+      },
+      {
+        question: "Je ne suis pas à Caen, c'est possible ?",
+        answer:
+          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+      },
+    ],
+    ctaTitle: "Envie d'un site pour votre bistrot ?",
+    ctaText:
+      "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
+  },
 ];
 
 export function getMetier(slug: string): Metier | undefined {
