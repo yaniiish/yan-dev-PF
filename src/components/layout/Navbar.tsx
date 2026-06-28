@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -92,8 +93,16 @@ export function Navbar() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6 md:h-20 md:px-10 lg:px-16">
           <a
             href={isHome ? "#hero" : "/"}
-            className="font-sans text-base font-semibold tracking-tight text-ink-950"
+            className="flex items-center gap-2 font-sans text-base font-semibold tracking-tight text-ink-950"
           >
+            <Image
+              src="/logo.svg"
+              alt=""
+              width={28}
+              height={28}
+              className="size-7"
+              aria-hidden="true"
+            />
             {SITE_NAME}
           </a>
 
@@ -164,7 +173,15 @@ export function Navbar() {
               className="flex h-full flex-col px-6 pb-8 pt-3"
             >
               <div className="flex h-16 items-center justify-between">
-                <span className="font-sans text-base font-semibold tracking-tight text-ink-950">
+                <span className="flex items-center gap-2 font-sans text-base font-semibold tracking-tight text-ink-950">
+                  <Image
+                    src="/logo.svg"
+                    alt=""
+                    width={28}
+                    height={28}
+                    className="size-7"
+                    aria-hidden="true"
+                  />
                   {SITE_NAME}
                 </span>
                 <button
