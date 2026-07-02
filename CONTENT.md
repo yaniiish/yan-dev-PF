@@ -172,34 +172,52 @@ Carrousel ou grille de 2 cards :
 ### Intro (lead)
 > Le prix annoncé est le prix payé. Si votre projet sort du cadre, on en parle et on adapte ensemble.
 
-### Carte tarif 1 — Site vitrine classique
+### Carte tarif 1 — Essentiel
 
-- **Étiquette :** `Le plus demandé`
-- **Nom de l'offre :** `Site vitrine`
-- **Prix principal :** `490 €`
-- **Mention sous le prix :** `paiement unique à la livraison`
-- **Récurrent :** `+ 30 €/mois`
-- **Mention récurrent :** `hébergement, mises à jour et modifications mineures`
+- **Étiquette :** `Sans abonnement`
+- **Nom de l'offre :** `Essentiel`
+- **Prix principal :** `690 €`
+- **Mention sous le prix :** `une fois · nom de domaine et hébergement inclus la première année`
 - **Liste inclus :**
-  - Site one-page sur mesure
+  - Site moderne et rapide sur mesure
   - Responsive mobile, tablette, desktop
-  - SEO local de base
+  - SEO de base
   - Formulaire de contact
-  - Mise en ligne sous 2 à 3 semaines
+  - Mise en ligne rapide
+  - Le site vous appartient
 - **CTA :** `Démarrer mon projet` → `#contact`
 
-### Carte tarif 2 — Site premium / sur mesure
+### Carte tarif 2 — Pack Sérénité (mise en avant)
 
-- **Étiquette :** `Sur mesure`
-- **Nom de l'offre :** `Site premium`
+- **Étiquette :** `Conseillé`
+- **Nom de l'offre :** `Pack Sérénité`
+- **Prix principal :** `490 €`
+- **Mention sous le prix :** `à la création`
+- **Récurrent :** `+ 30 €/mois`
+- **Mention récurrent :** `sans engagement, résiliable à tout moment (préavis 1 mois)`
+- **Liste inclus :**
+  - Tout ce qui est inclus dans l'offre Essentiel
+  - Nom de domaine & hébergement gérés en continu
+  - Modifications mineures illimitées sous 48h *(infobulle (i) au survol/tap : « Les modifications mineures : texte, photo, horaires, prix, un plat au menu, etc. L'ajout de page, la refonte du design ou une nouvelle fonctionnalité font l'objet d'un devis à part. »)*
+- **CTA :** `Choisir le suivi` → `#contact`
+
+### Carte tarif 3 — Projet premium / sur mesure
+
+- **Étiquette :** *(aucune)*
+- **Nom de l'offre :** `Projet premium`
 - **Prix principal :** `Sur devis`
 - **Mention sous le prix :** `selon ambition et fonctionnalités`
-- **Description :**
-  > Animations avancées, design poussé, plusieurs pages, intégrations spécifiques (réservation, boutique simple…). On échange, je vous fais une proposition adaptée.
+- **Liste inclus :**
+  - Design poussé et animations avancées
+  - Réservation, mini-boutique, intégrations spécifiques
+  - Projets de plus grande envergure
+  - On échange, je vous fais une proposition adaptée
+  - Applications
+  - Agents IA
 - **CTA :** `Parlons de votre projet` → `#contact`
 
 ### Note sous les tarifs
-> *Pas de frais cachés. Pas d'engagement long terme sur la maintenance — résiliable à tout moment avec un préavis d'un mois.*
+> *Vous n'êtes jamais prisonnier : à tout moment, je vous transfère le nom de domaine à votre nom et vous cède le code du site. Le site est à vous.*
 
 ---
 
