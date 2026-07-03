@@ -16,6 +16,9 @@ export const CITY = "Caen";
 // Placeholder tant que le domaine n'est pas acheté (cf. ROADMAP §1.9).
 export const CONTACT_EMAIL = "contact@yan-dev.fr";
 
+export const CONTACT_INSTAGRAM_URL = "https://www.instagram.com/yan.dev__";
+export const CONTACT_INSTAGRAM_HANDLE = "@yan.dev__";
+
 export type NavLink = {
   id: string;
   label: string;

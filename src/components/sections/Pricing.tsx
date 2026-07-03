@@ -29,7 +29,7 @@ export function Pricing() {
         </FadeIn>
 
         <Stagger
-          className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-6 md:mt-12 md:grid-cols-2 md:gap-8"
+          className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 md:mt-12 md:grid-cols-3 md:gap-8"
           staggerChildren={0.18}
         >
           {PRICING_PLANS.map((plan) => (

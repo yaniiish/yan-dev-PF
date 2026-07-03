@@ -1,5 +1,6 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { Tooltip } from "@/components/ui/Tooltip";
 import type { PricingPlan } from "@/content/pricing";
 import { cn } from "@/lib/utils";
 
@@ -20,10 +21,10 @@ export function PricingCard({
     offer,
     price,
     priceNote,
+    renewalNote,
     recurring,
     recurringNote,
     features,
-    description,
     ctaLabel,
     highlight,
   } = plan;
@@ -32,22 +33,29 @@ export function PricingCard({
     <article
       className={cn(
         "flex h-full flex-col rounded-3xl bg-card p-7 md:p-9",
-        "transition duration-300 ease-out",
+        "transition duration-300 ease-out hover:-translate-y-1",
         highlight
-          ? "border-2 border-mint-500 shadow-xl shadow-mint-500/10"
-          : "border border-ink-300/60 shadow-md shadow-ink-950/5",
+          ? "border-2 border-mint-500 shadow-xl shadow-mint-500/10 hover:shadow-2xl hover:shadow-mint-500/20"
+          : "border border-ink-300/60 shadow-md shadow-ink-950/5 hover:border-ink-300 hover:shadow-xl hover:shadow-ink-950/10",
       )}
     >
-      <span
+      {badge ? (
+        <span
+          className={cn(
+            "inline-flex w-fit items-center rounded-full px-3 py-1 font-mono text-[0.7rem] uppercase tracking-widest",
+            highlight ? "bg-mint-500 text-ink-950" : "bg-ink-100 text-ink-700",
+          )}
+        >
+          {badge}
+        </span>
+      ) : null}
+
+      <h3
         className={cn(
-          "inline-flex w-fit items-center rounded-full px-3 py-1 font-mono text-[0.7rem] uppercase tracking-widest",
-          highlight ? "bg-mint-500 text-ink-950" : "bg-ink-100 text-ink-700",
+          "font-serif text-2xl font-medium leading-tight text-ink-950",
+          badge ? "mt-5" : "mt-1",
         )}
       >
-        {badge}
-      </span>
-
-      <h3 className="mt-5 font-serif text-2xl font-medium leading-tight text-ink-950">
         {offer}
       </h3>
 
@@ -57,6 +65,11 @@ export function PricingCard({
         </p>
         {priceNote ? (
           <p className="mt-1.5 text-xs text-ink-500">{priceNote}</p>
+        ) : null}
+        {renewalNote ? (
+          <p className="mt-2 text-xs font-medium leading-relaxed text-ink-700">
+            {renewalNote}
+          </p>
         ) : null}
       </div>
 
@@ -73,24 +86,29 @@ export function PricingCard({
         <>
           <hr className="my-6 border-ink-300/60" />
           <ul className="flex flex-col gap-2.5">
-            {features.map((feat) => (
-              <li key={feat} className="flex items-start gap-2.5">
-                <Check
-                  size={18}
-                  className="mt-0.5 shrink-0 text-mint-700"
-                  aria-hidden="true"
-                />
-                <span className="text-sm text-ink-700">{feat}</span>
-              </li>
-            ))}
+            {features.map((feat) => {
+              const label = typeof feat === "string" ? feat : feat.label;
+              const tooltip = typeof feat === "string" ? null : feat.tooltip;
+              return (
+                <li key={label} className="flex items-start gap-2.5">
+                  <Check
+                    size={18}
+                    className="mt-0.5 shrink-0 text-mint-700"
+                    aria-hidden="true"
+                  />
+                  <span
+                    className={cn(
+                      "text-sm text-ink-700",
+                      tooltip && "inline-flex items-center gap-1.5 font-medium text-ink-950",
+                    )}
+                  >
+                    {label}
+                    {tooltip ? <Tooltip content={tooltip} label={`À propos de : ${label}`} /> : null}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
-        </>
-      ) : null}
-
-      {description ? (
-        <>
-          <hr className="my-6 border-ink-300/60" />
-          <p className="text-sm leading-relaxed text-ink-700">{description}</p>
         </>
       ) : null}
 

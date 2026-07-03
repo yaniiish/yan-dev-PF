@@ -1,8 +1,34 @@
 import { Mail } from "lucide-react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { CONTACT_EMAIL } from "@/content/site";
+import {
+  CONTACT_EMAIL,
+  CONTACT_INSTAGRAM_HANDLE,
+  CONTACT_INSTAGRAM_URL,
+} from "@/content/site";
 import { ContactForm } from "./ContactForm";
+
+/** Icône Instagram (retirée de lucide-react) au même gabarit que les icônes lucide. */
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      width={20}
+      height={20}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
 
 const H2 = "Contactez-moi ici.";
 
@@ -23,22 +49,41 @@ export function Contact() {
               {LEAD}
             </p>
 
-            <div className="mt-8 inline-flex items-center gap-3 rounded-xl border border-ink-300/60 bg-ink-50 px-4 py-3">
-              <Mail
-                size={20}
-                className="shrink-0 text-mint-700"
-                aria-hidden="true"
-              />
-              <div className="flex flex-col">
-                <span className="font-mono text-[0.7rem] uppercase tracking-widest text-ink-500">
-                  Vous préférez le mail ?
-                </span>
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="text-sm font-medium text-ink-950 underline decoration-mint-500 decoration-2 underline-offset-4 hover:decoration-mint-700"
-                >
-                  {CONTACT_EMAIL}
-                </a>
+            <div className="mt-8 flex flex-col gap-3">
+              <div className="inline-flex w-fit items-center gap-3 rounded-xl border border-ink-300/60 bg-ink-50 px-4 py-3">
+                <Mail
+                  size={20}
+                  className="shrink-0 text-mint-700"
+                  aria-hidden="true"
+                />
+                <div className="flex flex-col">
+                  <span className="font-mono text-[0.7rem] uppercase tracking-widest text-ink-500">
+                    Vous préférez le mail ?
+                  </span>
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="text-sm font-medium text-ink-950 underline decoration-mint-500 decoration-2 underline-offset-4 hover:decoration-mint-700"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                </div>
+              </div>
+
+              <div className="inline-flex w-fit items-center gap-3 rounded-xl border border-ink-300/60 bg-ink-50 px-4 py-3">
+                <InstagramIcon className="shrink-0 text-mint-700" />
+                <div className="flex flex-col">
+                  <span className="font-mono text-[0.7rem] uppercase tracking-widest text-ink-500">
+                    Ou sur Instagram
+                  </span>
+                  <a
+                    href={CONTACT_INSTAGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium text-ink-950 underline decoration-mint-500 decoration-2 underline-offset-4 hover:decoration-mint-700"
+                  >
+                    {CONTACT_INSTAGRAM_HANDLE}
+                  </a>
+                </div>
               </div>
             </div>
           </FadeIn>
