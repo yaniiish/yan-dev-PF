@@ -56,7 +56,7 @@ export const PRICING_PLANS: readonly PricingPlan[] = [
     badge: "Sans abonnement",
     offer: "Essentiel",
     price: "690 €",
-    priceNote: "En une fois · nom de domaine et hébergement inclus la première année",
+    priceNote: "en une fois · nom de domaine et hébergement inclus la première année",
     renewalNote:
       "Après 1 an : vous reprenez la main, je vous cède tout ou bien vous passez au Pack Sérénité.",
     features: ESSENTIEL_FEATURES,

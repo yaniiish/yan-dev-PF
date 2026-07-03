@@ -177,7 +177,7 @@ Carrousel ou grille de 2 cards :
 - **Étiquette :** `Sans abonnement`
 - **Nom de l'offre :** `Essentiel`
 - **Prix principal :** `690 €`
-- **Mention sous le prix :** `En une fois · nom de domaine et hébergement inclus la première année`
+- **Mention sous le prix :** `en une fois · nom de domaine et hébergement inclus la première année`
 - **Précision (mise en avant sous le prix) :** `Après 1 an : vous reprenez la main, je vous cède tout ou bien vous passez au Pack Sérénité.`
 - **Liste inclus :**
   - Site moderne et rapide sur mesure
