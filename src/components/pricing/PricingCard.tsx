@@ -21,6 +21,7 @@ export function PricingCard({
     offer,
     price,
     priceNote,
+    renewalNote,
     recurring,
     recurringNote,
     features,
@@ -32,10 +33,10 @@ export function PricingCard({
     <article
       className={cn(
         "flex h-full flex-col rounded-3xl bg-card p-7 md:p-9",
-        "transition duration-300 ease-out",
+        "transition duration-300 ease-out hover:-translate-y-1",
         highlight
-          ? "border-2 border-mint-500 shadow-xl shadow-mint-500/10"
-          : "border border-ink-300/60 shadow-md shadow-ink-950/5",
+          ? "border-2 border-mint-500 shadow-xl shadow-mint-500/10 hover:shadow-2xl hover:shadow-mint-500/20"
+          : "border border-ink-300/60 shadow-md shadow-ink-950/5 hover:border-ink-300 hover:shadow-xl hover:shadow-ink-950/10",
       )}
     >
       {badge ? (
@@ -64,6 +65,11 @@ export function PricingCard({
         </p>
         {priceNote ? (
           <p className="mt-1.5 text-xs text-ink-500">{priceNote}</p>
+        ) : null}
+        {renewalNote ? (
+          <p className="mt-2 text-xs font-medium leading-relaxed text-ink-700">
+            {renewalNote}
+          </p>
         ) : null}
       </div>
 

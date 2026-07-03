@@ -15,6 +15,8 @@ export type PricingPlan = {
   offer: string;
   price: string;
   priceNote?: string;
+  /** Précision mise en avant sous le prix (ex : reprise en main après 1 an). */
+  renewalNote?: string;
   recurring?: string;
   recurringNote?: string;
   features?: readonly PricingFeature[];
@@ -28,7 +30,6 @@ const ESSENTIEL_FEATURES: readonly PricingFeature[] = [
   "SEO de base",
   "Formulaire de contact",
   "Mise en ligne rapide",
-  "Le site vous appartient",
 ];
 
 const SERENITE_FEATURES: readonly PricingFeature[] = [
@@ -55,7 +56,9 @@ export const PRICING_PLANS: readonly PricingPlan[] = [
     badge: "Sans abonnement",
     offer: "Essentiel",
     price: "690 €",
-    priceNote: "une fois · nom de domaine et hébergement inclus la première année",
+    priceNote: "En une fois · nom de domaine et hébergement inclus la première année",
+    renewalNote:
+      "Après 1 an : vous reprenez la main, je vous cède tout ou bien vous passez au Pack Sérénité.",
     features: ESSENTIEL_FEATURES,
     ctaLabel: "Démarrer mon projet",
   },
@@ -85,7 +88,7 @@ export const PRICING_FOOTNOTE =
 /** Section Tarifs de la home (#tarifs). */
 export const PRICING_SECTION = {
   h2: "Des tarifs clairs, sans devis à rallonge.",
-  lead: "Le prix annoncé est le prix payé. Si votre projet sort du cadre, on en parle et on adapte ensemble.",
+  lead: "Le prix annoncé est le prix payé, et je gère tout de A à Z : vous n'avez rien à faire. Si votre projet sort du cadre, on en parle et on adapte ensemble.",
   /** Lien vers la page d'intention dédiée (maillage interne). */
   pageLinkLabel: "Le prix d'un site vitrine en détail",
 } as const;

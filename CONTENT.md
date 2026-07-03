@@ -170,21 +170,21 @@ Carrousel ou grille de 2 cards :
 > Des tarifs clairs, sans devis à rallonge.
 
 ### Intro (lead)
-> Le prix annoncé est le prix payé. Si votre projet sort du cadre, on en parle et on adapte ensemble.
+> Le prix annoncé est le prix payé, et je gère tout de A à Z : vous n'avez rien à faire. Si votre projet sort du cadre, on en parle et on adapte ensemble.
 
 ### Carte tarif 1 — Essentiel
 
 - **Étiquette :** `Sans abonnement`
 - **Nom de l'offre :** `Essentiel`
 - **Prix principal :** `690 €`
-- **Mention sous le prix :** `une fois · nom de domaine et hébergement inclus la première année`
+- **Mention sous le prix :** `En une fois · nom de domaine et hébergement inclus la première année`
+- **Précision (mise en avant sous le prix) :** `Après 1 an : vous reprenez la main, je vous cède tout ou bien vous passez au Pack Sérénité.`
 - **Liste inclus :**
   - Site moderne et rapide sur mesure
   - Responsive mobile, tablette, desktop
   - SEO de base
   - Formulaire de contact
   - Mise en ligne rapide
-  - Le site vous appartient
 - **CTA :** `Démarrer mon projet` → `#contact`
 
 ### Carte tarif 2 — Pack Sérénité (mise en avant)
