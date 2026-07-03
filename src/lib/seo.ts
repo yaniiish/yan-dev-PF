@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { CITY, CONTACT_EMAIL, SITE_NAME } from "@/content/site";
+import {
+  CITY,
+  CONTACT_EMAIL,
+  CONTACT_INSTAGRAM_URL,
+  SITE_NAME,
+} from "@/content/site";
 
 /**
  * URL publique du site. En prod Vercel, NEXT_PUBLIC_SITE_URL doit être défini
@@ -52,22 +57,54 @@ export const PROFESSIONAL_SERVICE_LD = {
     areaServed: "FR",
   },
   founder: { "@type": "Person", name: "Yan" },
+  sameAs: [CONTACT_INSTAGRAM_URL],
   makesOffer: [
     {
       "@type": "Offer",
-      name: "Site vitrine",
-      price: "490",
+      name: "Essentiel",
+      price: "690",
       priceCurrency: "EUR",
       description:
-        "Site one-page sur mesure, responsive, SEO local inclus.",
+        "Site vitrine sur mesure, responsive, SEO de base. Paiement unique, sans abonnement, nom de domaine et hébergement inclus la première année.",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: "690",
+        priceCurrency: "EUR",
+        unitText: "paiement unique",
+      },
     },
     {
       "@type": "Offer",
-      name: "Hébergement et maintenance",
-      price: "30",
+      name: "Pack Sérénité",
+      price: "490",
       priceCurrency: "EUR",
       description:
-        "Mensuel : nom de domaine, hébergement, mises à jour et modifications mineures.",
+        "Site vitrine sur mesure, responsive, SEO de base. 490 € à la création puis 30 €/mois : nom de domaine, hébergement et modifications mineures gérés en continu, sans engagement.",
+      priceSpecification: [
+        {
+          "@type": "UnitPriceSpecification",
+          price: "490",
+          priceCurrency: "EUR",
+          unitText: "à la création",
+        },
+        {
+          "@type": "UnitPriceSpecification",
+          price: "30",
+          priceCurrency: "EUR",
+          unitText: "mensuel",
+          billingDuration: {
+            "@type": "QuantitativeValue",
+            value: 1,
+            unitCode: "MON",
+          },
+        },
+      ],
+    },
+    {
+      "@type": "Offer",
+      name: "Projet premium",
+      description:
+        "Design poussé, animations avancées, réservation, mini-boutique ou intégrations spécifiques : proposition adaptée sur devis.",
     },
   ],
 } as const;

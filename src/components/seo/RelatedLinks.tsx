@@ -21,9 +21,9 @@ export function RelatedLinks({
 
   return (
     <div>
-      <p className="font-mono text-xs uppercase tracking-widest text-mint-700">
+      <h2 className="font-mono text-xs uppercase tracking-widest text-mint-700">
         {title}
-      </p>
+      </h2>
       <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {links.map((link) => (
           <li key={link.href}>

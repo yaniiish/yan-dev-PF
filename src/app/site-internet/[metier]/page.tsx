@@ -165,6 +165,7 @@ export default async function MetierPage({ params }: Params) {
                     width={metier.examples[0].image.width}
                     height={metier.examples[0].image.height}
                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 90vw, 1024px"
+                    priority
                     className="absolute inset-0 size-full object-cover"
                   />
                 </div>

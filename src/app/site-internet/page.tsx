@@ -75,7 +75,7 @@ export default function MetiersIndexPage() {
             className="mt-10 grid grid-cols-1 gap-6 md:mt-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-8"
             staggerChildren={0.12}
           >
-            {METIERS.map((metier) => (
+            {METIERS.map((metier, index) => (
               <FadeIn key={metier.slug} inside y={24}>
                 <a
                   href={metierPath(metier.slug)}
@@ -88,6 +88,7 @@ export default function MetiersIndexPage() {
                       width={metier.examples[0].image.width}
                       height={metier.examples[0].image.height}
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 384px"
+                      priority={index === 0}
                       className="absolute inset-0 size-full object-cover"
                     />
                   </div>
