@@ -131,6 +131,16 @@ export const METIERS: readonly Metier[] = [
           height: 910,
         },
       },
+      {
+        description: "Fougère, un site exemple pour coffee shop et salon de thé, en ligne.",
+        href: "https://fougere-ten.vercel.app/",
+        image: {
+          src: "/projects/fougere.png",
+          alt: "Aperçu du site exemple pour coffee shop Fougère",
+          width: 1618,
+          height: 910,
+        },
+      },
     ],
     faq: [
       {
