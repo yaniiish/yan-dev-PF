@@ -177,8 +177,8 @@ Carrousel ou grille de 2 cards :
 - **Étiquette :** `Sans abonnement`
 - **Nom de l'offre :** `Essentiel`
 - **Prix principal :** `690 €`
-- **Mention sous le prix :** `en une fois · nom de domaine et hébergement inclus la première année`
-- **Précision (mise en avant sous le prix) :** `Après 1 an : vous reprenez la main, je vous cède tout ou bien vous passez au Pack Sérénité.`
+- **Mention sous le prix :** `nom de domaine et hébergement inclus la première année`
+- **Précision (mise en avant sous le prix) :** `Après 1 an : vous reprenez la main, je vous cède tout ou bien vous passez à la mensualité du Pack Sérénité.`
 - **Liste inclus :**
   - Site moderne et rapide sur mesure
   - Responsive mobile, tablette, desktop
@@ -212,8 +212,8 @@ Carrousel ou grille de 2 cards :
   - Réservation, mini-boutique, intégrations spécifiques
   - Projets de plus grande envergure
   - On échange, je vous fais une proposition adaptée
-  - Applications
-  - Agents IA
+  - Applications mobile
+  - Agents IA / automatisation
 - **CTA :** `Parlons de votre projet` → `#contact`
 
 ### Note sous les tarifs

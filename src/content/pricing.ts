@@ -47,8 +47,8 @@ const PREMIUM_FEATURES: readonly PricingFeature[] = [
   "Réservation, mini-boutique, intégrations spécifiques",
   "Projets de plus grande envergure",
   "On échange, je vous fais une proposition adaptée",
-  "Applications",
-  "Agents IA",
+  "Applications mobile",
+  "Agents IA / automatisation",
 ];
 
 export const PRICING_PLANS: readonly PricingPlan[] = [
@@ -56,9 +56,9 @@ export const PRICING_PLANS: readonly PricingPlan[] = [
     badge: "Sans abonnement",
     offer: "Essentiel",
     price: "690 €",
-    priceNote: "en une fois · nom de domaine et hébergement inclus la première année",
+    priceNote: "nom de domaine et hébergement inclus la première année",
     renewalNote:
-      "Après 1 an : vous reprenez la main, je vous cède tout ou bien vous passez au Pack Sérénité.",
+      "Après 1 an : vous reprenez la main, je vous cède tout ou bien vous passez à la mensualité du Pack Sérénité.",
     features: ESSENTIEL_FEATURES,
     ctaLabel: "Démarrer mon projet",
   },
