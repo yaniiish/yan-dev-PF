@@ -10,14 +10,14 @@ const LEAD =
 
 const PROJECTS: readonly Project[] = [
   {
-    id: "lumio",
+    id: "madman-tattoo",
     label: "Projet 01",
-    title: "Lumio-coffee",
-    description: "Coffee shop",
-    href: "https://lumio-coffee.vercel.app/",
+    title: "Madman Tattoo",
+    description: "Tatoueur",
+    href: "https://madman-tattoo.vercel.app/",
     image: {
-      src: "/projects/lumio.png",
-      alt: "Aperçu du site exemple coffee shop Lumio-coffee",
+      src: "/projects/madman-tattoo.jpg",
+      alt: "Aperçu du site exemple tatoueur Madman Tattoo",
       width: 1618,
       height: 910,
     },
@@ -62,14 +62,14 @@ const PROJECTS: readonly Project[] = [
     },
   },
   {
-    id: "greencp",
+    id: "lumio",
     label: "Projet 05",
-    title: "GreenCP",
+    title: "Lumio-coffee",
     description: "Coffee shop",
-    href: "https://greencp-test.vercel.app/",
+    href: "https://lumio-coffee.vercel.app/",
     image: {
-      src: "/projects/coffee.png",
-      alt: "Aperçu du site exemple coffee shop GreenCP",
+      src: "/projects/lumio.png",
+      alt: "Aperçu du site exemple coffee shop Lumio-coffee",
       width: 1618,
       height: 910,
     },

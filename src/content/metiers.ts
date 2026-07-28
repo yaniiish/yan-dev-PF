@@ -437,6 +437,74 @@ export const METIERS: readonly Metier[] = [
     ctaText:
       "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
   },
+  {
+    slug: "tatoueur",
+    navLabel: "Tatoueur",
+    serviceName: "Création de site internet pour tatoueur",
+    metaTitle: "Création de site internet pour tatoueur, dès 490 €",
+    metaDescription:
+      "Un site web à l'image de votre studio de tatouage : galerie de vos réalisations, univers, prise de rendez-vous et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.",
+    breadcrumbLabel: "Site internet pour tatoueur",
+    h1: "Un site internet pour votre activité de tatoueur",
+    lead: "Pour un tatoueur, le site est le prolongement de votre univers : c'est là qu'on juge votre style avant de vous confier sa peau. Un site à votre image met en valeur votre galerie, affirme votre identité et vous rend visible sur Google quand on cherche un tatoueur dans le coin. Dès 490 €.",
+    enjeuxTitle: "Pourquoi un site à votre image pour votre studio de tatouage",
+    enjeux: [
+      {
+        title: "Un site qui porte votre univers",
+        body: "Votre style fait votre signature. Un site graphique et soigné plonge le visiteur dans votre univers avant même qu'il pousse la porte du studio.",
+      },
+      {
+        title: "Mettre votre galerie en valeur",
+        body: "Réalisations, flashs disponibles, projets sur mesure : de belles photos bien présentées donnent envie de prendre rendez-vous avec vous plutôt qu'avec un autre.",
+      },
+      {
+        title: "Être trouvé sur Google",
+        body: "Quand on cherche un tatoueur dans votre ville ou un style précis, un site bien référencé vous fait apparaître, avec votre univers, vos coordonnées et votre galerie.",
+      },
+      {
+        title: "Faciliter la prise de rendez-vous",
+        body: "Formulaire de demande de projet, lien vers votre agenda, numéro cliquable ou renvoi vers Instagram : on met en avant ce qui déclenche le premier contact.",
+      },
+    ],
+    examples: [
+      {
+        description:
+          "Madman Tattoo, un site exemple pour salon de tatouage à l'univers affirmé, en ligne.",
+        href: "https://madman-tattoo.vercel.app/",
+        image: {
+          src: "/projects/madman-tattoo.jpg",
+          alt: "Aperçu du site exemple pour tatoueur Madman Tattoo",
+          width: 1618,
+          height: 910,
+        },
+      },
+    ],
+    faq: [
+      {
+        question: "Combien coûte un site pour un tatoueur ?",
+        answer:
+          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+      },
+      {
+        question: "Peut-on présenter ma galerie et mes flashs ?",
+        answer:
+          "Oui : galeries de réalisations, flashs disponibles, styles et projets sur mesure, tout est prévu pour mettre votre travail en valeur.",
+      },
+      {
+        question: "J'ai déjà un Instagram, ai-je vraiment besoin d'un site ?",
+        answer:
+          "Instagram complète bien un site mais ne le remplace pas : vous n'apparaissez pas sur Google et vous dépendez de l'algorithme. Un site vous rend trouvable, affirme votre univers et reste à vous.",
+      },
+      {
+        question: "Je ne suis pas à Caen, c'est possible ?",
+        answer:
+          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+      },
+    ],
+    ctaTitle: "Envie d'un site à l'image de votre studio ?",
+    ctaText:
+      "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
+  },
 ];
 
 export function getMetier(slug: string): Metier | undefined {
