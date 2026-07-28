@@ -472,7 +472,7 @@ export const METIERS: readonly Metier[] = [
           "Madman Tattoo, un site exemple pour salon de tatouage à l'univers affirmé, en ligne.",
         href: "https://madman-tattoo.vercel.app/",
         image: {
-          src: "/projects/madman-tattoo.png",
+          src: "/projects/madman-tattoo.jpg",
           alt: "Aperçu du site exemple pour tatoueur Madman Tattoo",
           width: 1618,
           height: 910,

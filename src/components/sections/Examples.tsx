@@ -16,7 +16,7 @@ const PROJECTS: readonly Project[] = [
     description: "Tatoueur",
     href: "https://madman-tattoo.vercel.app/",
     image: {
-      src: "/projects/madman-tattoo.png",
+      src: "/projects/madman-tattoo.jpg",
       alt: "Aperçu du site exemple tatoueur Madman Tattoo",
       width: 1618,
       height: 910,
