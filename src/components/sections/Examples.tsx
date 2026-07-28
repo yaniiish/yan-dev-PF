@@ -1,6 +1,8 @@
+import { ArrowRight } from "lucide-react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { METIERS_BASE } from "@/content/metiers";
 import { ExamplesCarousel, type Project } from "./ExamplesCarousel";
 
 const H2 = "Ce que ça donne, concrètement.";
@@ -110,14 +112,10 @@ export function Examples() {
         </FadeIn>
 
         <FadeIn className="mt-12 text-center">
-          <p className="text-sm text-ink-500">
-            Un besoin spécifique qui sort du cadre&nbsp;?
-          </p>
-          <div className="mt-4">
-            <Button href="#contact" variant="secondary" size="md">
-              Discutons-en
-            </Button>
-          </div>
+          <Button href={METIERS_BASE} variant="secondary" size="md">
+            Des exemples par métier
+            <ArrowRight size={18} aria-hidden="true" />
+          </Button>
         </FadeIn>
       </div>
     </section>
