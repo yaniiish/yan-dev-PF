@@ -505,6 +505,74 @@ export const METIERS: readonly Metier[] = [
     ctaText:
       "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
   },
+  {
+    slug: "brasserie-artisanale",
+    navLabel: "Brasserie artisanale",
+    serviceName: "Création de site internet pour brasserie artisanale",
+    metaTitle: "Création de site internet pour brasserie artisanale, dès 490 €",
+    metaDescription:
+      "Un site web moderne pour votre brasserie artisanale : gamme de bières, savoir-faire, points de vente et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.",
+    breadcrumbLabel: "Site internet pour brasserie artisanale",
+    h1: "Un site internet pour votre brasserie artisanale",
+    lead: "Votre bière se boit d'abord avec les yeux. Un site clair et soigné présente votre gamme, raconte votre savoir-faire et indique où vous trouver, tout en vous rendant visible sur Google quand on cherche une bière artisanale ou une brasserie dans la région. Dès 490 €.",
+    enjeuxTitle: "Pourquoi un site pour votre brasserie artisanale",
+    enjeux: [
+      {
+        title: "Être trouvé sur Google",
+        body: "Quand on cherche une bière artisanale ou une brasserie près de chez soi, un site bien référencé vous fait apparaître, avec votre gamme, vos points de vente et vos coordonnées.",
+      },
+      {
+        title: "Présenter votre gamme de bières",
+        body: "Blonde, ambrée, IPA, brassins de saison : chaque bière a sa fiche, son style, ses arômes et son degré. On donne envie de goûter avant même d'ouvrir la bouteille.",
+      },
+      {
+        title: "Raconter votre savoir-faire",
+        body: "Votre histoire, vos ingrédients, votre méthode de brassage et votre ancrage local : c'est ce qui distingue une bière artisanale d'une bière industrielle, et ce qui crée l'attachement.",
+      },
+      {
+        title: "Indiquer où vous déguster et acheter",
+        body: "Points de vente, bars partenaires, marchés, visites et dégustations à la brasserie : on met en avant tout ce qui aide vos clients à trouver vos bières.",
+      },
+    ],
+    examples: [
+      {
+        description:
+          "BeerBee, un site exemple pour brasserie artisanale à l'univers immersif, en ligne.",
+        href: "https://brasserie-beerbee.vercel.app/",
+        image: {
+          src: "/projects/brasserie-beerbee.jpg",
+          alt: "Aperçu du site exemple pour brasserie artisanale BeerBee",
+          width: 1618,
+          height: 910,
+        },
+      },
+    ],
+    faq: [
+      {
+        question: "Combien coûte un site pour une brasserie artisanale ?",
+        answer:
+          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+      },
+      {
+        question: "Puis-je présenter toute ma gamme de bières ?",
+        answer:
+          "Oui : une fiche par bière avec le style, les arômes, le degré et le format, et la possibilité d'ajouter vos brassins de saison au fil de l'année.",
+      },
+      {
+        question: "Peut-on indiquer mes points de vente et mes visites ?",
+        answer:
+          "Oui : liste de vos points de vente et bars partenaires, informations sur les visites et dégustations, et un formulaire ou un numéro cliquable pour vous contacter.",
+      },
+      {
+        question: "Je ne suis pas à Caen, c'est possible ?",
+        answer:
+          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+      },
+    ],
+    ctaTitle: "Envie d'un site pour votre brasserie ?",
+    ctaText:
+      "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
+  },
 ];
 
 export function getMetier(slug: string): Metier | undefined {
