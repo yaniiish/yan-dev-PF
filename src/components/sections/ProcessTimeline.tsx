@@ -158,7 +158,7 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
         </svg>
       ) : null}
 
-      <ol className="relative space-y-16 lg:space-y-44">
+      <ol className="relative space-y-14 lg:space-y-20">
         {steps.map((step, index) => (
           <Step
             key={step.number}
@@ -269,8 +269,8 @@ function Step({
         style={reduce ? undefined : { opacity, y: shift }}
         className={cn(
           isLeft
-            ? "lg:col-start-1 lg:row-start-1 lg:pr-48 lg:text-right"
-            : "lg:col-start-2 lg:row-start-1 lg:pl-48",
+            ? "lg:col-start-1 lg:row-start-1 lg:pr-64 lg:text-right"
+            : "lg:col-start-2 lg:row-start-1 lg:pl-64",
         )}
       >
         <p className="font-mono text-xs uppercase tracking-widest text-mint-700">
@@ -282,7 +282,7 @@ function Step({
         <p className="mt-3 font-semibold text-ink-950">{step.lead}</p>
         <p
           className={cn(
-            "mt-2 max-w-[34ch] leading-relaxed text-ink-500",
+            "mt-2 max-w-[30ch] leading-relaxed text-ink-500",
             isLeft && "lg:ml-auto",
           )}
         >

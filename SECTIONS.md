@@ -118,14 +118,15 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ### Layout
 - En-tête centré : `SectionLabel` + H2, `max-w-2xl mx-auto text-center`. Pas de lead, les étapes parlent d'elles-mêmes.
-- Liste en `max-w-6xl mx-auto`, étapes espacées de `space-y-16 lg:space-y-44`. L'espacement `lg` est généreux exprès, pour deux raisons : c'est là que le serpentin fait son renflement, hors des blocs de texte, et c'est ce qui étale les révélations sur assez de scroll pour qu'elles se succèdent au lieu de se déclencher ensemble sur un grand écran.
-- **Zigzag** : à partir de `lg`, `grid-cols-2`, étapes paires en colonne 1 alignées à droite (`lg:text-right lg:pr-24`), étapes impaires en colonne 2 (`lg:pl-24`). Sous `lg`, tout passe à droite du fil (`pl-14`).
+- Liste en `max-w-6xl mx-auto`, étapes espacées de `space-y-14 lg:space-y-20`. L'espacement `lg` arbitre entre deux besoins opposés : il faut de la hauteur pour que le serpentin fasse son renflement hors des blocs de texte et pour que les révélations se succèdent, mais pas trop sous peine d'allonger la section.
+- **Zigzag** : à partir de `lg`, `grid-cols-2`, étapes paires en colonne 1 alignées à droite (`lg:text-right lg:pr-64`), étapes impaires en colonne 2 (`lg:pl-64`). Sous `lg`, tout passe à droite du fil (`pl-14`).
 
 ### Le fil serpentin
 - **Tracé SVG mesuré, pas figé.** Un `ResizeObserver` mesure la position réelle de chaque étape dans le wrapper, et le chemin est reconstruit à partir de ces ancres. Il reste donc juste quelle que soit la longueur des textes et le format d'écran.
 - **Les ancres sont calées sur la bande libre entre les deux colonnes**, mesurée sur les bords réels du texte (boîte du bloc moins son padding : sans retrancher le padding, les deux bords se rejoignent au centre et la bande est nulle). Des pourcentages fixes ne tenaient pas : à 1024px la bande ne fait que 192px et le tracé passait par-dessus les textes.
 - Les points de contrôle des cubiques sont à l'aplomb de chaque ancre. Le tracé est donc **borné par les abscisses des ancres**, ce qui garantit géométriquement qu'il ne sort jamais de la bande.
-- Padding `lg:pr-48` / `lg:pl-48` sur un conteneur `max-w-6xl`, textes en `max-w-[34ch]` : c'est ce couple qui fixe la largeur de la bande, donc l'amplitude du serpentin. Mesurée à 356px sur un bloc de 1152px.
+- Padding `lg:pr-64` / `lg:pl-64` sur un conteneur `max-w-6xl`, textes en `max-w-[30ch]` : c'est ce couple qui fixe la largeur de la bande, donc l'amplitude du serpentin. Mesurée à **484px** sur un bloc de 1152px.
+- **Arbitrage largeur / hauteur** : élargir la bande rétrécit les colonnes de texte, donc les blocs s'allongent et la section grandit. Les valeurs actuelles sont le meilleur compromis mesuré (section 1481px, amplitude 484px), contre 1717px et 356px avant réglage.
 - En pile, toutes les ancres sont à 20px du bord et le même code produit un fil droit.
 - `viewBox` en pixels réels, donc pas de `preserveAspectRatio` déformant : les cercles restent ronds et l'épaisseur du trait est constante.
 - Le SVG est en `absolute inset-0 pointer-events-none`, sous le texte.
