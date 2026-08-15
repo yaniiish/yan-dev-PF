@@ -90,7 +90,7 @@ Séquence, stagger 0.09s : les deux lignes du H1 montent derrière un masque (`o
 - `<BGPattern variant="grid" mask="fade-edges" />` avec fill en `color-mix(in oklch, var(--color-ink-300) 50%, transparent)` pour rester subtil sous le texte. Validé Phase 1.2 contre FallingPattern.
 - Section en `relative flex items-center overflow-hidden`, hauteur `min-h-[calc(100svh-4rem)]` puis `md:min-h-[calc(100svh-5rem)]` : plein écran moins la navbar (`h-16` puis `md:h-20`), contenu centré verticalement.
 - **Padding bas plus grand que le padding haut** (`md:pt-16 md:pb-24`, `lg:pt-20 lg:pb-28`) : avec `items-center`, ça remonte le bloc au-dessus du centre géométrique, là où l'œil attend le centre optique.
-- **La card est étirée sur la hauteur de la colonne** (`lg:self-stretch` + `h-full flex flex-col` sur la Card), et la citation absorbe la hauteur restante (`grow items-center`). Sans ça la card faisait 342px face à une colonne de 472px et la moitié droite paraissait vide.
+- **La card garde sa hauteur naturelle.** Un essai d'étirement sur la hauteur de la colonne (`lg:self-stretch`) a été écarté : il creusait de grands vides au-dessus et en dessous de la citation. C'est la taille de la citation (`lg:text-2xl`) qui lui donne sa présence, sans espace mort à l'intérieur.
 - `svh` et non `dvh` : le `dvh` se recalcule quand la barre d'adresse mobile se rétracte, ce qui fait sauter la mise en page pendant le scroll.
 - `min-h` et non `h` : sur petit écran le contenu dépasse la hauteur d'écran, la section grandit au lieu de tronquer.
 

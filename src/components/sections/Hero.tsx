@@ -155,7 +155,7 @@ export function Hero() {
               variants={card}
               whileHover={reduce ? undefined : { rotate: 0 }}
               transition={{ duration: 0.5, ease: easings.out }}
-              className="mx-auto w-full max-w-md lg:col-span-5 lg:mx-0 lg:max-w-none lg:self-stretch"
+              className="mx-auto w-full max-w-md lg:col-span-5 lg:mx-0 lg:max-w-none"
             >
               <PresentationCard />
             </motion.div>
@@ -188,12 +188,7 @@ function MaskedLine({
 
 function PresentationCard() {
   return (
-    <Card
-      className={cn(
-        "flex h-full flex-col rounded-3xl p-6 md:p-8",
-        "shadow-lg shadow-ink-950/5",
-      )}
-    >
+    <Card className={cn("rounded-3xl p-6 md:p-8", "shadow-lg shadow-ink-950/5")}>
       {/* Disponibilite remontee sur la ligne du nom : "Yan" seul a cote de
           l'avatar laissait la moitie de la ligne vide. */}
       <div className="flex items-center justify-between gap-4">
@@ -228,10 +223,10 @@ function PresentationCard() {
         {PRESENT_ROLE}
       </p>
 
-      {/* La citation absorbe la hauteur restante quand la card est etiree sur
-          la colonne, pour que l'espace se repartisse au lieu de s'accumuler
-          en bas. */}
-      <blockquote className="mt-6 flex grow items-center font-serif text-lg leading-snug text-ink-950 md:mt-8 md:text-xl lg:text-2xl">
+      {/* La card garde sa hauteur naturelle : etiree sur la colonne, elle
+          creusait de grands vides au-dessus et en dessous de la citation.
+          C'est la taille de la citation qui lui donne sa presence. */}
+      <blockquote className="mt-6 font-serif text-lg leading-snug text-ink-950 md:mt-8 md:text-xl lg:text-2xl">
         «&nbsp;{PRESENT_PITCH}&nbsp;»
       </blockquote>
 
