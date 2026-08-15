@@ -74,7 +74,11 @@ export function Hero() {
     <>
       <section
         id="hero"
-        className="relative overflow-hidden py-10 md:pb-24 md:pt-24 lg:pb-28 lg:pt-24"
+        // Hauteur d'ecran moins la navbar (h-16 puis md:h-20), en svh et non
+        // dvh : le dvh se recalcule quand la barre d'adresse mobile se
+        // retracte, ce qui fait sauter la mise en page pendant le scroll.
+        // min-h et non h : si le contenu depasse, la section grandit.
+        className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden py-12 md:min-h-[calc(100svh-5rem)] md:py-20 lg:py-24"
       >
         <BGPattern
           variant="grid"

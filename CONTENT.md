@@ -82,7 +82,9 @@ Séquence, stagger 0.09s : les deux lignes du H1 montent derrière un masque (`o
 
 ### Background hero
 - `<BGPattern variant="grid" mask="fade-edges" />` avec fill en `color-mix(in oklch, var(--color-ink-300) 50%, transparent)` pour rester subtil sous le texte. Validé Phase 1.2 contre FallingPattern.
-- Section en `relative overflow-hidden min-h-[100svh]` (PC), contenu en `relative z-10` top-aligné avec un `pt` qui laisse respirer la navbar.
+- Section en `relative flex items-center overflow-hidden`, hauteur `min-h-[calc(100svh-4rem)]` puis `md:min-h-[calc(100svh-5rem)]` : plein écran moins la navbar (`h-16` puis `md:h-20`), contenu centré verticalement.
+- `svh` et non `dvh` : le `dvh` se recalcule quand la barre d'adresse mobile se rétracte, ce qui fait sauter la mise en page pendant le scroll.
+- `min-h` et non `h` : sur petit écran le contenu dépasse la hauteur d'écran, la section grandit au lieu de tronquer.
 
 ---
 
