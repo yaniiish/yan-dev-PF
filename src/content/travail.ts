@@ -118,8 +118,10 @@ export type Product = {
   status: "live" | "construction";
   statusLabel: string;
   description: string;
+  /** Absent quand il n'y a rien à visiter, par exemple un produit en chantier. */
   href?: string;
-  image?: {
+  /** Requis : la vitrine affiche toujours un visuel, capture ou logo. */
+  image: {
     src: string;
     alt: string;
     width: number;

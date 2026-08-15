@@ -86,7 +86,7 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 ## 3. MON TRAVAIL (`#travail`)
 
 > Remplace POURQUOI, SERVICES et EXEMPLES, supprimées lors du repositionnement.
-> Composants : `sections/Travail.tsx` (serveur) et `sections/WebsitesShowcase.tsx` (client).
+> Composants : `sections/Travail.tsx` (serveur) et `sections/WorkShowcase.tsx` (client, partagé par les deux colonnes).
 > Données : `content/travail.ts`.
 
 ### Layout
@@ -101,8 +101,9 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 - Bouton `Des exemples par métier` en `variant="secondary"`.
 
 ### Colonne droite
-- Une card par produit, autant de cards que de produits.
-- Card produit : visuel optionnel, titre serif, nature en mono mint, badge d'état à droite, description, lien externe souligné mint.
+- **Même vitrine que la colonne gauche** (`WorkShowcase`), avec deux vignettes au lieu de six : `grid-cols-2`.
+- La nature du produit prend la place de la catégorie du site, la description celle du secteur. Le badge d'état vient à côté de la nature, sur la même ligne.
+- Pas de pastille de lien quand le produit n'a pas d'URL, cas de BetaWall.
 
 ### Animation
 - `FadeIn y={24}` sur chaque colonne.
