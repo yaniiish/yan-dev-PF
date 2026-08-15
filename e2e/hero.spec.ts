@@ -74,7 +74,7 @@ for (const viewport of VIEWPORTS) {
       page,
     }) => {
       await gotoHero(page);
-      const measure = page.locator("#hero .max-w-\\[34rem\\]");
+      const measure = page.locator("#hero .max-w-\\[38rem\\]");
       const [lead, intro] = await Promise.all([
         measure.locator("> p").nth(0).boundingBox(),
         measure.locator("> p").nth(1).boundingBox(),

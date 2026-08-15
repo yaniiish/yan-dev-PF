@@ -9,9 +9,12 @@ import { durations, easings } from "@/lib/motion";
 import { useSiteLoaded } from "@/lib/useSiteLoaded";
 import { cn } from "@/lib/utils";
 
-const H1_LINE_1 = "Creative Developer, Website Creator";
-const H1_LINE_2_PRE = "&";
-const H1_LINE_2_ACCENT = "Product Builder";
+// Trois lignes explicites : le titre gagne en hauteur et en echelle sans
+// deborder de sa colonne, et la revelation ligne par ligne reste possible.
+const H1_LINE_1 = "Creative Developer,";
+const H1_LINE_2 = "Website Creator";
+const H1_LINE_3_PRE = "&";
+const H1_LINE_3_ACCENT = "Product Builder";
 
 const LEAD =
   "Sites web créatifs, sites vitrines plus simples et produits digitaux.";
@@ -96,35 +99,36 @@ export function Hero() {
               deux lignes ne tient pas dans une colonne 7/12. */}
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-8">
             <div className="lg:col-span-7">
-              <h1 className="font-serif text-[clamp(1.875rem,3.2vw+0.75rem,3.5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
+              <h1 className="font-serif text-[clamp(1.75rem,3.4vw+0.5rem,5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
                 <MaskedLine variants={line}>{H1_LINE_1}</MaskedLine>
+                <MaskedLine variants={line}>{H1_LINE_2}</MaskedLine>
                 <MaskedLine variants={line}>
-                  {H1_LINE_2_PRE}{" "}
+                  {H1_LINE_3_PRE}{" "}
                   <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
-                    {H1_LINE_2_ACCENT}
+                    {H1_LINE_3_ACCENT}
                   </span>
                 </MaskedLine>
               </h1>
               {/* Mesure unique pour les deux paragraphes : en max-w-*ch les
                   deux tailles de police donnaient deux bords droits differents,
                   ce qui lisait comme un decalage accidentel. */}
-              <div className="mt-8 max-w-[34rem]">
+              <div className="mt-8 max-w-[38rem] md:mt-10">
                 <motion.p
                   variants={rise}
-                  className="text-[clamp(1.125rem,0.5vw+1rem,1.25rem)] leading-relaxed text-ink-700"
+                  className="text-[clamp(1.125rem,0.6vw+0.9rem,1.5rem)] leading-relaxed text-ink-700"
                 >
                   {LEAD}
                 </motion.p>
                 <motion.p
                   variants={rise}
-                  className="mt-4 leading-relaxed text-ink-500"
+                  className="mt-4 text-[clamp(1rem,0.2vw+0.95rem,1.125rem)] leading-relaxed text-ink-500"
                 >
                   {INTRO}
                 </motion.p>
               </div>
               <motion.div
                 variants={rise}
-                className="mt-8 flex flex-col gap-3 sm:flex-row"
+                className="mt-8 flex flex-col gap-3 sm:flex-row md:mt-10"
               >
                 <Button href="#exemples" size="lg">
                   {CTA_PRIMARY}
@@ -172,7 +176,7 @@ function MaskedLine({
 
 function PresentationCard() {
   return (
-    <Card className={cn("rounded-3xl p-6 md:p-7", "shadow-lg shadow-ink-950/5")}>
+    <Card className={cn("rounded-3xl p-6 md:p-8", "shadow-lg shadow-ink-950/5")}>
       {/* Disponibilite remontee sur la ligne du nom : "Yan" seul a cote de
           l'avatar laissait la moitie de la ligne vide. */}
       <div className="flex items-center justify-between gap-4">
@@ -201,11 +205,13 @@ function PresentationCard() {
 
       {/* Le role occupe toute la largeur de la card : coince a cote de
           l'avatar, il passait sur 2 a 3 lignes selon le viewport. */}
-      <p className="mt-3 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-mint-700 sm:text-[0.7rem] sm:tracking-widest">
+      {/* Variante large seulement a partir de xl : c'est a 1024px que la card
+          est la plus etroite (5 colonnes d'un petit container). */}
+      <p className="mt-3 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-mint-700 xl:text-[0.7rem] xl:tracking-widest">
         {PRESENT_ROLE}
       </p>
 
-      <blockquote className="mt-6 font-serif text-lg leading-snug text-ink-950">
+      <blockquote className="mt-6 font-serif text-lg leading-snug text-ink-950 md:mt-8 md:text-xl">
         «&nbsp;{PRESENT_PITCH}&nbsp;»
       </blockquote>
 

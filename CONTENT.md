@@ -39,8 +39,8 @@
 
 **Traitement typo (verrouillé) :**
 - Police : `font-serif` (Instrument Serif), `font-medium`, `tracking-tight`, `leading-[1.05]`, couleur `text-ink-950`.
-- Échelle réduite par rapport à l'ancien H1 : `clamp(1.875rem,3.2vw+0.75rem,3.5rem)`. Le titre fait 7 mots, l'échelle display-1 le poussait à 3 lignes en desktop. À cette échelle il tient en 2 lignes en desktop comme en mobile.
-- **Deux lignes explicites** en desktop, pour permettre la révélation ligne par ligne : `Creative Developer, Website Creator` puis `& Product Builder`.
+- Échelle : `clamp(1.75rem,3.4vw+0.5rem,5rem)`.
+- **Trois lignes explicites** : `Creative Developer,` / `Website Creator` / `& Product Builder`. Découpage retenu pour occuper l'espace : en deux lignes le titre était plafonné à 3.5rem (au-delà il débordait de sa colonne), et le hero pleine hauteur laissait 297px de bande vide en haut et en bas sur un écran de 1080px. En trois lignes courtes le titre monte à 5rem sans déborder et le bloc de contenu passe de 406 à 566px.
 - **La partie "Product Builder" est soulignée en mint.**
 - **Pas d'italique** nulle part dans le H1.
 - Grille 2 colonnes `lg:grid-cols-12` : colonne gauche 7/12 (H1, lead, paragraphe, CTA), colonne droite 5/12 (card), `lg:items-center` pour que la card soit centrée sur tout le bloc texte. Le split ne s'active qu'à partir de `lg` : en dessous, le H1 sur deux lignes ne tient pas dans 7 colonnes et tout passe en pile.
@@ -48,7 +48,7 @@
 ### Sous-titre (lead)
 > Sites web créatifs, sites vitrines plus simples et produits digitaux.
 
-Le lead et le paragraphe d'introduction partagent un **wrapper `max-w-[34rem]`** : en `max-w-*ch` leurs deux tailles de police donnaient deux bords droits différents (28px d'écart), ce qui lisait comme un décalage accidentel. Rythme vertical du bloc gauche : 32px entre le H1 et le lead, 16px entre le lead et le paragraphe (ils forment un groupe), 32px avant les CTA.
+Le lead et le paragraphe d'introduction partagent un **wrapper `max-w-[38rem]`** : en `max-w-*ch` leurs deux tailles de police donnaient deux bords droits différents (28px d'écart), ce qui lisait comme un décalage accidentel. Rythme vertical du bloc gauche : 40px entre le H1 et le lead, 16px entre le lead et le paragraphe (ils forment un groupe), 40px avant les CTA.
 
 ### Paragraphe d'introduction
 
