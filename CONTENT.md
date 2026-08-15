@@ -33,46 +33,52 @@
 
 > **Note** : pas de `SectionLabel` numéroté en haut du Hero (décision Phase 1.4a — pas pertinent en première section). Les autres sections gardent leur SectionLabel.
 
-### Phrase d'accroche (H1) — VALIDÉE Phase 1.4a
+### Phrase d'accroche (H1) — VALIDÉE Phase 4 (repositionnement)
 
-> Un site web clair, moderne et rapide.
+> Creative Developer, Website Creator & Product Builder
 
 **Traitement typo (verrouillé) :**
-- Police : `font-serif` (Instrument Serif), display-1, `font-medium`, `tracking-tight`, `leading-[1.05]`, couleur `text-ink-950`.
-- **La partie "moderne et rapide." est soulignée en mint** pour donner du caractère à la phrase d'accroche.
+- Police : `font-serif` (Instrument Serif), `font-medium`, `tracking-tight`, `leading-[1.05]`, couleur `text-ink-950`.
+- Échelle réduite par rapport à l'ancien H1 : `clamp(2.25rem,4vw+1rem,4.5rem)`. Le titre fait 7 mots, l'échelle display-1 le poussait à 3 lignes en desktop.
+- **Deux lignes explicites** en desktop, pour permettre la révélation ligne par ligne : `Creative Developer, Website Creator` puis `& Product Builder`.
+- **La partie "Product Builder" est soulignée en mint.**
 - **Pas d'italique** nulle part dans le H1.
-- Implémentation : wrapper la fin du H1 dans un `<span>` avec `underline decoration-mint-500 decoration-[3px] underline-offset-[6px]` (decoration solide, pas wavy).
-- Pas de couleur sur le texte lui-même : reste `text-ink-950`. Seul le soulignement est mint.
-
-```tsx
-<h1 className="font-serif text-[clamp(2.5rem,5vw+1rem,5.5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
-  Un site web clair,{" "}
-  <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
-    moderne et rapide.
-  </span>
-</h1>
-```
+- Le H1 occupe toute la largeur du container, la card passe sur la ligne suivante à droite.
 
 ### Sous-titre (lead)
-> Je crée des sites vitrines modernes et rapides pour artisans, commerçants et indépendants — du site classique au site plus premium. Un site qui inspire confiance et vous rend visible sur Google.
+> Sites web créatifs, sites vitrines plus simples et produits digitaux.
+
+### Paragraphe d'introduction (bloc sous le hero)
+
+Volontairement **hors du hero** : le hero ne garde que titre, lead et CTA. Bloc en filet mint à gauche (`border-l border-mint-500 pl-6`), largeur `max-w-[62ch]`.
+
+> Du site vitrine simple à l'expérience web plus créative, jusqu'au produit digital complet. Je conçois chaque projet selon ses besoins, ses ambitions et son budget, sans jamais sacrifier la qualité.
 
 ### CTAs
 
-- **Primaire :** `Discuter de mon projet` → `#contact`
-- **Secondaire :** `Voir mes tarifs` → `#tarifs`
+- **Primaire :** `Voir mes projets` → `#exemples`
+- **Secondaire :** `Discuter d'un projet` → `#contact`
+
+> À aligner : la Navbar et le Footer affichent encore `Discuter de mon projet`. Deux libellés pour la même intention.
 
 ### Card de présentation (à droite du hero)
 
 - **Avatar :** image fournie (`/public/avatar/avatar-yan.JPG`), **rond** (`rounded-full`), petite taille (~56px) à gauche du bloc nom+rôle.
 - **Nom :** `Yan` (font-serif, ~xl)
-- **Rôle :** `DÉVELOPPEUR · INDÉPENDANT` en mono mint uppercase tracking-widest (style cohérent avec les SectionLabel).
+- **Rôle :** `CREATIVE DEVELOPER · PRODUCT BUILDER` en mono mint uppercase tracking-widest (style cohérent avec les SectionLabel).
 - **Citation entre guillemets français `«&nbsp;»`, font-serif :**
-  > Passionné d'informatique depuis toujours, je serai ravi de mettre mes compétences à votre service.
+  > J'aime transformer une idée en quelque chose de concret, qu'il s'agisse d'un simple site vitrine ou d'un produit digital complet.
 - **Sous-tagline (sous la citation, plus discrète) :**
   > Je travaille en direct, sans intermédiaire.
 - **Indicateur de disponibilité (en bas, séparé par une fine bordure) :** point mint pulsant (`animate-ping`) + texte `Disponible actuellement`.
 - **Plus de chips Next.js / SEO local / Réponse sous 24h** (trop technique pour la cible).
-- **Comportement :** la card est légèrement inclinée (`-rotate-[3deg]`) et se redresse au hover (`hover:rotate-0`, transition 500ms ease-out).
+- **Comportement :** la card arrive inclinée à `-8deg` puis se pose à `-3deg`, et se redresse au hover (`whileHover rotate: 0`, 500ms ease-out). La rotation est pilotée par Motion, pas par une classe CSS, pour ne pas entrer en conflit avec l'animation d'entrée.
+
+### Animations d'entrée du hero
+
+Déclenchées par la sortie de l'écran de chargement (hook `useSiteLoaded`), pas au scroll : en `whileInView` elles se jouaient derrière l'overlay et personne ne les voyait.
+
+Séquence, stagger 0.09s : les deux lignes du H1 montent derrière un masque (`overflow-hidden`, translation Y 110% → 0), puis le lead, puis les CTA, puis la card. `useReducedMotion` dégrade tout en simple fondu.
 
 ### Background hero
 - `<BGPattern variant="grid" mask="fade-edges" />` avec fill en `color-mix(in oklch, var(--color-ink-300) 50%, transparent)` pour rester subtil sous le texte. Validé Phase 1.2 contre FallingPattern.
