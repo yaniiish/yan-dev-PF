@@ -211,7 +211,8 @@ Deux composants livrés : **grid background** (fond blanc/noir, masqué en `fade
 - **Hero** : `<BGPattern variant="grid" mask="fade-edges" />` (fill par défaut `var(--color-ink-300)`, size 24px). Validé visuellement contre FallingPattern, le grid donne un cadre plus calme et lisible. Le contenu Hero doit être en `relative z-10` au-dessus.
 - **Section "Pourquoi" / "Services" / "Exemples" / "Contact"** : **pas de background décoratif par défaut.** On tranche section par section pendant le dev : si une section paraît trop nue à côté du Hero ou des Tarifs, ajouter un BGPattern subtil (`dots`, `diagonal-stripes`, etc.). **Ne pas réutiliser `grid` sur ces sections** — risque de répliquer le Hero et de brouiller le rythme.
 - **Section "Tarifs"** : fond plein `bg-ink-950` avec texte clair pour casser le rythme. (à valider, optionnel)
-- **Règle d'alternance** : ne pas mettre deux backgrounds décoratifs sur deux sections consécutives. La séquence type est Hero (grid) → Pourquoi (neutre) → Services (neutre) → Exemples (neutre) → Tarifs (dark) → Contact (neutre).
+- **Règle d'alternance** : ne pas mettre deux backgrounds décoratifs sur deux sections consécutives.
+- **Séquence en vigueur depuis le repositionnement** : Hero (`grid`, `fade-edges`) → Mon travail (aplat `bg-card`, neutre) → Comment ça marche (`dots`, `fade-y`, size 28) → Tarifs → Contact (neutre). Les deux fonds décoratifs sont bien séparés par un aplat, et `dots` ne répète pas le `grid` du hero.
 
 **`FallingPattern` : conservé en réserve.** Pas utilisé au MVP suite à la décision Phase 1.2. Le composant reste disponible dans `src/components/backgrounds/` pour un usage futur (Phase 2 ou itération design). Le retirer pour de bon nécessiterait l'aval de Yan.
 

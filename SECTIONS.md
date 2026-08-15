@@ -111,7 +111,27 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ---
 
-## 6. TARIFS (`#tarifs`)
+## 4. COMMENT ÇA MARCHE (`#processus`)
+
+> Composants : `sections/Processus.tsx` (serveur) et `sections/ProcessTimeline.tsx` (client).
+> Données : `content/processus.ts`.
+
+### Layout
+- En-tête centré : `SectionLabel` + H2, `max-w-2xl mx-auto text-center`. Pas de lead, les étapes parlent d'elles-mêmes.
+- Liste en `max-w-5xl mx-auto`, étapes espacées de `space-y-14 lg:space-y-20`.
+- **Rail vertical** : `absolute inset-y-0 left-5 w-px` en pile, `lg:left-1/2` en zigzag.
+- **Zigzag** : à partir de `lg`, `grid-cols-2`, étapes paires en colonne 1 alignées à droite (`lg:text-right lg:pr-16`), étapes impaires en colonne 2 (`lg:pl-16`). Sous `lg`, tout passe à droite du rail (`pl-14`).
+- Point d'étape : cercle de 14px sur le rail, bordure `ink-300`, pastille mint à l'intérieur.
+
+### Animation
+- **Le fil se remplit au scroll** : `useScroll({ target, offset: ["start 0.8", "end 0.8"] })` pilote le `scaleY` d'un calque mint en `origin-top` par-dessus le rail gris. Motivé : le remplissage raconte l'avancement du projet, qui est le sujet de la section.
+- **Les points s'allument à leur tour** : `useTransform` sur le même progrès, seuil `(index + 0.7) / total`. Calé sur `index / (total - 1)`, le dernier point ne s'allumait qu'au pixel exact de fin de course.
+- Jamais d'écouteur `scroll` : il se déclenche à chaque frame et fait re-rendre tout l'arbre React.
+- `useReducedMotion` : le fil est rendu plein et les points allumés, sans liaison au scroll.
+
+---
+
+## 5. TARIFS (`#tarifs`)
 
 ### Layout
 - `SectionLabel` + H2 + lead.
@@ -140,7 +160,7 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ---
 
-## 7. CONTACT (`#contact`)
+## 6. CONTACT (`#contact`)
 
 ### Layout
 - 2 colonnes desktop (`grid-cols-1 lg:grid-cols-2 gap-12`).
@@ -164,7 +184,7 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ---
 
-## 8. FOOTER
+## 7. FOOTER
 
 ### Layout
 - Background `bg-ink-950 text-ink-50`.
@@ -179,16 +199,15 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ---
 
-## 9. Ordre de rendu dans `page.tsx`
+## 8. Ordre de rendu dans `page.tsx`
 
 ```tsx
 <>
   <Navbar />
   <main id="main">
     <Hero />
-    <Why />
-    <Services />
-    <Examples />
+    <Travail />
+    <Processus />
     <Pricing />
     <Contact />
   </main>
@@ -198,7 +217,7 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ---
 
-## 10. Responsive — référence complète
+## 9. Responsive — référence complète
 
 > Le responsive n'est PAS une finition. Chaque section doit être pensée mobile d'abord, puis enrichie sur les tailles supérieures. Toute section livrée doit cocher la checklist en bas de cette page.
 

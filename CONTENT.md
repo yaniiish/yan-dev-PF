@@ -147,7 +147,50 @@ Fond `bg-card` comme l'ancienne section Exemples. L'inspiration fournie par Yan 
 
 ---
 
-## 7. Section TARIFS
+## 5. Section COMMENT ÇA MARCHE
+
+### Identifiant
+`#processus`. Placée entre « Mon travail » et « Tarifs » : elle explique le déroulé juste avant qu'on parle prix.
+
+### Label
+> / Comment ça marche
+
+### Titre (H2)
+> Un process de travail simple et transparent.
+
+> Point final ajouté pour rester cohérent avec les autres H2 de la page (`Ce que je construis.`). Le reste du wording est celui fourni par Yan, au mot près.
+
+### Les quatre étapes
+
+Chaque étape a un numéro en mono mint, un titre en serif, une phrase d'accroche en gras et un corps de texte.
+
+**01 · On échange**
+> **Vous me présentez votre projet, vos besoins et vos contraintes.**
+> On échange sur vos objectifs, vos envies, votre budget et le niveau d'ambition du projet.
+
+**02 · Je vous propose une direction**
+> **Je vous montre ce que je peux imaginer pour votre projet.**
+> Selon le besoin, je prépare une première direction, une petite maquette ou un aperçu visuel pour que vous puissiez vous projeter avant d'aller plus loin.
+
+**03 · On valide et je construis**
+> **La direction vous convient ? On lance réellement le projet.**
+> On valide le périmètre et le tarif, vous versez un acompte de **30 %**, puis je développe une version plus complète en intégrant vos retours au fil de l'avancement.
+
+**04 · Validation et mise en ligne**
+> **Tout est prêt et validé.**
+> Une fois les derniers ajustements terminés, le solde est réglé et je m'occupe de la mise en ligne du projet.
+
+Le `30 %` est le seul fragment mis en avant dans un corps de texte. Il est stocké dans un champ `emphasis` à part plutôt qu'en balisage dans la chaîne, pour que le contenu reste du texte.
+
+Le numéro et le titre sont deux éléments distincts, sans tiret entre les deux : le tiret cadratin de la copie d'origine (`01 — On échange`) est proscrit.
+
+### Fond
+
+`BGPattern variant="dots" mask="fade-y"`. La section précédente est en aplat blanc, celle-ci relance le rythme sans répéter le grid du hero. Respecte la règle d'alternance de `DESIGN_SYSTEM.md` §6.1 : jamais deux fonds décoratifs sur deux sections consécutives.
+
+---
+
+## 6. Section TARIFS
 
 ### Identifiant
 `05 — Tarifs`
@@ -207,7 +250,7 @@ Fond `bg-card` comme l'ancienne section Exemples. L'inspiration fournie par Yan 
 
 ---
 
-## 8. Section CONTACT
+## 7. Section CONTACT
 
 ### Identifiant
 `06 — Contact`
@@ -246,7 +289,7 @@ Sous le formulaire :
 
 ---
 
-## 9. Footer (bannière de fin)
+## 8. Footer (bannière de fin)
 
 - **Colonne gauche :** `Yan-dev` (mark) + petite phrase `Studio web freelance — basé à Caen, à votre service partout en France.`
 - **Colonne milieu :** liens internes (mêmes que navbar).
@@ -257,7 +300,7 @@ Sous le formulaire :
 
 ---
 
-## 10. Microcopy divers
+## 9. Microcopy divers
 
 - **404 :** `Cette page n'existe pas ou n'existe plus.` + CTA `Retour à l'accueil`.
 - **Submit form, erreur réseau :** `Connexion impossible. Réessayez dans un instant.`
@@ -266,7 +309,7 @@ Sous le formulaire :
 
 ---
 
-## 11. Items à valider absolument avant prod
+## 10. Items à valider absolument avant prod
 
 - [ ] Nom de domaine
 - [ ] Page mentions légales (texte fourni par Yan)
@@ -274,7 +317,7 @@ Sous le formulaire :
 
 ---
 
-## 12. Page `/prix-site-vitrine` (V2 SEO, page d'intention)
+## 11. Page `/prix-site-vitrine` (V2 SEO, page d'intention)
 
 > Page dédiée ciblant les requêtes `prix site vitrine` / `site vitrine pas cher` / `tarif site internet`. Source unique du contenu : `src/content/pricing.ts`. Réutilise les tarifs validés de la section Tarifs (cartes, footnote). Décisions Yan (2026-06) : **pas de délai de livraison annoncé**, **pas de mention de propriété du site**.
 
@@ -310,7 +353,7 @@ Réutilise les deux cartes validées (`Site vitrine` 490 € + 30 €/mois ; `Si
 
 ---
 
-## 13. Pages métier `/site-internet/[metier]` (V2 SEO, longue traîne)
+## 12. Pages métier `/site-internet/[metier]` (V2 SEO, longue traîne)
 
 > Pages data-driven (source unique : `src/content/metiers.ts`), une entrée = une page. Cible : `site internet [métier]`. Template partagé : en-tête, enjeux, exemple en ligne, rappel tarif, FAQ, liens connexes, CTA. Schema `Service` + `FAQPage` + `BreadcrumbList`. Libellés de structure communs dans `METIER_LABELS` (`Pourquoi`, `Exemple`, `Tarif`, `FAQ`, `À voir aussi`, etc.). Priorité : coffee shop, puis restaurant.
 
@@ -408,7 +451,7 @@ Cible `site internet bistrot` et `brasserie`. Angle de différenciation vs resta
 
 ---
 
-## 14. Page index métiers `/site-internet` (landing « tous métiers »)
+## 13. Page index métiers `/site-internet` (landing « tous métiers »)
 
 > Landing SEO large (cible `site internet commerçant / artisan`) + hub des pages métier. Source : `METIERS_PAGE` dans `src/content/metiers.ts`. Le fil d'ariane des pages métier passe à 3 niveaux (`Accueil › Sites internet par métier › métier`).
 
