@@ -98,8 +98,8 @@ export function Hero() {
             </MaskedLine>
           </h1>
 
-          <div className="mt-8 grid grid-cols-1 gap-10 md:mt-10 md:grid-cols-12 md:items-start md:gap-8">
-            <div className="md:col-span-6 md:pt-2 lg:col-span-7">
+          <div className="mt-8 grid grid-cols-1 gap-10 md:mt-10 md:grid-cols-12 md:items-center md:gap-8">
+            <div className="md:col-span-6 lg:col-span-7">
               <motion.p
                 variants={rise}
                 className="max-w-[46ch] text-[clamp(1.125rem,0.5vw+1rem,1.25rem)] leading-relaxed text-ink-700"
