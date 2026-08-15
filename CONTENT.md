@@ -39,8 +39,11 @@
 
 **Traitement typo (verrouillé) :**
 - Police : `font-serif` (Instrument Serif), `font-medium`, `tracking-tight`, `leading-[1.05]`, couleur `text-ink-950`.
-- Échelle : `clamp(1.75rem,3.4vw+0.5rem,5rem)`.
-- **Trois lignes explicites** : `Creative Developer,` / `Website Creator` / `& Product Builder`. Découpage retenu pour occuper l'espace : en deux lignes le titre était plafonné à 3.5rem (au-delà il débordait de sa colonne), et le hero pleine hauteur laissait 297px de bande vide en haut et en bas sur un écran de 1080px. En trois lignes courtes le titre monte à 5rem sans déborder et le bloc de contenu passe de 406 à 566px.
+- **Deux lignes explicites** : `Creative Developer,` puis `Website Creator & Product Builder`. Découpage choisi pour équilibrer : la ligne la plus longue fait 33 caractères au lieu de 35 avec le découpage inverse, ce qui laisse monter l'échelle.
+- Échelle en **`text-[8.5cqw]`**, pas en `clamp` de `vw` : la colonne gauche porte `@container`, donc le titre garde toujours la même proportion de sa colonne quel que soit le format. Le coefficient est calé sur la ligne la plus longue, marge de sécurité comprise. Chaque ligne est en `whitespace-nowrap`, donc un coefficient trop grand ferait déborder au lieu de replier : un test e2e vérifie la marge restante sur chaque ligne à 5 formats.
+- Donne 56px en desktop et 29px à 390px.
+
+> Une version en **une seule ligne** a été essayée puis écartée : à 52 caractères elle tombait à 19px sur mobile, soit la taille du lead, et le titre ne se lisait plus comme un titre.
 - **La partie "Product Builder" est soulignée en mint.**
 - **Pas d'italique** nulle part dans le H1.
 - Grille 2 colonnes `lg:grid-cols-12` : colonne gauche 7/12 (H1, lead, paragraphe, CTA), colonne droite 5/12 (card), `lg:items-center` pour que la card soit centrée sur tout le bloc texte. Le split ne s'active qu'à partir de `lg` : en dessous, le H1 sur deux lignes ne tient pas dans 7 colonnes et tout passe en pile.

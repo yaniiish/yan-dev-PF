@@ -9,12 +9,11 @@ import { durations, easings } from "@/lib/motion";
 import { useSiteLoaded } from "@/lib/useSiteLoaded";
 import { cn } from "@/lib/utils";
 
-// Trois lignes explicites : le titre gagne en hauteur et en echelle sans
-// deborder de sa colonne, et la revelation ligne par ligne reste possible.
+// Decoupage en deux lignes choisi pour equilibrer : la ligne la plus longue
+// fait 33 caracteres au lieu de 35, ce qui laisse monter l'echelle du titre.
 const H1_LINE_1 = "Creative Developer,";
-const H1_LINE_2 = "Website Creator";
-const H1_LINE_3_PRE = "&";
-const H1_LINE_3_ACCENT = "Product Builder";
+const H1_LINE_2_PRE = "Website Creator &";
+const H1_LINE_2_ACCENT = "Product Builder";
 
 const LEAD =
   "Sites web créatifs, sites vitrines plus simples et produits digitaux.";
@@ -98,14 +97,22 @@ export function Hero() {
           {/* Le split ne s'active qu'a partir de lg : en dessous, le H1 sur
               deux lignes ne tient pas dans une colonne 7/12. */}
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-8">
-            <div className="lg:col-span-7">
-              <h1 className="font-serif text-[clamp(1.75rem,3.4vw+0.5rem,5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
-                <MaskedLine variants={line}>{H1_LINE_1}</MaskedLine>
-                <MaskedLine variants={line}>{H1_LINE_2}</MaskedLine>
+            <div className="@container lg:col-span-7">
+              {/* Taille exprimee en cqw, donc proportionnelle a la largeur de
+                  la colonne : le titre occupe toujours la meme part de la
+                  colonne, quel que soit le format. Le coefficient est cale sur
+                  la ligne la plus longue avec une marge de securite, puisque
+                  whitespace-nowrap ferait deborder au lieu de replier. */}
+              <h1 className="font-serif text-[8.5cqw] font-medium leading-[1.05] tracking-tight text-ink-950">
                 <MaskedLine variants={line}>
-                  {H1_LINE_3_PRE}{" "}
-                  <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
-                    {H1_LINE_3_ACCENT}
+                  <span className="whitespace-nowrap">{H1_LINE_1}</span>
+                </MaskedLine>
+                <MaskedLine variants={line}>
+                  <span className="whitespace-nowrap">
+                    {H1_LINE_2_PRE}{" "}
+                    <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
+                      {H1_LINE_2_ACCENT}
+                    </span>
                   </span>
                 </MaskedLine>
               </h1>

@@ -50,6 +50,27 @@ for (const viewport of VIEWPORTS) {
       expect(await countRenderedLines(role)).toBe(1);
     });
 
+    test("aucune ligne du titre ne deborde de sa colonne", async ({ page }) => {
+      await gotoHero(page);
+      // La taille du titre est en cqw et chaque ligne est en nowrap : si le
+      // coefficient est trop grand, le texte sort de la colonne au lieu de se
+      // replier. On verifie la marge restante sur chaque ligne.
+      const margins = await page
+        .locator("#hero h1")
+        .evaluate((el) =>
+          Array.from(el.querySelectorAll("span.whitespace-nowrap")).map(
+            (span) => {
+              const mask = span.closest("span.block") ?? span.parentElement!;
+              return mask.clientWidth - span.getBoundingClientRect().width;
+            },
+          ),
+        );
+      expect(margins).toHaveLength(2);
+      for (const margin of margins) {
+        expect(margin).toBeGreaterThan(0);
+      }
+    });
+
     test("les libelles de CTA ne se cassent pas", async ({ page }) => {
       await gotoHero(page);
       for (const href of ["#exemples", "#contact"]) {
