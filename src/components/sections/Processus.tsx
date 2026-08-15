@@ -31,7 +31,7 @@ export function Processus() {
           </div>
         </FadeIn>
 
-        <div className="mx-auto mt-14 max-w-5xl lg:mt-20">
+        <div className="mx-auto mt-14 max-w-6xl lg:mt-20">
           <ProcessTimeline steps={PROCESS_STEPS} />
         </div>
       </div>

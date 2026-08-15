@@ -158,7 +158,7 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
         </svg>
       ) : null}
 
-      <ol className="relative space-y-16 lg:space-y-32">
+      <ol className="relative space-y-16 lg:space-y-44">
         {steps.map((step, index) => (
           <Step
             key={step.number}
@@ -253,13 +253,13 @@ function Step({
   reduce: boolean;
 }) {
   // Le texte se révèle juste avant que le fil n'atteigne son ancre : la
-  // lecture suit le tracé au lieu de le précéder.
-  const range: [number, number] = [
-    Math.max(threshold - 0.16, 0),
-    Math.max(threshold - 0.02, 0.01),
-  ];
+  // lecture suit le tracé au lieu de le précéder. Le plancher évite que la
+  // première étape, dont l'ancre est tout en haut, apparaisse d'un bloc dès
+  // le premier pixel de course.
+  const anchor = Math.max(threshold, 0.1);
+  const range: [number, number] = [Math.max(anchor - 0.12, 0), anchor];
   const opacity = useTransform(progress, range, [0, 1]);
-  const shift = useTransform(progress, range, [24, 0]);
+  const shift = useTransform(progress, range, [32, 0]);
 
   const isLeft = index % 2 === 0;
 
@@ -269,8 +269,8 @@ function Step({
         style={reduce ? undefined : { opacity, y: shift }}
         className={cn(
           isLeft
-            ? "lg:col-start-1 lg:row-start-1 lg:pr-32 lg:text-right"
-            : "lg:col-start-2 lg:row-start-1 lg:pl-32",
+            ? "lg:col-start-1 lg:row-start-1 lg:pr-48 lg:text-right"
+            : "lg:col-start-2 lg:row-start-1 lg:pl-48",
         )}
       >
         <p className="font-mono text-xs uppercase tracking-widest text-mint-700">
@@ -282,7 +282,7 @@ function Step({
         <p className="mt-3 font-semibold text-ink-950">{step.lead}</p>
         <p
           className={cn(
-            "mt-2 max-w-[42ch] leading-relaxed text-ink-500",
+            "mt-2 max-w-[34ch] leading-relaxed text-ink-500",
             isLeft && "lg:ml-auto",
           )}
         >
