@@ -5,7 +5,11 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { BGPattern } from "@/components/backgrounds/BGPattern";
 import { easings } from "@/lib/motion";
 
-/** Durée plancher : évite un flash de 80ms quand la page est déjà en cache. */
+/**
+ * Durée plancher : évite un flash de 80ms quand la page est déjà en cache.
+ * Doit rester alignée sur `--loader-intro` (globals.css) pour que le tracé du
+ * logo et la barre finissent au moment exact où l'écran sort.
+ */
 const MIN_DURATION_MS = 1000;
 /** Filet de sécurité : on ne bloque jamais l'écran plus longtemps que ça. */
 const MAX_DURATION_MS = 2200;
@@ -116,8 +120,9 @@ export function SiteLoader() {
                     cy={27}
                     r={3.1}
                     fill="currentColor"
-                    // Délai calculé par index : décalage en cascade des trois points.
-                    style={{ animationDelay: `${0.45 + index * 0.08}s` }}
+                    // Délai calculé par index : cascade des trois points,
+                    // terminée avant la fin du tracé du cadre.
+                    style={{ animationDelay: `${0.4 + index * 0.08}s` }}
                   />
                 ))}
 
