@@ -88,21 +88,22 @@ export function Hero() {
           initial={false}
           animate={isLoaded ? "show" : "hidden"}
         >
-          <h1 className="font-serif text-[clamp(1.875rem,3.2vw+0.75rem,3.5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
-            <MaskedLine variants={line}>{H1_LINE_1}</MaskedLine>
-            <MaskedLine variants={line}>
-              {H1_LINE_2_PRE}{" "}
-              <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
-                {H1_LINE_2_ACCENT}
-              </span>
-            </MaskedLine>
-          </h1>
-
-          <div className="mt-8 grid grid-cols-1 gap-10 md:mt-10 md:grid-cols-12 md:items-center md:gap-8">
-            <div className="md:col-span-6 lg:col-span-7">
+          {/* Le split ne s'active qu'a partir de lg : en dessous, le H1 sur
+              deux lignes ne tient pas dans une colonne 7/12. */}
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-8">
+            <div className="lg:col-span-7">
+              <h1 className="font-serif text-[clamp(1.875rem,3.2vw+0.75rem,3.5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
+                <MaskedLine variants={line}>{H1_LINE_1}</MaskedLine>
+                <MaskedLine variants={line}>
+                  {H1_LINE_2_PRE}{" "}
+                  <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
+                    {H1_LINE_2_ACCENT}
+                  </span>
+                </MaskedLine>
+              </h1>
               <motion.p
                 variants={rise}
-                className="max-w-[46ch] text-[clamp(1.125rem,0.5vw+1rem,1.25rem)] leading-relaxed text-ink-700"
+                className="mt-8 max-w-[46ch] text-[clamp(1.125rem,0.5vw+1rem,1.25rem)] leading-relaxed text-ink-700"
               >
                 {LEAD}
               </motion.p>
@@ -129,7 +130,7 @@ export function Hero() {
               variants={card}
               whileHover={reduce ? undefined : { rotate: 0 }}
               transition={{ duration: 0.5, ease: easings.out }}
-              className="md:col-span-6 lg:col-span-5"
+              className="lg:col-span-5"
             >
               <PresentationCard />
             </motion.div>

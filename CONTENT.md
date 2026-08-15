@@ -43,7 +43,7 @@
 - **Deux lignes explicites** en desktop, pour permettre la révélation ligne par ligne : `Creative Developer, Website Creator` puis `& Product Builder`.
 - **La partie "Product Builder" est soulignée en mint.**
 - **Pas d'italique** nulle part dans le H1.
-- Le H1 occupe toute la largeur du container, la card passe sur la ligne suivante à droite.
+- Grille 2 colonnes `lg:grid-cols-12` : colonne gauche 7/12 (H1, lead, paragraphe, CTA), colonne droite 5/12 (card), `lg:items-center` pour que la card soit centrée sur tout le bloc texte. Le split ne s'active qu'à partir de `lg` : en dessous, le H1 sur deux lignes ne tient pas dans 7 colonnes et tout passe en pile.
 
 ### Sous-titre (lead)
 > Sites web créatifs, sites vitrines plus simples et produits digitaux.
