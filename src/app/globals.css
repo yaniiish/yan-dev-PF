@@ -67,6 +67,89 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ----------------------------------------------------------------------------
+   Écran de chargement (SiteLoader)
+
+   Les animations d'entrée sont en CSS pur, pas en Motion : elles doivent jouer
+   dès le premier paint, sans attendre l'hydratation React (sinon l'écran reste
+   vide le temps du bundle JS). Motion ne gère que la sortie.
+
+   Le tracé du logo et la barre partagent la même durée et la même courbe
+   (--loader-intro / --loader-ease) : à chaque instant le pourcentage tracé du
+   cadre est celui de la barre. Cette durée doit rester alignée sur
+   MIN_DURATION_MS dans SiteLoader.tsx pour que tout se termine au moment où
+   l'écran sort.
+---------------------------------------------------------------------------- */
+
+:root {
+  --loader-intro: 1s;
+  --loader-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes loader-draw {
+  from {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes loader-pop {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes loader-rise {
+  from {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes loader-rail {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Tracé du cadre et barre : mêmes durée et courbe, donc strictement en phase. */
+.loader-frame {
+  stroke-dasharray: 1;
+  animation: loader-draw var(--loader-intro) var(--loader-ease) both;
+}
+
+.loader-rail {
+  transform-origin: left;
+  animation: loader-rail var(--loader-intro) var(--loader-ease) both;
+}
+
+/* Points et monogramme : calés pour finir juste avant la fin du tracé. */
+.loader-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: loader-pop 0.3s var(--loader-ease) both;
+}
+
+.loader-wordmark {
+  animation: loader-rise 0.35s var(--loader-ease) 0.6s both;
+}
+
 /* Respect du prefers-reduced-motion : neutralise les animations et
    transitions CSS pour les utilisateurs qui ont activé la préférence.
    Motion (via useReducedMotion) est déjà géré côté composant. */

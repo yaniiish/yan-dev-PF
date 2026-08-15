@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { SiteLoader } from "@/components/layout/SiteLoader";
 import { PROFESSIONAL_SERVICE_LD, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
@@ -97,6 +98,7 @@ export default function RootLayout({
         // niveau et ignore ces attributs externes. Sans effet sur le rendu.
         suppressHydrationWarning
       >
+        <SiteLoader />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-ink-950 focus:px-4 focus:py-2 focus:text-ink-50 focus:outline-2 focus:outline-offset-2 focus:outline-mint-700"
