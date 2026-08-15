@@ -39,7 +39,7 @@
 
 **Traitement typo (verrouillé) :**
 - Police : `font-serif` (Instrument Serif), `font-medium`, `tracking-tight`, `leading-[1.05]`, couleur `text-ink-950`.
-- Échelle réduite par rapport à l'ancien H1 : `clamp(2.25rem,4vw+1rem,4.5rem)`. Le titre fait 7 mots, l'échelle display-1 le poussait à 3 lignes en desktop.
+- Échelle réduite par rapport à l'ancien H1 : `clamp(1.875rem,3.2vw+0.75rem,3.5rem)`. Le titre fait 7 mots, l'échelle display-1 le poussait à 3 lignes en desktop. À cette échelle il tient en 2 lignes en desktop comme en mobile.
 - **Deux lignes explicites** en desktop, pour permettre la révélation ligne par ligne : `Creative Developer, Website Creator` puis `& Product Builder`.
 - **La partie "Product Builder" est soulignée en mint.**
 - **Pas d'italique** nulle part dans le H1.
@@ -48,9 +48,9 @@
 ### Sous-titre (lead)
 > Sites web créatifs, sites vitrines plus simples et produits digitaux.
 
-### Paragraphe d'introduction (bloc sous le hero)
+### Paragraphe d'introduction
 
-Volontairement **hors du hero** : le hero ne garde que titre, lead et CTA. Bloc en filet mint à gauche (`border-l border-mint-500 pl-6`), largeur `max-w-[62ch]`.
+Placé **dans le hero, entre le lead et les CTA**. Hiérarchie en trois niveaux : lead en `text-ink-700` à l'échelle lead, paragraphe en `text-ink-500` à l'échelle body, puis les CTA.
 
 > Du site vitrine simple à l'expérience web plus créative, jusqu'au produit digital complet. Je conçois chaque projet selon ses besoins, ses ambitions et son budget, sans jamais sacrifier la qualité.
 

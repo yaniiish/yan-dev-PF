@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { BGPattern } from "@/components/backgrounds/BGPattern";
-import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { durations, easings } from "@/lib/motion";
@@ -89,7 +88,7 @@ export function Hero() {
           initial={false}
           animate={isLoaded ? "show" : "hidden"}
         >
-          <h1 className="font-serif text-[clamp(2.25rem,4vw+1rem,4.5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
+          <h1 className="font-serif text-[clamp(1.875rem,3.2vw+0.75rem,3.5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
             <MaskedLine variants={line}>{H1_LINE_1}</MaskedLine>
             <MaskedLine variants={line}>
               {H1_LINE_2_PRE}{" "}
@@ -106,6 +105,12 @@ export function Hero() {
                 className="max-w-[46ch] text-[clamp(1.125rem,0.5vw+1rem,1.25rem)] leading-relaxed text-ink-700"
               >
                 {LEAD}
+              </motion.p>
+              <motion.p
+                variants={rise}
+                className="mt-5 max-w-[58ch] leading-relaxed text-ink-500"
+              >
+                {INTRO}
               </motion.p>
               <motion.div
                 variants={rise}
@@ -130,17 +135,6 @@ export function Hero() {
             </motion.div>
           </div>
         </motion.div>
-      </section>
-
-      <section
-        aria-label="Présentation"
-        className="relative mx-auto w-full max-w-7xl px-6 pb-8 md:px-10 md:pb-12 lg:px-16"
-      >
-        <FadeIn y={24}>
-          <p className="max-w-[62ch] border-l border-mint-500 pl-6 text-[clamp(1rem,0.4vw+0.9rem,1.125rem)] leading-relaxed text-ink-700">
-            {INTRO}
-          </p>
-        </FadeIn>
       </section>
     </>
   );
