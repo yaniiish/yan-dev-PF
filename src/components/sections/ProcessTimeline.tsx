@@ -18,15 +18,14 @@ type ProcessTimelineProps = {
 type Node = { x: number; y: number };
 type Layout = { width: number; height: number; nodes: Node[] };
 
-/** Position horizontale des ancres, en fraction de la largeur. */
-const ANCHOR_LEFT = 0.42;
-const ANCHOR_RIGHT = 0.58;
-/** Amplitude du renflement, en multiple de l'écart horizontal entre ancres. */
-const SWING = 1.35;
 /** Position du rail quand tout est empilé, en pixels depuis la gauche. */
 const STACKED_X = 20;
 /** Décalage vertical de l'ancre par rapport au haut de l'étape. */
 const ANCHOR_OFFSET = 14;
+/** Retrait des ancres par rapport au bord du texte, pour ne pas le frôler. */
+const BAND_INSET = 14;
+/** En deçà, la bande libre est trop étroite pour serpenter : on trace droit. */
+const MIN_BAND = 48;
 
 /**
  * Fil serpentin qui se dessine au scroll, étapes de part et d'autre.
@@ -58,17 +57,48 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
 
     const measure = () => {
       const rect = wrap.getBoundingClientRect();
-      const nodes = stepRefs.current
-        .filter((el): el is HTMLLIElement => el !== null)
-        .map((el, index) => {
-          const stepRect = el.getBoundingClientRect();
-          return {
-            x: wide.matches
-              ? (index % 2 === 0 ? ANCHOR_LEFT : ANCHOR_RIGHT) * rect.width
-              : STACKED_X,
-            y: stepRect.top - rect.top + ANCHOR_OFFSET,
-          };
+      const steps = stepRefs.current.filter(
+        (el): el is HTMLLIElement => el !== null,
+      );
+
+      // Bande libre entre les deux colonnes de texte, mesurée sur les bords
+      // réels des blocs. Des pourcentages fixes ne tenaient pas : à 1024px la
+      // bande ne fait que 192px et le tracé passait par-dessus les textes.
+      let bandLeft = 0;
+      let bandRight = rect.width;
+      if (wide.matches) {
+        steps.forEach((el, index) => {
+          const content = el.firstElementChild;
+          if (!content) return;
+          const box = content.getBoundingClientRect();
+          // Le padding fait partie de la boîte : sans le retrancher, les deux
+          // bords se rejoignent au centre et la bande est nulle.
+          const style = getComputedStyle(content);
+          if (index % 2 === 0) {
+            const edge =
+              box.right - rect.left - parseFloat(style.paddingRight || "0");
+            bandLeft = Math.max(bandLeft, edge);
+          } else {
+            const edge =
+              box.left - rect.left + parseFloat(style.paddingLeft || "0");
+            bandRight = Math.min(bandRight, edge);
+          }
         });
+      }
+
+      const hasBand = wide.matches && bandRight - bandLeft > MIN_BAND;
+      const centre = (bandLeft + bandRight) / 2;
+      const left = hasBand ? bandLeft + BAND_INSET : centre;
+      const right = hasBand ? bandRight - BAND_INSET : centre;
+
+      const nodes = steps.map((el, index) => {
+        const stepRect = el.getBoundingClientRect();
+        return {
+          x: wide.matches ? (index % 2 === 0 ? left : right) : STACKED_X,
+          y: stepRect.top - rect.top + ANCHOR_OFFSET,
+        };
+      });
+
       setLayout({ width: rect.width, height: rect.height, nodes });
     };
 
@@ -152,9 +182,9 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
 }
 
 /**
- * Relie les ancres par des courbes cubiques dont les points de contrôle
- * partent à l'opposé de la cible : c'est ce qui donne le renflement du
- * serpentin au lieu d'une simple diagonale.
+ * Relie les ancres par des courbes cubiques dont les points de contrôle sont
+ * à l'aplomb de chaque ancre. Le tracé reste donc borné par les abscisses des
+ * ancres, ce qui garantit qu'il ne sort jamais de la bande libre.
  */
 function buildPath(nodes: Node[]): string {
   if (nodes.length === 0) return "";
@@ -164,8 +194,7 @@ function buildPath(nodes: Node[]): string {
     const from = nodes[i - 1];
     const to = nodes[i];
     const halfway = (to.y - from.y) / 2;
-    const spread = (to.x - from.x) * SWING;
-    d += ` C ${from.x - spread} ${from.y + halfway}, ${to.x + spread} ${to.y - halfway}, ${to.x} ${to.y}`;
+    d += ` C ${from.x} ${from.y + halfway}, ${to.x} ${to.y - halfway}, ${to.x} ${to.y}`;
   }
   return d;
 }
@@ -240,8 +269,8 @@ function Step({
         style={reduce ? undefined : { opacity, y: shift }}
         className={cn(
           isLeft
-            ? "lg:col-start-1 lg:row-start-1 lg:pr-24 lg:text-right"
-            : "lg:col-start-2 lg:row-start-1 lg:pl-24",
+            ? "lg:col-start-1 lg:row-start-1 lg:pr-32 lg:text-right"
+            : "lg:col-start-2 lg:row-start-1 lg:pl-32",
         )}
       >
         <p className="font-mono text-xs uppercase tracking-widest text-mint-700">

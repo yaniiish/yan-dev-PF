@@ -123,7 +123,10 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ### Le fil serpentin
 - **Tracé SVG mesuré, pas figé.** Un `ResizeObserver` mesure la position réelle de chaque étape dans le wrapper, et le chemin est reconstruit à partir de ces ancres. Il reste donc juste quelle que soit la longueur des textes et le format d'écran.
-- Ancres à 42 % et 58 % de la largeur en `lg`, à 20px du bord en pile. Le renflement vient des points de contrôle des cubiques, placés à l'opposé de la cible (`SWING = 1.35`) : la courbe s'écarte dans l'espace vertical entre deux étapes, là où il n'y a pas de texte.
+- **Les ancres sont calées sur la bande libre entre les deux colonnes**, mesurée sur les bords réels du texte (boîte du bloc moins son padding : sans retrancher le padding, les deux bords se rejoignent au centre et la bande est nulle). Des pourcentages fixes ne tenaient pas : à 1024px la bande ne fait que 192px et le tracé passait par-dessus les textes.
+- Les points de contrôle des cubiques sont à l'aplomb de chaque ancre. Le tracé est donc **borné par les abscisses des ancres**, ce qui garantit géométriquement qu'il ne sort jamais de la bande.
+- Padding `lg:pr-32` / `lg:pl-32` : c'est lui qui fixe la largeur de la bande, donc l'amplitude du serpentin.
+- En pile, toutes les ancres sont à 20px du bord et le même code produit un fil droit.
 - `viewBox` en pixels réels, donc pas de `preserveAspectRatio` déformant : les cercles restent ronds et l'épaisseur du trait est constante.
 - Le SVG est en `absolute inset-0 pointer-events-none`, sous le texte.
 - **`key={path}` sur le tracé mint** : Motion calcule la longueur du chemin au montage pour piloter `pathLength`. Sans remontage, un `d` recalculé après une mesure garde l'ancienne longueur et le fil plafonne avant la fin. Piège vérifié en conditions réelles.
