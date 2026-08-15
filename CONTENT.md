@@ -48,6 +48,8 @@
 ### Sous-titre (lead)
 > Sites web créatifs, sites vitrines plus simples et produits digitaux.
 
+Le lead et le paragraphe d'introduction partagent un **wrapper `max-w-[34rem]`** : en `max-w-*ch` leurs deux tailles de police donnaient deux bords droits différents (28px d'écart), ce qui lisait comme un décalage accidentel. Rythme vertical du bloc gauche : 32px entre le H1 et le lead, 16px entre le lead et le paragraphe (ils forment un groupe), 32px avant les CTA.
+
 ### Paragraphe d'introduction
 
 Placé **dans le hero, entre le lead et les CTA**. Hiérarchie en trois niveaux : lead en `text-ink-700` à l'échelle lead, paragraphe en `text-ink-500` à l'échelle body, puis les CTA.
@@ -63,14 +65,15 @@ Placé **dans le hero, entre le lead et les CTA**. Hiérarchie en trois niveaux 
 
 ### Card de présentation (à droite du hero)
 
-- **Avatar :** image fournie (`/public/avatar/avatar-yan.JPG`), **rond** (`rounded-full`), petite taille (~56px) à gauche du bloc nom+rôle.
+- **Ligne d'en-tête :** avatar + nom à gauche, indicateur de disponibilité à droite (`justify-between`). La disponibilité était en bas de card ; remontée ici parce que « Yan » seul à côté de l'avatar laissait la moitié de la ligne vide.
+- **Avatar :** image fournie (`/public/avatar/avatar-yan.JPG`), **rond** (`rounded-full`), ~56px.
 - **Nom :** `Yan` (font-serif, ~xl)
-- **Rôle :** `CREATIVE DEVELOPER · PRODUCT BUILDER` en mono mint uppercase tracking-widest (style cohérent avec les SectionLabel).
+- **Rôle :** `CREATIVE DEVELOPER · PRODUCT BUILDER` en mono mint uppercase, **sur sa propre ligne pleine largeur**. Coincé à côté de l'avatar il passait sur 2 à 3 lignes selon le viewport. Taille et tracking réduits sous `sm` pour tenir sur une ligne à 390px.
 - **Citation entre guillemets français `«&nbsp;»`, font-serif :**
   > J'aime transformer une idée en quelque chose de concret, qu'il s'agisse d'un simple site vitrine ou d'un produit digital complet.
-- **Sous-tagline (sous la citation, plus discrète) :**
+- **Sous-tagline (sous la citation, séparée par une fine bordure, plus discrète) :**
   > Je travaille en direct, sans intermédiaire.
-- **Indicateur de disponibilité (en bas, séparé par une fine bordure) :** point mint pulsant (`animate-ping`) + texte `Disponible actuellement`.
+- **Indicateur de disponibilité (ligne d'en-tête, à droite) :** point mint pulsant (`animate-ping`) + texte `Disponible actuellement`.
 - **Plus de chips Next.js / SEO local / Réponse sous 24h** (trop technique pour la cible).
 - **Comportement :** la card arrive inclinée à `-8deg` puis se pose à `-3deg`, et se redresse au hover (`whileHover rotate: 0`, 500ms ease-out). La rotation est pilotée par Motion, pas par une classe CSS, pour ne pas entrer en conflit avec l'animation d'entrée.
 

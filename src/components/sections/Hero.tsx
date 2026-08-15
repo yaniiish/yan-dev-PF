@@ -105,18 +105,23 @@ export function Hero() {
                   </span>
                 </MaskedLine>
               </h1>
-              <motion.p
-                variants={rise}
-                className="mt-8 max-w-[46ch] text-[clamp(1.125rem,0.5vw+1rem,1.25rem)] leading-relaxed text-ink-700"
-              >
-                {LEAD}
-              </motion.p>
-              <motion.p
-                variants={rise}
-                className="mt-5 max-w-[58ch] leading-relaxed text-ink-500"
-              >
-                {INTRO}
-              </motion.p>
+              {/* Mesure unique pour les deux paragraphes : en max-w-*ch les
+                  deux tailles de police donnaient deux bords droits differents,
+                  ce qui lisait comme un decalage accidentel. */}
+              <div className="mt-8 max-w-[34rem]">
+                <motion.p
+                  variants={rise}
+                  className="text-[clamp(1.125rem,0.5vw+1rem,1.25rem)] leading-relaxed text-ink-700"
+                >
+                  {LEAD}
+                </motion.p>
+                <motion.p
+                  variants={rise}
+                  className="mt-4 leading-relaxed text-ink-500"
+                >
+                  {INTRO}
+                </motion.p>
+              </div>
               <motion.div
                 variants={rise}
                 className="mt-8 flex flex-col gap-3 sm:flex-row"
@@ -134,7 +139,7 @@ export function Hero() {
               variants={card}
               whileHover={reduce ? undefined : { rotate: 0 }}
               transition={{ duration: 0.5, ease: easings.out }}
-              className="lg:col-span-5"
+              className="mx-auto w-full max-w-md lg:col-span-5 lg:mx-0 lg:max-w-none"
             >
               <PresentationCard />
             </motion.div>
@@ -168,39 +173,45 @@ function MaskedLine({
 function PresentationCard() {
   return (
     <Card className={cn("rounded-3xl p-6 md:p-7", "shadow-lg shadow-ink-950/5")}>
-      <div className="flex items-center gap-3">
-        <Image
-          src="/avatar/avatar-yan.JPG"
-          alt="Portrait de Yan, développeur web indépendant à Caen"
-          width={2080}
-          height={1867}
-          sizes="56px"
-          priority
-          className="size-14 shrink-0 rounded-full object-cover"
-        />
-        <div className="min-w-0">
-          <p className="font-serif text-xl font-medium leading-tight text-ink-950">
+      {/* Disponibilite remontee sur la ligne du nom : "Yan" seul a cote de
+          l'avatar laissait la moitie de la ligne vide. */}
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-3">
+          <Image
+            src="/avatar/avatar-yan.JPG"
+            alt="Portrait de Yan, développeur web indépendant à Caen"
+            width={2080}
+            height={1867}
+            sizes="56px"
+            priority
+            className="size-14 shrink-0 rounded-full object-cover"
+          />
+          <p className="min-w-0 font-serif text-xl font-medium leading-tight text-ink-950">
             {PRESENT_NAME}
           </p>
-          <p className="mt-1 font-mono text-[0.7rem] uppercase tracking-widest text-mint-700">
-            {PRESENT_ROLE}
-          </p>
         </div>
+        <span className="flex shrink-0 items-center gap-2">
+          <span className="relative flex size-2.5" aria-hidden="true">
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-mint-500 opacity-60" />
+            <span className="relative inline-flex size-2.5 rounded-full bg-mint-500" />
+          </span>
+          <span className="text-sm text-ink-700">{PRESENT_AVAILABILITY}</span>
+        </span>
       </div>
+
+      {/* Le role occupe toute la largeur de la card : coince a cote de
+          l'avatar, il passait sur 2 a 3 lignes selon le viewport. */}
+      <p className="mt-3 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-mint-700 sm:text-[0.7rem] sm:tracking-widest">
+        {PRESENT_ROLE}
+      </p>
 
       <blockquote className="mt-6 font-serif text-lg leading-snug text-ink-950">
         «&nbsp;{PRESENT_PITCH}&nbsp;»
       </blockquote>
 
-      <p className="mt-3 text-sm text-ink-500">{PRESENT_TAGLINE}</p>
-
-      <div className="mt-6 flex items-center gap-2 border-t border-ink-300/60 pt-4">
-        <span className="relative flex size-2.5" aria-hidden="true">
-          <span className="absolute inline-flex size-full animate-ping rounded-full bg-mint-500 opacity-60" />
-          <span className="relative inline-flex size-2.5 rounded-full bg-mint-500" />
-        </span>
-        <span className="text-sm text-ink-700">{PRESENT_AVAILABILITY}</span>
-      </div>
+      <p className="mt-4 border-t border-ink-300/60 pt-4 text-sm text-ink-500">
+        {PRESENT_TAGLINE}
+      </p>
     </Card>
   );
 }
