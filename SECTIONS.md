@@ -118,16 +118,22 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ### Layout
 - En-tête centré : `SectionLabel` + H2, `max-w-2xl mx-auto text-center`. Pas de lead, les étapes parlent d'elles-mêmes.
-- Liste en `max-w-5xl mx-auto`, étapes espacées de `space-y-14 lg:space-y-20`.
-- **Rail vertical** : `absolute inset-y-0 left-5 w-px` en pile, `lg:left-1/2` en zigzag.
-- **Zigzag** : à partir de `lg`, `grid-cols-2`, étapes paires en colonne 1 alignées à droite (`lg:text-right lg:pr-16`), étapes impaires en colonne 2 (`lg:pl-16`). Sous `lg`, tout passe à droite du rail (`pl-14`).
-- Point d'étape : cercle de 14px sur le rail, bordure `ink-300`, pastille mint à l'intérieur.
+- Liste en `max-w-5xl mx-auto`, étapes espacées de `space-y-16 lg:space-y-32`. L'espacement `lg` est généreux exprès : c'est là que le serpentin fait son renflement, hors des blocs de texte.
+- **Zigzag** : à partir de `lg`, `grid-cols-2`, étapes paires en colonne 1 alignées à droite (`lg:text-right lg:pr-24`), étapes impaires en colonne 2 (`lg:pl-24`). Sous `lg`, tout passe à droite du fil (`pl-14`).
+
+### Le fil serpentin
+- **Tracé SVG mesuré, pas figé.** Un `ResizeObserver` mesure la position réelle de chaque étape dans le wrapper, et le chemin est reconstruit à partir de ces ancres. Il reste donc juste quelle que soit la longueur des textes et le format d'écran.
+- Ancres à 42 % et 58 % de la largeur en `lg`, à 20px du bord en pile. Le renflement vient des points de contrôle des cubiques, placés à l'opposé de la cible (`SWING = 1.35`) : la courbe s'écarte dans l'espace vertical entre deux étapes, là où il n'y a pas de texte.
+- `viewBox` en pixels réels, donc pas de `preserveAspectRatio` déformant : les cercles restent ronds et l'épaisseur du trait est constante.
+- Le SVG est en `absolute inset-0 pointer-events-none`, sous le texte.
+- **`key={path}` sur le tracé mint** : Motion calcule la longueur du chemin au montage pour piloter `pathLength`. Sans remontage, un `d` recalculé après une mesure garde l'ancienne longueur et le fil plafonne avant la fin. Piège vérifié en conditions réelles.
 
 ### Animation
-- **Le fil se remplit au scroll** : `useScroll({ target, offset: ["start 0.8", "end 0.8"] })` pilote le `scaleY` d'un calque mint en `origin-top` par-dessus le rail gris. Motivé : le remplissage raconte l'avancement du projet, qui est le sujet de la section.
-- **Les points s'allument à leur tour** : `useTransform` sur le même progrès, seuil `(index + 0.7) / total`. Calé sur `index / (total - 1)`, le dernier point ne s'allumait qu'au pixel exact de fin de course.
+- **Le fil se dessine au scroll** : `useScroll({ target, offset: ["start 0.8", "end 0.8"] })` pilote `pathLength` sur le tracé mint superposé au tracé gris. Motivé : le tracé raconte l'avancement du projet, qui est le sujet de la section.
+- **Les textes se révèlent en synchro** : `useTransform` sur le même progrès, fenêtre `[seuil - 0.16, seuil - 0.02]` où le seuil est la position verticale de l'ancre rapportée à la hauteur du bloc. Le texte apparaît juste avant que le fil n'atteigne son ancre, donc la lecture suit le tracé au lieu de le précéder.
+- **Les points s'allument à leur tour**, même progrès, fenêtre plus courte.
 - Jamais d'écouteur `scroll` : il se déclenche à chaque frame et fait re-rendre tout l'arbre React.
-- `useReducedMotion` : le fil est rendu plein et les points allumés, sans liaison au scroll.
+- `useReducedMotion` : tracé plein, points allumés, textes visibles, sans liaison au scroll.
 
 ---
 
