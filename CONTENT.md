@@ -135,7 +135,7 @@ Les anciens libellés `Projet 01`, `Projet 02`… ont disparu : numéroter des t
 | **BetaWall** | `SaaS B2B` | En construction | pas de lien |
 
 - CleanAI : « Nettoie les images et vidéos générées par IA avant publication sur TikTok ou Instagram. Traitement natif iOS, directement sur l'appareil. » Visuel `public/products/cleanai.jpg`, capture du site.
-- BetaWall : « Un SaaS B2B pensé pour les salles d'escalade. En cours de construction. » **Logo à intégrer quand Yan le fournira.**
+- BetaWall : « Un SaaS B2B pensé pour les salles d'escalade. En cours de construction. » Visuel `public/products/betawall.png` : lockup logo + wordmark extrait de la planche fournie par Yan (`betawall logo.png` à la racine, non commitée), détouré et composé sur un canvas 16/9 blanc pour tenir le même gabarit que la card CleanAI.
 - Le point coloré à côté de l'état n'est pas décoratif : il distingue un produit en ligne d'un chantier.
 
 ### Fond

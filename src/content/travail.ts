@@ -152,5 +152,11 @@ export const PRODUCTS: readonly Product[] = [
     statusLabel: "En construction",
     description:
       "Un SaaS B2B pensé pour les salles d'escalade. En cours de construction.",
+    image: {
+      src: "/products/betawall.png",
+      alt: "Logo de BetaWall, SaaS B2B pour les salles d'escalade",
+      width: 1618,
+      height: 910,
+    },
   },
 ] as const;
