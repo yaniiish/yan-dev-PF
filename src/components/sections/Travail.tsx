@@ -8,7 +8,7 @@ import { PRODUCTS, WEBSITES, type Product } from "@/content/travail";
 import { cn } from "@/lib/utils";
 import { WebsitesShowcase } from "./WebsitesShowcase";
 
-const H2 = "Deux univers, une approche.";
+const H2 = "Ce que je construis.";
 
 const LEAD =
   "Sites web créatifs, sites vitrines et produits digitaux pensés pour répondre à des objectifs concrets.";

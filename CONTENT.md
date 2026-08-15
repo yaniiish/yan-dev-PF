@@ -103,7 +103,9 @@ Séquence, stagger 0.09s : les deux lignes du H1 montent derrière un masque (`o
 `#travail` (l'ancienne ancre `#exemples` a été renommée ; CTA du hero, navbar et page prix mis à jour).
 
 ### Titre (H2)
-> Deux univers, une approche.
+> Ce que je construis.
+
+Le verbe « construis » fait écho au positionnement Product Builder du hero. Les deux colonnes s'expliquent seules, le titre n'a pas à annoncer la dualité.
 
 ### Intro (lead)
 > Sites web créatifs, sites vitrines et produits digitaux pensés pour répondre à des objectifs concrets.
