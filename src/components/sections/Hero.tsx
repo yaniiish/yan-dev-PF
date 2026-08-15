@@ -80,7 +80,10 @@ export function Hero() {
         // dvh : le dvh se recalcule quand la barre d'adresse mobile se
         // retracte, ce qui fait sauter la mise en page pendant le scroll.
         // min-h et non h : si le contenu depasse, la section grandit.
-        className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden py-12 md:min-h-[calc(100svh-5rem)] md:py-20 lg:py-24"
+        // Padding bas plus grand que le padding haut : avec items-center, ca
+        // remonte le bloc au-dessus du centre geometrique, la ou l'oeil attend
+        // le centre optique.
+        className="relative flex min-h-[calc(100svh-4rem)] items-center overflow-hidden py-12 md:min-h-[calc(100svh-5rem)] md:pb-24 md:pt-16 lg:pb-28 lg:pt-20"
       >
         <BGPattern
           variant="grid"
@@ -119,7 +122,9 @@ export function Hero() {
               {/* Mesure unique pour les deux paragraphes : en max-w-*ch les
                   deux tailles de police donnaient deux bords droits differents,
                   ce qui lisait comme un decalage accidentel. */}
-              <div className="mt-8 max-w-[38rem] md:mt-10">
+              {/* La mesure vient buter sur le bord de la colonne, donc sur le
+                  bord droit de la deuxieme ligne du titre. */}
+              <div data-hero-measure className="mt-8 max-w-[40rem] md:mt-12">
                 <motion.p
                   variants={rise}
                   className="text-[clamp(1.125rem,0.6vw+0.9rem,1.5rem)] leading-relaxed text-ink-700"
@@ -135,7 +140,7 @@ export function Hero() {
               </div>
               <motion.div
                 variants={rise}
-                className="mt-8 flex flex-col gap-3 sm:flex-row md:mt-10"
+                className="mt-8 flex flex-col gap-3 sm:flex-row md:mt-12"
               >
                 <Button href="#exemples" size="lg">
                   {CTA_PRIMARY}
@@ -150,7 +155,7 @@ export function Hero() {
               variants={card}
               whileHover={reduce ? undefined : { rotate: 0 }}
               transition={{ duration: 0.5, ease: easings.out }}
-              className="mx-auto w-full max-w-md lg:col-span-5 lg:mx-0 lg:max-w-none"
+              className="mx-auto w-full max-w-md lg:col-span-5 lg:mx-0 lg:max-w-none lg:self-stretch"
             >
               <PresentationCard />
             </motion.div>
@@ -183,7 +188,12 @@ function MaskedLine({
 
 function PresentationCard() {
   return (
-    <Card className={cn("rounded-3xl p-6 md:p-8", "shadow-lg shadow-ink-950/5")}>
+    <Card
+      className={cn(
+        "flex h-full flex-col rounded-3xl p-6 md:p-8",
+        "shadow-lg shadow-ink-950/5",
+      )}
+    >
       {/* Disponibilite remontee sur la ligne du nom : "Yan" seul a cote de
           l'avatar laissait la moitie de la ligne vide. */}
       <div className="flex items-center justify-between gap-4">
@@ -218,7 +228,10 @@ function PresentationCard() {
         {PRESENT_ROLE}
       </p>
 
-      <blockquote className="mt-6 font-serif text-lg leading-snug text-ink-950 md:mt-8 md:text-xl">
+      {/* La citation absorbe la hauteur restante quand la card est etiree sur
+          la colonne, pour que l'espace se repartisse au lieu de s'accumuler
+          en bas. */}
+      <blockquote className="mt-6 flex grow items-center font-serif text-lg leading-snug text-ink-950 md:mt-8 md:text-xl lg:text-2xl">
         «&nbsp;{PRESENT_PITCH}&nbsp;»
       </blockquote>
 
