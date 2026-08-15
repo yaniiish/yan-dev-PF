@@ -73,7 +73,7 @@ for (const viewport of VIEWPORTS) {
 
     test("les libelles de CTA ne se cassent pas", async ({ page }) => {
       await gotoHero(page);
-      for (const href of ["#exemples", "#contact"]) {
+      for (const href of ["#travail", "#contact"]) {
         const cta = page.locator(`#hero a[href='${href}']`).first();
         expect(await countRenderedLines(cta)).toBe(1);
       }

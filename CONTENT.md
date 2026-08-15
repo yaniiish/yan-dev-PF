@@ -20,11 +20,10 @@
   - Style : `font-serif` ou `font-sans font-semibold tracking-tight`. À tester en code.
 - **Liens :**
   - Accueil → `#hero`
-  - Pourquoi → `#pourquoi`
-  - Services → `#services`
-  - Exemples → `#exemples`
+  - Mon travail → `#travail`
   - Tarifs → `#tarifs`
   - Contact → `#contact`
+  > Passée de 6 à 4 liens avec la suppression de Pourquoi et Services. Ça règle au passage la navbar qui cassait sur deux lignes à 768px.
 - **CTA Navbar (à droite) :** bouton primaire `Discuter de mon projet` → `#contact`.
 
 ---
@@ -51,7 +50,7 @@
 ### Sous-titre (lead)
 > Sites web créatifs, sites vitrines plus simples et produits digitaux.
 
-Le lead et le paragraphe d'introduction partagent un **wrapper `max-w-[38rem]`** : en `max-w-*ch` leurs deux tailles de police donnaient deux bords droits différents (28px d'écart), ce qui lisait comme un décalage accidentel. Rythme vertical du bloc gauche : 40px entre le H1 et le lead, 16px entre le lead et le paragraphe (ils forment un groupe), 40px avant les CTA.
+Le lead et le paragraphe d'introduction partagent un **wrapper `max-w-[40rem]`** : en `max-w-*ch` leurs deux tailles de police donnaient deux bords droits différents (28px d'écart), ce qui lisait comme un décalage accidentel. Rythme vertical du bloc gauche : 40px entre le H1 et le lead, 16px entre le lead et le paragraphe (ils forment un groupe), 40px avant les CTA.
 
 ### Paragraphe d'introduction
 
@@ -61,7 +60,7 @@ Placé **dans le hero, entre le lead et les CTA**. Hiérarchie en trois niveaux 
 
 ### CTAs
 
-- **Primaire :** `Voir mes projets` → `#exemples`
+- **Primaire :** `Voir mes projets` → `#travail`
 - **Secondaire :** `Discuter d'un projet` → `#contact`
 
 > À aligner : la Navbar et le Footer affichent encore `Discuter de mon projet`. Deux libellés pour la même intention.
@@ -96,84 +95,52 @@ Séquence, stagger 0.09s : les deux lignes du H1 montent derrière un masque (`o
 
 ---
 
-## 4. Section POURQUOI
+## 4. Section MON TRAVAIL
+
+> Remplace les anciennes sections POURQUOI, SERVICES et EXEMPLES, supprimées lors du repositionnement.
 
 ### Identifiant
-`02 — Pourquoi`
+`#travail` (l'ancienne ancre `#exemples` a été renommée ; CTA du hero, navbar et page prix mis à jour).
 
 ### Titre (H2)
-> Pas de site web, c'est des clients qui passent à côté.
-
-### Intro (lead, sous H2)
-> Aujourd'hui, presque tout le monde cherche un commerce, un artisan ou un service sur Google avant de pousser la porte. Sans site clair et à jour, vous êtes invisible — ou pire, vous renvoyez une image qui ne vous ressemble plus.
-
-### Liste de points (cards ou grille de 4)
-
-**01 — Vous restez introuvable**
-> Sans site bien référencé, vous n'apparaissez pas quand un client tape *"[votre métier] près de chez moi"*. Vos concurrents, eux, oui.
-
-**02 — Vos infos sont éclatées partout**
-> Horaires sur Google, menu sur Facebook, prix sur Instagram… Un site, c'est un seul endroit clair où tout est à jour.
-
-**03 — Vous perdez en crédibilité**
-> Un site daté (ou pas de site du tout) donne une impression de "ils sont encore là ?". Un site propre rassure et donne envie d'appeler.
-
-**04 — Vous vous fondez dans la masse**
-> Un site qui vous ressemble — pas un template vu mille fois — vous démarque immédiatement de la concurrence du quartier.
-
----
-
-## 5. Section SERVICES
-
-### Identifiant
-`03 — Services`
-
-### Titre (H2)
-> Ce que je mets en place pour vous.
+> Deux univers, une approche.
 
 ### Intro (lead)
-> Tout est inclus dans l'offre de base. Pas de surprise, pas d'options cachées.
+> Sites web créatifs, sites vitrines et produits digitaux pensés pour répondre à des objectifs concrets.
 
-### Cartes services (4)
+### Structure
 
-**01 — Site vitrine sur mesure**
-> Un site one-page moderne, responsive (mobile, tablette, ordinateur), conçu autour de votre activité. Pas de template recyclé.
+Deux colonnes séparées par un filet vertical à partir de `lg` (7/12 à gauche, 5/12 à droite). En dessous de `lg` elles s'empilent et le filet devient horizontal.
 
-**02 — Référencement local de base**
-> Les bases SEO bien faites : balises, structure, vitesse, fiche Google Business optimisée, schema.org local. De quoi remonter sur les recherches du coin.
+### Colonne gauche — Sites web
 
-**03 — Formulaire de contact**
-> Un formulaire simple qui vous envoie directement les demandes par email. Protégé contre le spam, prêt à l'emploi.
+- Un projet affiché en grand (visuel 16/9, catégorie en mono mint, titre en serif, secteur, lien externe en pastille ronde), plus une bande de six vignettes pour changer de projet. Pas de carrousel qui défile : avec six projets tout tient à l'écran et l'utilisateur choisit directement.
+- Bouton `Des exemples par métier` sous la colonne, vers `/site-internet`.
 
-**04 — Hébergement & maintenance**
-> Je gère l'hébergement, les mises à jour, et les petites modifications du quotidien. Vous n'avez rien à toucher.
+**Trois catégories, affichées dans la fiche de chaque site :**
 
----
+| Catégorie | Sites |
+|-----------|-------|
+| `Site créatif` | BeerBee |
+| `Site vitrine créatif` | Madman Tattoo, Atelier Lumé |
+| `Site vitrine` | L'océan, Lumio-coffee, Le Cerf Doré |
 
-## 6. Section EXEMPLES
+Les anciens libellés `Projet 01`, `Projet 02`… ont disparu : numéroter des tuiles que l'utilisateur peut compter n'apporte rien, et la catégorie porte une vraie information.
 
-### Identifiant
-`04 — Exemples`
+### Colonne droite — Produits
 
-### Titre (H2)
-> Deux styles, une même exigence.
+| Produit | Nature | État | Lien |
+|---------|--------|------|------|
+| **CleanAI** | `iOS App` | En ligne | [cleanaiapp.com](https://cleanaiapp.com) |
+| **BetaWall** | `SaaS B2B` | En construction | pas de lien |
 
-### Intro (lead)
-> Selon votre besoin, je peux livrer un site clair et efficace pour votre commerce, ou pousser le curseur design pour les projets plus ambitieux.
+- CleanAI : « Nettoie les images et vidéos générées par IA avant publication sur TikTok ou Instagram. Traitement natif iOS, directement sur l'appareil. » Visuel `public/products/cleanai.jpg`, capture du site.
+- BetaWall : « Un SaaS B2B pensé pour les salles d'escalade. En cours de construction. » **Logo à intégrer quand Yan le fournira.**
+- Le point coloré à côté de l'état n'est pas décoratif : il distingue un produit en ligne d'un chantier.
 
-### Contenu (Phase 1 — placeholders)
+### Fond
 
-Carrousel ou grille de 2 cards :
-
-**Site classique — `Boulangerie / artisan / restaurant`**
-> Sobre, lisible, rapide. Mis en ligne en 2 à 3 semaines.
-> *(visuel : à intégrer plus tard)*
-
-**Site premium — `TPE / cabinet / marque`**
-> Animations soignées, identité forte, expérience travaillée.
-> *(visuel : à intégrer plus tard)*
-
-> **Note technique :** au MVP, on affiche 2 cards statiques avec un placeholder visuel (gradient mint ou mockup screenshot). Le carrousel Three.js est en **phase 2** — voir `ROADMAP.md`.
+Fond `bg-card` comme l'ancienne section Exemples. L'inspiration fournie par Yan est sombre, mais la page garde un thème unique : une section sombre au milieu casserait le rythme.
 
 ---
 

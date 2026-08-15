@@ -27,9 +27,7 @@ export type NavLink = {
 
 export const NAV_LINKS: readonly NavLink[] = [
   { id: "hero", label: "Accueil", href: "#hero" },
-  { id: "pourquoi", label: "Pourquoi", href: "#pourquoi" },
-  { id: "services", label: "Services", href: "#services" },
-  { id: "exemples", label: "Exemples", href: "#exemples" },
+  { id: "travail", label: "Mon travail", href: "#travail" },
   { id: "tarifs", label: "Tarifs", href: "#tarifs" },
   { id: "contact", label: "Contact", href: "#contact" },
 ] as const;

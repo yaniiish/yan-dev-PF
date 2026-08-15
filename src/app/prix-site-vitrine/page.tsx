@@ -119,7 +119,7 @@ export default function PrixSiteVitrinePage() {
             ctaLabel={PRIX_PAGE.ctaLabel}
             ctaHref="/#contact"
             secondaryLabel={PRIX_PAGE.ctaSecondaryLabel}
-            secondaryHref="/#exemples"
+            secondaryHref="/#travail"
           />
         </div>
       </section>

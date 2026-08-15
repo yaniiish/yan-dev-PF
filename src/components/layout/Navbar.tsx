@@ -26,7 +26,7 @@ export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  // Hors de la home, les ancres (#pourquoi…) doivent pointer vers la home,
+  // Hors de la home, les ancres (#travail…) doivent pointer vers la home,
   // sinon elles ne mènent nulle part sur une page interne.
   const resolveHref = (hash: string) => (isHome ? hash : `/${hash}`);
 

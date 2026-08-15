@@ -142,7 +142,7 @@ export function Hero() {
                 variants={rise}
                 className="mt-8 flex flex-col gap-3 sm:flex-row md:mt-12"
               >
-                <Button href="#exemples" size="lg">
+                <Button href="#travail" size="lg">
                   {CTA_PRIMARY}
                 </Button>
                 <Button href="#contact" size="lg" variant="secondary">

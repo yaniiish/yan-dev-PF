@@ -83,74 +83,30 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ---
 
-## 3. POURQUOI (`#pourquoi`)
+## 3. MON TRAVAIL (`#travail`)
+
+> Remplace POURQUOI, SERVICES et EXEMPLES, supprimées lors du repositionnement.
+> Composants : `sections/Travail.tsx` (serveur) et `sections/WebsitesShowcase.tsx` (client).
+> Données : `content/travail.ts`.
 
 ### Layout
-- Container standard.
-- `SectionLabel` + H2 (à gauche, max-w-3xl).
-- Lead sous H2, `max-w-2xl`, `text-ink-500`.
-- Grille de **4 cards** :
-  - Desktop : `grid grid-cols-2 gap-6 lg:gap-8 mt-16`
-  - Mobile : `grid-cols-1 gap-4`
+- En-tête centré : `SectionLabel` + H2 + lead, `max-w-2xl mx-auto text-center`.
+- Grille `lg:grid-cols-12`, colonne gauche `lg:col-span-7`, colonne droite `lg:col-span-5`.
+- Filet de séparation : `lg:border-l border-ink-300/60` sur la colonne droite, avec `lg:pl-10 xl:pl-14` et `lg:pr-10 xl:pr-14` à gauche. Sous `lg`, `border-t` et empilement.
+- Titre de colonne : mono uppercase `tracking-widest`, souligné d'un trait mint de 48px.
 
-### Card "raison"
-- `rounded-2xl border border-ink-300/60 bg-card p-6 md:p-8`.
-- Structure interne :
-  - Petit numéro mono (`01`, `02`...) en `text-mint-700 font-mono text-micro`.
-  - H3 (sans serif, semibold).
-  - Paragraphe body, `text-ink-700`.
-- Hover : `transition-shadow hover:shadow-md hover:border-mint-500/40`.
+### Colonne gauche
+- Projet en grand : card `rounded-3xl`, visuel `aspect-[16/9]`, puis catégorie / titre / secteur et une pastille ronde de 48px vers le site externe.
+- Vignettes : `grid-cols-3` puis `sm:grid-cols-6`, bordure mint sur l'active, opacité 60 % sur les autres. Le nom du site sous la vignette n'est pas tronqué, il passe sur deux lignes.
+- Bouton `Des exemples par métier` en `variant="secondary"`.
 
-### Background
-- Pas de background décoratif par défaut (cf. `DESIGN_SYSTEM.md` §6.1) : le grid est désormais réservé au Hero pour éviter la répétition. Section laissée sur fond neutre (`bg-ink-50` ou `bg-card`). Si la section paraît trop nue côte à côte avec Hero (grid) et Tarifs (dark), on pourra ajouter ponctuellement un BGPattern subtil (`dots` ou `diagonal-stripes`) — à valider visuellement au moment de coder.
+### Colonne droite
+- Une card par produit, autant de cards que de produits.
+- Card produit : visuel optionnel, titre serif, nature en mono mint, badge d'état à droite, description, lien externe souligné mint.
 
 ### Animation
-- Stagger sur les cards (0.08s).
-- Chaque card : `y: 16 → 0`, `opacity: 0 → 1`.
-
----
-
-## 4. SERVICES (`#services`)
-
-### Layout
-- Comme Pourquoi mais grille de **4 cards** (`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`).
-- Cards plus hautes (icône en haut, plus de respiration).
-
-### Card service
-- `rounded-2xl border border-ink-300/60 bg-card p-6 md:p-7`.
-- Structure :
-  - Icône (lucide, taille 24, `text-mint-700`) dans un cercle `size-12 rounded-2xl bg-mint-50 flex items-center justify-center`.
-  - Numéro `01` mono mint.
-  - H3 titre service.
-  - Description body.
-
-### Icônes suggérées (lucide-react)
-- `01 Site vitrine sur mesure` → `LayoutTemplate`
-- `02 Référencement local` → `Search` ou `MapPin`
-- `03 Formulaire de contact` → `Mail` ou `Send`
-- `04 Hébergement & maintenance` → `Server` ou `Wrench`
-
-### Background
-- Section neutre (fond `bg-ink-50`), pas de pattern → on alterne avec Pourquoi.
-
----
-
-## 5. EXEMPLES (`#exemples`)
-
-### Layout (MVP — statique)
-- `SectionLabel` + H2 + lead.
-- Grille `grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mt-16`.
-- 2 cards "exemple", chacune :
-  - Image / placeholder visuel ratio `aspect-[4/3]`, `rounded-2xl overflow-hidden`.
-  - Sous l'image : badge (`Classique` / `Premium`), titre, courte description.
-
-### Placeholder visuel (en attendant vrais screenshots)
-- Bloc avec dégradé subtil mint + grid pattern dessus, OU mockup wireframe en SVG.
-- À discuter avec Yan. Ne **pas** mettre des images stock photo génériques.
-
-### Phase 2
-- Remplacer la grille par un carrousel Three.js (React Three Fiber).
-- Voir `ROADMAP.md` phase 2.
+- `FadeIn y={24}` sur chaque colonne.
+- Changement de projet : fondu de 0.3s sur le visuel via `AnimatePresence mode="wait"`. Motivé par le retour au clic sur une vignette, sans décalage de mise en page. `useReducedMotion` supprime le fondu.
 
 ---
 
