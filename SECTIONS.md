@@ -147,9 +147,12 @@ Deux couches ajoutées par-dessus le `BGPattern dots` de la section.
 
 ### Animation
 - **Le fil se dessine au scroll** : `useScroll({ target, offset: ["start 0.6", "end 0.6"] })` pilote `pathLength` sur le tracé mint superposé au tracé gris. Motivé : le tracé raconte l'avancement du projet, qui est le sujet de la section.
-- **Les textes se révèlent en synchro** : `useTransform` sur le même progrès, fenêtre `[ancre - 0.12, ancre]` où l'ancre est la position verticale du nœud rapportée à la hauteur du bloc, avec un plancher à 0.1. Sans ce plancher, la première étape, dont l'ancre est tout en haut, apparaissait d'un bloc dès le premier pixel de course.
+- **Les textes se révèlent en synchro** : `useTransform` sur le même progrès, fenêtre `[ancre - 0.22, ancre]` où l'ancre est la position verticale du nœud rapportée à la hauteur du bloc, avec un plancher à 0.1. Sans ce plancher, la première étape, dont l'ancre est tout en haut, apparaissait d'un bloc dès le premier pixel de course.
 - **Repère à 60 % de la hauteur d'écran**, pas 80 %. Mesuré : à 0.8 le texte atteignait son opacité pleine quand son bloc était à ~77 % de l'écran, donc tout en bas de fenêtre, et il était déjà affiché avant qu'on arrive dessus. À 0.6 la révélation se termine vers 57 %, à hauteur de lecture. Même valeur des deux côtés : le progrès parcourt alors exactement la hauteur du bloc.
-- **Les points s'allument à leur tour**, même progrès, fenêtre plus courte.
+- **Fondu en `easeInOut`, pas en interpolation linéaire.** Le linéaire attaque et s'arrête net : c'est ce qui rendait l'apparition brusque. La fenêtre de 0.22 étale le fondu sur ~200px de scroll utiles. Ne pas l'élargir davantage : à 0.28 la fenêtre de l'étape 02 déborderait avant le début du bloc, donc son texte serait déjà à moitié visible en entrant dans la section.
+- L'étape 01 garde un fondu plus court (~100px), sa fenêtre étant bornée par le plancher. C'est la première, elle sert d'amorce.
+- **Les points s'allument à leur tour**, même progrès, fenêtre plus courte (0.06) : le point marque le passage du fil, c'est un événement, il doit rester net.
+- Le fil, lui, reste en linéaire : il suit le scroll au pixel, c'est son rôle d'indicateur d'avancement.
 - Jamais d'écouteur `scroll` : il se déclenche à chaque frame et fait re-rendre tout l'arbre React.
 - `useReducedMotion` : tracé plein, points allumés, textes visibles, sans liaison au scroll.
 

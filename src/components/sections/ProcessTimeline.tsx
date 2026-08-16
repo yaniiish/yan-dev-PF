@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
+  easeInOut,
   motion,
   useReducedMotion,
   useScroll,
@@ -34,6 +35,12 @@ const HALO_FILTER_ID = "processus-halo";
  * première ancre, ce qui donne un bord droit très visible.
  */
 const SVG_PAD = 80;
+/**
+ * Longueur du fondu d'une étape, en fraction du progrès de scroll. Le bloc
+ * fait environ 1400px, donc 0.22 étale la révélation sur ~300px de scroll.
+ * En dessous, le texte s'allume trop sec.
+ */
+const REVEAL_WINDOW = 0.22;
 
 /**
  * Fil serpentin qui se dessine au scroll, étapes de part et d'autre.
@@ -255,10 +262,13 @@ function TimelineNode({
   progress: MotionValue<number>;
   reduce: boolean;
 }) {
+  // Fenêtre courte : le point marque le passage du fil, c'est un événement.
+  // L'easing lui évite juste de s'allumer d'un cran.
   const opacity = useTransform(
     progress,
-    [Math.max(threshold - 0.05, 0), threshold],
+    [Math.max(threshold - 0.06, 0), threshold],
     [0, 1],
+    { ease: easeInOut },
   );
 
   return (
@@ -302,9 +312,12 @@ function Step({
   // première étape, dont l'ancre est tout en haut, apparaisse d'un bloc dès
   // le premier pixel de course.
   const anchor = Math.max(threshold, 0.1);
-  const range: [number, number] = [Math.max(anchor - 0.12, 0), anchor];
-  const opacity = useTransform(progress, range, [0, 1]);
-  const shift = useTransform(progress, range, [32, 0]);
+  const range: [number, number] = [Math.max(anchor - REVEAL_WINDOW, 0), anchor];
+  // `easeInOut` plutôt que l'interpolation linéaire par défaut : le fondu
+  // démarre et se pose en douceur au lieu de s'allumer d'un coup au moment où
+  // le seuil est franchi.
+  const opacity = useTransform(progress, range, [0, 1], { ease: easeInOut });
+  const shift = useTransform(progress, range, [32, 0], { ease: easeInOut });
 
   const isLeft = index % 2 === 0;
 
