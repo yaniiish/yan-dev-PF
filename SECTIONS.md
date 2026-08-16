@@ -179,7 +179,7 @@ Deux couches ajoutées par-dessus le `BGPattern dots` de la section.
 ### Card tarif
 - `rounded-3xl border border-ink-300/60 bg-card p-7 md:p-8`, hover `-translate-y-1` + ombre.
 - **Liseré mint détaché** : `outline outline-1 outline-offset-4 outline-mint-500/60`, passe à `mint-500` plein au hover. Un `outline` avec offset et non une seconde bordure : le trait suit l'arrondi sans toucher la carte. À 30 % d'opacité il tirait au vert très sombre et disparaissait sur l'aplat `ink-950` ; 60 % est le minimum lisible sur fond sombre, et il reste discret sur le fond clair de `/prix-site-vitrine`. Plus de carte « mise en avant » : les trois offres sont une progression, pas un choix à orienter.
-- Structure : nom de l'offre (H3 serif) → prix (serif, `clamp(1.75rem,1.2vw+1rem,2.25rem)`) avec infobulle (i) optionnelle → accroche → `Inclus :` en mono → liste à coches `Check` mint → encart optionnel → note optionnelle → spacer `mt-auto` → CTA primaire pleine largeur.
+- Structure : nom de l'offre (H3 serif) → prix (serif, `clamp(1.75rem,1.2vw+1rem,2.25rem)`) avec infobulle (i) optionnelle → accroche → intitulé de liste optionnel en mono (`Inclus :`, absent sur Produit digital) → liste à coches `Check` mint → encart optionnel → note optionnelle → spacer `mt-auto` → CTA primaire pleine largeur.
 - **Encart d'abonnement** (carte Site vitrine) : `rounded-2xl border border-mint-500/40 bg-mint-50/50 p-5`. Titre et prix sur une ligne en `justify-between`, puis intro, puis liste à **puces rondes** et non à coches (la liste principale garde les coches, l'encart reste visuellement secondaire), puis la clôture en gras.
 
 ### Infobulles

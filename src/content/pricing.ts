@@ -26,6 +26,12 @@ export type PricingPlan = {
   priceTooltip?: string;
   /** À qui s'adresse l'offre, en une phrase. */
   pitch: string;
+  /**
+   * Intitulé au-dessus de la liste. Optionnel : sur Produit digital la liste
+   * énumère les types de projets possibles, pas ce qui est compris dans une
+   * prestation, donc « Inclus : » y serait faux.
+   */
+  featuresLabel?: string;
   features: readonly PricingFeature[];
   addon?: PricingAddon;
   /** Réassurance en bas de carte. `noteEmphasis` en est la partie en gras. */
@@ -34,7 +40,7 @@ export type PricingPlan = {
   ctaLabel: string;
 };
 
-/** Intitulé commun aux trois listes. */
+/** Intitulé des listes de prestations. */
 export const FEATURES_LABEL = "Inclus :";
 
 const VITRINE_FEATURES: readonly PricingFeature[] = [
@@ -85,6 +91,7 @@ export const PRICING_PLANS: readonly PricingPlan[] = [
       "Le tarif peut évoluer selon : le nombre de pages, le niveau de personnalisation, les contenus à intégrer et les fonctionnalités spécifiques.",
     pitch:
       "Pour les artisans, indépendants et petites entreprises qui veulent un site clair, professionnel et efficace.",
+    featuresLabel: FEATURES_LABEL,
     features: VITRINE_FEATURES,
     addon: {
       title: "Option Sérénité",
@@ -102,6 +109,7 @@ export const PRICING_PLANS: readonly PricingPlan[] = [
     price: "Sur devis",
     pitch:
       "Pour les marques et projets qui veulent aller plus loin visuellement, sans sacrifier la lisibilité.",
+    featuresLabel: FEATURES_LABEL,
     features: CREATIF_FEATURES,
     ctaLabel: "Imaginer mon projet",
   },

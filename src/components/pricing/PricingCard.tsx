@@ -1,7 +1,8 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Tooltip } from "@/components/ui/Tooltip";
-import { FEATURES_LABEL, type PricingFeature, type PricingPlan } from "@/content/pricing";
+import type { PricingFeature, PricingPlan } from "@/content/pricing";
+import { cn } from "@/lib/utils";
 
 /**
  * Carte tarif réutilisable (section Tarifs home + page /prix-site-vitrine).
@@ -24,6 +25,7 @@ export function PricingCard({
     price,
     priceTooltip,
     pitch,
+    featuresLabel,
     features,
     addon,
     note,
@@ -55,10 +57,20 @@ export function PricingCard({
 
       <p className="mt-4 text-sm leading-relaxed text-ink-500">{pitch}</p>
 
-      <p className="mt-7 font-mono text-xs uppercase tracking-widest text-ink-700">
-        {FEATURES_LABEL}
-      </p>
-      <ul className="mt-3.5 flex flex-col gap-2.5">
+      {/* Intitulé optionnel : sur Produit digital la liste énumère les types
+          de projets possibles et non ce qui est compris, « Inclus : » y serait
+          faux. Sans intitulé, la liste récupère la marge haute. */}
+      {featuresLabel ? (
+        <p className="mt-7 font-mono text-xs uppercase tracking-widest text-ink-700">
+          {featuresLabel}
+        </p>
+      ) : null}
+      <ul
+        className={cn(
+          "flex flex-col gap-2.5",
+          featuresLabel ? "mt-3.5" : "mt-7",
+        )}
+      >
         {features.map((feature) => (
           <FeatureItem key={featureLabel(feature)} feature={feature} />
         ))}

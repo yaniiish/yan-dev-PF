@@ -252,8 +252,9 @@ Le numéro et le titre sont deux éléments distincts, sans tiret entre les deux
   - Intégrations IA / automatisations
 - **CTA :** `Construire mon produit` → `#contact`
 
-### Intitulé commun
-> `Inclus :` au-dessus des trois listes.
+### Intitulé des listes
+> `Inclus :` au-dessus des listes **Site vitrine et Site créatif uniquement**.
+> **Pas d'intitulé sur Produit digital** : la liste y énumère les types de projets sur lesquels Yan peut travailler, pas ce qui est compris dans une prestation. Décision Yan, ne pas le remettre.
 
 ### Lien de maillage
 > `Le prix d'un site vitrine en détail →` sous la **carte Site vitrine**, vers `/prix-site-vitrine`.
