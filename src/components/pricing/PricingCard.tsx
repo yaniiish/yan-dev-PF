@@ -32,7 +32,10 @@ export function PricingCard({
   } = plan;
 
   return (
-    <article className="flex h-full flex-col rounded-3xl border border-ink-300/60 bg-card p-7 shadow-md shadow-ink-950/5 transition duration-300 ease-out hover:-translate-y-1 hover:border-ink-300 hover:shadow-xl hover:shadow-ink-950/10 md:p-8">
+    // Liseré mint détaché du bord (outline + offset) : sur l'aplat sombre de
+    // la section Tarifs, une carte blanche n'a aucune arête, le trait fin la
+    // pose sans l'alourdir. Il se voit aussi sur fond clair (/prix-site-vitrine).
+    <article className="flex h-full flex-col rounded-3xl border border-ink-300/60 bg-card p-7 shadow-md shadow-ink-950/5 outline outline-1 outline-offset-4 outline-mint-500/60 transition duration-300 ease-out hover:-translate-y-1 hover:border-ink-300 hover:shadow-xl hover:shadow-ink-950/10 hover:outline-mint-500 md:p-8">
       <h3 className="font-serif text-2xl font-medium leading-tight text-ink-950">
         {offer}
       </h3>
