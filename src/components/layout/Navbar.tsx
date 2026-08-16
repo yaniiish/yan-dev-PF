@@ -11,8 +11,14 @@ import { cn } from "@/lib/utils";
 import { durations, easings } from "@/lib/motion";
 
 const SCROLL_THRESHOLD = 30;
-// rootMargin "haut négatif / bas négatif" → la section est "active" quand
-// elle occupe la zone centrale du viewport, pas dès qu'elle dépasse.
+/**
+ * Ligne de lecture, en fraction de la hauteur d'écran : la section active est
+ * celle qui la traverse. C'est elle qui décide, pas l'observer.
+ */
+const ACTIVE_LINE = 0.425;
+// rootMargin "haut négatif / bas négatif" → l'observer ne se déclenche que
+// quand une section entre ou sort de la bande qui entoure `ACTIVE_LINE`,
+// c'est-à-dire exactement quand la réponse peut changer.
 const SECTION_OBSERVER_OPTIONS: IntersectionObserverInit = {
   rootMargin: "-40% 0px -55% 0px",
   threshold: 0,
@@ -43,17 +49,27 @@ export function Navbar() {
     ).filter((el): el is HTMLElement => el !== null);
     if (sections.length === 0) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          setActiveId(entry.target.id);
-        }
-      }
-    }, SECTION_OBSERVER_OPTIONS);
+    // La section active est déduite de la géométrie, pas de l'ordre des
+    // entrées de l'observer. Lire `entries` revenait à garder la dernière du
+    // tableau, dont l'ordre n'est pas garanti : dès que deux sections
+    // traversaient la bande dans le même lot, la gagnante était arbitraire.
+    const pick = () => {
+      const line = window.innerHeight * ACTIVE_LINE;
+      const current = sections.find((section) => {
+        const box = section.getBoundingClientRect();
+        return box.top <= line && box.bottom > line;
+      });
+      if (current) setActiveId(current.id);
+    };
+
+    const observer = new IntersectionObserver(pick, SECTION_OBSERVER_OPTIONS);
 
     for (const section of sections) {
       observer.observe(section);
     }
+    // Une arrivée directe sur une ancre (/#processus depuis une page interne)
+    // ne produit aucun franchissement, donc aucun appel de l'observer.
+    pick();
     return () => observer.disconnect();
   }, []);
 
@@ -70,7 +86,9 @@ export function Navbar() {
   // Ferme le menu quand on dépasse le breakpoint mobile (évite un menu
   // resté "ouvert" mais caché par le CSS si on resize la fenêtre).
   useEffect(() => {
-    const mql = window.matchMedia("(min-width: 768px)");
+    // Doit suivre le seuil du menu compact (`lg:hidden`), sinon un passage de
+    // 800 à 900px fermerait un menu qui reste pourtant la seule navigation.
+    const mql = window.matchMedia("(min-width: 1024px)");
     const handle = (e: MediaQueryListEvent) => {
       if (e.matches) setIsMenuOpen(false);
     };

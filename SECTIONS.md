@@ -35,7 +35,10 @@
 
 ### A11y
 - Bouton menu : `aria-expanded`, `aria-controls`.
-- Liens actifs : observer la section visible (IntersectionObserver) et appliquer `text-mint-700 underline decoration-2 underline-offset-8`.
+- Liens actifs : `text-mint-700 underline decoration-2 underline-offset-8`.
+  - La section active est **celle qui traverse une ligne de lecture à 42.5 % de la hauteur d'écran**, déduite de la géométrie à chaque appel. L'`IntersectionObserver` (`rootMargin: -40% 0px -55% 0px`) ne sert que de déclencheur : sa bande entoure cette ligne, donc il se réveille exactement quand la réponse peut changer. Jamais d'écouteur `scroll`.
+  - **Ne pas revenir à une lecture de `entries`** : garder la dernière entrée intersectante du tableau rendait la gagnante arbitraire dès que deux sections traversaient la bande dans le même lot, l'ordre du tableau n'étant pas garanti.
+  - `pick()` est aussi appelé au montage : une arrivée directe sur une ancre (`/#processus` depuis une page interne) ne produit aucun franchissement, donc aucun appel de l'observer.
 
 ---
 
