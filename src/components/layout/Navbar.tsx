@@ -6,9 +6,13 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/Button";
-import { NAV_LINKS, SITE_NAME } from "@/content/site";
+import type { Locale } from "@/content/locales";
+import { siteContent, SITE_NAME } from "@/content/site";
+import { uiContent } from "@/content/ui";
+import { anchorHref, homePath } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { durations, easings } from "@/lib/motion";
+import { LocaleSwitcher } from "./LocaleSwitcher";
 
 const SCROLL_THRESHOLD = 30;
 /**
@@ -24,17 +28,21 @@ const SECTION_OBSERVER_OPTIONS: IntersectionObserverInit = {
   threshold: 0,
 };
 
-export function Navbar() {
+export function Navbar({ locale }: { locale: Locale }) {
+  const { navLinks } = siteContent(locale);
+  const ui = uiContent(locale);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const reduceMotion = useReducedMotion();
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const home = homePath(locale);
+  const isHome = pathname === home;
 
-  // Hors de la home, les ancres (#travail…) doivent pointer vers la home,
-  // sinon elles ne mènent nulle part sur une page interne.
-  const resolveHref = (hash: string) => (isHome ? hash : `/${hash}`);
+  // Hors de la home, les ancres (#travail…) doivent pointer vers la home
+  // **de la locale courante**, sinon elles ne mènent nulle part sur une page
+  // interne, ou renvoient un visiteur anglais sur la home française.
+  const resolveHref = (hash: string) => anchorHref(hash, locale, isHome);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -44,9 +52,9 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sections = NAV_LINKS.map((link) =>
-      document.getElementById(link.id),
-    ).filter((el): el is HTMLElement => el !== null);
+    const sections = navLinks
+      .map((link) => document.getElementById(link.id))
+      .filter((el): el is HTMLElement => el !== null);
     if (sections.length === 0) return;
 
     // La section active est déduite de la géométrie, pas de l'ordre des
@@ -71,7 +79,7 @@ export function Navbar() {
     // ne produit aucun franchissement, donc aucun appel de l'observer.
     pick();
     return () => observer.disconnect();
-  }, []);
+  }, [navLinks]);
 
   // Verrouille le scroll du body quand le menu mobile est ouvert.
   useEffect(() => {
@@ -110,7 +118,7 @@ export function Navbar() {
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6 md:h-20 md:px-10 lg:px-16">
           <a
-            href={isHome ? "#hero" : "/"}
+            href={isHome ? "#hero" : home}
             className="flex shrink-0 items-center gap-2 whitespace-nowrap font-sans text-base font-semibold tracking-tight text-ink-950"
           >
             <Image
@@ -125,14 +133,14 @@ export function Navbar() {
           </a>
 
           <nav
-            aria-label="Navigation principale"
+            aria-label={ui.nav.mainLabel}
             className="hidden lg:block"
           >
             {/* `whitespace-nowrap` sur les liens, le logo et le CTA : avec
                 cinq liens, tout ce petit monde se cassait sur deux lignes des
                 que la place manquait, au lieu de signaler le debordement. */}
             <ul className="flex items-center gap-6 text-sm text-ink-700">
-              {NAV_LINKS.map((link) => {
+              {navLinks.map((link) => {
                 const isActive = activeId === link.id;
                 return (
                   <li key={link.id}>
@@ -154,19 +162,20 @@ export function Navbar() {
             </ul>
           </nav>
 
-          <div className="hidden lg:block">
+          <div className="hidden items-center gap-4 lg:flex">
+            <LocaleSwitcher locale={locale} />
             <Button
               href={resolveHref("#contact")}
               size="sm"
               className="whitespace-nowrap"
             >
-              Discuter de mon projet
+              {ui.ctaContact}
             </Button>
           </div>
 
           <button
             type="button"
-            aria-label="Ouvrir le menu"
+            aria-label={ui.nav.openMenu}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsMenuOpen(true)}
@@ -188,7 +197,7 @@ export function Navbar() {
             className="fixed inset-0 z-50 bg-ink-50 lg:hidden"
             role="dialog"
             aria-modal="true"
-            aria-label="Menu de navigation"
+            aria-label={ui.nav.menuDialogLabel}
           >
             <motion.div
               initial={reduceMotion ? false : { y: -16, opacity: 0 }}
@@ -211,7 +220,7 @@ export function Navbar() {
                 </span>
                 <button
                   type="button"
-                  aria-label="Fermer le menu"
+                  aria-label={ui.nav.closeMenu}
                   onClick={closeMenu}
                   className="inline-flex size-11 items-center justify-center rounded-md text-ink-950 transition-colors hover:bg-ink-950/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
                 >
@@ -220,11 +229,11 @@ export function Navbar() {
               </div>
 
               <nav
-                aria-label="Navigation principale"
+                aria-label={ui.nav.mainLabel}
                 className="mt-6 flex-1"
               >
                 <ul className="flex flex-col">
-                  {NAV_LINKS.map((link) => {
+                  {navLinks.map((link) => {
                     const isActive = activeId === link.id;
                     return (
                       <li key={link.id}>
@@ -247,13 +256,17 @@ export function Navbar() {
                 </ul>
               </nav>
 
+              <div className="mb-6">
+                <LocaleSwitcher locale={locale} onNavigate={closeMenu} />
+              </div>
+
               <Button
                 href={resolveHref("#contact")}
                 size="lg"
                 className="w-full"
                 onClick={closeMenu}
               >
-                Discuter de mon projet
+                {ui.ctaContact}
               </Button>
             </motion.div>
           </motion.div>
