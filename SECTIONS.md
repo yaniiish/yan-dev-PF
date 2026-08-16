@@ -170,8 +170,11 @@ Deux couches ajoutées par-dessus le `BGPattern dots` de la section.
 - **Les cartes restent claires** (`bg-card`), donc `PricingCard` est identique ici et sur `/prix-site-vitrine`, qui est sur fond clair. Rien à conditionner.
 
 ### Layout
-- Grille `grid-cols-1 lg:grid-cols-3 lg:items-start`. **Pas de passage à 3 colonnes dès `md`** : à 768px cela donnait des cartes de 208px de large et une première carte de 1621px de haut. Mesuré.
-- `lg:items-start` : les cartes gardent leur hauteur naturelle. Depuis que la première porte l'encart d'abonnement elle fait 1038px contre 550px pour les deux autres ; les égaliser creusait 490px de vide **à l'intérieur** des cartes 2 et 3.
+- Grille **2 colonnes**, pas 3 : `max-w-5xl grid-cols-1 lg:grid-cols-2 lg:items-start`. La carte qui porte l'encart prend `lg:row-span-2`, les deux offres sur devis s'empilent en face.
+- Pourquoi : en 3 colonnes la carte Site vitrine faisait 1038px contre 550px pour les deux autres, soit **490px de noir vide** sous la rangée. En 2 colonnes on est à 953px contre 1093px pour la pile, l'écart tombe à 140px. Mesuré.
+- La classe vient de `plan.addon` et non d'un index : c'est l'encart qui rend la carte haute, donc la règle survit à une réorganisation des offres.
+- Les égaliser en hauteur n'est pas une option : le vide passerait **à l'intérieur** des cartes 2 et 3.
+- **Pas de passage en colonnes dès `md`** : à 768px cela donnait des cartes de 208px de large et une première carte de 1621px de haut. Mesuré.
 
 ### Card tarif
 - `rounded-3xl border border-ink-300/60 bg-card p-7 md:p-8`, hover `-translate-y-1` + ombre. Plus de carte « mise en avant » : les trois offres sont une progression, pas un choix à orienter.

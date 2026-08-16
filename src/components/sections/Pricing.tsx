@@ -28,12 +28,23 @@ export function Pricing() {
           </div>
         </FadeIn>
 
+        {/* Deux colonnes et non trois : l'offre qui porte l'encart est deux
+            fois plus haute que les deux offres sur devis. Elle occupe donc
+            une colonne entière et les deux autres s'empilent en face, ce qui
+            évite un vide d'environ 490px sous la rangée. */}
         <Stagger
-          className="mx-auto mt-12 grid max-w-6xl grid-cols-1 gap-6 md:mt-16 lg:grid-cols-3 lg:items-start lg:gap-8"
+          className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 md:mt-16 lg:grid-cols-2 lg:items-start lg:gap-8"
           staggerChildren={0.18}
         >
           {PRICING_PLANS.map((plan) => (
-            <FadeIn key={plan.offer} inside x={-32} y={0} duration={0.65}>
+            <FadeIn
+              key={plan.offer}
+              className={plan.addon ? "lg:row-span-2" : undefined}
+              inside
+              x={-32}
+              y={0}
+              duration={0.65}
+            >
               <PricingCard plan={plan} />
             </FadeIn>
           ))}
