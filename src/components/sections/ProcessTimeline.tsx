@@ -70,7 +70,9 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
       let bandRight = rect.width;
       if (wide.matches) {
         steps.forEach((el, index) => {
-          const content = el.firstElementChild;
+          // Sélecteur explicite : le filigrane est rendu avant le texte, donc
+          // un firstElementChild mesurerait sa boîte et fausserait la bande.
+          const content = el.querySelector("[data-step-content]");
           if (!content) return;
           const box = content.getBoundingClientRect();
           // Le padding fait partie de la boîte : sans le retrancher, les deux
@@ -168,6 +170,7 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
               plafonne avant la fin. */}
           <motion.path
             key={path}
+            data-thread
             d={path}
             stroke="var(--color-mint-500)"
             strokeWidth={1.5}
@@ -292,25 +295,30 @@ function Step({
   const isLeft = index % 2 === 0;
 
   return (
-    <li ref={ref} className="relative pl-14 lg:grid lg:grid-cols-2 lg:pl-0">
-      {/* Numéro en filigrane, côté extérieur. Il n'y a pas d'espace libre à
-          côté du texte, donc il passe derrière : à 5 % d'encre il se lit comme
-          une texture et non comme une collision. Décoratif, le numéro lisible
-          est déjà dans le bloc, donc masqué aux lecteurs d'écran. Caché sous
-          lg, où il n'y a pas la place. */}
+    <li ref={ref} className="relative pl-16 lg:grid lg:grid-cols-2 lg:pl-0">
+      {/* Numéro en filigrane. Il ne reste aucune marge à l'extérieur du texte
+          (33px a 1440, 3px a 1024), donc il est posé du côté de l'ancre, dans
+          la bande libre que le fil traverse : le tracé sort de derrière le
+          chiffre au lieu de le heurter. En empilé, il occupe la gouttière du
+          rail. Décoratif : le numéro lisible est déjà dans le bloc. */}
       <motion.span
         aria-hidden="true"
+        data-step-number
         style={reduce ? undefined : { opacity }}
         className={cn(
-          "pointer-events-none absolute top-1/2 hidden -translate-y-1/2 select-none",
-          "font-serif text-[clamp(7rem,10vw,13rem)] leading-none text-ink-950/[0.05] lg:block",
-          isLeft ? "left-0" : "right-0",
+          "pointer-events-none absolute left-0 top-0 select-none font-serif leading-none text-ink-300/60",
+          "text-[clamp(3.25rem,9vw,4.5rem)] lg:text-[clamp(6rem,9vw,11rem)]",
+          // 16rem = le padding qui creuse la bande (lg:pr-64 / lg:pl-64).
+          isLeft
+            ? "lg:left-[calc(50%-16rem)] lg:right-auto"
+            : "lg:left-auto lg:right-[calc(50%-16rem)]",
         )}
       >
         {step.number}
       </motion.span>
 
       <motion.div
+        data-step-content
         style={reduce ? undefined : { opacity, y: shift }}
         className={cn(
           isLeft

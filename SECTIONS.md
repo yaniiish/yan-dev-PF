@@ -123,7 +123,7 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ### Le fil serpentin
 - **Tracé SVG mesuré, pas figé.** Un `ResizeObserver` mesure la position réelle de chaque étape dans le wrapper, et le chemin est reconstruit à partir de ces ancres. Il reste donc juste quelle que soit la longueur des textes et le format d'écran.
-- **Les ancres sont calées sur la bande libre entre les deux colonnes**, mesurée sur les bords réels du texte (boîte du bloc moins son padding : sans retrancher le padding, les deux bords se rejoignent au centre et la bande est nulle). Des pourcentages fixes ne tenaient pas : à 1024px la bande ne fait que 192px et le tracé passait par-dessus les textes.
+- **Les ancres sont calées sur la bande libre entre les deux colonnes**, mesurée sur les bords réels du texte (boîte du bloc moins son padding : sans retrancher le padding, les deux bords se rejoignent au centre et la bande est nulle). Des pourcentages fixes ne tenaient pas : à 1024px la bande ne fait que 192px et le tracé passait par-dessus les textes. Le bloc est ciblé par `[data-step-content]`, jamais par `firstElementChild` : le filigrane est rendu avant le texte, et le mesurer élargissait la bande jusqu'à faire repasser le fil sur les textes.
 - Les points de contrôle des cubiques sont à l'aplomb de chaque ancre. Le tracé est donc **borné par les abscisses des ancres**, ce qui garantit géométriquement qu'il ne sort jamais de la bande.
 - Padding `lg:pr-64` / `lg:pl-64` sur un conteneur `max-w-6xl`, textes en `max-w-[30ch]` : c'est ce couple qui fixe la largeur de la bande, donc l'amplitude du serpentin. Mesurée à **484px** sur un bloc de 1152px.
 - **Arbitrage largeur / hauteur** : élargir la bande rétrécit les colonnes de texte, donc les blocs s'allongent et la section grandit. Les valeurs actuelles sont le meilleur compromis mesuré (section 1481px, amplitude 484px), contre 1717px et 356px avant réglage.
@@ -138,7 +138,10 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 Deux couches ajoutées par-dessus le `BGPattern dots` de la section.
 
 - **Halo mint le long du fil** : le même tracé, en `strokeWidth 44`, opacité 0.14, flouté par un `feGaussianBlur stdDeviation 16`, avec **le même `pathLength`** que le fil. Il se dessine donc en même temps et éclaire la section au fur et à mesure, au lieu d'être un décor posé. En pile, il ne reste qu'un lavis mint discret le long du rail gauche.
-- **Numéro en filigrane** par étape, côté extérieur, `font-serif` en `clamp(7rem,10vw,13rem)`. Il n'y a **pas d'espace libre à côté du texte** : les colonnes sont pleines une fois le padding retiré. Le numéro passe donc derrière le texte, à `text-ink-950/[0.05]` : à ce niveau d'encre il se lit comme une texture et non comme une collision. Un premier essai à `ink-300/50` venait buter sur les lignes. Décoratif donc `aria-hidden`, le numéro lisible étant déjà dans le bloc. Masqué sous `lg`, faute de place.
+- **Numéro en filigrane** par étape, `font-serif`, `text-ink-300/60`, `clamp(3.25rem,9vw,4.5rem)` en pile et `clamp(6rem,9vw,11rem)` à partir de `lg`. Décoratif donc `aria-hidden`, le numéro lisible étant déjà dans le bloc.
+  - **Placé du côté de l'ancre, dans la bande libre**, pas à l'extérieur du texte : `lg:left-[calc(50%-16rem)]` / `lg:right-[calc(50%-16rem)]`, le `16rem` reprenant le padding qui creuse la bande. Le fil sort donc de derrière le chiffre.
+  - Il **n'y a aucune marge à l'extérieur du texte** : mesuré, 33px à 1440 et 3px à 1024. Deux essais posés là (`ink-300/50` puis `ink-950/[0.05]`) chevauchaient les lignes. Ne pas y revenir.
+  - En pile, le numéro occupe la gouttière du rail (`pl-16` sur l'étape) et le fil le traverse, comme sur desktop.
 
 ### Animation
 - **Le fil se dessine au scroll** : `useScroll({ target, offset: ["start 0.8", "end 0.8"] })` pilote `pathLength` sur le tracé mint superposé au tracé gris. Motivé : le tracé raconte l'avancement du projet, qui est le sujet de la section.
