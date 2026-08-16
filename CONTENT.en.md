@@ -47,7 +47,7 @@
 | Contact | Contact |
 
 - **CTA navbar :** `Tell me about your project`
-- **Sélecteur de langue :** `FR / EN`, la langue active en `mint-700`.
+- **Sélecteur de langue :** `FR / EN`, la langue active en `mint-700`. Toujours visible dans la barre, y compris sous `lg` où il vit à côté du bouton du menu : il n'est pas rangé dans le menu burger.
 
 ---
 

@@ -12,12 +12,6 @@ import { uiContent } from "@/content/ui";
 import { counterpartPath } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
-type LocaleSwitcherProps = {
-  locale: Locale;
-  /** Ferme le menu mobile quand le sélecteur y est rendu. */
-  onNavigate?: () => void;
-};
-
 /**
  * Sélecteur de langue FR / EN.
  *
@@ -29,8 +23,12 @@ type LocaleSwitcherProps = {
  * Sur une page sans équivalent dans l'autre langue (fiches métier, index
  * métiers), `counterpartPath` renvoie vers la home de la langue cible plutôt
  * que vers une 404.
+ *
+ * Il reste dans la barre à tous les formats, y compris sous `lg` où il vit à
+ * côté du bouton du menu : changer de langue ne doit pas obliger à ouvrir le
+ * menu d'abord.
  */
-export function LocaleSwitcher({ locale, onNavigate }: LocaleSwitcherProps) {
+export function LocaleSwitcher({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const { nav } = uiContent(locale);
 
@@ -55,13 +53,14 @@ export function LocaleSwitcher({ locale, onNavigate }: LocaleSwitcherProps) {
               lang={item}
               aria-current={isActive ? "true" : undefined}
               aria-label={LOCALE_NAME[item]}
-              onClick={onNavigate}
               className={cn(
-                "rounded-md px-1 py-1 transition-colors",
+                // Sous lg le selecteur est un controle tactile de premier
+                // plan : la cible fait 44px de haut, sans changer la taille
+                // du texte. A partir de lg elle redevient compacte.
+                "inline-flex min-h-11 min-w-8 items-center justify-center rounded-md transition-colors",
+                "lg:min-h-0 lg:min-w-0 lg:px-1 lg:py-1",
                 "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint-700",
-                isActive
-                  ? "text-mint-700"
-                  : "text-ink-500 hover:text-ink-950",
+                isActive ? "text-mint-700" : "text-ink-500 hover:text-ink-950",
               )}
             >
               {LOCALE_LABEL[item]}
