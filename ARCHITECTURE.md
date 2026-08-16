@@ -166,8 +166,9 @@ yan-dev/
 
 ### 3.7 Indexation
 
-- Tant que **pas de domaine final** : ajouter `robots: { index: false, follow: false }` dans le `metadata` de `layout.tsx` pour éviter d'indexer une URL `.vercel.app`. Le `robots.ts` peut aussi `disallow: "/"` sur cette période.
-- À l'achat du domaine : retirer ces blocages, passer à `index: true, follow: true`.
+- Le site est en production sur `yan-dev.fr` : les deux layouts de route group exportent `robots: { index: true, follow: true }` et `robots.ts` ouvre le crawl (`allow: "/"`).
+- `SITE_URL` (`src/lib/seo.ts`) retombe sur `https://yan-dev.fr` et jamais sur localhost, pour qu'une variable d'env oubliée ne fasse pas fuiter d'URLs locales dans le sitemap, les canonical ou le JSON-LD.
+- En dev local, mettre `NEXT_PUBLIC_SITE_URL=http://localhost:3000` dans `.env.local`.
 
 ---
 
