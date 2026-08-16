@@ -166,7 +166,7 @@ Deux couches ajoutées par-dessus le `BGPattern dots` de la section.
 ### Background
 - **Aplat plein `bg-ink-950`**, seul aplat sombre du site. Il sert de coupure entre deux sections claires (Comment ça marche, Contact) : le changement de sujet se lit sans filet ni séparateur. Cf. `DESIGN_SYSTEM.md` §6.1.
 - En-tête en clair : `SectionLabel` forcé en `text-mint-500` (le `mint-700` par défaut ne passe pas sur fond sombre), H2 en `text-ink-50`, lead en `text-ink-300`.
-- Le lien de maillage sous les cartes passe en `text-mint-500` avec hover `mint-100`.
+- Le lien de maillage passe en `text-mint-500` avec hover `mint-100`. Il est rendu **dans la cellule de la carte Site vitrine, sous elle**, et non sous la grille : il pointe vers le prix d'un site vitrine, et il occupe le reliquat de hauteur de cette colonne.
 - **Les cartes restent claires** (`bg-card`), donc `PricingCard` est identique ici et sur `/prix-site-vitrine`, qui est sur fond clair. Rien à conditionner.
 
 ### Layout

@@ -46,19 +46,24 @@ export function Pricing() {
               duration={0.65}
             >
               <PricingCard plan={plan} />
+
+              {/* Le lien vit sous la carte Site vitrine, pas sous la grille :
+                  il pointe vers le prix d'un site vitrine, et il occupe le
+                  reliquat de hauteur de cette colonne. */}
+              {plan.addon ? (
+                <div className="mt-6 text-center">
+                  <a
+                    href={PRIX_PATH}
+                    className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold tracking-tight text-mint-500 transition-colors hover:text-mint-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-500"
+                  >
+                    {PRICING_SECTION.pageLinkLabel}
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </a>
+                </div>
+              ) : null}
             </FadeIn>
           ))}
         </Stagger>
-
-        <div className="mt-12 text-center">
-          <a
-            href={PRIX_PATH}
-            className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold tracking-tight text-mint-500 transition-colors hover:text-mint-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-500"
-          >
-            {PRICING_SECTION.pageLinkLabel}
-            <ArrowRight size={16} aria-hidden="true" />
-          </a>
-        </div>
       </div>
     </section>
   );

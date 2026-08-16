@@ -256,7 +256,7 @@ Le numéro et le titre sont deux éléments distincts, sans tiret entre les deux
 > `Inclus :` au-dessus des trois listes.
 
 ### Lien de maillage
-> `Le prix d'un site vitrine en détail →` sous les cartes, vers `/prix-site-vitrine`.
+> `Le prix d'un site vitrine en détail →` sous la **carte Site vitrine**, vers `/prix-site-vitrine`.
 
 ---
 
