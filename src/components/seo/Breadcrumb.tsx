@@ -1,4 +1,6 @@
 import { ChevronRight } from "lucide-react";
+import type { Locale } from "@/content/locales";
+import { uiContent } from "@/content/ui";
 import { cn } from "@/lib/utils";
 
 export type Crumb = {
@@ -13,13 +15,15 @@ export type Crumb = {
  */
 export function Breadcrumb({
   items,
+  locale,
   className,
 }: {
   items: ReadonlyArray<Crumb>;
+  locale: Locale;
   className?: string;
 }) {
   return (
-    <nav aria-label="Fil d'ariane" className={className}>
+    <nav aria-label={uiContent(locale).breadcrumbLabel} className={className}>
       <ol className="flex flex-wrap items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-ink-500">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;

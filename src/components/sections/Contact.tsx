@@ -1,6 +1,8 @@
 import { Mail } from "lucide-react";
 import { FadeIn } from "@/components/motion/FadeIn";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { contactContent } from "@/content/contact";
+import type { Locale } from "@/content/locales";
 import {
   CONTACT_EMAIL,
   CONTACT_INSTAGRAM_HANDLE,
@@ -30,23 +32,20 @@ function InstagramIcon({ className }: { className?: string }) {
   );
 }
 
-const H2 = "Contactez-moi ici.";
+export function Contact({ locale }: { locale: Locale }) {
+  const content = contactContent(locale);
 
-const LEAD =
-  "Je réponds sous 24h (jours ouvrés). Pas de bot, pas d'agence intermédiaire, c'est moi qui lis et qui réponds.";
-
-export function Contact() {
   return (
     <section id="contact" className="bg-card py-16 md:py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
           <FadeIn>
-            <SectionLabel>Contact</SectionLabel>
+            <SectionLabel>{content.label}</SectionLabel>
             <h2 className="mt-3 font-serif text-[clamp(1.875rem,2.5vw+1rem,3rem)] font-medium leading-[1.1] tracking-tight text-ink-950">
-              {H2}
+              {content.h2}
             </h2>
             <p className="mt-6 max-w-md text-base leading-relaxed text-ink-500">
-              {LEAD}
+              {content.lead}
             </p>
 
             <div className="mt-8 flex flex-col gap-3">
@@ -58,7 +57,7 @@ export function Contact() {
                 />
                 <div className="flex flex-col">
                   <span className="font-mono text-[0.7rem] uppercase tracking-widest text-ink-500">
-                    Vous préférez le mail ?
+                    {content.mailLabel}
                   </span>
                   <a
                     href={`mailto:${CONTACT_EMAIL}`}
@@ -73,7 +72,7 @@ export function Contact() {
                 <InstagramIcon className="shrink-0 text-mint-700" />
                 <div className="flex flex-col">
                   <span className="font-mono text-[0.7rem] uppercase tracking-widest text-ink-500">
-                    Ou sur Instagram
+                    {content.instagramLabel}
                   </span>
                   <a
                     href={CONTACT_INSTAGRAM_URL}
@@ -89,7 +88,7 @@ export function Contact() {
           </FadeIn>
 
           <FadeIn x={32} y={0} duration={0.65}>
-            <ContactForm />
+            <ContactForm locale={locale} />
           </FadeIn>
         </div>
       </div>

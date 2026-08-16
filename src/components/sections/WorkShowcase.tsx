@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import type { Locale } from "@/content/locales";
+import { uiContent } from "@/content/ui";
 import { easings } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +29,7 @@ export type ShowcaseItem = {
 };
 
 type WorkShowcaseProps = {
+  locale: Locale;
   items: readonly ShowcaseItem[];
   /** Grille des vignettes, adaptée au nombre d'éléments et à la largeur de la colonne. */
   thumbsClassName: string;
@@ -41,11 +44,13 @@ type WorkShowcaseProps = {
  * directement au lieu de faire défiler à l'aveugle.
  */
 export function WorkShowcase({
+  locale,
   items,
   thumbsClassName,
   itemNoun,
   sizes,
 }: WorkShowcaseProps) {
+  const { showcase } = uiContent(locale);
   const [activeId, setActiveId] = useState(items[0]?.id);
   const reduce = useReducedMotion();
   const active = items.find((item) => item.id === activeId) ?? items[0];
@@ -109,7 +114,7 @@ export function WorkShowcase({
             >
               <ArrowUpRight size={20} aria-hidden="true" />
               <span className="sr-only">
-                Voir {active.title}, nouvelle fenêtre
+                {showcase.visitLabel(active.title)}
               </span>
             </a>
           ) : null}
@@ -161,7 +166,9 @@ export function WorkShowcase({
                     isActive ? "text-ink-950" : "text-ink-500",
                   )}
                 >
-                  <span className="sr-only">Voir {itemNoun} </span>
+                  <span className="sr-only">
+                    {showcase.selectLabel(itemNoun)}
+                  </span>
                   {item.title}
                 </span>
               </button>

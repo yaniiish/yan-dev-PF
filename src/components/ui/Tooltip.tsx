@@ -11,11 +11,12 @@ import { cn } from "@/lib/utils";
  */
 export function Tooltip({
   content,
-  label = "Plus d'informations",
+  label,
   align = "center",
 }: {
   content: string;
-  label?: string;
+  /** Libellé accessible du (i). Traduit, donc fourni par l'appelant. */
+  label: string;
   /**
    * `end` aligne le panneau sur le bord droit du (i). À utiliser quand le
    * déclencheur est proche du bord droit de l'écran : centré, un panneau de

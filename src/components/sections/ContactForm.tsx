@@ -5,13 +5,16 @@ import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
+import type { Locale } from "@/content/locales";
 import { CONTACT_EMAIL } from "@/content/site";
-import { ContactSchema, type ContactInput } from "@/lib/schema";
+import { uiContent } from "@/content/ui";
+import { contactSchema, type ContactInput } from "@/lib/schema";
 
 type Status = "idle" | "loading" | "success" | "error";
 type FieldErrors = Partial<Record<keyof ContactInput, string>>;
 
-export function ContactForm() {
+export function ContactForm({ locale }: { locale: Locale }) {
+  const { form } = uiContent(locale);
   const baseId = useId();
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -27,9 +30,10 @@ export function ContactForm() {
       activity: String(formData.get("activity") ?? ""),
       message: String(formData.get("message") ?? ""),
       website: String(formData.get("website") ?? ""),
+      locale,
     };
 
-    const result = ContactSchema.safeParse(raw);
+    const result = contactSchema(locale).safeParse(raw);
     if (!result.success) {
       const fieldErrors: FieldErrors = {};
       for (const issue of result.error.issues) {
@@ -94,11 +98,9 @@ export function ContactForm() {
           aria-hidden="true"
         />
         <h3 className="mt-4 font-serif text-2xl font-medium text-ink-950">
-          Message reçu
+          {form.successTitle}
         </h3>
-        <p className="mt-2 text-base text-ink-700">
-          Je vous réponds très vite, sous 24h jours ouvrés.
-        </p>
+        <p className="mt-2 text-base text-ink-700">{form.successBody}</p>
       </div>
     );
   }
@@ -116,40 +118,40 @@ export function ContactForm() {
           id={`${baseId}-email`}
           name="email"
           type="email"
-          label="Email"
+          label={form.emailLabel}
           required
           inputMode="email"
           autoComplete="email"
-          placeholder="vous@exemple.fr"
+          placeholder={form.emailPlaceholder}
           error={errors.email}
         />
         <Input
           id={`${baseId}-phone`}
           name="phone"
           type="tel"
-          label="Téléphone"
+          label={form.phoneLabel}
           inputMode="tel"
           autoComplete="tel"
-          placeholder="06 12 34 56 78"
+          placeholder={form.phonePlaceholder}
           error={errors.phone}
         />
         <Input
           id={`${baseId}-activity`}
           name="activity"
           type="text"
-          label="Votre activité / entreprise"
+          label={form.activityLabel}
           required
           autoComplete="organization-title"
-          placeholder="Boulangerie, cabinet, restaurant…"
+          placeholder={form.activityPlaceholder}
           error={errors.activity}
         />
         <Textarea
           id={`${baseId}-message`}
           name="message"
-          label="Votre message"
+          label={form.messageLabel}
           required
           rows={5}
-          placeholder="Décrivez en quelques lignes ce que vous avez en tête."
+          placeholder={form.messagePlaceholder}
           error={errors.message}
         />
 
@@ -170,19 +172,19 @@ export function ContactForm() {
           disabled={isSubmitting}
           aria-busy={isSubmitting}
         >
-          {isSubmitting ? "Envoi…" : "Envoyer ma demande"}
+          {isSubmitting ? form.submitting : form.submit}
         </Button>
 
         {status === "error" ? (
           <p role="alert" className="text-sm text-error">
-            Une erreur est survenue, réessayez ou écrivez-moi directement à{" "}
+            {form.errorPrefix}{" "}
             <a
               href={`mailto:${CONTACT_EMAIL}`}
               className="underline decoration-error decoration-2 underline-offset-4"
             >
               {CONTACT_EMAIL}
             </a>
-            .
+            {form.errorSuffix}
           </p>
         ) : null}
       </div>

@@ -5,33 +5,14 @@ import { motion, useReducedMotion, type Variants } from "motion/react";
 import { BGPattern } from "@/components/backgrounds/BGPattern";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { heroContent } from "@/content/hero";
+import type { Locale } from "@/content/locales";
 import { durations, easings } from "@/lib/motion";
 import { useSiteLoaded } from "@/lib/useSiteLoaded";
 import { cn } from "@/lib/utils";
 
-// Decoupage en deux lignes choisi pour equilibrer : la ligne la plus longue
-// fait 33 caracteres au lieu de 35, ce qui laisse monter l'echelle du titre.
-const H1_LINE_1 = "Creative Developer,";
-const H1_LINE_2_PRE = "Website Creator &";
-const H1_LINE_2_ACCENT = "Product Builder";
-
-const LEAD =
-  "Sites web créatifs, sites vitrines plus simples et produits digitaux.";
-
-const CTA_PRIMARY = "Voir mes projets";
-const CTA_SECONDARY = "Discuter d'un projet";
-
-const INTRO =
-  "Du site vitrine simple à l'expérience web plus créative, jusqu'au produit digital complet. Je conçois chaque projet selon ses besoins, ses ambitions et son budget, sans jamais sacrifier la qualité.";
-
-const PRESENT_NAME = "Yan";
-const PRESENT_ROLE = "Creative Developer · Product Builder";
-const PRESENT_PITCH =
-  "J'aime transformer une idée en quelque chose de concret, qu'il s'agisse d'un simple site vitrine ou d'un produit digital complet.";
-const PRESENT_TAGLINE = "Je travaille en direct, sans intermédiaire.";
-const PRESENT_AVAILABILITY = "Disponible actuellement";
-
-export function Hero() {
+export function Hero({ locale }: { locale: Locale }) {
+  const content = heroContent(locale);
   const isLoaded = useSiteLoaded();
   const reduce = useReducedMotion();
 
@@ -108,13 +89,13 @@ export function Hero() {
                   whitespace-nowrap ferait deborder au lieu de replier. */}
               <h1 className="font-serif text-[8.5cqw] font-medium leading-[1.05] tracking-tight text-ink-950">
                 <MaskedLine variants={line}>
-                  <span className="whitespace-nowrap">{H1_LINE_1}</span>
+                  <span className="whitespace-nowrap">{content.h1Line1}</span>
                 </MaskedLine>
                 <MaskedLine variants={line}>
                   <span className="whitespace-nowrap">
-                    {H1_LINE_2_PRE}{" "}
+                    {content.h1Line2Pre}{" "}
                     <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
-                      {H1_LINE_2_ACCENT}
+                      {content.h1Line2Accent}
                     </span>
                   </span>
                 </MaskedLine>
@@ -129,13 +110,13 @@ export function Hero() {
                   variants={rise}
                   className="text-[clamp(1.125rem,0.6vw+0.9rem,1.5rem)] leading-relaxed text-ink-700"
                 >
-                  {LEAD}
+                  {content.lead}
                 </motion.p>
                 <motion.p
                   variants={rise}
                   className="mt-4 text-[clamp(1rem,0.2vw+0.95rem,1.125rem)] leading-relaxed text-ink-500"
                 >
-                  {INTRO}
+                  {content.intro}
                 </motion.p>
               </div>
               <motion.div
@@ -143,10 +124,10 @@ export function Hero() {
                 className="mt-8 flex flex-col gap-3 sm:flex-row md:mt-12"
               >
                 <Button href="#travail" size="lg">
-                  {CTA_PRIMARY}
+                  {content.ctaPrimary}
                 </Button>
                 <Button href="#contact" size="lg" variant="secondary">
-                  {CTA_SECONDARY}
+                  {content.ctaSecondary}
                 </Button>
               </motion.div>
             </div>
@@ -157,7 +138,7 @@ export function Hero() {
               transition={{ duration: 0.5, ease: easings.out }}
               className="mx-auto w-full max-w-md lg:col-span-5 lg:mx-0 lg:max-w-none"
             >
-              <PresentationCard />
+              <PresentationCard content={content.card} avatarAlt={content.avatarAlt} />
             </motion.div>
           </div>
         </motion.div>
@@ -186,7 +167,13 @@ function MaskedLine({
   );
 }
 
-function PresentationCard() {
+function PresentationCard({
+  content,
+  avatarAlt,
+}: {
+  content: ReturnType<typeof heroContent>["card"];
+  avatarAlt: string;
+}) {
   return (
     <Card className={cn("rounded-3xl p-6 md:p-8", "shadow-lg shadow-ink-950/5")}>
       {/* Disponibilite remontee sur la ligne du nom : "Yan" seul a cote de
@@ -195,7 +182,7 @@ function PresentationCard() {
         <div className="flex min-w-0 items-center gap-3">
           <Image
             src="/avatar/avatar-yan.JPG"
-            alt="Portrait de Yan, développeur web indépendant à Caen"
+            alt={avatarAlt}
             width={2080}
             height={1867}
             sizes="56px"
@@ -203,7 +190,7 @@ function PresentationCard() {
             className="size-14 shrink-0 rounded-full object-cover"
           />
           <p className="min-w-0 font-serif text-xl font-medium leading-tight text-ink-950">
-            {PRESENT_NAME}
+            {content.name}
           </p>
         </div>
         <span className="flex shrink-0 items-center gap-2">
@@ -211,7 +198,7 @@ function PresentationCard() {
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-mint-500 opacity-60" />
             <span className="relative inline-flex size-2.5 rounded-full bg-mint-500" />
           </span>
-          <span className="text-sm text-ink-700">{PRESENT_AVAILABILITY}</span>
+          <span className="text-sm text-ink-700">{content.availability}</span>
         </span>
       </div>
 
@@ -220,18 +207,20 @@ function PresentationCard() {
       {/* Variante large seulement a partir de xl : c'est a 1024px que la card
           est la plus etroite (5 colonnes d'un petit container). */}
       <p className="mt-3 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-mint-700 xl:text-[0.7rem] xl:tracking-widest">
-        {PRESENT_ROLE}
+        {content.role}
       </p>
 
       {/* La card garde sa hauteur naturelle : etiree sur la colonne, elle
           creusait de grands vides au-dessus et en dessous de la citation.
           C'est la taille de la citation qui lui donne sa presence. */}
       <blockquote className="mt-6 font-serif text-lg leading-snug text-ink-950 md:mt-8 md:text-xl lg:text-2xl">
-        «&nbsp;{PRESENT_PITCH}&nbsp;»
+        {content.quote.open}
+        {content.pitch}
+        {content.quote.close}
       </blockquote>
 
       <p className="mt-4 border-t border-ink-300/60 pt-4 text-sm text-ink-500">
-        {PRESENT_TAGLINE}
+        {content.tagline}
       </p>
     </Card>
   );

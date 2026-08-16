@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { BGPattern } from "@/components/backgrounds/BGPattern";
+import type { Locale } from "@/content/locales";
+import { uiContent } from "@/content/ui";
 import { easings } from "@/lib/motion";
 import { SITE_LOADED_ATTRIBUTE, SITE_LOADED_EVENT } from "@/lib/useSiteLoaded";
 
@@ -21,7 +23,7 @@ const FRAME_PATH =
   "M 29 9 H 71 A 20 20 0 0 1 91 29 V 71 A 20 20 0 0 1 71 91 H 29 A 20 20 0 0 1 9 71 V 29 A 20 20 0 0 1 29 9 Z";
 const DOTS_X = [25, 36, 47];
 
-export function SiteLoader() {
+export function SiteLoader({ locale }: { locale: Locale }) {
   const [isVisible, setIsVisible] = useState(true);
   const reduceMotion = useReducedMotion();
 
@@ -151,7 +153,7 @@ export function SiteLoader() {
               </div>
             </div>
 
-            <span className="sr-only">Chargement du site</span>
+            <span className="sr-only">{uiContent(locale).loader}</span>
           </motion.div>
         ) : null}
       </AnimatePresence>
