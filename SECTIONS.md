@@ -26,14 +26,19 @@
 - Centre (md+) : liens.
 - Droite : CTA primaire `sm` ou `md`.
 
-### Mobile (`< md`)
+### Menu compact (`< lg`)
+- **Seuil à `lg`, pas à `md`.** Avec cinq liens, à 768px il faut 707px de contenu pour 688 disponibles : le logo se faisait comprimer de 19px et le CTA cassait sur deux lignes. Mesuré. En dessous de 1024px, tout passe donc dans le menu compact, qui contient déjà les liens et le CTA.
+- `whitespace-nowrap` sur le logo, les liens et le CTA, plus `shrink-0` sur le logo : sans ça, un manque de place se traduit par un retour à la ligne silencieux au lieu d'un débordement visible.
 - Liens cachés, remplacés par un bouton menu (icône `Menu` de lucide).
 - Au clic : sheet plein écran qui descend avec liens en colonne, gros texte (`text-2xl`), CTA en bas.
 - Animer avec Motion (fade + slide), pas de lib externe.
 
 ### A11y
 - Bouton menu : `aria-expanded`, `aria-controls`.
-- Liens actifs : observer la section visible (IntersectionObserver) et appliquer `text-mint-700 underline decoration-2 underline-offset-8`.
+- Liens actifs : `text-mint-700 underline decoration-2 underline-offset-8`.
+  - La section active est **celle qui traverse une ligne de lecture à 42.5 % de la hauteur d'écran**, déduite de la géométrie à chaque appel. L'`IntersectionObserver` (`rootMargin: -40% 0px -55% 0px`) ne sert que de déclencheur : sa bande entoure cette ligne, donc il se réveille exactement quand la réponse peut changer. Jamais d'écouteur `scroll`.
+  - **Ne pas revenir à une lecture de `entries`** : garder la dernière entrée intersectante du tableau rendait la gagnante arbitraire dès que deux sections traversaient la bande dans le même lot, l'ordre du tableau n'étant pas garanti.
+  - `pick()` est aussi appelé au montage : une arrivée directe sur une ancre (`/#processus` depuis une page interne) ne produit aucun franchissement, donc aucun appel de l'observer.
 
 ---
 
@@ -83,107 +88,111 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ---
 
-## 3. POURQUOI (`#pourquoi`)
+## 3. MON TRAVAIL (`#travail`)
+
+> Remplace POURQUOI, SERVICES et EXEMPLES, supprimées lors du repositionnement.
+> Composants : `sections/Travail.tsx` (serveur) et `sections/WorkShowcase.tsx` (client, partagé par les deux colonnes).
+> Données : `content/travail.ts`.
 
 ### Layout
-- Container standard.
-- `SectionLabel` + H2 (à gauche, max-w-3xl).
-- Lead sous H2, `max-w-2xl`, `text-ink-500`.
-- Grille de **4 cards** :
-  - Desktop : `grid grid-cols-2 gap-6 lg:gap-8 mt-16`
-  - Mobile : `grid-cols-1 gap-4`
+- En-tête centré : `SectionLabel` + H2 + lead, `max-w-2xl mx-auto text-center`.
+- Grille `lg:grid-cols-12`, colonne gauche `lg:col-span-7`, colonne droite `lg:col-span-5`.
+- Filet de séparation : `lg:border-l border-ink-300/60` sur la colonne droite, avec `lg:pl-10 xl:pl-14` et `lg:pr-10 xl:pr-14` à gauche. Sous `lg`, `border-t` et empilement.
+- Titre de colonne : mono uppercase `tracking-widest`, souligné d'un trait mint de 48px.
 
-### Card "raison"
-- `rounded-2xl border border-ink-300/60 bg-card p-6 md:p-8`.
-- Structure interne :
-  - Petit numéro mono (`01`, `02`...) en `text-mint-700 font-mono text-micro`.
-  - H3 (sans serif, semibold).
-  - Paragraphe body, `text-ink-700`.
-- Hover : `transition-shadow hover:shadow-md hover:border-mint-500/40`.
+### Colonne gauche
+- Projet en grand : card `rounded-3xl`, visuel `aspect-[16/9]`, puis catégorie / titre / secteur et une pastille ronde de 48px vers le site externe.
+- Vignettes : `grid-cols-3` puis `sm:grid-cols-6`, bordure mint sur l'active, opacité 60 % sur les autres. Le nom du site sous la vignette n'est pas tronqué, il passe sur deux lignes.
+- Bouton `Des exemples par métier` en `variant="secondary"`.
 
-### Background
-- Pas de background décoratif par défaut (cf. `DESIGN_SYSTEM.md` §6.1) : le grid est désormais réservé au Hero pour éviter la répétition. Section laissée sur fond neutre (`bg-ink-50` ou `bg-card`). Si la section paraît trop nue côte à côte avec Hero (grid) et Tarifs (dark), on pourra ajouter ponctuellement un BGPattern subtil (`dots` ou `diagonal-stripes`) — à valider visuellement au moment de coder.
+### Colonne droite
+- **Même vitrine que la colonne gauche** (`WorkShowcase`), avec deux vignettes au lieu de six : `grid-cols-2`.
+- La nature du produit prend la place de la catégorie du site, la description celle du secteur. Le badge d'état vient à côté de la nature, sur la même ligne.
+- Pas de pastille de lien quand le produit n'a pas d'URL, cas de BetaWall.
 
 ### Animation
-- Stagger sur les cards (0.08s).
-- Chaque card : `y: 16 → 0`, `opacity: 0 → 1`.
+- `FadeIn y={24}` sur chaque colonne.
+- Changement de projet : fondu de 0.3s sur le visuel via `AnimatePresence mode="wait"`. Motivé par le retour au clic sur une vignette, sans décalage de mise en page. `useReducedMotion` supprime le fondu.
 
 ---
 
-## 4. SERVICES (`#services`)
+## 4. COMMENT ÇA MARCHE (`#processus`)
+
+> Composants : `sections/Processus.tsx` (serveur) et `sections/ProcessTimeline.tsx` (client).
+> Données : `content/processus.ts`.
 
 ### Layout
-- Comme Pourquoi mais grille de **4 cards** (`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`).
-- Cards plus hautes (icône en haut, plus de respiration).
+- En-tête centré : `SectionLabel` + H2, `max-w-2xl mx-auto text-center`. Pas de lead, les étapes parlent d'elles-mêmes.
+- Liste en `max-w-6xl mx-auto`, étapes espacées de `space-y-14 lg:space-y-20`. L'espacement `lg` arbitre entre deux besoins opposés : il faut de la hauteur pour que le serpentin fasse son renflement hors des blocs de texte et pour que les révélations se succèdent, mais pas trop sous peine d'allonger la section.
+- **Zigzag** : à partir de `lg`, `grid-cols-2`, étapes paires en colonne 1 alignées à droite (`lg:text-right lg:pr-64`), étapes impaires en colonne 2 (`lg:pl-64`). Sous `lg`, tout passe à droite du fil (`pl-16`, la gouttière qui accueille le numéro en filigrane).
 
-### Card service
-- `rounded-2xl border border-ink-300/60 bg-card p-6 md:p-7`.
-- Structure :
-  - Icône (lucide, taille 24, `text-mint-700`) dans un cercle `size-12 rounded-2xl bg-mint-50 flex items-center justify-center`.
-  - Numéro `01` mono mint.
-  - H3 titre service.
-  - Description body.
+### Le fil serpentin
+- **Tracé SVG mesuré, pas figé.** Un `ResizeObserver` mesure la position réelle de chaque étape dans le wrapper, et le chemin est reconstruit à partir de ces ancres. Il reste donc juste quelle que soit la longueur des textes et le format d'écran.
+- **Les ancres sont calées sur la bande libre entre les deux colonnes**, mesurée sur les bords réels du texte (boîte du bloc moins son padding : sans retrancher le padding, les deux bords se rejoignent au centre et la bande est nulle). Des pourcentages fixes ne tenaient pas : à 1024px la bande ne fait que 192px et le tracé passait par-dessus les textes. Le bloc est ciblé par `[data-step-content]`, jamais par `firstElementChild` : le filigrane est rendu avant le texte, et le mesurer élargissait la bande jusqu'à faire repasser le fil sur les textes.
+- Les points de contrôle des cubiques sont à l'aplomb de chaque ancre. Le tracé est donc **borné par les abscisses des ancres**, ce qui garantit géométriquement qu'il ne sort jamais de la bande.
+- Padding `lg:pr-64` / `lg:pl-64` sur un conteneur `max-w-6xl`, textes en `max-w-[30ch]` : c'est ce couple qui fixe la largeur de la bande, donc l'amplitude du serpentin. Mesurée à **484px** sur un bloc de 1152px.
+- **Arbitrage largeur / hauteur** : élargir la bande rétrécit les colonnes de texte, donc les blocs s'allongent et la section grandit. Les valeurs actuelles sont le meilleur compromis mesuré (section 1481px, amplitude 484px), contre 1717px et 356px avant réglage.
+- En pile, toutes les ancres sont à 20px du bord et le même code produit un fil droit.
+- `viewBox` en pixels réels, donc pas de `preserveAspectRatio` déformant : les cercles restent ronds et l'épaisseur du trait est constante.
+- Le SVG est en `absolute inset-0 pointer-events-none`, sous le texte.
+- **`key={path}` sur le tracé mint** : Motion calcule la longueur du chemin au montage pour piloter `pathLength`. Sans remontage, un `d` recalculé après une mesure garde l'ancienne longueur et le fil plafonne avant la fin. Piège vérifié en conditions réelles.
 
-### Icônes suggérées (lucide-react)
-- `01 Site vitrine sur mesure` → `LayoutTemplate`
-- `02 Référencement local` → `Search` ou `MapPin`
-- `03 Formulaire de contact` → `Mail` ou `Send`
-- `04 Hébergement & maintenance` → `Server` ou `Wrench`
+
+### Caractère du fond
+
+Deux couches ajoutées par-dessus le `BGPattern dots` de la section.
+
+- **Halo mint le long du fil** : le même tracé, en `strokeWidth 34`, opacité 0.09, flouté par un `feGaussianBlur stdDeviation 18`, avec **le même `pathLength`** que le fil. Il se dessine donc en même temps et éclaire la section au fur et à mesure, au lieu d'être un décor posé. En pile, il ne reste qu'un lavis mint discret le long du rail gauche.
+  - Le SVG déborde de 80px en haut et en bas (`-inset-y-20` + `viewBox` décalé d'autant) : le halo fait 44px de large et son flou porte à ~48px, donc sans marge il était **coupé net au-dessus de la première ancre**, ce qui donnait un bord droit très visible.
+  - Région du filtre en `filterUnits="userSpaceOnUse"`, jamais en pourcentage : en pile le tracé est une droite verticale, sa boîte a une largeur nulle, et un filtre en pourcentage de cette boîte n'est pas rendu du tout.
+- **Numéro en filigrane** par étape, `font-serif`, `text-ink-300/60`, `clamp(3.25rem,9vw,4.5rem)` en pile et `clamp(6rem,9vw,11rem)` à partir de `lg`. Décoratif donc `aria-hidden`, le numéro lisible étant déjà dans le bloc.
+  - **Placé du côté de l'ancre, dans la bande libre**, pas à l'extérieur du texte : `lg:left-[calc(50%-16rem)]` / `lg:right-[calc(50%-16rem)]`, le `16rem` reprenant le padding qui creuse la bande. Le fil sort donc de derrière le chiffre.
+  - Il **n'y a aucune marge à l'extérieur du texte** : mesuré, 33px à 1440 et 3px à 1024. Deux essais posés là (`ink-300/50` puis `ink-950/[0.05]`) chevauchaient les lignes. Ne pas y revenir.
+  - En pile, le numéro occupe la gouttière du rail (`pl-16` sur l'étape) et le fil le traverse, comme sur desktop.
+
+### Animation
+- **Le fil se dessine au scroll** : `useScroll({ target, offset: ["start 0.6", "end 0.6"] })` pilote `pathLength` sur le tracé mint superposé au tracé gris. Motivé : le tracé raconte l'avancement du projet, qui est le sujet de la section.
+- **Les textes se révèlent en synchro** : `useTransform` sur le même progrès, fenêtre `[ancre - 0.22, ancre]` où l'ancre est la position verticale du nœud rapportée à la hauteur du bloc, avec un plancher à 0.1. Sans ce plancher, la première étape, dont l'ancre est tout en haut, apparaissait d'un bloc dès le premier pixel de course.
+- **Repère à 60 % de la hauteur d'écran**, pas 80 %. Mesuré : à 0.8 le texte atteignait son opacité pleine quand son bloc était à ~77 % de l'écran, donc tout en bas de fenêtre, et il était déjà affiché avant qu'on arrive dessus. À 0.6 la révélation se termine vers 57 %, à hauteur de lecture. Même valeur des deux côtés : le progrès parcourt alors exactement la hauteur du bloc.
+- **Fondu en `easeInOut`, pas en interpolation linéaire.** Le linéaire attaque et s'arrête net : c'est ce qui rendait l'apparition brusque. La fenêtre de 0.22 étale le fondu sur ~200px de scroll utiles. Ne pas l'élargir davantage : à 0.28 la fenêtre de l'étape 02 déborderait avant le début du bloc, donc son texte serait déjà à moitié visible en entrant dans la section.
+- L'étape 01 garde un fondu plus court (~100px), sa fenêtre étant bornée par le plancher. C'est la première, elle sert d'amorce.
+- **Les points s'allument à leur tour**, même progrès, fenêtre plus courte (0.06) : le point marque le passage du fil, c'est un événement, il doit rester net.
+- Le fil, lui, reste en linéaire : il suit le scroll au pixel, c'est son rôle d'indicateur d'avancement.
+- Jamais d'écouteur `scroll` : il se déclenche à chaque frame et fait re-rendre tout l'arbre React.
+- `useReducedMotion` : tracé plein, points allumés, textes visibles, sans liaison au scroll.
+
+---
+
+## 5. TARIFS (`#tarifs`)
+
+> Composants : `sections/Pricing.tsx` (serveur) et `pricing/PricingCard.tsx` (partagé avec `/prix-site-vitrine`).
+> Données : `content/pricing.ts`. Trois offres : Site vitrine, Site créatif, Produit digital.
 
 ### Background
-- Section neutre (fond `bg-ink-50`), pas de pattern → on alterne avec Pourquoi.
-
----
-
-## 5. EXEMPLES (`#exemples`)
-
-### Layout (MVP — statique)
-- `SectionLabel` + H2 + lead.
-- Grille `grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mt-16`.
-- 2 cards "exemple", chacune :
-  - Image / placeholder visuel ratio `aspect-[4/3]`, `rounded-2xl overflow-hidden`.
-  - Sous l'image : badge (`Classique` / `Premium`), titre, courte description.
-
-### Placeholder visuel (en attendant vrais screenshots)
-- Bloc avec dégradé subtil mint + grid pattern dessus, OU mockup wireframe en SVG.
-- À discuter avec Yan. Ne **pas** mettre des images stock photo génériques.
-
-### Phase 2
-- Remplacer la grille par un carrousel Three.js (React Three Fiber).
-- Voir `ROADMAP.md` phase 2.
-
----
-
-## 6. TARIFS (`#tarifs`)
+- **Aplat plein `bg-ink-950`**, seul aplat sombre du site. Il sert de coupure entre deux sections claires (Comment ça marche, Contact) : le changement de sujet se lit sans filet ni séparateur. Cf. `DESIGN_SYSTEM.md` §6.1.
+- En-tête en clair : `SectionLabel` forcé en `text-mint-500` (le `mint-700` par défaut ne passe pas sur fond sombre), H2 en `text-ink-50`, lead en `text-ink-300`.
+- Le lien de maillage passe en `text-mint-500` avec hover `mint-100`. Il est rendu **dans la cellule de la carte Site vitrine, sous elle**, et non sous la grille : il pointe vers le prix d'un site vitrine, et il occupe le reliquat de hauteur de cette colonne.
+- **Les cartes restent claires** (`bg-card`), donc `PricingCard` est identique ici et sur `/prix-site-vitrine`, qui est sur fond clair. Rien à conditionner.
 
 ### Layout
-- `SectionLabel` + H2 + lead.
-- Grille `grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mt-16 max-w-5xl mx-auto`.
-- 2 cards tarif.
+- Grille **2 colonnes**, pas 3 : `max-w-5xl grid-cols-1 lg:grid-cols-2 lg:items-start`. La carte qui porte l'encart prend `lg:row-span-2`, les deux offres sur devis s'empilent en face.
+- Pourquoi : en 3 colonnes la carte Site vitrine faisait 1038px contre 550px pour les deux autres, soit **490px de noir vide** sous la rangée. En 2 colonnes on est à 953px contre 1093px pour la pile, l'écart tombe à 140px. Mesuré.
+- La classe vient de `plan.addon` et non d'un index : c'est l'encart qui rend la carte haute, donc la règle survit à une réorganisation des offres.
+- Les égaliser en hauteur n'est pas une option : le vide passerait **à l'intérieur** des cartes 2 et 3.
+- **Pas de passage en colonnes dès `md`** : à 768px cela donnait des cartes de 208px de large et une première carte de 1621px de haut. Mesuré.
 
 ### Card tarif
-- `rounded-3xl border bg-card p-8 md:p-10 flex flex-col`.
-- Si "le plus demandé" → badge en haut + `border-mint-500` plus marquée.
-- Structure :
-  - Badge `Le plus demandé` ou `Sur mesure` (chip mono mint en haut).
-  - Nom de l'offre (H3).
-  - Prix principal **en display-2 serif** + petite mention sous le prix.
-  - Récurrent (`+ 30 €/mois`) en `text-h3` + mention.
-  - `<hr>` mince.
-  - Liste à puces — chaque item avec icône `Check` lucide en `text-mint-700`.
-  - **Spacer flex-1** (pousse le CTA en bas).
-  - CTA primaire pleine largeur.
+- `rounded-3xl border border-ink-300/60 bg-card p-7 md:p-8`, hover `-translate-y-1` + ombre.
+- **Liseré mint détaché** : `outline outline-1 outline-offset-4 outline-mint-500/60`, passe à `mint-500` plein au hover. Un `outline` avec offset et non une seconde bordure : le trait suit l'arrondi sans toucher la carte. À 30 % d'opacité il tirait au vert très sombre et disparaissait sur l'aplat `ink-950` ; 60 % est le minimum lisible sur fond sombre, et il reste discret sur le fond clair de `/prix-site-vitrine`. Plus de carte « mise en avant » : les trois offres sont une progression, pas un choix à orienter.
+- Structure : nom de l'offre (H3 serif) → prix (serif, `clamp(1.75rem,1.2vw+1rem,2.25rem)`) avec infobulle (i) optionnelle → accroche → intitulé de liste optionnel en mono (`Inclus :`, absent sur Produit digital) → liste à coches `Check` mint → encart optionnel → note optionnelle → spacer `mt-auto` → CTA primaire pleine largeur.
+- **Encart d'abonnement** (carte Site vitrine) : `rounded-2xl border border-mint-500/40 bg-mint-50/50 p-5`. Titre et prix sur une ligne en `justify-between`, puis intro, puis liste à **puces rondes** et non à coches (la liste principale garde les coches, l'encart reste visuellement secondaire), puis la clôture en gras.
 
-### Note finale
-- Sous les cards, paragraphe `text-small text-ink-500 max-w-3xl mx-auto text-center`.
-
-### Background
-- Optionnel : section plus sombre `bg-ink-950 text-ink-50`. À tester. Si fait, adapter les cards (fond `bg-ink-50/95`).
-- Au MVP, partir sur **fond clair standard** pour rester safe.
+### Infobulles
+- Le composant `ui/Tooltip` prend un `align` : `center` par défaut, `end` quand le déclencheur est près du bord droit. Toutes les infobulles des cartes sont en `end` : centrées, le panneau de 16rem débordait de 47px à 390px et provoquait un scroll horizontal. Mesuré.
 
 ---
 
-## 7. CONTACT (`#contact`)
+## 6. CONTACT (`#contact`)
 
 ### Layout
 - 2 colonnes desktop (`grid-cols-1 lg:grid-cols-2 gap-12`).
@@ -207,7 +216,7 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ---
 
-## 8. FOOTER
+## 7. FOOTER
 
 ### Layout
 - Background `bg-ink-950 text-ink-50`.
@@ -222,16 +231,15 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ---
 
-## 9. Ordre de rendu dans `page.tsx`
+## 8. Ordre de rendu dans `page.tsx`
 
 ```tsx
 <>
   <Navbar />
   <main id="main">
     <Hero />
-    <Why />
-    <Services />
-    <Examples />
+    <Travail />
+    <Processus />
     <Pricing />
     <Contact />
   </main>
@@ -241,7 +249,7 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 ---
 
-## 10. Responsive — référence complète
+## 9. Responsive — référence complète
 
 > Le responsive n'est PAS une finition. Chaque section doit être pensée mobile d'abord, puis enrichie sur les tailles supérieures. Toute section livrée doit cocher la checklist en bas de cette page.
 

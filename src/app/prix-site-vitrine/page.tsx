@@ -8,7 +8,6 @@ import { Faq } from "@/components/seo/Faq";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import {
-  PRICING_FOOTNOTE,
   PRICING_PLANS,
   PRIX_PAGE,
   PRIX_PATH,
@@ -71,19 +70,22 @@ export default function PrixSiteVitrinePage() {
           </FadeIn>
 
           <Stagger
-            className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 md:mt-12 md:grid-cols-3 md:gap-8"
+            className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-6 md:mt-12 lg:grid-cols-2 lg:items-start lg:gap-8"
             staggerChildren={0.18}
           >
             {PRICING_PLANS.map((plan) => (
-              <FadeIn key={plan.offer} inside x={-32} y={0} duration={0.65}>
+              <FadeIn
+                key={plan.offer}
+                className={plan.addon ? "lg:row-span-2" : undefined}
+                inside
+                x={-32}
+                y={0}
+                duration={0.65}
+              >
                 <PricingCard plan={plan} ctaHref="/#contact" />
               </FadeIn>
             ))}
           </Stagger>
-
-          <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-ink-500">
-            {PRICING_FOOTNOTE}
-          </p>
         </div>
       </section>
 
@@ -119,7 +121,7 @@ export default function PrixSiteVitrinePage() {
             ctaLabel={PRIX_PAGE.ctaLabel}
             ctaHref="/#contact"
             secondaryLabel={PRIX_PAGE.ctaSecondaryLabel}
-            secondaryHref="/#exemples"
+            secondaryHref="/#travail"
           />
         </div>
       </section>

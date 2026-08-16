@@ -20,11 +20,12 @@
   - Style : `font-serif` ou `font-sans font-semibold tracking-tight`. À tester en code.
 - **Liens :**
   - Accueil → `#hero`
-  - Pourquoi → `#pourquoi`
-  - Services → `#services`
-  - Exemples → `#exemples`
+  - Mon travail → `#travail`
+  - Comment ça marche → `#processus`
   - Tarifs → `#tarifs`
   - Contact → `#contact`
+  > Passée de 6 à 4 liens avec la suppression de Pourquoi et Services, puis à 5 avec l'ajout de Comment ça marche.
+  > Le libellé reprend le titre de la section, il n'est pas raccourci en « Processus » : la navbar desktop ne s'affiche qu'à partir de `lg`, donc la place ne manque plus. Mesuré à 1024px, 61px de marge de chaque côté.
 - **CTA Navbar (à droite) :** bouton primaire `Discuter de mon projet` → `#contact`.
 
 ---
@@ -33,195 +34,236 @@
 
 > **Note** : pas de `SectionLabel` numéroté en haut du Hero (décision Phase 1.4a — pas pertinent en première section). Les autres sections gardent leur SectionLabel.
 
-### Phrase d'accroche (H1) — VALIDÉE Phase 1.4a
+### Phrase d'accroche (H1) — VALIDÉE Phase 4 (repositionnement)
 
-> Un site web clair, moderne et rapide.
+> Creative Developer, Website Creator & Product Builder
 
 **Traitement typo (verrouillé) :**
-- Police : `font-serif` (Instrument Serif), display-1, `font-medium`, `tracking-tight`, `leading-[1.05]`, couleur `text-ink-950`.
-- **La partie "moderne et rapide." est soulignée en mint** pour donner du caractère à la phrase d'accroche.
-- **Pas d'italique** nulle part dans le H1.
-- Implémentation : wrapper la fin du H1 dans un `<span>` avec `underline decoration-mint-500 decoration-[3px] underline-offset-[6px]` (decoration solide, pas wavy).
-- Pas de couleur sur le texte lui-même : reste `text-ink-950`. Seul le soulignement est mint.
+- Police : `font-serif` (Instrument Serif), `font-medium`, `tracking-tight`, `leading-[1.05]`, couleur `text-ink-950`.
+- **Deux lignes explicites** : `Creative Developer,` puis `Website Creator & Product Builder`. Découpage choisi pour équilibrer : la ligne la plus longue fait 33 caractères au lieu de 35 avec le découpage inverse, ce qui laisse monter l'échelle.
+- Échelle en **`text-[8.5cqw]`**, pas en `clamp` de `vw` : la colonne gauche porte `@container`, donc le titre garde toujours la même proportion de sa colonne quel que soit le format. Le coefficient est calé sur la ligne la plus longue, marge de sécurité comprise. Chaque ligne est en `whitespace-nowrap`, donc un coefficient trop grand ferait déborder au lieu de replier : un test e2e vérifie la marge restante sur chaque ligne à 5 formats.
+- Donne 56px en desktop et 29px à 390px.
 
-```tsx
-<h1 className="font-serif text-[clamp(2.5rem,5vw+1rem,5.5rem)] font-medium leading-[1.05] tracking-tight text-ink-950">
-  Un site web clair,{" "}
-  <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
-    moderne et rapide.
-  </span>
-</h1>
-```
+> Une version en **une seule ligne** a été essayée puis écartée : à 52 caractères elle tombait à 19px sur mobile, soit la taille du lead, et le titre ne se lisait plus comme un titre.
+- **La partie "Product Builder" est soulignée en mint.**
+- **Pas d'italique** nulle part dans le H1.
+- Grille 2 colonnes `lg:grid-cols-12` : colonne gauche 7/12 (H1, lead, paragraphe, CTA), colonne droite 5/12 (card), `lg:items-center` pour que la card soit centrée sur tout le bloc texte. Le split ne s'active qu'à partir de `lg` : en dessous, le H1 sur deux lignes ne tient pas dans 7 colonnes et tout passe en pile.
 
 ### Sous-titre (lead)
-> Je crée des sites vitrines modernes et rapides pour artisans, commerçants et indépendants — du site classique au site plus premium. Un site qui inspire confiance et vous rend visible sur Google.
+> Sites web créatifs, sites vitrines plus simples et produits digitaux.
+
+Le lead et le paragraphe d'introduction partagent un **wrapper `max-w-[40rem]`** : en `max-w-*ch` leurs deux tailles de police donnaient deux bords droits différents (28px d'écart), ce qui lisait comme un décalage accidentel. Rythme vertical du bloc gauche : 40px entre le H1 et le lead, 16px entre le lead et le paragraphe (ils forment un groupe), 40px avant les CTA.
+
+### Paragraphe d'introduction
+
+Placé **dans le hero, entre le lead et les CTA**. Hiérarchie en trois niveaux : lead en `text-ink-700` à l'échelle lead, paragraphe en `text-ink-500` à l'échelle body, puis les CTA.
+
+> Du site vitrine simple à l'expérience web plus créative, jusqu'au produit digital complet. Je conçois chaque projet selon ses besoins, ses ambitions et son budget, sans jamais sacrifier la qualité.
 
 ### CTAs
 
-- **Primaire :** `Discuter de mon projet` → `#contact`
-- **Secondaire :** `Voir mes tarifs` → `#tarifs`
+- **Primaire :** `Voir mes projets` → `#travail`
+- **Secondaire :** `Discuter d'un projet` → `#contact`
+
+> À aligner : la Navbar et le Footer affichent encore `Discuter de mon projet`. Deux libellés pour la même intention.
 
 ### Card de présentation (à droite du hero)
 
-- **Avatar :** image fournie (`/public/avatar/avatar-yan.JPG`), **rond** (`rounded-full`), petite taille (~56px) à gauche du bloc nom+rôle.
+- **Ligne d'en-tête :** avatar + nom à gauche, indicateur de disponibilité à droite (`justify-between`). La disponibilité était en bas de card ; remontée ici parce que « Yan » seul à côté de l'avatar laissait la moitié de la ligne vide.
+- **Avatar :** image fournie (`/public/avatar/avatar-yan.JPG`), **rond** (`rounded-full`), ~56px.
 - **Nom :** `Yan` (font-serif, ~xl)
-- **Rôle :** `DÉVELOPPEUR · INDÉPENDANT` en mono mint uppercase tracking-widest (style cohérent avec les SectionLabel).
+- **Rôle :** `CREATIVE DEVELOPER · PRODUCT BUILDER` en mono mint uppercase, **sur sa propre ligne pleine largeur**. Coincé à côté de l'avatar il passait sur 2 à 3 lignes selon le viewport. Taille et tracking réduits sous `sm` pour tenir sur une ligne à 390px.
 - **Citation entre guillemets français `«&nbsp;»`, font-serif :**
-  > Passionné d'informatique depuis toujours, je serai ravi de mettre mes compétences à votre service.
-- **Sous-tagline (sous la citation, plus discrète) :**
+  > J'aime transformer une idée en quelque chose de concret, qu'il s'agisse d'un simple site vitrine ou d'un produit digital complet.
+- **Sous-tagline (sous la citation, séparée par une fine bordure, plus discrète) :**
   > Je travaille en direct, sans intermédiaire.
-- **Indicateur de disponibilité (en bas, séparé par une fine bordure) :** point mint pulsant (`animate-ping`) + texte `Disponible actuellement`.
+- **Indicateur de disponibilité (ligne d'en-tête, à droite) :** point mint pulsant (`animate-ping`) + texte `Disponible actuellement`.
 - **Plus de chips Next.js / SEO local / Réponse sous 24h** (trop technique pour la cible).
-- **Comportement :** la card est légèrement inclinée (`-rotate-[3deg]`) et se redresse au hover (`hover:rotate-0`, transition 500ms ease-out).
+- **Comportement :** la card arrive inclinée à `-8deg` puis se pose à `-3deg`, et se redresse au hover (`whileHover rotate: 0`, 500ms ease-out). La rotation est pilotée par Motion, pas par une classe CSS, pour ne pas entrer en conflit avec l'animation d'entrée.
+
+### Animations d'entrée du hero
+
+Déclenchées par la sortie de l'écran de chargement (hook `useSiteLoaded`), pas au scroll : en `whileInView` elles se jouaient derrière l'overlay et personne ne les voyait.
+
+Séquence, stagger 0.09s : les deux lignes du H1 montent derrière un masque (`overflow-hidden`, translation Y 110% → 0), puis le lead, puis les CTA, puis la card. `useReducedMotion` dégrade tout en simple fondu.
 
 ### Background hero
 - `<BGPattern variant="grid" mask="fade-edges" />` avec fill en `color-mix(in oklch, var(--color-ink-300) 50%, transparent)` pour rester subtil sous le texte. Validé Phase 1.2 contre FallingPattern.
-- Section en `relative overflow-hidden min-h-[100svh]` (PC), contenu en `relative z-10` top-aligné avec un `pt` qui laisse respirer la navbar.
+- Section en `relative flex items-center overflow-hidden`, hauteur `min-h-[calc(100svh-4rem)]` puis `md:min-h-[calc(100svh-5rem)]` : plein écran moins la navbar (`h-16` puis `md:h-20`), contenu centré verticalement.
+- **Padding bas plus grand que le padding haut** (`md:pt-16 md:pb-24`, `lg:pt-20 lg:pb-28`) : avec `items-center`, ça remonte le bloc au-dessus du centre géométrique, là où l'œil attend le centre optique.
+- **La card garde sa hauteur naturelle.** Un essai d'étirement sur la hauteur de la colonne (`lg:self-stretch`) a été écarté : il creusait de grands vides au-dessus et en dessous de la citation. C'est la taille de la citation (`lg:text-2xl`) qui lui donne sa présence, sans espace mort à l'intérieur.
+- `svh` et non `dvh` : le `dvh` se recalcule quand la barre d'adresse mobile se rétracte, ce qui fait sauter la mise en page pendant le scroll.
+- `min-h` et non `h` : sur petit écran le contenu dépasse la hauteur d'écran, la section grandit au lieu de tronquer.
 
 ---
 
-## 4. Section POURQUOI
+## 4. Section MON TRAVAIL
+
+> Remplace les anciennes sections POURQUOI, SERVICES et EXEMPLES, supprimées lors du repositionnement.
 
 ### Identifiant
-`02 — Pourquoi`
+`#travail` (l'ancienne ancre `#exemples` a été renommée ; CTA du hero, navbar et page prix mis à jour).
 
 ### Titre (H2)
-> Pas de site web, c'est des clients qui passent à côté.
+> Ce que je construis.
 
-### Intro (lead, sous H2)
-> Aujourd'hui, presque tout le monde cherche un commerce, un artisan ou un service sur Google avant de pousser la porte. Sans site clair et à jour, vous êtes invisible — ou pire, vous renvoyez une image qui ne vous ressemble plus.
-
-### Liste de points (cards ou grille de 4)
-
-**01 — Vous restez introuvable**
-> Sans site bien référencé, vous n'apparaissez pas quand un client tape *"[votre métier] près de chez moi"*. Vos concurrents, eux, oui.
-
-**02 — Vos infos sont éclatées partout**
-> Horaires sur Google, menu sur Facebook, prix sur Instagram… Un site, c'est un seul endroit clair où tout est à jour.
-
-**03 — Vous perdez en crédibilité**
-> Un site daté (ou pas de site du tout) donne une impression de "ils sont encore là ?". Un site propre rassure et donne envie d'appeler.
-
-**04 — Vous vous fondez dans la masse**
-> Un site qui vous ressemble — pas un template vu mille fois — vous démarque immédiatement de la concurrence du quartier.
-
----
-
-## 5. Section SERVICES
-
-### Identifiant
-`03 — Services`
-
-### Titre (H2)
-> Ce que je mets en place pour vous.
+Le verbe « construis » fait écho au positionnement Product Builder du hero. Les deux colonnes s'expliquent seules, le titre n'a pas à annoncer la dualité.
 
 ### Intro (lead)
-> Tout est inclus dans l'offre de base. Pas de surprise, pas d'options cachées.
+> Sites web créatifs, sites vitrines et produits digitaux pensés pour répondre à des objectifs concrets.
 
-### Cartes services (4)
+### Structure
 
-**01 — Site vitrine sur mesure**
-> Un site one-page moderne, responsive (mobile, tablette, ordinateur), conçu autour de votre activité. Pas de template recyclé.
+Deux colonnes séparées par un filet vertical à partir de `lg` (7/12 à gauche, 5/12 à droite). En dessous de `lg` elles s'empilent et le filet devient horizontal.
 
-**02 — Référencement local de base**
-> Les bases SEO bien faites : balises, structure, vitesse, fiche Google Business optimisée, schema.org local. De quoi remonter sur les recherches du coin.
+### Colonne gauche — Sites web
 
-**03 — Formulaire de contact**
-> Un formulaire simple qui vous envoie directement les demandes par email. Protégé contre le spam, prêt à l'emploi.
+- Un projet affiché en grand (visuel 16/9, catégorie en mono mint, titre en serif, secteur, lien externe en pastille ronde), plus une bande de six vignettes pour changer de projet. Pas de carrousel qui défile : avec six projets tout tient à l'écran et l'utilisateur choisit directement.
+- Bouton `Des exemples par métier` sous la colonne, vers `/site-internet`.
 
-**04 — Hébergement & maintenance**
-> Je gère l'hébergement, les mises à jour, et les petites modifications du quotidien. Vous n'avez rien à toucher.
+**Trois catégories, affichées dans la fiche de chaque site :**
+
+| Catégorie | Sites |
+|-----------|-------|
+| `Site créatif` | BeerBee |
+| `Site vitrine créatif` | Madman Tattoo, Atelier Lumé |
+| `Site vitrine` | L'océan, Lumio-coffee, Le Cerf Doré |
+
+Les anciens libellés `Projet 01`, `Projet 02`… ont disparu : numéroter des tuiles que l'utilisateur peut compter n'apporte rien, et la catégorie porte une vraie information.
+
+### Colonne droite — Produits
+
+| Produit | Nature | État | Lien |
+|---------|--------|------|------|
+| **CleanAI** | `iOS App` | En ligne | [cleanaiapp.com](https://cleanaiapp.com) |
+| **BetaWall** | `SaaS B2B` | En construction | pas de lien |
+
+- CleanAI : « Nettoie les images et vidéos générées par IA avant publication sur TikTok ou Instagram. Traitement natif iOS, directement sur l'appareil. » Visuel `public/products/cleanai.jpg`, capture du site.
+- BetaWall : « Un SaaS B2B pensé pour les salles d'escalade. En cours de construction. » Visuel `public/products/betawall.png` : lockup logo + wordmark extrait de la planche fournie par Yan (`betawall logo.png` à la racine, non commitée), détouré et composé sur un canvas 16/9 blanc pour tenir le même gabarit que la card CleanAI.
+- Le point coloré à côté de l'état n'est pas décoratif : il distingue un produit en ligne d'un chantier.
+- **Même présentation que la colonne gauche** : un produit en grand plus une bande de vignettes. La nature du produit prend la place de la catégorie du site, la description celle du secteur.
+
+### Fond
+
+Fond `bg-card` comme l'ancienne section Exemples. L'inspiration fournie par Yan est sombre, mais la page garde un thème unique : une section sombre au milieu casserait le rythme.
 
 ---
 
-## 6. Section EXEMPLES
+## 5. Section COMMENT ÇA MARCHE
 
 ### Identifiant
-`04 — Exemples`
+`#processus`. Placée entre « Mon travail » et « Tarifs » : elle explique le déroulé juste avant qu'on parle prix.
+
+### Label
+> / Comment ça marche
 
 ### Titre (H2)
-> Deux styles, une même exigence.
+> Un process de travail simple et transparent.
 
-### Intro (lead)
-> Selon votre besoin, je peux livrer un site clair et efficace pour votre commerce, ou pousser le curseur design pour les projets plus ambitieux.
+> Point final ajouté pour rester cohérent avec les autres H2 de la page (`Ce que je construis.`). Le reste du wording est celui fourni par Yan, au mot près.
 
-### Contenu (Phase 1 — placeholders)
+### Les quatre étapes
 
-Carrousel ou grille de 2 cards :
+Chaque étape a un numéro en mono mint, un titre en serif, une phrase d'accroche en gras et un corps de texte.
 
-**Site classique — `Boulangerie / artisan / restaurant`**
-> Sobre, lisible, rapide. Mis en ligne en 2 à 3 semaines.
-> *(visuel : à intégrer plus tard)*
+**01 · On échange**
+> **Vous me présentez votre projet, vos besoins et vos contraintes.**
+> On échange sur vos objectifs, vos envies, votre budget et le niveau d'ambition du projet.
 
-**Site premium — `TPE / cabinet / marque`**
-> Animations soignées, identité forte, expérience travaillée.
-> *(visuel : à intégrer plus tard)*
+**02 · Je vous propose une direction**
+> **Je vous montre ce que je peux imaginer pour votre projet.**
+> Selon le besoin, je prépare une première direction, une petite maquette ou un aperçu visuel pour que vous puissiez vous projeter avant d'aller plus loin.
 
-> **Note technique :** au MVP, on affiche 2 cards statiques avec un placeholder visuel (gradient mint ou mockup screenshot). Le carrousel Three.js est en **phase 2** — voir `ROADMAP.md`.
+**03 · On valide et je construis**
+> **La direction vous convient ? On lance réellement le projet.**
+> On valide le périmètre et le tarif, vous versez un acompte de **30 %**, puis je développe une version plus complète en intégrant vos retours au fil de l'avancement.
+
+**04 · Validation et mise en ligne**
+> **Tout est prêt et validé.**
+> Une fois les derniers ajustements terminés, le solde est réglé et je m'occupe de la mise en ligne du projet.
+
+Le `30 %` est le seul fragment mis en avant dans un corps de texte. Il est stocké dans un champ `emphasis` à part plutôt qu'en balisage dans la chaîne, pour que le contenu reste du texte.
+
+Le numéro et le titre sont deux éléments distincts, sans tiret entre les deux : le tiret cadratin de la copie d'origine (`01 — On échange`) est proscrit.
+
+### Fond
+
+`BGPattern variant="dots" mask="fade-y"`. La section précédente est en aplat blanc, celle-ci relance le rythme sans répéter le grid du hero. Respecte la règle d'alternance de `DESIGN_SYSTEM.md` §6.1 : jamais deux fonds décoratifs sur deux sections consécutives.
 
 ---
 
-## 7. Section TARIFS
+## 6. Section TARIFS
 
 ### Identifiant
 `05 — Tarifs`
 
 ### Titre (H2)
-> Des tarifs clairs, sans devis à rallonge.
+> Une offre adaptée à chaque projet.
 
 ### Intro (lead)
-> Le prix annoncé est le prix payé, et je gère tout de A à Z : vous n'avez rien à faire. Si votre projet sort du cadre, on en parle et on adapte ensemble.
+> Du site vitrine simple au produit digital plus ambitieux, chaque projet est pensé selon ses besoins, son niveau de personnalisation et son budget.
 
-### Carte tarif 1 — Essentiel
+> **Modèle tarifaire en vigueur depuis la refonte.** Il remplace les trois formules Essentiel 690 € / Pack Sérénité 490 € + 30 €/mois / Projet premium. Le 30 €/mois n'est plus une formule mais une **option** de la carte Site vitrine : toute prose qui le présente comme obligatoire est fausse.
 
-- **Étiquette :** `Sans abonnement`
-- **Nom de l'offre :** `Essentiel`
-- **Prix principal :** `690 €`
-- **Mention sous le prix :** `nom de domaine et hébergement inclus la première année`
-- **Précision (mise en avant sous le prix) :** `Après 1 an : vous reprenez la main, je vous cède tout ou bien vous passez à la mensualité du Pack Sérénité.`
+### Carte tarif 1 — Site vitrine
+
+- **Nom de l'offre :** `Site vitrine`
+- **Prix principal :** `À partir de 490 €`
+- **Infobulle (i) accolée au prix :** `Le tarif peut évoluer selon : le nombre de pages, le niveau de personnalisation, les contenus à intégrer et les fonctionnalités spécifiques.`
+- **Accroche :** `Pour les artisans, indépendants et petites entreprises qui veulent un site clair, professionnel et efficace.`
 - **Liste inclus :**
-  - Site moderne et rapide sur mesure
-  - Responsive mobile, tablette, desktop
+  - Design moderne adapté à votre activité
+  - Responsive mobile, tablette et desktop
   - SEO de base
   - Formulaire de contact
-  - Mise en ligne rapide
-- **CTA :** `Démarrer mon projet` → `#contact`
+  - Aide à la mise en ligne avec la configuration de votre nom de domaine et de votre hébergement
+- **Encart vert pâle dans la carte :**
+  - Titre `Option Sérénité`, prix `30 €/mois` **en deux champs séparés**, jamais collés par un tiret cadratin (règle CONTENT).
+  - Intro `Vous ne voulez rien gérer ? Je m'occupe de tout pour vous :`
+  - Hébergement / Nom de domaine / Maintenance technique / Sauvegardes / Modifications mineures illimitées sous 48h *(infobulle (i) : « Les modifications mineures : texte, photo, horaires, prix, un plat au menu, etc. L'ajout de page, la refonte du design ou une nouvelle fonctionnalité font l'objet d'un devis à part. »)* / Support direct
+  - Clôture `Résiliable à tout moment.`
+- **Note de bas de carte :** `Vous n'êtes jamais prisonnier : à tout moment, je vous transfère le nom de domaine et vous cède le code du site. Le site est à vous.` (fin en gras). Décision Yan : dans la carte, pas en note sous les trois cartes.
+- **CTA :** `Créer mon site` → `#contact`
 
-### Carte tarif 2 — Pack Sérénité (mise en avant)
+### Carte tarif 2 — Site créatif
 
-- **Étiquette :** `Conseillé`
-- **Nom de l'offre :** `Pack Sérénité`
-- **Prix principal :** `490 €`
-- **Mention sous le prix :** `à la création`
-- **Récurrent :** `+ 30 €/mois`
-- **Mention récurrent :** `sans engagement, résiliable à tout moment (préavis 1 mois)`
-- **Liste inclus :**
-  - Tout ce qui est inclus dans l'offre Essentiel
-  - Nom de domaine & hébergement gérés en continu
-  - Modifications mineures illimitées sous 48h *(infobulle (i) au survol/tap : « Les modifications mineures : texte, photo, horaires, prix, un plat au menu, etc. L'ajout de page, la refonte du design ou une nouvelle fonctionnalité font l'objet d'un devis à part. »)*
-- **CTA :** `Choisir le suivi` → `#contact`
-
-### Carte tarif 3 — Projet premium / sur mesure
-
-- **Étiquette :** *(aucune)*
-- **Nom de l'offre :** `Projet premium`
+- **Nom de l'offre :** `Site créatif`
 - **Prix principal :** `Sur devis`
-- **Mention sous le prix :** `selon ambition et fonctionnalités`
+- **Accroche :** `Pour les marques et projets qui veulent aller plus loin visuellement, sans sacrifier la lisibilité.`
 - **Liste inclus :**
-  - Design poussé et animations avancées
-  - Réservation, mini-boutique, intégrations spécifiques
-  - Projets de plus grande envergure
-  - On échange, je vous fais une proposition adaptée
-  - Applications mobile
-  - Agents IA / automatisation
-- **CTA :** `Parlons de votre projet` → `#contact`
+  - Tout ce qui est dans l'offre Site vitrine
+  - Direction artistique plus poussée
+  - Animations et interactions utiles
+  - Expérience plus immersive
+  - Intégrations spécifiques
+  - Accompagnement créatif
+- **CTA :** `Imaginer mon projet` → `#contact`
 
-### Note sous les tarifs
-> *Vous n'êtes jamais prisonnier : à tout moment, je vous transfère le nom de domaine à votre nom et vous cède le code du site. Le site est à vous.*
+### Carte tarif 3 — Produit digital
+
+- **Nom de l'offre :** `Produit digital`
+- **Prix principal :** `Sur devis`
+- **Accroche :** `Pour transformer une idée en produit concret.`
+- **Liste inclus :**
+  - Conception produit
+  - MVP
+  - SaaS
+  - Application web
+  - Application mobile
+  - Dashboard / back-office
+  - Intégrations IA / automatisations
+- **CTA :** `Construire mon produit` → `#contact`
+
+### Intitulé des listes
+> `Inclus :` au-dessus des listes **Site vitrine et Site créatif uniquement**.
+> **Pas d'intitulé sur Produit digital** : la liste y énumère les types de projets sur lesquels Yan peut travailler, pas ce qui est compris dans une prestation. Décision Yan, ne pas le remettre.
+
+### Lien de maillage
+> `Le prix d'un site vitrine en détail →` sous la **carte Site vitrine**, vers `/prix-site-vitrine`.
 
 ---
 
-## 8. Section CONTACT
+## 7. Section CONTACT
 
 ### Identifiant
 `06 — Contact`
@@ -260,7 +302,7 @@ Sous le formulaire :
 
 ---
 
-## 9. Footer (bannière de fin)
+## 8. Footer (bannière de fin)
 
 - **Colonne gauche :** `Yan-dev` (mark) + petite phrase `Studio web freelance — basé à Caen, à votre service partout en France.`
 - **Colonne milieu :** liens internes (mêmes que navbar).
@@ -271,7 +313,7 @@ Sous le formulaire :
 
 ---
 
-## 10. Microcopy divers
+## 9. Microcopy divers
 
 - **404 :** `Cette page n'existe pas ou n'existe plus.` + CTA `Retour à l'accueil`.
 - **Submit form, erreur réseau :** `Connexion impossible. Réessayez dans un instant.`
@@ -280,7 +322,7 @@ Sous le formulaire :
 
 ---
 
-## 11. Items à valider absolument avant prod
+## 10. Items à valider absolument avant prod
 
 - [ ] Nom de domaine
 - [ ] Page mentions légales (texte fourni par Yan)
@@ -288,7 +330,7 @@ Sous le formulaire :
 
 ---
 
-## 12. Page `/prix-site-vitrine` (V2 SEO, page d'intention)
+## 11. Page `/prix-site-vitrine` (V2 SEO, page d'intention)
 
 > Page dédiée ciblant les requêtes `prix site vitrine` / `site vitrine pas cher` / `tarif site internet`. Source unique du contenu : `src/content/pricing.ts`. Réutilise les tarifs validés de la section Tarifs (cartes, footnote). Décisions Yan (2026-06) : **pas de délai de livraison annoncé**, **pas de mention de propriété du site**.
 
@@ -324,7 +366,7 @@ Réutilise les deux cartes validées (`Site vitrine` 490 € + 30 €/mois ; `Si
 
 ---
 
-## 13. Pages métier `/site-internet/[metier]` (V2 SEO, longue traîne)
+## 12. Pages métier `/site-internet/[metier]` (V2 SEO, longue traîne)
 
 > Pages data-driven (source unique : `src/content/metiers.ts`), une entrée = une page. Cible : `site internet [métier]`. Template partagé : en-tête, enjeux, exemple en ligne, rappel tarif, FAQ, liens connexes, CTA. Schema `Service` + `FAQPage` + `BreadcrumbList`. Libellés de structure communs dans `METIER_LABELS` (`Pourquoi`, `Exemple`, `Tarif`, `FAQ`, `À voir aussi`, etc.). Priorité : coffee shop, puis restaurant.
 
@@ -422,7 +464,7 @@ Cible `site internet bistrot` et `brasserie`. Angle de différenciation vs resta
 
 ---
 
-## 14. Page index métiers `/site-internet` (landing « tous métiers »)
+## 13. Page index métiers `/site-internet` (landing « tous métiers »)
 
 > Landing SEO large (cible `site internet commerçant / artisan`) + hub des pages métier. Source : `METIERS_PAGE` dans `src/content/metiers.ts`. Le fil d'ariane des pages métier passe à 3 niveaux (`Accueil › Sites internet par métier › métier`).
 

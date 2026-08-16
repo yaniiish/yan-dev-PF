@@ -1,0 +1,394 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import {
+  easeInOut,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "motion/react";
+import type { ProcessStep } from "@/content/processus";
+import { cn } from "@/lib/utils";
+
+type ProcessTimelineProps = {
+  steps: readonly ProcessStep[];
+};
+
+type Node = { x: number; y: number };
+type Layout = { width: number; height: number; nodes: Node[] };
+
+/** Position du rail quand tout est empilé, en pixels depuis la gauche. */
+const STACKED_X = 20;
+/** Décalage vertical de l'ancre par rapport au haut de l'étape. */
+const ANCHOR_OFFSET = 14;
+/** Retrait des ancres par rapport au bord du texte, pour ne pas le frôler. */
+const BAND_INSET = 14;
+/** En deçà, la bande libre est trop étroite pour serpenter : on trace droit. */
+const MIN_BAND = 48;
+/** Le filtre est déclaré une fois, la section n'est rendue qu'une fois. */
+const HALO_FILTER_ID = "processus-halo";
+/** Réglages du halo. Cf. DESIGN_SYSTEM.md §6.1 pour l'arbitrage. */
+const HALO_WIDTH = 34;
+const HALO_BLUR = 18;
+const HALO_OPACITY = 0.09;
+/**
+ * Marge autour du tracé, en pixels. Elle doit couvrir la demi-largeur du halo
+ * plus la portée de son flou (~3 × l'écart-type) : sans elle, le SVG coupe le
+ * halo net au-dessus de la première ancre, ce qui donne un bord droit visible.
+ */
+const SVG_PAD = 80;
+/**
+ * Longueur du fondu d'une étape, en fraction du progrès de scroll. Le bloc
+ * fait environ 1400px, donc 0.22 étale la révélation sur ~300px de scroll.
+ * En dessous, le texte s'allume trop sec.
+ */
+const REVEAL_WINDOW = 0.22;
+
+/**
+ * Fil serpentin qui se dessine au scroll, étapes de part et d'autre.
+ * Le tracé n'est pas figé : il est reconstruit à partir de la position réelle
+ * de chaque étape, donc il reste juste quels que soient la longueur des textes
+ * et le format d'écran.
+ *
+ * Le progrès vient de `useScroll`, jamais d'un écouteur de scroll : un
+ * listener se déclenche à chaque frame et fait re-rendre tout l'arbre React.
+ */
+export function ProcessTimeline({ steps }: ProcessTimelineProps) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const [layout, setLayout] = useState<Layout | null>(null);
+  const reduce = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: wrapRef,
+    // Le repère est à 60 % de la hauteur d'écran : une étape est révélée
+    // quand son ancre y arrive, donc à hauteur de lecture. À 80 % la
+    // révélation se terminait tout en bas de fenêtre et le texte était déjà
+    // affiché avant qu'on arrive dessus. Même valeur des deux côtés : le
+    // progrès parcourt alors exactement la hauteur du bloc.
+    offset: ["start 0.6", "end 0.6"],
+  });
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+
+    const wide = window.matchMedia("(min-width: 1024px)");
+
+    const measure = () => {
+      const rect = wrap.getBoundingClientRect();
+      const steps = stepRefs.current.filter(
+        (el): el is HTMLLIElement => el !== null,
+      );
+
+      // Bande libre entre les deux colonnes de texte, mesurée sur les bords
+      // réels des blocs. Des pourcentages fixes ne tenaient pas : à 1024px la
+      // bande ne fait que 192px et le tracé passait par-dessus les textes.
+      let bandLeft = 0;
+      let bandRight = rect.width;
+      if (wide.matches) {
+        steps.forEach((el, index) => {
+          // Sélecteur explicite : le filigrane est rendu avant le texte, donc
+          // un firstElementChild mesurerait sa boîte et fausserait la bande.
+          const content = el.querySelector("[data-step-content]");
+          if (!content) return;
+          const box = content.getBoundingClientRect();
+          // Le padding fait partie de la boîte : sans le retrancher, les deux
+          // bords se rejoignent au centre et la bande est nulle.
+          const style = getComputedStyle(content);
+          if (index % 2 === 0) {
+            const edge =
+              box.right - rect.left - parseFloat(style.paddingRight || "0");
+            bandLeft = Math.max(bandLeft, edge);
+          } else {
+            const edge =
+              box.left - rect.left + parseFloat(style.paddingLeft || "0");
+            bandRight = Math.min(bandRight, edge);
+          }
+        });
+      }
+
+      const hasBand = wide.matches && bandRight - bandLeft > MIN_BAND;
+      const centre = (bandLeft + bandRight) / 2;
+      const left = hasBand ? bandLeft + BAND_INSET : centre;
+      const right = hasBand ? bandRight - BAND_INSET : centre;
+
+      const nodes = steps.map((el, index) => {
+        const stepRect = el.getBoundingClientRect();
+        return {
+          x: wide.matches ? (index % 2 === 0 ? left : right) : STACKED_X,
+          y: stepRect.top - rect.top + ANCHOR_OFFSET,
+        };
+      });
+
+      setLayout({ width: rect.width, height: rect.height, nodes });
+    };
+
+    // rAF plutôt qu'un appel direct : la mesure attend que la mise en page
+    // soit posée, et on évite un setState synchrone dans le corps de l'effet.
+    const frame = requestAnimationFrame(measure);
+    const observer = new ResizeObserver(measure);
+    observer.observe(wrap);
+    wide.addEventListener("change", measure);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      wide.removeEventListener("change", measure);
+    };
+  }, [steps.length]);
+
+  const path = layout ? buildPath(layout.nodes) : "";
+
+  return (
+    <div ref={wrapRef} className="relative">
+      {layout && path ? (
+        <svg
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 -inset-y-20"
+          viewBox={`0 ${-SVG_PAD} ${layout.width} ${layout.height + SVG_PAD * 2}`}
+          fill="none"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            {/* Région en coordonnées utilisateur, pas en pourcentage de la
+                boîte du tracé : en pile le tracé est une droite verticale,
+                donc sa boîte a une largeur nulle et un filtre en pourcentage
+                ne serait tout simplement pas rendu. */}
+            <filter
+              id={HALO_FILTER_ID}
+              filterUnits="userSpaceOnUse"
+              x={-SVG_PAD}
+              y={-SVG_PAD}
+              width={layout.width + SVG_PAD * 2}
+              height={layout.height + SVG_PAD * 2}
+            >
+              <feGaussianBlur stdDeviation={HALO_BLUR} />
+            </filter>
+          </defs>
+
+          {/* Halo : le même tracé, épais et flouté, avec le même pathLength.
+              Il se dessine donc en même temps que le fil et éclaire la
+              section au fur et à mesure, au lieu d'être un décor posé. */}
+          <motion.path
+            key={`halo-${path}`}
+            d={path}
+            stroke="var(--color-mint-500)"
+            strokeWidth={HALO_WIDTH}
+            strokeLinecap="round"
+            opacity={HALO_OPACITY}
+            filter={`url(#${HALO_FILTER_ID})`}
+            style={reduce ? undefined : { pathLength: scrollYProgress }}
+          />
+
+          <path
+            d={path}
+            stroke="var(--color-ink-300)"
+            strokeWidth={1.5}
+            strokeLinecap="round"
+          />
+          {/* key sur le tracé : Motion calcule la longueur du chemin au
+              montage pour piloter pathLength. Sans remontage, un `d`
+              recalculé après une mesure garde l'ancienne longueur et le fil
+              plafonne avant la fin. */}
+          <motion.path
+            key={path}
+            data-thread
+            d={path}
+            stroke="var(--color-mint-500)"
+            strokeWidth={1.5}
+            strokeLinecap="round"
+            style={reduce ? undefined : { pathLength: scrollYProgress }}
+          />
+          {layout.nodes.map((node, index) => (
+            <TimelineNode
+              key={steps[index]?.number ?? index}
+              node={node}
+              threshold={node.y / layout.height}
+              progress={scrollYProgress}
+              reduce={Boolean(reduce)}
+            />
+          ))}
+        </svg>
+      ) : null}
+
+      <ol className="relative space-y-14 lg:space-y-20">
+        {steps.map((step, index) => (
+          <Step
+            key={step.number}
+            ref={(el) => {
+              stepRefs.current[index] = el;
+            }}
+            step={step}
+            index={index}
+            threshold={
+              layout?.nodes[index] && layout.height
+                ? layout.nodes[index].y / layout.height
+                : 0
+            }
+            progress={scrollYProgress}
+            reduce={Boolean(reduce)}
+          />
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+/**
+ * Relie les ancres par des courbes cubiques dont les points de contrôle sont
+ * à l'aplomb de chaque ancre. Le tracé reste donc borné par les abscisses des
+ * ancres, ce qui garantit qu'il ne sort jamais de la bande libre.
+ */
+function buildPath(nodes: Node[]): string {
+  if (nodes.length === 0) return "";
+
+  let d = `M ${nodes[0].x} ${nodes[0].y}`;
+  for (let i = 1; i < nodes.length; i += 1) {
+    const from = nodes[i - 1];
+    const to = nodes[i];
+    const halfway = (to.y - from.y) / 2;
+    d += ` C ${from.x} ${from.y + halfway}, ${to.x} ${to.y - halfway}, ${to.x} ${to.y}`;
+  }
+  return d;
+}
+
+function TimelineNode({
+  node,
+  threshold,
+  progress,
+  reduce,
+}: {
+  node: Node;
+  threshold: number;
+  progress: MotionValue<number>;
+  reduce: boolean;
+}) {
+  // Fenêtre courte : le point marque le passage du fil, c'est un événement.
+  // L'easing lui évite juste de s'allumer d'un cran.
+  const opacity = useTransform(
+    progress,
+    [Math.max(threshold - 0.06, 0), threshold],
+    [0, 1],
+    { ease: easeInOut },
+  );
+
+  return (
+    <>
+      <circle cx={node.x} cy={node.y} r={5} fill="var(--color-ink-50)" />
+      <circle
+        cx={node.x}
+        cy={node.y}
+        r={5}
+        stroke="var(--color-ink-300)"
+        strokeWidth={1}
+      />
+      <motion.circle
+        cx={node.x}
+        cy={node.y}
+        r={3}
+        fill="var(--color-mint-500)"
+        style={reduce ? undefined : { opacity }}
+      />
+    </>
+  );
+}
+
+function Step({
+  ref,
+  step,
+  index,
+  threshold,
+  progress,
+  reduce,
+}: {
+  ref: (el: HTMLLIElement | null) => void;
+  step: ProcessStep;
+  index: number;
+  threshold: number;
+  progress: MotionValue<number>;
+  reduce: boolean;
+}) {
+  // Le texte se révèle juste avant que le fil n'atteigne son ancre : la
+  // lecture suit le tracé au lieu de le précéder. Le plancher évite que la
+  // première étape, dont l'ancre est tout en haut, apparaisse d'un bloc dès
+  // le premier pixel de course.
+  const anchor = Math.max(threshold, 0.1);
+  const range: [number, number] = [Math.max(anchor - REVEAL_WINDOW, 0), anchor];
+  // `easeInOut` plutôt que l'interpolation linéaire par défaut : le fondu
+  // démarre et se pose en douceur au lieu de s'allumer d'un coup au moment où
+  // le seuil est franchi.
+  const opacity = useTransform(progress, range, [0, 1], { ease: easeInOut });
+  const shift = useTransform(progress, range, [32, 0], { ease: easeInOut });
+
+  const isLeft = index % 2 === 0;
+
+  return (
+    <li ref={ref} className="relative pl-16 lg:grid lg:grid-cols-2 lg:pl-0">
+      {/* Numéro en filigrane. Il ne reste aucune marge à l'extérieur du texte
+          (33px a 1440, 3px a 1024), donc il est posé du côté de l'ancre, dans
+          la bande libre que le fil traverse : le tracé sort de derrière le
+          chiffre au lieu de le heurter. En empilé, il occupe la gouttière du
+          rail. Décoratif : le numéro lisible est déjà dans le bloc. */}
+      <motion.span
+        aria-hidden="true"
+        data-step-number
+        style={reduce ? undefined : { opacity }}
+        className={cn(
+          "pointer-events-none absolute left-0 top-0 select-none font-serif leading-none text-ink-300/60",
+          "text-[clamp(3.25rem,9vw,4.5rem)] lg:text-[clamp(6rem,9vw,11rem)]",
+          // 16rem = le padding qui creuse la bande (lg:pr-64 / lg:pl-64).
+          isLeft
+            ? "lg:left-[calc(50%-16rem)] lg:right-auto"
+            : "lg:left-auto lg:right-[calc(50%-16rem)]",
+        )}
+      >
+        {step.number}
+      </motion.span>
+
+      <motion.div
+        data-step-content
+        style={reduce ? undefined : { opacity, y: shift }}
+        className={cn(
+          isLeft
+            ? "lg:col-start-1 lg:row-start-1 lg:pr-64 lg:text-right"
+            : "lg:col-start-2 lg:row-start-1 lg:pl-64",
+        )}
+      >
+        <p className="font-mono text-xs uppercase tracking-widest text-mint-700">
+          {step.number}
+        </p>
+        <h3 className="mt-2 font-serif text-2xl font-medium leading-tight text-ink-950">
+          {step.title}
+        </h3>
+        <p className="mt-3 font-semibold text-ink-950">{step.lead}</p>
+        <p
+          className={cn(
+            "mt-2 max-w-[30ch] leading-relaxed text-ink-500",
+            isLeft && "lg:ml-auto",
+          )}
+        >
+          <Body text={step.body} emphasis={step.emphasis} />
+        </p>
+      </motion.div>
+    </li>
+  );
+}
+
+/** Met en gras un fragment du corps sans stocker de balisage dans le contenu. */
+function Body({ text, emphasis }: { text: string; emphasis?: string }) {
+  if (!emphasis) return <>{text}</>;
+
+  const at = text.indexOf(emphasis);
+  if (at === -1) return <>{text}</>;
+
+  return (
+    <>
+      {text.slice(0, at)}
+      <strong className="font-semibold text-ink-950">{emphasis}</strong>
+      {text.slice(at + emphasis.length)}
+    </>
+  );
+}

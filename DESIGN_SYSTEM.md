@@ -210,8 +210,10 @@ Deux composants livrés : **grid background** (fond blanc/noir, masqué en `fade
 
 - **Hero** : `<BGPattern variant="grid" mask="fade-edges" />` (fill par défaut `var(--color-ink-300)`, size 24px). Validé visuellement contre FallingPattern, le grid donne un cadre plus calme et lisible. Le contenu Hero doit être en `relative z-10` au-dessus.
 - **Section "Pourquoi" / "Services" / "Exemples" / "Contact"** : **pas de background décoratif par défaut.** On tranche section par section pendant le dev : si une section paraît trop nue à côté du Hero ou des Tarifs, ajouter un BGPattern subtil (`dots`, `diagonal-stripes`, etc.). **Ne pas réutiliser `grid` sur ces sections** — risque de répliquer le Hero et de brouiller le rythme.
-- **Section "Tarifs"** : fond plein `bg-ink-950` avec texte clair pour casser le rythme. (à valider, optionnel)
-- **Règle d'alternance** : ne pas mettre deux backgrounds décoratifs sur deux sections consécutives. La séquence type est Hero (grid) → Pourquoi (neutre) → Services (neutre) → Exemples (neutre) → Tarifs (dark) → Contact (neutre).
+- **Section "Tarifs"** : fond plein `bg-ink-950`, en-tête en texte clair, **cartes claires par-dessus**. Validé et en place. C'est le seul aplat sombre du site : il sert de coupure entre deux sections claires, donc le changement de sujet se lit sans filet ni séparateur. Ne pas en ajouter un deuxième ailleurs, la coupure perdrait son sens.
+- **Règle d'alternance** : ne pas mettre deux backgrounds décoratifs sur deux sections consécutives.
+- **Séquence en vigueur depuis le repositionnement** : Hero (`grid`, `fade-edges`) → Mon travail (aplat `bg-card`, neutre) → Comment ça marche (`dots`, `fade-y`, size 28) → Tarifs (aplat `bg-ink-950`) → Contact (neutre). Les deux fonds décoratifs sont bien séparés par un aplat, et `dots` ne répète pas le `grid` du hero.
+- **Exception au « pas de glow »** (§10) : la section Comment ça marche porte un halo mint flouté le long de son fil. Ce n'est pas un néon posé sur un élément d'UI : il partage le `pathLength` du fil, donc il fait partie de l'animation qui raconte l'avancement. Opacité 0.09, largeur 34, flou 18. Un premier réglage à 0.14 / 44 / 16 tirait trop l'oeil : sur un fond aussi clair, le halo doit se deviner, pas s'annoncer. Ne pas remonter.
 
 **`FallingPattern` : conservé en réserve.** Pas utilisé au MVP suite à la décision Phase 1.2. Le composant reste disponible dans `src/components/backgrounds/` pour un usage futur (Phase 2 ou itération design). Le retirer pour de bon nécessiterait l'aval de Yan.
 

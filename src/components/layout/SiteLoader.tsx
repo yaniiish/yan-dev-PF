@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { BGPattern } from "@/components/backgrounds/BGPattern";
 import { easings } from "@/lib/motion";
+import { SITE_LOADED_ATTRIBUTE, SITE_LOADED_EVENT } from "@/lib/useSiteLoaded";
 
 /**
  * Durée plancher : évite un flash de 80ms quand la page est déjà en cache.
@@ -29,10 +30,18 @@ export function SiteLoader() {
     const startedAt = performance.now();
     let holdTimer: number | undefined;
 
+    // Le Hero attend ce signal pour jouer ses entrées, sinon elles se
+    // dérouleraient derrière l'overlay.
+    const release = () => {
+      setIsVisible(false);
+      document.documentElement.setAttribute(SITE_LOADED_ATTRIBUTE, "");
+      window.dispatchEvent(new Event(SITE_LOADED_EVENT));
+    };
+
     const finish = () => {
       const elapsed = performance.now() - startedAt;
       holdTimer = window.setTimeout(
-        () => setIsVisible(false),
+        release,
         Math.max(0, minDuration - elapsed),
       );
     };
@@ -43,10 +52,7 @@ export function SiteLoader() {
       window.addEventListener("load", finish, { once: true });
     }
 
-    const capTimer = window.setTimeout(
-      () => setIsVisible(false),
-      MAX_DURATION_MS,
-    );
+    const capTimer = window.setTimeout(release, MAX_DURATION_MS);
 
     return () => {
       window.removeEventListener("load", finish);

@@ -3,55 +3,67 @@ import { FadeIn } from "@/components/motion/FadeIn";
 import { Stagger } from "@/components/motion/Stagger";
 import { PricingCard } from "@/components/pricing/PricingCard";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import {
-  PRICING_FOOTNOTE,
-  PRICING_PLANS,
-  PRICING_SECTION,
-  PRIX_PATH,
-} from "@/content/pricing";
+import { PRICING_PLANS, PRICING_SECTION, PRIX_PATH } from "@/content/pricing";
 
+/**
+ * Seul aplat sombre du site. Il sert de coupure : la section précédente et la
+ * suivante sont claires, donc le changement de sujet se voit sans filet ni
+ * séparateur. Les cartes restent claires par-dessus (cf. DESIGN_SYSTEM §6.1).
+ */
 export function Pricing() {
   return (
-    <section id="tarifs" className="bg-ink-50 py-16 md:py-20 lg:py-24">
+    <section id="tarifs" className="bg-ink-950 py-20 md:py-24 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <FadeIn>
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-12">
             <div className="max-w-3xl">
-              <SectionLabel>Tarifs</SectionLabel>
-              <h2 className="mt-3 font-serif text-[clamp(1.875rem,2.5vw+1rem,3rem)] font-medium leading-[1.1] tracking-tight text-ink-950">
+              <SectionLabel className="text-mint-500">Tarifs</SectionLabel>
+              <h2 className="mt-3 font-serif text-[clamp(1.875rem,2.5vw+1rem,3rem)] font-medium leading-[1.1] tracking-tight text-ink-50">
                 {PRICING_SECTION.h2}
               </h2>
             </div>
-            <p className="max-w-md text-base leading-relaxed text-ink-500">
+            <p className="max-w-md text-base leading-relaxed text-ink-300">
               {PRICING_SECTION.lead}
             </p>
           </div>
         </FadeIn>
 
+        {/* Deux colonnes et non trois : l'offre qui porte l'encart est deux
+            fois plus haute que les deux offres sur devis. Elle occupe donc
+            une colonne entière et les deux autres s'empilent en face, ce qui
+            évite un vide d'environ 490px sous la rangée. */}
         <Stagger
-          className="mx-auto mt-10 grid max-w-6xl grid-cols-1 gap-6 md:mt-12 md:grid-cols-3 md:gap-8"
+          className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 md:mt-16 lg:grid-cols-2 lg:items-start lg:gap-8"
           staggerChildren={0.18}
         >
           {PRICING_PLANS.map((plan) => (
-            <FadeIn key={plan.offer} inside x={-32} y={0} duration={0.65}>
+            <FadeIn
+              key={plan.offer}
+              className={plan.addon ? "lg:row-span-2" : undefined}
+              inside
+              x={-32}
+              y={0}
+              duration={0.65}
+            >
               <PricingCard plan={plan} />
+
+              {/* Le lien vit sous la carte Site vitrine, pas sous la grille :
+                  il pointe vers le prix d'un site vitrine, et il occupe le
+                  reliquat de hauteur de cette colonne. */}
+              {plan.addon ? (
+                <div className="mt-6 text-center">
+                  <a
+                    href={PRIX_PATH}
+                    className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold tracking-tight text-mint-500 transition-colors hover:text-mint-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-500"
+                  >
+                    {PRICING_SECTION.pageLinkLabel}
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </a>
+                </div>
+              ) : null}
             </FadeIn>
           ))}
         </Stagger>
-
-        <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-ink-500">
-          {PRICING_FOOTNOTE}
-        </p>
-
-        <div className="mt-6 text-center">
-          <a
-            href={PRIX_PATH}
-            className="inline-flex items-center gap-1.5 font-sans text-sm font-semibold tracking-tight text-mint-700 transition-colors hover:text-mint-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
-          >
-            {PRICING_SECTION.pageLinkLabel}
-            <ArrowRight size={16} aria-hidden="true" />
-          </a>
-        </div>
       </div>
     </section>
   );

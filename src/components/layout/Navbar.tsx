@@ -11,8 +11,14 @@ import { cn } from "@/lib/utils";
 import { durations, easings } from "@/lib/motion";
 
 const SCROLL_THRESHOLD = 30;
-// rootMargin "haut négatif / bas négatif" → la section est "active" quand
-// elle occupe la zone centrale du viewport, pas dès qu'elle dépasse.
+/**
+ * Ligne de lecture, en fraction de la hauteur d'écran : la section active est
+ * celle qui la traverse. C'est elle qui décide, pas l'observer.
+ */
+const ACTIVE_LINE = 0.425;
+// rootMargin "haut négatif / bas négatif" → l'observer ne se déclenche que
+// quand une section entre ou sort de la bande qui entoure `ACTIVE_LINE`,
+// c'est-à-dire exactement quand la réponse peut changer.
 const SECTION_OBSERVER_OPTIONS: IntersectionObserverInit = {
   rootMargin: "-40% 0px -55% 0px",
   threshold: 0,
@@ -26,7 +32,7 @@ export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  // Hors de la home, les ancres (#pourquoi…) doivent pointer vers la home,
+  // Hors de la home, les ancres (#travail…) doivent pointer vers la home,
   // sinon elles ne mènent nulle part sur une page interne.
   const resolveHref = (hash: string) => (isHome ? hash : `/${hash}`);
 
@@ -43,17 +49,27 @@ export function Navbar() {
     ).filter((el): el is HTMLElement => el !== null);
     if (sections.length === 0) return;
 
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          setActiveId(entry.target.id);
-        }
-      }
-    }, SECTION_OBSERVER_OPTIONS);
+    // La section active est déduite de la géométrie, pas de l'ordre des
+    // entrées de l'observer. Lire `entries` revenait à garder la dernière du
+    // tableau, dont l'ordre n'est pas garanti : dès que deux sections
+    // traversaient la bande dans le même lot, la gagnante était arbitraire.
+    const pick = () => {
+      const line = window.innerHeight * ACTIVE_LINE;
+      const current = sections.find((section) => {
+        const box = section.getBoundingClientRect();
+        return box.top <= line && box.bottom > line;
+      });
+      if (current) setActiveId(current.id);
+    };
+
+    const observer = new IntersectionObserver(pick, SECTION_OBSERVER_OPTIONS);
 
     for (const section of sections) {
       observer.observe(section);
     }
+    // Une arrivée directe sur une ancre (/#processus depuis une page interne)
+    // ne produit aucun franchissement, donc aucun appel de l'observer.
+    pick();
     return () => observer.disconnect();
   }, []);
 
@@ -70,7 +86,9 @@ export function Navbar() {
   // Ferme le menu quand on dépasse le breakpoint mobile (évite un menu
   // resté "ouvert" mais caché par le CSS si on resize la fenêtre).
   useEffect(() => {
-    const mql = window.matchMedia("(min-width: 768px)");
+    // Doit suivre le seuil du menu compact (`lg:hidden`), sinon un passage de
+    // 800 à 900px fermerait un menu qui reste pourtant la seule navigation.
+    const mql = window.matchMedia("(min-width: 1024px)");
     const handle = (e: MediaQueryListEvent) => {
       if (e.matches) setIsMenuOpen(false);
     };
@@ -93,7 +111,7 @@ export function Navbar() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6 md:h-20 md:px-10 lg:px-16">
           <a
             href={isHome ? "#hero" : "/"}
-            className="flex items-center gap-2 font-sans text-base font-semibold tracking-tight text-ink-950"
+            className="flex shrink-0 items-center gap-2 whitespace-nowrap font-sans text-base font-semibold tracking-tight text-ink-950"
           >
             <Image
               src="/logo.svg"
@@ -108,8 +126,11 @@ export function Navbar() {
 
           <nav
             aria-label="Navigation principale"
-            className="hidden md:block"
+            className="hidden lg:block"
           >
+            {/* `whitespace-nowrap` sur les liens, le logo et le CTA : avec
+                cinq liens, tout ce petit monde se cassait sur deux lignes des
+                que la place manquait, au lieu de signaler le debordement. */}
             <ul className="flex items-center gap-6 text-sm text-ink-700">
               {NAV_LINKS.map((link) => {
                 const isActive = activeId === link.id;
@@ -119,7 +140,7 @@ export function Navbar() {
                       href={resolveHref(link.href)}
                       aria-current={isActive ? "true" : undefined}
                       className={cn(
-                        "rounded-md px-1 py-1 transition-colors hover:text-ink-950",
+                        "whitespace-nowrap rounded-md px-1 py-1 transition-colors hover:text-ink-950",
                         "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint-700",
                         isActive &&
                           "text-mint-700 underline decoration-2 underline-offset-8",
@@ -133,8 +154,12 @@ export function Navbar() {
             </ul>
           </nav>
 
-          <div className="hidden md:block">
-            <Button href={resolveHref("#contact")} size="sm">
+          <div className="hidden lg:block">
+            <Button
+              href={resolveHref("#contact")}
+              size="sm"
+              className="whitespace-nowrap"
+            >
               Discuter de mon projet
             </Button>
           </div>
@@ -145,7 +170,7 @@ export function Navbar() {
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsMenuOpen(true)}
-            className="inline-flex size-11 items-center justify-center rounded-md text-ink-950 transition-colors hover:bg-ink-950/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-md text-ink-950 transition-colors hover:bg-ink-950/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 lg:hidden"
           >
             <Menu size={24} aria-hidden="true" />
           </button>
@@ -160,7 +185,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: durations.fast, ease: easings.out }}
-            className="fixed inset-0 z-50 bg-ink-50 md:hidden"
+            className="fixed inset-0 z-50 bg-ink-50 lg:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Menu de navigation"
