@@ -29,10 +29,14 @@ const BAND_INSET = 14;
 const MIN_BAND = 48;
 /** Le filtre est déclaré une fois, la section n'est rendue qu'une fois. */
 const HALO_FILTER_ID = "processus-halo";
+/** Réglages du halo. Cf. DESIGN_SYSTEM.md §6.1 pour l'arbitrage. */
+const HALO_WIDTH = 34;
+const HALO_BLUR = 18;
+const HALO_OPACITY = 0.09;
 /**
- * Marge autour du tracé, en pixels. Le halo fait 44px de large et son flou
- * porte à ~48px : sans cette marge le SVG le coupe net au-dessus de la
- * première ancre, ce qui donne un bord droit très visible.
+ * Marge autour du tracé, en pixels. Elle doit couvrir la demi-largeur du halo
+ * plus la portée de son flou (~3 × l'écart-type) : sans elle, le SVG coupe le
+ * halo net au-dessus de la première ancre, ce qui donne un bord droit visible.
  */
 const SVG_PAD = 80;
 /**
@@ -161,7 +165,7 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
               width={layout.width + SVG_PAD * 2}
               height={layout.height + SVG_PAD * 2}
             >
-              <feGaussianBlur stdDeviation={16} />
+              <feGaussianBlur stdDeviation={HALO_BLUR} />
             </filter>
           </defs>
 
@@ -172,9 +176,9 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
             key={`halo-${path}`}
             d={path}
             stroke="var(--color-mint-500)"
-            strokeWidth={44}
+            strokeWidth={HALO_WIDTH}
             strokeLinecap="round"
-            opacity={0.14}
+            opacity={HALO_OPACITY}
             filter={`url(#${HALO_FILTER_ID})`}
             style={reduce ? undefined : { pathLength: scrollYProgress }}
           />

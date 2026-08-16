@@ -137,7 +137,7 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 
 Deux couches ajoutées par-dessus le `BGPattern dots` de la section.
 
-- **Halo mint le long du fil** : le même tracé, en `strokeWidth 44`, opacité 0.14, flouté par un `feGaussianBlur stdDeviation 16`, avec **le même `pathLength`** que le fil. Il se dessine donc en même temps et éclaire la section au fur et à mesure, au lieu d'être un décor posé. En pile, il ne reste qu'un lavis mint discret le long du rail gauche.
+- **Halo mint le long du fil** : le même tracé, en `strokeWidth 34`, opacité 0.09, flouté par un `feGaussianBlur stdDeviation 18`, avec **le même `pathLength`** que le fil. Il se dessine donc en même temps et éclaire la section au fur et à mesure, au lieu d'être un décor posé. En pile, il ne reste qu'un lavis mint discret le long du rail gauche.
   - Le SVG déborde de 80px en haut et en bas (`-inset-y-20` + `viewBox` décalé d'autant) : le halo fait 44px de large et son flou porte à ~48px, donc sans marge il était **coupé net au-dessus de la première ancre**, ce qui donnait un bord droit très visible.
   - Région du filtre en `filterUnits="userSpaceOnUse"`, jamais en pourcentage : en pile le tracé est une droite verticale, sa boîte a une largeur nulle, et un filtre en pourcentage de cette boîte n'est pas rendu du tout.
 - **Numéro en filigrane** par étape, `font-serif`, `text-ink-300/60`, `clamp(3.25rem,9vw,4.5rem)` en pile et `clamp(6rem,9vw,11rem)` à partir de `lg`. Décoratif donc `aria-hidden`, le numéro lisible étant déjà dans le bloc.
