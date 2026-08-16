@@ -173,16 +173,21 @@ export function Navbar({ locale }: { locale: Locale }) {
             </Button>
           </div>
 
-          <button
-            type="button"
-            aria-label={ui.nav.openMenu}
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setIsMenuOpen(true)}
-            className="inline-flex size-11 items-center justify-center rounded-md text-ink-950 transition-colors hover:bg-ink-950/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 lg:hidden"
-          >
-            <Menu size={24} aria-hidden="true" />
-          </button>
+          {/* Sous lg, le selecteur de langue reste dans la barre et non dans le
+              menu : changer de langue ne doit pas demander d'ouvrir le menu. */}
+          <div className="flex items-center gap-1 lg:hidden">
+            <LocaleSwitcher locale={locale} />
+            <button
+              type="button"
+              aria-label={ui.nav.openMenu}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
+              onClick={() => setIsMenuOpen(true)}
+              className="inline-flex size-11 items-center justify-center rounded-md text-ink-950 transition-colors hover:bg-ink-950/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+            >
+              <Menu size={24} aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -255,10 +260,6 @@ export function Navbar({ locale }: { locale: Locale }) {
                   })}
                 </ul>
               </nav>
-
-              <div className="mb-6">
-                <LocaleSwitcher locale={locale} onNavigate={closeMenu} />
-              </div>
 
               <Button
                 href={resolveHref("#contact")}
