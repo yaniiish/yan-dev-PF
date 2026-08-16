@@ -1,29 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { SiteLoader } from "@/components/layout/SiteLoader";
-import { PROFESSIONAL_SERVICE_LD, SITE_URL } from "@/lib/seo";
-import "./globals.css";
+import { HTML_LANG } from "@/content/locales";
+import { uiContent } from "@/content/ui";
+import { fontVariables } from "@/lib/fonts";
+import { languageAlternates } from "@/lib/routes";
+import { professionalServiceLd, SITE_URL } from "@/lib/seo";
+import "../globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
+/**
+ * Root layout français. Le site a deux root layouts (route groups `(fr)` et
+ * `(en)`) : c'est ce qui permet un `<html lang>` correct par langue sans
+ * middleware ni rendu dynamique. Voir aussi `src/app/(en)/layout.tsx`.
+ *
+ * Le groupe `(fr)` est transparent dans l'URL : les pages restent servies sur
+ * `/`, `/prix-site-vitrine`, `/site-internet/...`.
+ */
 
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
+const LOCALE = "fr" as const;
 
 const TITLE_DEFAULT =
   "Yan-dev : création de sites vitrines modernes | Freelance à Caen";
@@ -52,7 +47,10 @@ export const metadata: Metadata = {
   authors: [{ name: "Yan", url: SITE_URL }],
   creator: "Yan",
   publisher: "Yan-dev",
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    languages: languageAlternates("home"),
+  },
   openGraph: {
     type: "website",
     locale: "fr_FR",
@@ -80,15 +78,17 @@ export const viewport: Viewport = {
   themeColor: "#F7F9F7",
 };
 
-export default function RootLayout({
+export default function FrRootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const ui = uiContent(LOCALE);
+
   return (
     <html
-      lang="fr"
-      className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      lang={HTML_LANG[LOCALE]}
+      className={`${fontVariables} h-full antialiased`}
     >
       <body
         className="flex min-h-full flex-col"
@@ -98,22 +98,22 @@ export default function RootLayout({
         // niveau et ignore ces attributs externes. Sans effet sur le rendu.
         suppressHydrationWarning
       >
-        <SiteLoader />
+        <SiteLoader locale={LOCALE} />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-ink-950 focus:px-4 focus:py-2 focus:text-ink-50 focus:outline-2 focus:outline-offset-2 focus:outline-mint-700"
         >
-          Aller au contenu
+          {ui.skipToContent}
         </a>
-        <Navbar />
+        <Navbar locale={LOCALE} />
         <main id="main" className="flex-1">
           {children}
         </main>
-        <Footer />
+        <Footer locale={LOCALE} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(PROFESSIONAL_SERVICE_LD),
+            __html: JSON.stringify(professionalServiceLd(LOCALE)),
           }}
         />
       </body>
