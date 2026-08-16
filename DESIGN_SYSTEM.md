@@ -213,6 +213,7 @@ Deux composants livrés : **grid background** (fond blanc/noir, masqué en `fade
 - **Section "Tarifs"** : fond plein `bg-ink-950` avec texte clair pour casser le rythme. (à valider, optionnel)
 - **Règle d'alternance** : ne pas mettre deux backgrounds décoratifs sur deux sections consécutives.
 - **Séquence en vigueur depuis le repositionnement** : Hero (`grid`, `fade-edges`) → Mon travail (aplat `bg-card`, neutre) → Comment ça marche (`dots`, `fade-y`, size 28) → Tarifs → Contact (neutre). Les deux fonds décoratifs sont bien séparés par un aplat, et `dots` ne répète pas le `grid` du hero.
+- **Exception au « pas de glow »** (§10) : la section Comment ça marche porte un halo mint flouté le long de son fil. Ce n'est pas un néon posé sur un élément d'UI : il partage le `pathLength` du fil, donc il fait partie de l'animation qui raconte l'avancement. Opacité 0.14, à ne pas monter.
 
 **`FallingPattern` : conservé en réserve.** Pas utilisé au MVP suite à la décision Phase 1.2. Le composant reste disponible dans `src/components/backgrounds/` pour un usage futur (Phase 2 ou itération design). Le retirer pour de bon nécessiterait l'aval de Yan.
 

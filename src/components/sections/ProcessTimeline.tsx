@@ -26,6 +26,8 @@ const ANCHOR_OFFSET = 14;
 const BAND_INSET = 14;
 /** En deçà, la bande libre est trop étroite pour serpenter : on trace droit. */
 const MIN_BAND = 48;
+/** Le filtre est déclaré une fois, la section n'est rendue qu'une fois. */
+const HALO_FILTER_ID = "processus-halo";
 
 /**
  * Fil serpentin qui se dessine au scroll, étapes de part et d'autre.
@@ -128,6 +130,32 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
           fill="none"
           preserveAspectRatio="none"
         >
+          <defs>
+            <filter
+              id={HALO_FILTER_ID}
+              x="-20%"
+              y="-10%"
+              width="140%"
+              height="120%"
+            >
+              <feGaussianBlur stdDeviation={16} />
+            </filter>
+          </defs>
+
+          {/* Halo : le même tracé, épais et flouté, avec le même pathLength.
+              Il se dessine donc en même temps que le fil et éclaire la
+              section au fur et à mesure, au lieu d'être un décor posé. */}
+          <motion.path
+            key={`halo-${path}`}
+            d={path}
+            stroke="var(--color-mint-500)"
+            strokeWidth={44}
+            strokeLinecap="round"
+            opacity={0.14}
+            filter={`url(#${HALO_FILTER_ID})`}
+            style={reduce ? undefined : { pathLength: scrollYProgress }}
+          />
+
           <path
             d={path}
             stroke="var(--color-ink-300)"
@@ -265,6 +293,23 @@ function Step({
 
   return (
     <li ref={ref} className="relative pl-14 lg:grid lg:grid-cols-2 lg:pl-0">
+      {/* Numéro en filigrane, côté extérieur. Il n'y a pas d'espace libre à
+          côté du texte, donc il passe derrière : à 5 % d'encre il se lit comme
+          une texture et non comme une collision. Décoratif, le numéro lisible
+          est déjà dans le bloc, donc masqué aux lecteurs d'écran. Caché sous
+          lg, où il n'y a pas la place. */}
+      <motion.span
+        aria-hidden="true"
+        style={reduce ? undefined : { opacity }}
+        className={cn(
+          "pointer-events-none absolute top-1/2 hidden -translate-y-1/2 select-none",
+          "font-serif text-[clamp(7rem,10vw,13rem)] leading-none text-ink-950/[0.05] lg:block",
+          isLeft ? "left-0" : "right-0",
+        )}
+      >
+        {step.number}
+      </motion.span>
+
       <motion.div
         style={reduce ? undefined : { opacity, y: shift }}
         className={cn(

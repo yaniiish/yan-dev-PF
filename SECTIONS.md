@@ -132,6 +132,14 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 - Le SVG est en `absolute inset-0 pointer-events-none`, sous le texte.
 - **`key={path}` sur le tracé mint** : Motion calcule la longueur du chemin au montage pour piloter `pathLength`. Sans remontage, un `d` recalculé après une mesure garde l'ancienne longueur et le fil plafonne avant la fin. Piège vérifié en conditions réelles.
 
+
+### Caractère du fond
+
+Deux couches ajoutées par-dessus le `BGPattern dots` de la section.
+
+- **Halo mint le long du fil** : le même tracé, en `strokeWidth 44`, opacité 0.14, flouté par un `feGaussianBlur stdDeviation 16`, avec **le même `pathLength`** que le fil. Il se dessine donc en même temps et éclaire la section au fur et à mesure, au lieu d'être un décor posé. En pile, il ne reste qu'un lavis mint discret le long du rail gauche.
+- **Numéro en filigrane** par étape, côté extérieur, `font-serif` en `clamp(7rem,10vw,13rem)`. Il n'y a **pas d'espace libre à côté du texte** : les colonnes sont pleines une fois le padding retiré. Le numéro passe donc derrière le texte, à `text-ink-950/[0.05]` : à ce niveau d'encre il se lit comme une texture et non comme une collision. Un premier essai à `ink-300/50` venait buter sur les lignes. Décoratif donc `aria-hidden`, le numéro lisible étant déjà dans le bloc. Masqué sous `lg`, faute de place.
+
 ### Animation
 - **Le fil se dessine au scroll** : `useScroll({ target, offset: ["start 0.8", "end 0.8"] })` pilote `pathLength` sur le tracé mint superposé au tracé gris. Motivé : le tracé raconte l'avancement du projet, qui est le sujet de la section.
 - **Les textes se révèlent en synchro** : `useTransform` sur le même progrès, fenêtre `[ancre - 0.12, ancre]` où l'ancre est la position verticale du nœud rapportée à la hauteur du bloc, avec un plancher à 0.1. Sans ce plancher, la première étape, dont l'ancre est tout en haut, apparaissait d'un bloc dès le premier pixel de course.
