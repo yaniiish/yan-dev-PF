@@ -7,88 +7,117 @@
 /** Route de la page d'intention tarifs (source unique). */
 export const PRIX_PATH = "/prix-site-vitrine";
 
-/** Feature de carte : texte simple, ou texte avec infobulle (i). */
+/** Ligne de liste : texte simple, ou texte avec infobulle (i). */
 export type PricingFeature = string | { label: string; tooltip: string };
 
-export type PricingPlan = {
-  badge?: string;
-  offer: string;
+/** Encart mis en avant dans une carte (option d'abonnement). */
+export type PricingAddon = {
+  title: string;
   price: string;
-  priceNote?: string;
-  /** Précision mise en avant sous le prix (ex : reprise en main après 1 an). */
-  renewalNote?: string;
-  recurring?: string;
-  recurringNote?: string;
-  features?: readonly PricingFeature[];
-  ctaLabel: string;
-  highlight?: boolean;
+  intro: string;
+  items: readonly PricingFeature[];
+  note: string;
 };
 
-const ESSENTIEL_FEATURES: readonly PricingFeature[] = [
-  "Site moderne et rapide sur mesure",
-  "Responsive mobile, tablette, desktop",
+export type PricingPlan = {
+  offer: string;
+  price: string;
+  /** Infobulle (i) accolée au prix, quand celui-ci dépend du périmètre. */
+  priceTooltip?: string;
+  /** À qui s'adresse l'offre, en une phrase. */
+  pitch: string;
+  features: readonly PricingFeature[];
+  addon?: PricingAddon;
+  /** Réassurance en bas de carte. `noteEmphasis` en est la partie en gras. */
+  note?: string;
+  noteEmphasis?: string;
+  ctaLabel: string;
+};
+
+/** Intitulé commun aux trois listes. */
+export const FEATURES_LABEL = "Inclus :";
+
+const VITRINE_FEATURES: readonly PricingFeature[] = [
+  "Design moderne adapté à votre activité",
+  "Responsive mobile, tablette et desktop",
   "SEO de base",
   "Formulaire de contact",
-  "Mise en ligne rapide",
+  "Aide à la mise en ligne avec la configuration de votre nom de domaine et de votre hébergement",
 ];
 
-const SERENITE_FEATURES: readonly PricingFeature[] = [
-  "Tout ce qui est inclus dans l'offre Essentiel",
-  "Nom de domaine & hébergement gérés en continu",
+const SERENITE_ITEMS: readonly PricingFeature[] = [
+  "Hébergement",
+  "Nom de domaine",
+  "Maintenance technique",
+  "Sauvegardes",
   {
     label: "Modifications mineures illimitées sous 48h",
     tooltip:
       "Les modifications mineures : texte, photo, horaires, prix, un plat au menu, etc. L'ajout de page, la refonte du design ou une nouvelle fonctionnalité font l'objet d'un devis à part.",
   },
+  "Support direct",
 ];
 
-const PREMIUM_FEATURES: readonly PricingFeature[] = [
-  "Design poussé et animations avancées",
-  "Réservation, mini-boutique, intégrations spécifiques",
-  "Projets de plus grande envergure",
-  "On échange, je vous fais une proposition adaptée",
-  "Applications mobile",
-  "Agents IA / automatisation",
+const CREATIF_FEATURES: readonly PricingFeature[] = [
+  "Tout ce qui est dans l'offre Site vitrine",
+  "Direction artistique plus poussée",
+  "Animations et interactions utiles",
+  "Expérience plus immersive",
+  "Intégrations spécifiques",
+  "Accompagnement créatif",
+];
+
+const PRODUIT_FEATURES: readonly PricingFeature[] = [
+  "Conception produit",
+  "MVP",
+  "SaaS",
+  "Application web",
+  "Application mobile",
+  "Dashboard / back-office",
+  "Intégrations IA / automatisations",
 ];
 
 export const PRICING_PLANS: readonly PricingPlan[] = [
   {
-    badge: "Sans abonnement",
-    offer: "Essentiel",
-    price: "690 €",
-    priceNote: "nom de domaine et hébergement inclus la première année",
-    renewalNote:
-      "Après 1 an : vous reprenez la main, je vous cède tout ou bien vous passez à la mensualité du Pack Sérénité.",
-    features: ESSENTIEL_FEATURES,
-    ctaLabel: "Démarrer mon projet",
+    offer: "Site vitrine",
+    price: "À partir de 490 €",
+    priceTooltip:
+      "Le tarif peut évoluer selon : le nombre de pages, le niveau de personnalisation, les contenus à intégrer et les fonctionnalités spécifiques.",
+    pitch:
+      "Pour les artisans, indépendants et petites entreprises qui veulent un site clair, professionnel et efficace.",
+    features: VITRINE_FEATURES,
+    addon: {
+      title: "Option Sérénité",
+      price: "30 €/mois",
+      intro: "Vous ne voulez rien gérer ? Je m'occupe de tout pour vous :",
+      items: SERENITE_ITEMS,
+      note: "Résiliable à tout moment.",
+    },
+    note: "Vous n'êtes jamais prisonnier : à tout moment, je vous transfère le nom de domaine et vous cède le code du site. Le site est à vous.",
+    noteEmphasis: "Le site est à vous.",
+    ctaLabel: "Créer mon site",
   },
   {
-    badge: "Conseillé",
-    highlight: true,
-    offer: "Pack Sérénité",
-    price: "490 €",
-    priceNote: "à la création",
-    recurring: "+ 30 €/mois",
-    recurringNote: "sans engagement, résiliable à tout moment (préavis 1 mois)",
-    features: SERENITE_FEATURES,
-    ctaLabel: "Choisir le suivi",
-  },
-  {
-    offer: "Projet premium",
+    offer: "Site créatif",
     price: "Sur devis",
-    priceNote: "selon ambition et fonctionnalités",
-    features: PREMIUM_FEATURES,
-    ctaLabel: "Parlons de votre projet",
+    pitch:
+      "Pour les marques et projets qui veulent aller plus loin visuellement, sans sacrifier la lisibilité.",
+    features: CREATIF_FEATURES,
+    ctaLabel: "Imaginer mon projet",
+  },
+  {
+    offer: "Produit digital",
+    price: "Sur devis",
+    pitch: "Pour transformer une idée en produit concret.",
+    features: PRODUIT_FEATURES,
+    ctaLabel: "Construire mon produit",
   },
 ] as const;
 
-export const PRICING_FOOTNOTE =
-  "Vous n'êtes jamais prisonnier : à tout moment, je vous transfère le nom de domaine à votre nom et vous cède le code du site. Le site est à vous.";
-
 /** Section Tarifs de la home (#tarifs). */
 export const PRICING_SECTION = {
-  h2: "Des tarifs clairs, sans devis à rallonge.",
-  lead: "Le prix annoncé est le prix payé, et je gère tout de A à Z : vous n'avez rien à faire. Si votre projet sort du cadre, on en parle et on adapte ensemble.",
+  h2: "Une offre adaptée à chaque projet.",
+  lead: "Du site vitrine simple au produit digital plus ambitieux, chaque projet est pensé selon ses besoins, son niveau de personnalisation et son budget.",
   /** Lien vers la page d'intention dédiée (maillage interne). */
   pageLinkLabel: "Le prix d'un site vitrine en détail",
 } as const;
@@ -97,10 +126,10 @@ export const PRICING_SECTION = {
 export const PRIX_PAGE = {
   metaTitle: "Prix d'un site vitrine : combien ça coûte ? Dès 490 €",
   metaDescription:
-    "Le prix d'un site vitrine professionnel : à partir de 490 € tout compris, livré rapidement. Tarifs clairs, sans devis à rallonge ni frais cachés. Freelance à Caen, partout en France.",
+    "Le prix d'un site vitrine professionnel : à partir de 490 €, avec une option de suivi à 30 €/mois. Tarifs clairs, sans devis à rallonge ni frais cachés. Freelance à Caen, partout en France.",
   breadcrumbLabel: "Prix d'un site vitrine",
   h1: "Combien coûte un site vitrine ?",
-  lead: "Deux formules sans engagement chez Yan-dev : l'Essentiel à 690 € une fois, le site est à vous (nom de domaine et hébergement inclus la première année), ou le Pack Sérénité à 490 € à la création puis 30 €/mois, tout géré pour vous. Le prix annoncé est le prix payé : pas de devis gonflé, pas de frais cachés.",
+  lead: "Chez Yan-dev, un site vitrine démarre à 490 €. Le tarif évolue ensuite selon le nombre de pages, le niveau de personnalisation et les fonctionnalités, et il vous est annoncé avant de commencer. Si vous ne voulez rien gérer, l'option Sérénité prend tout en charge pour 30 €/mois, résiliable à tout moment.",
   detailLabel: "Tarifs",
   detailTitle: "Le détail des tarifs",
   whyLabel: "Pourquoi ce prix",
@@ -113,17 +142,22 @@ export const PRIX_PAGE = {
     {
       question: "Combien coûte un site vitrine ?",
       answer:
-        "Deux options chez Yan-dev : l'Essentiel à 690 € une fois, sans abonnement, avec le nom de domaine et l'hébergement inclus la première année ; ou le Pack Sérénité à 490 € à la création puis 30 €/mois, avec le nom de domaine, l'hébergement et les modifications mineures gérés en continu. Le tarif est annoncé d'avance, sans surprise.",
+        "Un site vitrine démarre à 490 € chez Yan-dev. Le tarif évolue selon le nombre de pages, le niveau de personnalisation, les contenus à intégrer et les fonctionnalités spécifiques. Il vous est annoncé d'avance, sans surprise.",
     },
     {
       question: "Qu'est-ce qui est compris dans le prix ?",
       answer:
-        "Dans les deux formules : le site sur mesure, responsive (mobile, tablette, ordinateur), le référencement de base, un formulaire de contact et la mise en ligne. Avec le Pack Sérénité, le nom de domaine, l'hébergement et les modifications mineures sont gérés en continu dans l'abonnement mensuel.",
+        "Un design moderne adapté à votre activité, un site responsive (mobile, tablette, ordinateur), le référencement de base, un formulaire de contact, et l'aide à la mise en ligne avec la configuration de votre nom de domaine et de votre hébergement.",
+    },
+    {
+      question: "À quoi sert l'option Sérénité à 30 €/mois ?",
+      answer:
+        "Elle est là si vous ne voulez rien gérer : hébergement, nom de domaine, maintenance technique, sauvegardes, modifications mineures illimitées sous 48h et support direct. Elle est facultative et résiliable à tout moment.",
     },
     {
       question: "Y a-t-il un engagement ?",
       answer:
-        "Non. L'Essentiel est un paiement unique, sans abonnement. Le Pack Sérénité est résiliable à tout moment, avec un préavis d'un mois. Dans tous les cas, le site vous appartient : je peux vous transférer le nom de domaine et vous céder le code quand vous le souhaitez.",
+        "Non. La création du site est un paiement unique, et l'option Sérénité est résiliable à tout moment. Dans tous les cas le site vous appartient : je peux vous transférer le nom de domaine et vous céder le code quand vous le souhaitez.",
     },
     {
       question: "Un site pas cher est-il vraiment professionnel ?",
@@ -131,9 +165,9 @@ export const PRIX_PAGE = {
         "Oui. Le tarif bas vient du format (un site vitrine clair, sur mesure, en direct sans agence), pas d'un travail bâclé : code moderne, performances et référencement local soignés.",
     },
     {
-      question: "Et pour un site plus ambitieux ?",
+      question: "Et pour un projet plus ambitieux ?",
       answer:
-        "C'est possible, sur devis : animations avancées, design poussé, réservation ou boutique simple. On en discute et je vous fais une proposition adaptée.",
+        "Deux offres sur devis prennent le relais : le site créatif, pour aller plus loin visuellement avec une direction artistique poussée et des animations ; et le produit digital, pour une application web ou mobile, un SaaS ou un MVP. On en discute et je vous fais une proposition adaptée.",
     },
   ],
   ctaTitle: "Un projet de site en tête ?",

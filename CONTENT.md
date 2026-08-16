@@ -196,57 +196,67 @@ Le numéro et le titre sont deux éléments distincts, sans tiret entre les deux
 `05 — Tarifs`
 
 ### Titre (H2)
-> Des tarifs clairs, sans devis à rallonge.
+> Une offre adaptée à chaque projet.
 
 ### Intro (lead)
-> Le prix annoncé est le prix payé, et je gère tout de A à Z : vous n'avez rien à faire. Si votre projet sort du cadre, on en parle et on adapte ensemble.
+> Du site vitrine simple au produit digital plus ambitieux, chaque projet est pensé selon ses besoins, son niveau de personnalisation et son budget.
 
-### Carte tarif 1 — Essentiel
+> **Modèle tarifaire en vigueur depuis la refonte.** Il remplace les trois formules Essentiel 690 € / Pack Sérénité 490 € + 30 €/mois / Projet premium. Le 30 €/mois n'est plus une formule mais une **option** de la carte Site vitrine : toute prose qui le présente comme obligatoire est fausse.
 
-- **Étiquette :** `Sans abonnement`
-- **Nom de l'offre :** `Essentiel`
-- **Prix principal :** `690 €`
-- **Mention sous le prix :** `nom de domaine et hébergement inclus la première année`
-- **Précision (mise en avant sous le prix) :** `Après 1 an : vous reprenez la main, je vous cède tout ou bien vous passez à la mensualité du Pack Sérénité.`
+### Carte tarif 1 — Site vitrine
+
+- **Nom de l'offre :** `Site vitrine`
+- **Prix principal :** `À partir de 490 €`
+- **Infobulle (i) accolée au prix :** `Le tarif peut évoluer selon : le nombre de pages, le niveau de personnalisation, les contenus à intégrer et les fonctionnalités spécifiques.`
+- **Accroche :** `Pour les artisans, indépendants et petites entreprises qui veulent un site clair, professionnel et efficace.`
 - **Liste inclus :**
-  - Site moderne et rapide sur mesure
-  - Responsive mobile, tablette, desktop
+  - Design moderne adapté à votre activité
+  - Responsive mobile, tablette et desktop
   - SEO de base
   - Formulaire de contact
-  - Mise en ligne rapide
-- **CTA :** `Démarrer mon projet` → `#contact`
+  - Aide à la mise en ligne avec la configuration de votre nom de domaine et de votre hébergement
+- **Encart vert pâle dans la carte :**
+  - Titre `Option Sérénité`, prix `30 €/mois` **en deux champs séparés**, jamais collés par un tiret cadratin (règle CONTENT).
+  - Intro `Vous ne voulez rien gérer ? Je m'occupe de tout pour vous :`
+  - Hébergement / Nom de domaine / Maintenance technique / Sauvegardes / Modifications mineures illimitées sous 48h *(infobulle (i) : « Les modifications mineures : texte, photo, horaires, prix, un plat au menu, etc. L'ajout de page, la refonte du design ou une nouvelle fonctionnalité font l'objet d'un devis à part. »)* / Support direct
+  - Clôture `Résiliable à tout moment.`
+- **Note de bas de carte :** `Vous n'êtes jamais prisonnier : à tout moment, je vous transfère le nom de domaine et vous cède le code du site. Le site est à vous.` (fin en gras). Décision Yan : dans la carte, pas en note sous les trois cartes.
+- **CTA :** `Créer mon site` → `#contact`
 
-### Carte tarif 2 — Pack Sérénité (mise en avant)
+### Carte tarif 2 — Site créatif
 
-- **Étiquette :** `Conseillé`
-- **Nom de l'offre :** `Pack Sérénité`
-- **Prix principal :** `490 €`
-- **Mention sous le prix :** `à la création`
-- **Récurrent :** `+ 30 €/mois`
-- **Mention récurrent :** `sans engagement, résiliable à tout moment (préavis 1 mois)`
-- **Liste inclus :**
-  - Tout ce qui est inclus dans l'offre Essentiel
-  - Nom de domaine & hébergement gérés en continu
-  - Modifications mineures illimitées sous 48h *(infobulle (i) au survol/tap : « Les modifications mineures : texte, photo, horaires, prix, un plat au menu, etc. L'ajout de page, la refonte du design ou une nouvelle fonctionnalité font l'objet d'un devis à part. »)*
-- **CTA :** `Choisir le suivi` → `#contact`
-
-### Carte tarif 3 — Projet premium / sur mesure
-
-- **Étiquette :** *(aucune)*
-- **Nom de l'offre :** `Projet premium`
+- **Nom de l'offre :** `Site créatif`
 - **Prix principal :** `Sur devis`
-- **Mention sous le prix :** `selon ambition et fonctionnalités`
+- **Accroche :** `Pour les marques et projets qui veulent aller plus loin visuellement, sans sacrifier la lisibilité.`
 - **Liste inclus :**
-  - Design poussé et animations avancées
-  - Réservation, mini-boutique, intégrations spécifiques
-  - Projets de plus grande envergure
-  - On échange, je vous fais une proposition adaptée
-  - Applications mobile
-  - Agents IA / automatisation
-- **CTA :** `Parlons de votre projet` → `#contact`
+  - Tout ce qui est dans l'offre Site vitrine
+  - Direction artistique plus poussée
+  - Animations et interactions utiles
+  - Expérience plus immersive
+  - Intégrations spécifiques
+  - Accompagnement créatif
+- **CTA :** `Imaginer mon projet` → `#contact`
 
-### Note sous les tarifs
-> *Vous n'êtes jamais prisonnier : à tout moment, je vous transfère le nom de domaine à votre nom et vous cède le code du site. Le site est à vous.*
+### Carte tarif 3 — Produit digital
+
+- **Nom de l'offre :** `Produit digital`
+- **Prix principal :** `Sur devis`
+- **Accroche :** `Pour transformer une idée en produit concret.`
+- **Liste inclus :**
+  - Conception produit
+  - MVP
+  - SaaS
+  - Application web
+  - Application mobile
+  - Dashboard / back-office
+  - Intégrations IA / automatisations
+- **CTA :** `Construire mon produit` → `#contact`
+
+### Intitulé commun
+> `Inclus :` au-dessus des trois listes.
+
+### Lien de maillage
+> `Le prix d'un site vitrine en détail →` sous les cartes, vers `/prix-site-vitrine`.
 
 ---
 

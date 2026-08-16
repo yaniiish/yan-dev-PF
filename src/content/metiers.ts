@@ -50,7 +50,7 @@ export const METIER_LABELS = {
   exampleTitlePlural: "Des exemples en ligne",
   exampleCta: "Voir l'exemple en ligne",
   pricing: "Tarif",
-  pricingCallout: "Tout compris, à partir de 490 € à la création.",
+  pricingCallout: "À partir de 490 €, selon le périmètre du projet.",
   pricingCta: "Voir le détail des tarifs",
   faq: "FAQ",
   faqTitle: "Questions fréquentes",
@@ -146,7 +146,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour un coffee shop ?",
         answer:
-          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
       },
       {
         question: "J'ai déjà un Instagram, ai-je vraiment besoin d'un site ?",
@@ -174,7 +174,7 @@ export const METIERS: readonly Metier[] = [
     serviceName: "Création de site internet pour restaurant",
     metaTitle: "Création de site internet pour restaurant, dès 490 €",
     metaDescription:
-      "Un site web moderne pour votre restaurant : carte, horaires, réservation et visibilité sur Google. Changement de carte compris dans l'abonnement. Dès 490 €. Freelance à Caen, partout en France.",
+      "Un site web moderne pour votre restaurant : carte, horaires, réservation et visibilité sur Google. Changement de carte compris dans l'option de suivi. Dès 490 €. Freelance à Caen, partout en France.",
     breadcrumbLabel: "Site internet pour restaurant",
     h1: "Un site internet pour votre restaurant",
     lead: "Vos clients regardent votre carte et vos horaires en ligne avant de réserver. Un site clair et moderne les rassure, met l'eau à la bouche et vous rend visible sur Google quand on cherche où manger dans le coin. Dès 490 €.",
@@ -213,7 +213,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour un restaurant ?",
         answer:
-          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
       },
       {
         question: "Puis-je changer ma carte régulièrement ?",
@@ -280,7 +280,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour une boulangerie ?",
         answer:
-          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
       },
       {
         question: "Puis-je afficher mes produits et mes horaires ?",
@@ -348,7 +348,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour un architecte d'intérieur ?",
         answer:
-          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
       },
       {
         question: "Pourquoi un site soigné est-il si important pour ce métier ?",
@@ -415,7 +415,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour un bistrot ou une brasserie ?",
         answer:
-          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
       },
       {
         question: "Puis-je changer mon ardoise et mes formules régulièrement ?",
@@ -483,7 +483,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour un tatoueur ?",
         answer:
-          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
       },
       {
         question: "Peut-on présenter ma galerie et mes flashs ?",
@@ -551,7 +551,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour une brasserie artisanale ?",
         answer:
-          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
       },
       {
         question: "Puis-je présenter toute ma gamme de bières ?",

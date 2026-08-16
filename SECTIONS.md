@@ -160,30 +160,26 @@ Deux couches ajoutées par-dessus le `BGPattern dots` de la section.
 
 ## 5. TARIFS (`#tarifs`)
 
-### Layout
-- `SectionLabel` + H2 + lead.
-- Grille `grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mt-16 max-w-5xl mx-auto`.
-- 2 cards tarif.
-
-### Card tarif
-- `rounded-3xl border bg-card p-8 md:p-10 flex flex-col`.
-- Si "le plus demandé" → badge en haut + `border-mint-500` plus marquée.
-- Structure :
-  - Badge `Le plus demandé` ou `Sur mesure` (chip mono mint en haut).
-  - Nom de l'offre (H3).
-  - Prix principal **en display-2 serif** + petite mention sous le prix.
-  - Récurrent (`+ 30 €/mois`) en `text-h3` + mention.
-  - `<hr>` mince.
-  - Liste à puces — chaque item avec icône `Check` lucide en `text-mint-700`.
-  - **Spacer flex-1** (pousse le CTA en bas).
-  - CTA primaire pleine largeur.
-
-### Note finale
-- Sous les cards, paragraphe `text-small text-ink-500 max-w-3xl mx-auto text-center`.
+> Composants : `sections/Pricing.tsx` (serveur) et `pricing/PricingCard.tsx` (partagé avec `/prix-site-vitrine`).
+> Données : `content/pricing.ts`. Trois offres : Site vitrine, Site créatif, Produit digital.
 
 ### Background
-- Optionnel : section plus sombre `bg-ink-950 text-ink-50`. À tester. Si fait, adapter les cards (fond `bg-ink-50/95`).
-- Au MVP, partir sur **fond clair standard** pour rester safe.
+- **Aplat plein `bg-ink-950`**, seul aplat sombre du site. Il sert de coupure entre deux sections claires (Comment ça marche, Contact) : le changement de sujet se lit sans filet ni séparateur. Cf. `DESIGN_SYSTEM.md` §6.1.
+- En-tête en clair : `SectionLabel` forcé en `text-mint-500` (le `mint-700` par défaut ne passe pas sur fond sombre), H2 en `text-ink-50`, lead en `text-ink-300`.
+- Le lien de maillage sous les cartes passe en `text-mint-500` avec hover `mint-100`.
+- **Les cartes restent claires** (`bg-card`), donc `PricingCard` est identique ici et sur `/prix-site-vitrine`, qui est sur fond clair. Rien à conditionner.
+
+### Layout
+- Grille `grid-cols-1 lg:grid-cols-3 lg:items-start`. **Pas de passage à 3 colonnes dès `md`** : à 768px cela donnait des cartes de 208px de large et une première carte de 1621px de haut. Mesuré.
+- `lg:items-start` : les cartes gardent leur hauteur naturelle. Depuis que la première porte l'encart d'abonnement elle fait 1038px contre 550px pour les deux autres ; les égaliser creusait 490px de vide **à l'intérieur** des cartes 2 et 3.
+
+### Card tarif
+- `rounded-3xl border border-ink-300/60 bg-card p-7 md:p-8`, hover `-translate-y-1` + ombre. Plus de carte « mise en avant » : les trois offres sont une progression, pas un choix à orienter.
+- Structure : nom de l'offre (H3 serif) → prix (serif, `clamp(1.75rem,1.2vw+1rem,2.25rem)`) avec infobulle (i) optionnelle → accroche → `Inclus :` en mono → liste à coches `Check` mint → encart optionnel → note optionnelle → spacer `mt-auto` → CTA primaire pleine largeur.
+- **Encart d'abonnement** (carte Site vitrine) : `rounded-2xl border border-mint-500/40 bg-mint-50/50 p-5`. Titre et prix sur une ligne en `justify-between`, puis intro, puis liste à **puces rondes** et non à coches (la liste principale garde les coches, l'encart reste visuellement secondaire), puis la clôture en gras.
+
+### Infobulles
+- Le composant `ui/Tooltip` prend un `align` : `center` par défaut, `end` quand le déclencheur est près du bord droit. Toutes les infobulles des cartes sont en `end` : centrées, le panneau de 16rem débordait de 47px à 390px et provoquait un scroll horizontal. Mesuré.
 
 ---
 

@@ -12,9 +12,16 @@ import { cn } from "@/lib/utils";
 export function Tooltip({
   content,
   label = "Plus d'informations",
+  align = "center",
 }: {
   content: string;
   label?: string;
+  /**
+   * `end` aligne le panneau sur le bord droit du (i). À utiliser quand le
+   * déclencheur est proche du bord droit de l'écran : centré, un panneau de
+   * 16rem déborde et provoque un scroll horizontal.
+   */
+  align?: "center" | "end";
 }) {
   const [open, setOpen] = useState(false);
   const id = useId();
@@ -64,8 +71,9 @@ export function Tooltip({
         id={id}
         role="tooltip"
         className={cn(
-          "absolute bottom-full left-1/2 z-20 mb-2 w-64 max-w-xs -translate-x-1/2 rounded-2xl bg-ink-950 p-3 text-xs leading-relaxed text-ink-50 shadow-lg shadow-ink-950/20",
+          "absolute bottom-full z-20 mb-2 w-64 max-w-[calc(100vw-3rem)] rounded-2xl bg-ink-950 p-3 text-xs leading-relaxed text-ink-50 shadow-lg shadow-ink-950/20",
           "transition-opacity duration-150",
+          align === "end" ? "right-0" : "left-1/2 -translate-x-1/2",
           open ? "opacity-100" : "pointer-events-none opacity-0",
         )}
       >

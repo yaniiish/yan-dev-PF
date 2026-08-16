@@ -61,50 +61,48 @@ export const PROFESSIONAL_SERVICE_LD = {
   makesOffer: [
     {
       "@type": "Offer",
-      name: "Essentiel",
-      price: "690",
+      name: "Site vitrine",
       priceCurrency: "EUR",
       description:
-        "Site vitrine sur mesure, responsive, SEO de base. Paiement unique, sans abonnement, nom de domaine et hébergement inclus la première année.",
+        "Site vitrine sur mesure : design moderne adapté à votre activité, responsive, SEO de base, formulaire de contact et aide à la mise en ligne. À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités.",
+      // `minPrice` et non `price` : le tarif est un point de départ, pas un
+      // montant ferme. Annoncer 490 € comme prix fixe serait faux.
       priceSpecification: {
-        "@type": "UnitPriceSpecification",
-        price: "690",
+        "@type": "PriceSpecification",
+        minPrice: "490",
         priceCurrency: "EUR",
-        unitText: "paiement unique",
       },
     },
     {
       "@type": "Offer",
-      name: "Pack Sérénité",
-      price: "490",
+      name: "Option Sérénité",
+      price: "30",
       priceCurrency: "EUR",
       description:
-        "Site vitrine sur mesure, responsive, SEO de base. 490 € à la création puis 30 €/mois : nom de domaine, hébergement et modifications mineures gérés en continu, sans engagement.",
-      priceSpecification: [
-        {
-          "@type": "UnitPriceSpecification",
-          price: "490",
-          priceCurrency: "EUR",
-          unitText: "à la création",
+        "Suivi mensuel facultatif du site vitrine : hébergement, nom de domaine, maintenance technique, sauvegardes, modifications mineures illimitées sous 48h et support direct. Résiliable à tout moment.",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: "30",
+        priceCurrency: "EUR",
+        unitText: "mensuel",
+        billingDuration: {
+          "@type": "QuantitativeValue",
+          value: 1,
+          unitCode: "MON",
         },
-        {
-          "@type": "UnitPriceSpecification",
-          price: "30",
-          priceCurrency: "EUR",
-          unitText: "mensuel",
-          billingDuration: {
-            "@type": "QuantitativeValue",
-            value: 1,
-            unitCode: "MON",
-          },
-        },
-      ],
+      },
     },
     {
       "@type": "Offer",
-      name: "Projet premium",
+      name: "Site créatif",
       description:
-        "Design poussé, animations avancées, réservation, mini-boutique ou intégrations spécifiques : proposition adaptée sur devis.",
+        "Site sur mesure avec direction artistique poussée, animations et interactions, expérience plus immersive et intégrations spécifiques : proposition adaptée sur devis.",
+    },
+    {
+      "@type": "Offer",
+      name: "Produit digital",
+      description:
+        "Conception produit, MVP, SaaS, application web ou mobile, dashboard et back-office, intégrations IA et automatisations : proposition adaptée sur devis.",
     },
   ],
 } as const;
