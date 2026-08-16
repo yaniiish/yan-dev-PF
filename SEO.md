@@ -221,6 +221,63 @@ export default function robots(): MetadataRoute.Robots {
 
 ---
 
+## 5 bis. Bilingue FR / EN (hreflang)
+
+### Périmètre
+
+Le site est bilingue sur un périmètre **volontairement fermé** :
+
+| Page | FR | EN |
+|---|---|---|
+| Home | `/` | `/en` |
+| Prix | `/prix-site-vitrine` | `/en/pricing` |
+| Index métiers | `/site-internet` | pas de version EN |
+| Fiches métier | `/site-internet/{slug}` | pas de version EN |
+
+Les pages métier ciblent des requêtes locales françaises (« site internet boulangerie
+Caen »). Les traduire produirait des pages sans volume de recherche, en doublon de
+maintenance, et diluerait le maillage interne. C'est un choix, pas un oubli.
+
+Le français reste servi à la racine : **aucune URL déjà indexée n'a bougé**, la propriété
+Search Console `yan-dev.fr` continue de suivre exactement les mêmes adresses.
+
+### Implémentation
+
+- Deux **root layouts** via les route groups `src/app/(fr)/` et `src/app/(en)/`. C'est ce
+  qui permet un `<html lang>` correct par langue sans middleware ni rendu dynamique. Le
+  groupe est transparent dans l'URL.
+- `src/lib/routes.ts` porte la table des chemins par langue et les helpers
+  `route()`, `anchorHref()`, `languageAlternates()`, `counterpartPath()`.
+- `buildMetadata()` (`src/lib/seo.ts`) prend une `locale` et une `routeKey` optionnelle.
+  La `routeKey` déclenche les `alternates.languages` : **on ne la passe pas** sur les
+  pages FR-only, déclarer un alternate anglais inexistant serait une erreur.
+
+### Règles hreflang
+
+- Trois déclarations sur chaque page bilingue : `fr-FR`, `en`, et `x-default` qui pointe
+  sur le **français** (langue par défaut du site).
+- Les hreflang doivent être **réciproques** : si `/` déclare `/en`, `/en` doit déclarer
+  `/`. Google ignore silencieusement les paires non réciproques.
+- Les pages FR-only n'en déclarent aucun.
+- Le sitemap porte les mêmes alternates en `xhtml:link` sur les 4 entrées bilingues.
+
+### JSON-LD
+
+`professionalServiceLd(locale)` traduit `description` et les 4 `makesOffer`.
+`contactPoint.availableLanguage` vaut `["fr", "en"]` dans les deux langues : c'est une
+propriété de l'entreprise, pas de la page.
+
+### Image OpenGraph
+
+Une variante par langue : `/opengraph-image` (FR) et `/en/opengraph-image` (EN), rendu
+partagé dans `src/lib/og.tsx`.
+
+> Attention Satori : tout `div` à plusieurs enfants doit porter un `display` explicite
+> (`flex`, `contents` ou `none`), sinon le rendu échoue en 500 et l'aperçu social est vide.
+
+
+---
+
 ## 6. Performance (Core Web Vitals)
 
 Le SEO local moderne se joue beaucoup sur la perf. Objectifs :

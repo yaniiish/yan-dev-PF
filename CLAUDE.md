@@ -35,6 +35,7 @@ Avant toute génération de code, Claude Code DOIT consulter les fichiers ci-des
 | toucher à du style, des couleurs, de la typo, du spacing | `DESIGN_SYSTEM.md` |
 | créer/modifier une section du site | `SECTIONS.md` + `CONTENT.md` |
 | écrire ou modifier du texte visible | `CONTENT.md` (jamais inventer un wording) |
+| écrire ou modifier un texte de la version anglaise | `CONTENT.en.md` |
 | structurer un dossier, ajouter une lib, choisir un pattern | `ARCHITECTURE.md` |
 | toucher au `<head>`, aux meta, au sitemap, à `robots.txt` | `SEO.md` |
 | prioriser une tâche / savoir si une feature est "MVP" ou "plus tard" | `ROADMAP.md` |
@@ -101,6 +102,7 @@ Voir `ROADMAP.md` pour les phases. À jour à la création :
 
 - Pas de blog / CMS.
 - Pas d'auth / dashboard.
-- Pas d'i18n (français uniquement pour l'instant).
+- Le site est bilingue FR / EN sur un périmètre **fermé** : home (`/`, `/en`) et page prix (`/prix-site-vitrine`, `/en/pricing`). Ne pas traduire les fiches métier ni l'index métiers, ils ciblent le SEO local Caen.
+- Pas de troisième langue.
 - Pas de dark mode au MVP (à évaluer après).
 - Pas d'analytics tiers (Plausible/GA) au MVP.
