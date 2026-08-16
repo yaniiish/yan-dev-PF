@@ -21,9 +21,11 @@
 - **Liens :**
   - Accueil → `#hero`
   - Mon travail → `#travail`
+  - Comment ça marche → `#processus`
   - Tarifs → `#tarifs`
   - Contact → `#contact`
-  > Passée de 6 à 4 liens avec la suppression de Pourquoi et Services. Ça règle au passage la navbar qui cassait sur deux lignes à 768px.
+  > Passée de 6 à 4 liens avec la suppression de Pourquoi et Services, puis à 5 avec l'ajout de Comment ça marche.
+  > Le libellé reprend le titre de la section, il n'est pas raccourci en « Processus » : la navbar desktop ne s'affiche qu'à partir de `lg`, donc la place ne manque plus. Mesuré à 1024px, 61px de marge de chaque côté.
 - **CTA Navbar (à droite) :** bouton primaire `Discuter de mon projet` → `#contact`.
 
 ---

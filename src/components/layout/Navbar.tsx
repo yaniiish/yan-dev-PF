@@ -93,7 +93,7 @@ export function Navbar() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-6 md:h-20 md:px-10 lg:px-16">
           <a
             href={isHome ? "#hero" : "/"}
-            className="flex items-center gap-2 font-sans text-base font-semibold tracking-tight text-ink-950"
+            className="flex shrink-0 items-center gap-2 whitespace-nowrap font-sans text-base font-semibold tracking-tight text-ink-950"
           >
             <Image
               src="/logo.svg"
@@ -108,8 +108,11 @@ export function Navbar() {
 
           <nav
             aria-label="Navigation principale"
-            className="hidden md:block"
+            className="hidden lg:block"
           >
+            {/* `whitespace-nowrap` sur les liens, le logo et le CTA : avec
+                cinq liens, tout ce petit monde se cassait sur deux lignes des
+                que la place manquait, au lieu de signaler le debordement. */}
             <ul className="flex items-center gap-6 text-sm text-ink-700">
               {NAV_LINKS.map((link) => {
                 const isActive = activeId === link.id;
@@ -119,7 +122,7 @@ export function Navbar() {
                       href={resolveHref(link.href)}
                       aria-current={isActive ? "true" : undefined}
                       className={cn(
-                        "rounded-md px-1 py-1 transition-colors hover:text-ink-950",
+                        "whitespace-nowrap rounded-md px-1 py-1 transition-colors hover:text-ink-950",
                         "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-mint-700",
                         isActive &&
                           "text-mint-700 underline decoration-2 underline-offset-8",
@@ -133,8 +136,12 @@ export function Navbar() {
             </ul>
           </nav>
 
-          <div className="hidden md:block">
-            <Button href={resolveHref("#contact")} size="sm">
+          <div className="hidden lg:block">
+            <Button
+              href={resolveHref("#contact")}
+              size="sm"
+              className="whitespace-nowrap"
+            >
               Discuter de mon projet
             </Button>
           </div>
@@ -145,7 +152,7 @@ export function Navbar() {
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             onClick={() => setIsMenuOpen(true)}
-            className="inline-flex size-11 items-center justify-center rounded-md text-ink-950 transition-colors hover:bg-ink-950/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 md:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-md text-ink-950 transition-colors hover:bg-ink-950/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700 lg:hidden"
           >
             <Menu size={24} aria-hidden="true" />
           </button>
@@ -160,7 +167,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: durations.fast, ease: easings.out }}
-            className="fixed inset-0 z-50 bg-ink-50 md:hidden"
+            className="fixed inset-0 z-50 bg-ink-50 lg:hidden"
             role="dialog"
             aria-modal="true"
             aria-label="Menu de navigation"

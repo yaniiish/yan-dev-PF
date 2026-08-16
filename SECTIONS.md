@@ -26,7 +26,9 @@
 - Centre (md+) : liens.
 - Droite : CTA primaire `sm` ou `md`.
 
-### Mobile (`< md`)
+### Menu compact (`< lg`)
+- **Seuil à `lg`, pas à `md`.** Avec cinq liens, à 768px il faut 707px de contenu pour 688 disponibles : le logo se faisait comprimer de 19px et le CTA cassait sur deux lignes. Mesuré. En dessous de 1024px, tout passe donc dans le menu compact, qui contient déjà les liens et le CTA.
+- `whitespace-nowrap` sur le logo, les liens et le CTA, plus `shrink-0` sur le logo : sans ça, un manque de place se traduit par un retour à la ligne silencieux au lieu d'un débordement visible.
 - Liens cachés, remplacés par un bouton menu (icône `Menu` de lucide).
 - Au clic : sheet plein écran qui descend avec liens en colonne, gros texte (`text-2xl`), CTA en bas.
 - Animer avec Motion (fade + slide), pas de lib externe.
