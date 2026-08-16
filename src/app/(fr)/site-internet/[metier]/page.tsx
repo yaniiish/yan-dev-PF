@@ -19,9 +19,13 @@ import {
   METIERS_PAGE,
   metierPath,
 } from "@/content/metiers";
-import { PRIX_PATH } from "@/content/pricing";
 import { breadcrumbLd, faqLd, serviceLd } from "@/lib/jsonld";
+import { route } from "@/lib/routes";
 import { buildMetadata } from "@/lib/seo";
+
+// Pages FR uniquement : elles ciblent le SEO local et n'ont pas de version EN.
+const LOCALE = "fr" as const;
+const PRIX_PATH_FR = route("pricing", LOCALE);
 
 type Params = { params: Promise<{ metier: string }> };
 
@@ -39,6 +43,7 @@ export async function generateMetadata({
   const metier = getMetier(slug);
   if (!metier) return {};
   return buildMetadata({
+    locale: LOCALE,
     title: metier.metaTitle,
     description: metier.metaDescription,
     path: metierPath(slug),
@@ -59,7 +64,7 @@ export default async function MetierPage({ params }: Params) {
   const relatedLinks = [
     {
       label: METIER_LABELS.relatedPricingLabel,
-      href: PRIX_PATH,
+      href: PRIX_PATH_FR,
       description: METIER_LABELS.relatedPricingDesc,
     },
     {
@@ -96,6 +101,7 @@ export default async function MetierPage({ params }: Params) {
       <section className="border-b border-ink-300/40 pb-12 pt-28 md:pb-16 md:pt-36">
         <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
           <Breadcrumb
+            locale={LOCALE}
             items={[
               { name: "Accueil", href: "/" },
               { name: METIERS_PAGE.breadcrumbLabel, href: METIERS_PAGE.path },
@@ -197,7 +203,7 @@ export default async function MetierPage({ params }: Params) {
               <p className="font-serif text-[clamp(1.5rem,2vw+1rem,2.25rem)] font-medium leading-tight tracking-tight text-ink-950">
                 {METIER_LABELS.pricingCallout}
               </p>
-              <Button href={PRIX_PATH} variant="secondary" size="lg">
+              <Button href={PRIX_PATH_FR} variant="secondary" size="lg">
                 {METIER_LABELS.pricingCta}
               </Button>
             </div>
@@ -231,7 +237,7 @@ export default async function MetierPage({ params }: Params) {
             ctaLabel={METIER_LABELS.ctaPrimary}
             ctaHref="/#contact"
             secondaryLabel={METIER_LABELS.ctaSecondary}
-            secondaryHref={PRIX_PATH}
+            secondaryHref={PRIX_PATH_FR}
           />
         </div>
       </section>

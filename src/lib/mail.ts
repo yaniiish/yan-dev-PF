@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import type { Locale } from "@/content/locales";
 
 /**
  * Transporteur SMTP pour l'envoi du mail de contact.
@@ -39,6 +40,8 @@ export type ContactMailPayload = {
   phone: string;
   activity: string;
   message: string;
+  /** Langue du site depuis laquelle la demande a été envoyée. */
+  locale: Locale;
 };
 
 /**
@@ -55,10 +58,14 @@ export async function sendContactMail(payload: ContactMailPayload) {
   const transport = createTransport();
 
   const phone = payload.phone || "(non renseigné)";
+  // Le mail reste en français : c'est Yan qui le lit. En revanche la langue de
+  // la demande est indiquée, pour qu'il sache dans quelle langue répondre.
+  const langue = payload.locale === "en" ? "anglais" : "français";
 
   const text = [
     "Nouvelle demande via le formulaire de contact yan-dev.fr",
     "",
+    `Langue    : ${langue}`,
     `Email     : ${payload.email}`,
     `Téléphone : ${phone}`,
     `Activité  : ${payload.activity}`,

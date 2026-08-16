@@ -1,15 +1,49 @@
 import { ImageResponse } from "next/og";
+import type { Locale } from "@/content/locales";
 
-// Génère dynamiquement l'image OG à l'URL `/opengraph-image`.
-// Next.js l'injecte automatiquement dans les meta og:image et twitter:image.
-// 1200×630 = ratio standard Facebook/Twitter/LinkedIn.
+/**
+ * Rendu partagé de l'image OpenGraph (1200×630, ratio standard
+ * Facebook/Twitter/LinkedIn). Les deux route groups exposent chacun un
+ * `opengraph-image.tsx` mince qui appelle ce rendu avec sa baseline.
+ */
 
-export const runtime = "edge";
-export const alt = "Yan-dev : studio web freelance à Caen";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+export const OG_SIZE = { width: 1200, height: 630 };
 
-export default async function OpengraphImage() {
+type OgCopy = {
+  /** `alt` de l'image, exporté par le fichier de route. */
+  alt: string;
+  kicker: string;
+  headlinePre: string;
+  headlineAccent: string;
+  lead: string;
+  availability: string;
+  price: string;
+};
+
+export const OG_COPY: Record<Locale, OgCopy> = {
+  fr: {
+    alt: "Yan-dev : studio web freelance à Caen",
+    kicker: "01 / Studio web indépendant",
+    headlinePre: "Un site web clair,",
+    headlineAccent: "moderne et rapide.",
+    lead: "Sites vitrines pour artisans, commerçants et indépendants. Basé à Caen, partout en France.",
+    availability: "Disponible actuellement",
+    price: "À partir de 490 €",
+  },
+  en: {
+    alt: "Yan-dev: independent web studio in Caen, France",
+    kicker: "01 / Independent web studio",
+    headlinePre: "A website that is clear,",
+    headlineAccent: "modern and fast.",
+    lead: "Websites for makers, shop owners and small businesses. Based in Caen, France, working anywhere.",
+    availability: "Available right now",
+    price: "From €490",
+  },
+};
+
+export function renderOgImage(locale: Locale) {
+  const copy = OG_COPY[locale];
+
   return new ImageResponse(
     (
       <div
@@ -56,10 +90,15 @@ export default async function OpengraphImage() {
               textTransform: "uppercase",
             }}
           >
-            01 / Studio web indépendant
+            {copy.kicker}
           </div>
+          {/* Satori exige un `display` explicite sur tout div à plusieurs
+              enfants. `flex` + `flexWrap` reproduit le rendu voulu : les deux
+              fragments se posent sur deux lignes, comme le ferait le flux. */}
           <div
             style={{
+              display: "flex",
+              flexWrap: "wrap",
               fontSize: 88,
               fontWeight: 500,
               lineHeight: 1.05,
@@ -67,7 +106,7 @@ export default async function OpengraphImage() {
               maxWidth: 960,
             }}
           >
-            Un site web clair,{" "}
+            <span>{copy.headlinePre}&nbsp;</span>
             <span
               style={{
                 textDecoration: "underline",
@@ -76,7 +115,7 @@ export default async function OpengraphImage() {
                 textUnderlineOffset: 12,
               }}
             >
-              moderne et rapide.
+              {copy.headlineAccent}
             </span>
           </div>
           <div
@@ -87,8 +126,7 @@ export default async function OpengraphImage() {
               maxWidth: 800,
             }}
           >
-            Sites vitrines pour artisans, commerçants et indépendants. Basé à
-            Caen, partout en France.
+            {copy.lead}
           </div>
         </div>
 
@@ -111,12 +149,12 @@ export default async function OpengraphImage() {
                 background: "#5BC178",
               }}
             />
-            <span>Disponible actuellement</span>
+            <span>{copy.availability}</span>
           </div>
-          <div>À partir de 490 €</div>
+          <div>{copy.price}</div>
         </div>
       </div>
     ),
-    size,
+    OG_SIZE,
   );
 }

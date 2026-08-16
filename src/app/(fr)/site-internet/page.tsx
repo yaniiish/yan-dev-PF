@@ -8,11 +8,16 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { METIERS, METIERS_PAGE, metierPath } from "@/content/metiers";
-import { PRIX_PATH } from "@/content/pricing";
 import { breadcrumbLd, itemListLd, serviceLd } from "@/lib/jsonld";
+import { route } from "@/lib/routes";
 import { buildMetadata } from "@/lib/seo";
 
+// Pages FR uniquement : elles ciblent le SEO local et n'ont pas de version EN.
+const LOCALE = "fr" as const;
+const PRIX_PATH_FR = route("pricing", LOCALE);
+
 export const metadata: Metadata = buildMetadata({
+  locale: LOCALE,
   title: METIERS_PAGE.metaTitle,
   description: METIERS_PAGE.metaDescription,
   path: METIERS_PAGE.path,
@@ -48,6 +53,7 @@ export default function MetiersIndexPage() {
       <section className="border-b border-ink-300/40 pb-12 pt-28 md:pb-16 md:pt-36">
         <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
           <Breadcrumb
+            locale={LOCALE}
             items={[
               { name: "Accueil", href: "/" },
               { name: METIERS_PAGE.breadcrumbLabel },
@@ -128,7 +134,7 @@ export default function MetiersIndexPage() {
                 <Button href="/#contact" size="lg">
                   {METIERS_PAGE.allCtaLabel}
                 </Button>
-                <Button href={PRIX_PATH} size="lg" variant="secondary">
+                <Button href={PRIX_PATH_FR} size="lg" variant="secondary">
                   {METIERS_PAGE.allCtaSecondaryLabel}
                 </Button>
               </div>

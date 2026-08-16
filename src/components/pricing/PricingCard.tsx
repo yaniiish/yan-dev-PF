@@ -1,7 +1,9 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Tooltip } from "@/components/ui/Tooltip";
+import type { Locale } from "@/content/locales";
 import type { PricingFeature, PricingPlan } from "@/content/pricing";
+import { uiContent } from "@/content/ui";
 import { cn } from "@/lib/utils";
 
 /**
@@ -15,11 +17,14 @@ import { cn } from "@/lib/utils";
  */
 export function PricingCard({
   plan,
+  locale,
   ctaHref = "#contact",
 }: {
   plan: PricingPlan;
+  locale: Locale;
   ctaHref?: string;
 }) {
+  const { tooltip } = uiContent(locale);
   const {
     offer,
     price,
@@ -49,7 +54,7 @@ export function PricingCard({
         {priceTooltip ? (
           <Tooltip
             content={priceTooltip}
-            label={`À propos du tarif : ${offer}`}
+            label={tooltip.aboutPrice(offer)}
             align="end"
           />
         ) : null}
@@ -72,7 +77,11 @@ export function PricingCard({
         )}
       >
         {features.map((feature) => (
-          <FeatureItem key={featureLabel(feature)} feature={feature} />
+          <FeatureItem
+            key={featureLabel(feature)}
+            feature={feature}
+            locale={locale}
+          />
         ))}
       </ul>
 
@@ -106,7 +115,7 @@ export function PricingCard({
                   {typeof item === "string" ? null : (
                     <Tooltip
                       content={item.tooltip}
-                      label={`À propos de : ${item.label}`}
+                      label={tooltip.about(item.label)}
                       align="end"
                     />
                   )}
@@ -135,7 +144,13 @@ export function PricingCard({
   );
 }
 
-function FeatureItem({ feature }: { feature: PricingFeature }) {
+function FeatureItem({
+  feature,
+  locale,
+}: {
+  feature: PricingFeature;
+  locale: Locale;
+}) {
   const label = featureLabel(feature);
   return (
     <li className="flex items-start gap-2.5">
@@ -145,7 +160,7 @@ function FeatureItem({ feature }: { feature: PricingFeature }) {
         {typeof feature === "string" ? null : (
           <Tooltip
             content={feature.tooltip}
-            label={`À propos de : ${label}`}
+            label={uiContent(locale).tooltip.about(label)}
             align="end"
           />
         )}

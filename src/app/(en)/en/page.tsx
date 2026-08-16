@@ -4,14 +4,16 @@ import { Pricing } from "@/components/sections/Pricing";
 import { Processus } from "@/components/sections/Processus";
 import { Travail } from "@/components/sections/Travail";
 
-export default function Home() {
+const LOCALE = "en" as const;
+
+export default function EnHome() {
   return (
     <>
-      <Hero />
-      <Travail />
-      <Processus />
-      <Pricing />
-      <Contact />
+      <Hero locale={LOCALE} />
+      <Travail locale={LOCALE} />
+      <Processus locale={LOCALE} />
+      <Pricing locale={LOCALE} />
+      <Contact locale={LOCALE} />
     </>
   );
 }

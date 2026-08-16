@@ -1,14 +1,13 @@
 import Image from "next/image";
-import {
-  CITY,
-  CONTACT_EMAIL,
-  NAV_LINKS,
-  SITE_NAME,
-} from "@/content/site";
+import type { Locale } from "@/content/locales";
 import { METIERS_PAGE } from "@/content/metiers";
-import { PRIX_PAGE, PRIX_PATH } from "@/content/pricing";
+import { pricingContent } from "@/content/pricing";
+import { CONTACT_EMAIL, siteContent, SITE_NAME } from "@/content/site";
+import { anchorHref, route } from "@/lib/routes";
 
-export function Footer() {
+export function Footer({ locale }: { locale: Locale }) {
+  const { navLinks, footer } = siteContent(locale);
+  const pricing = pricingContent(locale);
   const year = new Date().getFullYear();
 
   return (
@@ -28,20 +27,19 @@ export function Footer() {
               {SITE_NAME}
             </p>
             <p className="mt-3 max-w-xs text-sm text-ink-300">
-              Studio web freelance, basé à {CITY}, à votre service partout en
-              France.
+              {footer.baseline}
             </p>
           </div>
 
-          <nav aria-label="Liens du site">
+          <nav aria-label={footer.navLabel}>
             <p className="font-mono text-xs uppercase tracking-widest text-ink-300">
-              Navigation
+              {footer.navTitle}
             </p>
             <ul className="mt-4 flex flex-col gap-2">
-              {NAV_LINKS.map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.id}>
                   <a
-                    href={`/${link.href}`}
+                    href={anchorHref(link.href, locale, false)}
                     className="text-sm text-ink-50 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
                   >
                     {link.label}
@@ -53,31 +51,36 @@ export function Footer() {
 
           <div>
             <p className="font-mono text-xs uppercase tracking-widest text-ink-300">
-              Ressources
+              {footer.resourcesTitle}
             </p>
             <ul className="mt-4 flex flex-col gap-2">
               <li>
                 <a
-                  href={PRIX_PATH}
+                  href={route("pricing", locale)}
                   className="text-sm text-ink-50 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
                 >
-                  {PRIX_PAGE.breadcrumbLabel}
+                  {pricing.page.breadcrumbLabel}
                 </a>
               </li>
-              <li>
-                <a
-                  href={METIERS_PAGE.path}
-                  className="text-sm text-ink-50 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
-                >
-                  {METIERS_PAGE.navLabel}
-                </a>
-              </li>
+              {/* L'index métiers n'existe qu'en français : il cible le SEO
+                  local et n'a pas d'équivalent anglais. On n'envoie pas un
+                  visiteur anglophone sur une page qu'il ne peut pas lire. */}
+              {locale === "fr" ? (
+                <li>
+                  <a
+                    href={METIERS_PAGE.path}
+                    className="text-sm text-ink-50 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+                  >
+                    {METIERS_PAGE.navLabel}
+                  </a>
+                </li>
+              ) : null}
             </ul>
           </div>
 
           <div>
             <p className="font-mono text-xs uppercase tracking-widest text-ink-300">
-              Contact
+              {footer.contactTitle}
             </p>
             <ul className="mt-4 flex flex-col gap-2">
               <li>
@@ -94,7 +97,7 @@ export function Footer() {
 
         <div className="mt-12 border-t border-ink-700/40 pt-8 text-sm text-ink-300">
           <p>
-            © {year} {SITE_NAME}. Tous droits réservés.
+            © {year} {SITE_NAME}. {footer.rights}
           </p>
         </div>
       </div>
