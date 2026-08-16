@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { ContactSchema } from "@/lib/schema";
+import { DEFAULT_LOCALE, LOCALES, type Locale } from "@/content/locales";
 import { sendContactMail } from "@/lib/mail";
+import { contactSchema } from "@/lib/schema";
 
 // nodemailer requiert les API Node (net/tls) : pas d'edge runtime.
 export const runtime = "nodejs";
@@ -11,7 +12,19 @@ export const runtime = "nodejs";
  * Valide le payload côté serveur, check le honeypot, puis envoie le mail
  * via SMTP OVH/Zimbra (compte `contact@yan-dev.fr`). Voir `lib/mail.ts` et
  * ARCHITECTURE.md §7 pour les variables d'environnement.
+ *
+ * La locale envoyée par le client décide de la langue des messages d'erreur
+ * renvoyés. Elle vient d'un payload non fiable, donc on la valide avant de
+ * l'utiliser et on retombe sur le français si elle est absente ou inconnue.
  */
+function readLocale(body: unknown): Locale {
+  const raw =
+    typeof body === "object" && body !== null && "locale" in body
+      ? (body as { locale?: unknown }).locale
+      : undefined;
+  return LOCALES.includes(raw as Locale) ? (raw as Locale) : DEFAULT_LOCALE;
+}
+
 export async function POST(request: Request) {
   let body: unknown;
   try {
@@ -23,7 +36,8 @@ export async function POST(request: Request) {
     );
   }
 
-  const parsed = ContactSchema.safeParse(body);
+  const locale = readLocale(body);
+  const parsed = contactSchema(locale).safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
       {
@@ -46,6 +60,7 @@ export async function POST(request: Request) {
       phone: parsed.data.phone ?? "",
       activity: parsed.data.activity,
       message: parsed.data.message,
+      locale: parsed.data.locale,
     });
   } catch (error) {
     console.error("[contact] échec envoi mail", error);
