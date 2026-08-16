@@ -61,16 +61,16 @@
 
 ### Colonne gauche (texte)
 Empilement vertical (pas de SectionLabel — cf. règles communes) :
-1. `<h1>` (Instrument Serif, display-1) — "Un site web clair, **moderne et rapide.**". La fin "moderne et rapide." est dans un `<span>` souligné `decoration-mint-500 decoration-[3px] underline-offset-[6px]`. Pas d'italique. Voir `CONTENT.md` §3 pour le snippet exact.
+1. `<h1>` (Instrument Serif, display-1) sur deux lignes : "Creative Developer," puis "Website Creator & **Product Builder**". La fin "Product Builder" est dans un `<span>` souligné `decoration-mint-500 decoration-[3px] underline-offset-[6px]`. Pas d'italique. Les deux lignes sont en `whitespace-nowrap` : toute reformulation doit conserver l'équilibre de longueur, sinon le titre déborde. Voir `CONTENT.md` §3 et `src/content/hero.ts` pour le texte exact.
 2. `<p>` lead — sous-titre (`max-w-[60ch]`, `clamp(1.125rem,0.5vw+1rem,1.25rem)`)
-3. `<div className="flex flex-col gap-3 sm:flex-row mt-8">` avec CTA primaire (`Discuter de mon projet`) + secondaire (`Voir mes tarifs`)
+3. `<div className="flex flex-col gap-3 sm:flex-row mt-8">` avec CTA primaire (`Voir mes projets`) + secondaire (`Discuter d'un projet`)
 
 ### Colonne droite (card présentation)
 - Composant `<PresentationCard>` (inline dans `Hero.tsx`).
 - Wrapper avec rotation `-rotate-[3deg] transition-transform duration-500 ease-out hover:rotate-0` → la card est inclinée et se redresse au hover.
 - Card : `rounded-3xl border border-ink-300/60 bg-card p-6 md:p-7 shadow-lg shadow-ink-950/5`.
 - Contenu :
-  - Top : avatar rond `size-14` à gauche (`rounded-full object-cover`) + bloc nom/rôle à droite (`Yan` en serif text-xl, `DÉVELOPPEUR · INDÉPENDANT` en mono mint uppercase text-[0.7rem] tracking-widest).
+  - Top : avatar rond `size-14` à gauche (`rounded-full object-cover`) + bloc nom/rôle à droite (`Yan` en serif text-xl, `Creative Developer · Product Builder` en mono mint uppercase text-[0.7rem] tracking-widest).
   - Citation en `<blockquote>` font-serif text-lg avec guillemets français `«&nbsp;»` (espace insécable inside).
   - Sous-tagline `Je travaille en direct, sans intermédiaire.` (text-sm ink-500).
   - Séparateur `border-t border-ink-300/60`.

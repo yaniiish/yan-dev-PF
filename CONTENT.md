@@ -7,10 +7,15 @@
 
 ## 1. Métadonnées globales
 
+> Source de vérité en code : `src/app/(fr)/layout.tsx` et `src/app/(en)/layout.tsx`.
+
 - **Nom commercial :** Yan-dev
-- **Tagline courte (meta description / OG) :**
-  > *"Studio web freelance basé à Caen, opérant partout en France. Sites vitrines modernes et rapides pour artisans, commerçants et indépendants — du site simple au site premium sur mesure."*
-- **Tagline mono (badge) :** `Studio web indépendant — basé à Caen`
+- **Title FR par défaut :** `Yan-dev : création de sites vitrines modernes | Freelance à Caen`
+- **Description FR :**
+  > *"Studio web freelance basé à Caen, opérant partout en France. Sites vitrines modernes et rapides pour artisans, commerçants et indépendants : du site simple au site premium sur mesure. À partir de 490 €."*
+- **Title EN par défaut :** `Yan-dev: modern websites for small businesses | Freelance in France`
+
+> **[À ARBITRER] Décalage de positionnement.** Ce title et cette description datent d'avant la refonte : ils vendent un « studio web » de sites vitrines, avec un vocabulaire « site premium » qui n'existe plus dans l'offre (les trois piliers sont désormais site vitrine, site créatif, produit digital). Le H1 de la home, lui, porte le nouveau positionnement. Conséquence : le snippet affiché dans Google ne correspond pas au site que le visiteur découvre en arrivant. À reprendre lors du chantier SEO, en gardant `Caen` dans le title (cf. `SEO.md` §2, règle d'or géographique).
 
 ---
 
@@ -324,35 +329,39 @@ Sous le formulaire :
 
 ## 10. Items à valider absolument avant prod
 
-- [ ] Nom de domaine
-- [ ] Page mentions légales (texte fourni par Yan)
-- [ ] Décision finale "afficher un téléphone ou pas" (volontairement reporté)
+- [x] Nom de domaine : `yan-dev.fr`, en ligne, indexation ouverte.
+- [ ] Page mentions légales (texte et SIRET fournis par Yan). Requise légalement, et signal de confiance pour Google comme pour les LLM.
+- [x] Décision téléphone : **pas de numéro affiché**. Décision confirmée lors du chantier SEO. Idem pour l'adresse postale complète : le NAP s'arrête à Caen 14000 plus l'email.
+- [ ] Title et description globaux à réaligner sur le nouveau positionnement (cf. §1).
 
 ---
 
 ## 11. Page `/prix-site-vitrine` (V2 SEO, page d'intention)
 
-> Page dédiée ciblant les requêtes `prix site vitrine` / `site vitrine pas cher` / `tarif site internet`. Source unique du contenu : `src/content/pricing.ts`. Réutilise les tarifs validés de la section Tarifs (cartes, footnote). Décisions Yan (2026-06) : **pas de délai de livraison annoncé**, **pas de mention de propriété du site**.
+> Page dédiée ciblant les requêtes `prix site vitrine` / `site vitrine pas cher` / `tarif site internet`. Source unique du contenu : `src/content/pricing.ts`. Réutilise les tarifs validés de la section Tarifs (cartes, footnote). Décision Yan (2026-06) : **pas de délai de livraison annoncé**.
+>
+> **Règle tarifaire, valable partout sur le site :** 490 € est un **point de départ** et non un prix ferme (le tarif évolue selon le nombre de pages, la personnalisation et les fonctionnalités), et l'option Sérénité à 30 €/mois est **facultative**. Ne jamais écrire « 490 € puis 30 €/mois » : cette formulation présente l'abonnement comme obligatoire et le prix comme fixe. Le JSON-LD suit la même règle (`minPrice`, cf. `SEO.md` §5).
 
 - **Meta title :** `Prix d'un site vitrine : combien ça coûte ? Dès 490 €`
-- **Meta description :** `Le prix d'un site vitrine professionnel : à partir de 490 € tout compris, livré rapidement. Tarifs clairs, sans devis à rallonge ni frais cachés. Freelance à Caen, partout en France.`
+- **Meta description :** `Le prix d'un site vitrine professionnel : à partir de 490 €, avec une option de suivi à 30 €/mois. Tarifs clairs, sans devis à rallonge ni frais cachés. Freelance à Caen, partout en France.`
 - **Fil d'ariane :** `Accueil › Prix d'un site vitrine`
 - **H1 :** `Combien coûte un site vitrine ?`
-- **Chapô :** `Un site vitrine professionnel coûte 490 € à la création chez Yan-dev, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le prix annoncé est le prix payé : pas de devis gonflé, pas de frais cachés, pas d'engagement.`
+- **Chapô :** `Chez Yan-dev, un site vitrine démarre à 490 €. Le tarif évolue ensuite selon le nombre de pages, le niveau de personnalisation et les fonctionnalités, et il vous est annoncé avant de commencer. Si vous ne voulez rien gérer, l'option Sérénité prend tout en charge pour 30 €/mois, résiliable à tout moment.`
 
 ### Bloc « Le détail des tarifs »
-Réutilise les deux cartes validées (`Site vitrine` 490 € + 30 €/mois ; `Site premium` sur devis) et la footnote.
+Réutilise les trois cartes validées (`Site vitrine` dès 490 € avec option Sérénité 30 €/mois ; `Site créatif` sur devis ; `Produit digital` sur devis) et la footnote.
 
 ### Bloc « Pourquoi ce prix »
 - **Titre :** `Un site à 490 €, ce n'est pas un site au rabais.`
 - **Corps :** `Le prix vient du format (un site clair, sur mesure, sans intermédiaire ni surcouche inutile). Vous avez un code moderne, un site rapide, responsive et référencé localement.`
 
 ### Bloc FAQ (alimente le schema FAQPage)
-1. **Combien coûte un site vitrine ?** → `Chez Yan-dev, un site vitrine sur mesure coûte 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour mineures. Le tarif est annoncé d'avance, sans surprise.`
-2. **Qu'est-ce qui est compris dans le prix ?** → `Le site sur mesure, responsive (mobile, tablette, ordinateur), le référencement de base, un formulaire de contact et la mise en ligne. Le nom de domaine et l'hébergement sont inclus dans l'abonnement mensuel.`
-3. **Y a-t-il un engagement ?** → `Non. L'abonnement mensuel est résiliable à tout moment, avec un préavis d'un mois.`
-4. **Un site pas cher est-il vraiment professionnel ?** → `Oui. Le tarif bas vient du format (un site vitrine clair, sur mesure, en direct sans agence), pas d'un travail bâclé : code moderne, performances et référencement local soignés.`
-5. **Et pour un site plus ambitieux ?** → `C'est possible, sur devis : animations avancées, design poussé, réservation ou boutique simple. On en discute et je vous fais une proposition adaptée.`
+1. **Combien coûte un site vitrine ?** → `Un site vitrine démarre à 490 € chez Yan-dev. Le tarif évolue selon le nombre de pages, le niveau de personnalisation, les contenus à intégrer et les fonctionnalités spécifiques. Il vous est annoncé d'avance, sans surprise.`
+2. **Qu'est-ce qui est compris dans le prix ?** → `Un design moderne adapté à votre activité, un site responsive (mobile, tablette, ordinateur), le référencement de base, un formulaire de contact, et l'aide à la mise en ligne avec la configuration de votre nom de domaine et de votre hébergement.`
+3. **À quoi sert l'option Sérénité à 30 €/mois ?** → `Elle est là si vous ne voulez rien gérer : hébergement, nom de domaine, maintenance technique, sauvegardes, modifications mineures illimitées sous 48h et support direct. Elle est facultative et résiliable à tout moment.`
+4. **Y a-t-il un engagement ?** → `Non. La création du site est un paiement unique, et l'option Sérénité est résiliable à tout moment. Dans tous les cas le site vous appartient : je peux vous transférer le nom de domaine et vous céder le code quand vous le souhaitez.`
+5. **Un site pas cher est-il vraiment professionnel ?** → `Oui. Le tarif bas vient du format (un site vitrine clair, sur mesure, en direct sans agence), pas d'un travail bâclé : code moderne, performances et référencement local soignés.`
+6. **Et pour un projet plus ambitieux ?** → `Deux offres sur devis prennent le relais : le site créatif, pour aller plus loin visuellement avec une direction artistique poussée et des animations ; et le produit digital, pour une application web ou mobile, un SaaS ou un MVP. On en discute et je vous fais une proposition adaptée.`
 
 ### Bloc CTA
 - **Titre :** `Un projet de site en tête ?`
@@ -369,6 +378,10 @@ Réutilise les deux cartes validées (`Site vitrine` 490 € + 30 €/mois ; `Si
 ## 12. Pages métier `/site-internet/[metier]` (V2 SEO, longue traîne)
 
 > Pages data-driven (source unique : `src/content/metiers.ts`), une entrée = une page. Cible : `site internet [métier]`. Template partagé : en-tête, enjeux, exemple en ligne, rappel tarif, FAQ, liens connexes, CTA. Schema `Service` + `FAQPage` + `BreadcrumbList`. Libellés de structure communs dans `METIER_LABELS` (`Pourquoi`, `Exemple`, `Tarif`, `FAQ`, `À voir aussi`, etc.). Priorité : coffee shop, puis restaurant.
+>
+> **7 métiers en ligne** (FR uniquement, cf. `SEO.md` §7) : coffee shop, restaurant, boulangerie, architecte d'intérieur, bistrot et brasserie, tatoueur, brasserie artisanale.
+>
+> **Point de vigilance duplication :** la réponse à la question prix et la question « Je ne suis pas à Caen, c'est possible ? » sont aujourd'hui **identiques mot pour mot sur les 7 fiches**, soit la moitié de chaque FAQ. Toute nouvelle fiche doit apporter des questions réellement spécifiques au métier.
 
 ### Coffee shop (`/site-internet/coffee-shop`)
 Cible aussi `site internet café`. Devanture (vignette de la grille index) : Lumio `https://lumio-coffee.vercel.app/` (visuel `/projects/lumio.png`). Section exemple de l'article : carrousel de deux exemples, Lumio puis GreenCP `https://greencp-test.vercel.app/` (visuel `/projects/coffee.png`).
@@ -384,7 +397,7 @@ Cible aussi `site internet café`. Devanture (vignette de la grille index) : Lum
   - `Des infos toujours à jour` : `Horaires, adresse, carte, événements : tout au même endroit, modifiable en un message.`
   - `Ne plus dépendre d'Instagram seul` : `Les réseaux complètent un site, mais vous ne maîtrisez ni l'algorithme ni le référencement. Un site, c'est chez vous.`
 - **FAQ :**
-  1. **Combien coûte un site pour un coffee shop ?** → `À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.`
+  1. **Combien coûte un site pour un coffee shop ?** → `À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.`
   2. **J'ai déjà un Instagram, ai-je vraiment besoin d'un site ?** → `Instagram complète bien un site mais ne le remplace pas : vous n'apparaissez pas sur Google et vous dépendez de l'algorithme. Un site vous rend trouvable et reste à vous.`
   3. **Puis-je afficher ma carte et mes horaires ?** → `Oui : carte, horaires, adresse, galerie photo et liens vers vos réseaux, tout est prévu.`
   4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
@@ -404,7 +417,7 @@ Exemple en ligne : `https://site-pf-2.vercel.app/` (visuel `/projects/restaurant
   - `Une carte qui évolue sans surcoût` : `Vous changez de menu chaque saison ? La mise à jour de la carte est comprise dans l'abonnement de 30 €/mois, il suffit de me l'envoyer.`
   - `Réservation et contact simplifiés` : `Numéro de téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.`
 - **FAQ :**
-  1. **Combien coûte un site pour un restaurant ?** → `À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.`
+  1. **Combien coûte un site pour un restaurant ?** → `À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.`
   2. **Puis-je changer ma carte régulièrement ?** → `Oui. La mise à jour de votre carte est comprise dans l'abonnement de 30 €/mois : vous m'envoyez les changements et je les mets en ligne.`
   3. **Peut-on ajouter la réservation en ligne ?** → `Oui : lien vers votre outil de réservation, numéro de téléphone cliquable ou formulaire de contact, selon ce que vous préférez.`
   4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
@@ -436,7 +449,7 @@ Cible aussi `site internet décorateur d'intérieur`. Angle : pour ce métier du
   - `Sortir sur Google` : `Quand on cherche un architecte ou un décorateur d'intérieur dans votre région, un site bien référencé vous fait apparaître avec votre univers et vos coordonnées.`
   - `Inspirer confiance avant le premier rendez-vous` : `Présentation de votre démarche, de votre parcours et de vos honoraires : un site clair rassure des clients qui s'apprêtent à investir dans leur lieu de vie.`
 - **FAQ :**
-  1. **Combien coûte un site pour un architecte d'intérieur ?** → `À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.`
+  1. **Combien coûte un site pour un architecte d'intérieur ?** → `À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.`
   2. **Pourquoi un site soigné est-il si important pour ce métier ?** → `Parce que votre site est une vitrine de votre travail : un visiteur juge votre sens du design en quelques secondes. Un site épuré et bien construit inspire confiance et reflète la qualité de vos projets.`
   3. **Peut-on présenter mon portfolio et mes réalisations ?** → `Oui : galeries de projets, photos avant/après, descriptions de chantiers et témoignages clients, tout est prévu pour valoriser votre travail.`
   4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
@@ -456,11 +469,43 @@ Cible `site internet bistrot` et `brasserie`. Angle de différenciation vs resta
   - `Une ardoise qui change sans surcoût` : `Plat du jour, formule de midi, suggestions : la mise à jour de votre carte est comprise dans l'abonnement de 30 €/mois, il suffit de me l'envoyer.`
   - `Réservation et contact simplifiés` : `Numéro de téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.`
 - **FAQ :**
-  1. **Combien coûte un site pour un bistrot ou une brasserie ?** → `À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.`
+  1. **Combien coûte un site pour un bistrot ou une brasserie ?** → `À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.`
   2. **Puis-je changer mon ardoise et mes formules régulièrement ?** → `Oui. La mise à jour de votre carte et de votre plat du jour est comprise dans l'abonnement de 30 €/mois : vous m'envoyez les changements et je les mets en ligne.`
   3. **Peut-on ajouter la réservation en ligne ?** → `Oui : lien vers votre outil de réservation, numéro de téléphone cliquable ou formulaire de contact, selon ce que vous préférez.`
   4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
 - **CTA :** titre `Envie d'un site pour votre bistrot ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`, boutons `Discuter de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
+
+### Tatoueur (`/site-internet/tatoueur`)
+Angle : le site prolonge l'univers graphique du studio, on juge le style avant de confier sa peau. Exemple en ligne : Madman Tattoo `https://madman-tattoo.vercel.app/` (visuel `/projects/madman-tattoo.jpg`).
+
+- **Meta title :** `Création de site internet pour tatoueur, dès 490 €`
+- **Meta description :** `Un site web à l'image de votre studio de tatouage : galerie de vos réalisations, univers, prise de rendez-vous et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.`
+- **Fil d'ariane :** `Accueil › Sites internet par métier › Site internet pour tatoueur`
+- **H1 :** `Un site internet pour votre activité de tatoueur`
+- **Chapô :** `Pour un tatoueur, le site est le prolongement de votre univers : c'est là qu'on juge votre style avant de vous confier sa peau. Un site à votre image met en valeur votre galerie, affirme votre identité et vous rend visible sur Google quand on cherche un tatoueur dans le coin. Dès 490 €.`
+- **Enjeux (Pourquoi un site à votre image pour votre studio de tatouage) :**
+  - `Un site qui porte votre univers` : `Votre style fait votre signature. Un site graphique et soigné plonge le visiteur dans votre univers avant même qu'il pousse la porte du studio.`
+  - `Mettre votre galerie en valeur` : `Réalisations, flashs disponibles, projets sur mesure : de belles photos bien présentées donnent envie de prendre rendez-vous avec vous plutôt qu'avec un autre.`
+  - `Être trouvé sur Google` : `Quand on cherche un tatoueur dans votre ville ou un style précis, un site bien référencé vous fait apparaître, avec votre univers, vos coordonnées et votre galerie.`
+  - `Faciliter la prise de rendez-vous` : `Formulaire de demande de projet, lien vers votre agenda, numéro cliquable ou renvoi vers Instagram : on met en avant ce qui déclenche le premier contact.`
+- **FAQ :** prix (réponse commune) ; galerie et flashs ; Instagram ne remplace pas un site ; à distance (réponse commune).
+- **CTA :** titre `Envie d'un site à l'image de votre studio ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`
+
+### Brasserie artisanale (`/site-internet/brasserie-artisanale`)
+Angle de différenciation vs bistrot et brasserie : ici on parle de production (gamme de bières, savoir-faire de brassage, points de vente), pas de restauration. Exemple en ligne : BeerBee `https://brasserie-beerbee.vercel.app/` (visuel `/projects/brasserie-beerbee.jpg`).
+
+- **Meta title :** `Création de site internet pour brasserie artisanale, dès 490 €`
+- **Meta description :** `Un site web moderne pour votre brasserie artisanale : gamme de bières, savoir-faire, points de vente et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.`
+- **Fil d'ariane :** `Accueil › Sites internet par métier › Site internet pour brasserie artisanale`
+- **H1 :** `Un site internet pour votre brasserie artisanale`
+- **Chapô :** `Votre bière se boit d'abord avec les yeux. Un site clair et soigné présente votre gamme, raconte votre savoir-faire et indique où vous trouver, tout en vous rendant visible sur Google quand on cherche une bière artisanale ou une brasserie dans la région. Dès 490 €.`
+- **Enjeux (Pourquoi un site pour votre brasserie artisanale) :**
+  - `Être trouvé sur Google` : `Quand on cherche une bière artisanale ou une brasserie près de chez soi, un site bien référencé vous fait apparaître, avec votre gamme, vos points de vente et vos coordonnées.`
+  - `Présenter votre gamme de bières` : `Blonde, ambrée, IPA, brassins de saison : chaque bière a sa fiche, son style, ses arômes et son degré. On donne envie de goûter avant même d'ouvrir la bouteille.`
+  - `Raconter votre savoir-faire` : `Votre histoire, vos ingrédients, votre méthode de brassage et votre ancrage local : c'est ce qui distingue une bière artisanale d'une bière industrielle, et ce qui crée l'attachement.`
+  - `Indiquer où vous déguster et acheter` : `Points de vente, bars partenaires, marchés, visites et dégustations à la brasserie : on met en avant tout ce qui aide vos clients à trouver vos bières.`
+- **FAQ :** prix (réponse commune) ; présenter toute la gamme ; points de vente et visites ; à distance (réponse commune).
+- **CTA :** titre `Envie d'un site pour votre brasserie ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`
 
 ---
 
