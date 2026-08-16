@@ -52,7 +52,7 @@ const CONTENT: Record<Locale, SiteContent> = {
       { id: "contact", label: "Contact", href: "#contact" },
     ],
     footer: {
-      baseline: `Studio web freelance, basé à ${CITY}, à votre service partout en France.`,
+      baseline: `Creative developer & product builder, basé à ${CITY} : projets partout en France et à l'international.`,
       navTitle: "Navigation",
       resourcesTitle: "Ressources",
       contactTitle: "Contact",
@@ -72,7 +72,7 @@ const CONTENT: Record<Locale, SiteContent> = {
       { id: "contact", label: "Contact", href: "#contact" },
     ],
     footer: {
-      baseline: `Independent web studio based in ${CITY}, France, working with clients anywhere.`,
+      baseline: `Creative developer & product builder, based in ${CITY}, France: projects across France and worldwide.`,
       navTitle: "Navigation",
       resourcesTitle: "Resources",
       contactTitle: "Contact",

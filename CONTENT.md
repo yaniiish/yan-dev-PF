@@ -304,7 +304,7 @@ Sous le formulaire :
 
 ## 8. Footer (bannière de fin)
 
-- **Colonne gauche :** `Yan-dev` (mark) + petite phrase `Studio web freelance — basé à Caen, à votre service partout en France.`
+- **Colonne gauche :** `Yan-dev` (mark) + petite phrase `Creative developer & product builder, basé à Caen : projets partout en France et à l'international.`
 - **Colonne milieu :** liens internes (mêmes que navbar).
 - **Colonne droite :** contact rapide (email uniquement au MVP — pas de téléphone). Réseaux si on en ajoute (LinkedIn ? à décider, hors MVP).
 - **Bas du footer :**
