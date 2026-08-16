@@ -28,6 +28,12 @@ const BAND_INSET = 14;
 const MIN_BAND = 48;
 /** Le filtre est déclaré une fois, la section n'est rendue qu'une fois. */
 const HALO_FILTER_ID = "processus-halo";
+/**
+ * Marge autour du tracé, en pixels. Le halo fait 44px de large et son flou
+ * porte à ~48px : sans cette marge le SVG le coupe net au-dessus de la
+ * première ancre, ce qui donne un bord droit très visible.
+ */
+const SVG_PAD = 80;
 
 /**
  * Fil serpentin qui se dessine au scroll, étapes de part et d'autre.
@@ -46,9 +52,12 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
 
   const { scrollYProgress } = useScroll({
     target: wrapRef,
-    // Le fil démarre quand le haut de la liste arrive aux trois quarts de
-    // l'écran et finit quand le bas approche le bas de l'écran.
-    offset: ["start 0.8", "end 0.8"],
+    // Le repère est à 60 % de la hauteur d'écran : une étape est révélée
+    // quand son ancre y arrive, donc à hauteur de lecture. À 80 % la
+    // révélation se terminait tout en bas de fenêtre et le texte était déjà
+    // affiché avant qu'on arrive dessus. Même valeur des deux côtés : le
+    // progrès parcourt alors exactement la hauteur du bloc.
+    offset: ["start 0.6", "end 0.6"],
   });
 
   useEffect(() => {
@@ -127,18 +136,23 @@ export function ProcessTimeline({ steps }: ProcessTimelineProps) {
       {layout && path ? (
         <svg
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 size-full"
-          viewBox={`0 0 ${layout.width} ${layout.height}`}
+          className="pointer-events-none absolute inset-x-0 -inset-y-20"
+          viewBox={`0 ${-SVG_PAD} ${layout.width} ${layout.height + SVG_PAD * 2}`}
           fill="none"
           preserveAspectRatio="none"
         >
           <defs>
+            {/* Région en coordonnées utilisateur, pas en pourcentage de la
+                boîte du tracé : en pile le tracé est une droite verticale,
+                donc sa boîte a une largeur nulle et un filtre en pourcentage
+                ne serait tout simplement pas rendu. */}
             <filter
               id={HALO_FILTER_ID}
-              x="-20%"
-              y="-10%"
-              width="140%"
-              height="120%"
+              filterUnits="userSpaceOnUse"
+              x={-SVG_PAD}
+              y={-SVG_PAD}
+              width={layout.width + SVG_PAD * 2}
+              height={layout.height + SVG_PAD * 2}
             >
               <feGaussianBlur stdDeviation={16} />
             </filter>

@@ -119,7 +119,7 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 ### Layout
 - En-tête centré : `SectionLabel` + H2, `max-w-2xl mx-auto text-center`. Pas de lead, les étapes parlent d'elles-mêmes.
 - Liste en `max-w-6xl mx-auto`, étapes espacées de `space-y-14 lg:space-y-20`. L'espacement `lg` arbitre entre deux besoins opposés : il faut de la hauteur pour que le serpentin fasse son renflement hors des blocs de texte et pour que les révélations se succèdent, mais pas trop sous peine d'allonger la section.
-- **Zigzag** : à partir de `lg`, `grid-cols-2`, étapes paires en colonne 1 alignées à droite (`lg:text-right lg:pr-64`), étapes impaires en colonne 2 (`lg:pl-64`). Sous `lg`, tout passe à droite du fil (`pl-14`).
+- **Zigzag** : à partir de `lg`, `grid-cols-2`, étapes paires en colonne 1 alignées à droite (`lg:text-right lg:pr-64`), étapes impaires en colonne 2 (`lg:pl-64`). Sous `lg`, tout passe à droite du fil (`pl-16`, la gouttière qui accueille le numéro en filigrane).
 
 ### Le fil serpentin
 - **Tracé SVG mesuré, pas figé.** Un `ResizeObserver` mesure la position réelle de chaque étape dans le wrapper, et le chemin est reconstruit à partir de ces ancres. Il reste donc juste quelle que soit la longueur des textes et le format d'écran.
@@ -138,14 +138,17 @@ Empilement vertical (pas de SectionLabel — cf. règles communes) :
 Deux couches ajoutées par-dessus le `BGPattern dots` de la section.
 
 - **Halo mint le long du fil** : le même tracé, en `strokeWidth 44`, opacité 0.14, flouté par un `feGaussianBlur stdDeviation 16`, avec **le même `pathLength`** que le fil. Il se dessine donc en même temps et éclaire la section au fur et à mesure, au lieu d'être un décor posé. En pile, il ne reste qu'un lavis mint discret le long du rail gauche.
+  - Le SVG déborde de 80px en haut et en bas (`-inset-y-20` + `viewBox` décalé d'autant) : le halo fait 44px de large et son flou porte à ~48px, donc sans marge il était **coupé net au-dessus de la première ancre**, ce qui donnait un bord droit très visible.
+  - Région du filtre en `filterUnits="userSpaceOnUse"`, jamais en pourcentage : en pile le tracé est une droite verticale, sa boîte a une largeur nulle, et un filtre en pourcentage de cette boîte n'est pas rendu du tout.
 - **Numéro en filigrane** par étape, `font-serif`, `text-ink-300/60`, `clamp(3.25rem,9vw,4.5rem)` en pile et `clamp(6rem,9vw,11rem)` à partir de `lg`. Décoratif donc `aria-hidden`, le numéro lisible étant déjà dans le bloc.
   - **Placé du côté de l'ancre, dans la bande libre**, pas à l'extérieur du texte : `lg:left-[calc(50%-16rem)]` / `lg:right-[calc(50%-16rem)]`, le `16rem` reprenant le padding qui creuse la bande. Le fil sort donc de derrière le chiffre.
   - Il **n'y a aucune marge à l'extérieur du texte** : mesuré, 33px à 1440 et 3px à 1024. Deux essais posés là (`ink-300/50` puis `ink-950/[0.05]`) chevauchaient les lignes. Ne pas y revenir.
   - En pile, le numéro occupe la gouttière du rail (`pl-16` sur l'étape) et le fil le traverse, comme sur desktop.
 
 ### Animation
-- **Le fil se dessine au scroll** : `useScroll({ target, offset: ["start 0.8", "end 0.8"] })` pilote `pathLength` sur le tracé mint superposé au tracé gris. Motivé : le tracé raconte l'avancement du projet, qui est le sujet de la section.
+- **Le fil se dessine au scroll** : `useScroll({ target, offset: ["start 0.6", "end 0.6"] })` pilote `pathLength` sur le tracé mint superposé au tracé gris. Motivé : le tracé raconte l'avancement du projet, qui est le sujet de la section.
 - **Les textes se révèlent en synchro** : `useTransform` sur le même progrès, fenêtre `[ancre - 0.12, ancre]` où l'ancre est la position verticale du nœud rapportée à la hauteur du bloc, avec un plancher à 0.1. Sans ce plancher, la première étape, dont l'ancre est tout en haut, apparaissait d'un bloc dès le premier pixel de course.
+- **Repère à 60 % de la hauteur d'écran**, pas 80 %. Mesuré : à 0.8 le texte atteignait son opacité pleine quand son bloc était à ~77 % de l'écran, donc tout en bas de fenêtre, et il était déjà affiché avant qu'on arrive dessus. À 0.6 la révélation se termine vers 57 %, à hauteur de lecture. Même valeur des deux côtés : le progrès parcourt alors exactement la hauteur du bloc.
 - **Les points s'allument à leur tour**, même progrès, fenêtre plus courte.
 - Jamais d'écouteur `scroll` : il se déclenche à chaque frame et fait re-rendre tout l'arbre React.
 - `useReducedMotion` : tracé plein, points allumés, textes visibles, sans liaison au scroll.
