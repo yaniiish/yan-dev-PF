@@ -191,7 +191,7 @@ une ligne `Langue : anglais` pour qu'il sache dans quelle langue répondre.
 
 ## 9. Footer — `src/content/site.ts`
 
-- **Baseline :** *"Independent web studio based in Caen, France, working with clients anywhere."*
+- **Baseline :** *"Creative developer & product builder, based in Caen, France: projects across France and worldwide."*
 - **Colonnes :** `Navigation` / `Resources` / `Contact`
 - **Mentions :** `All rights reserved.`
 - La colonne Ressources n'affiche que le lien prix : l'index métiers est FR uniquement.
