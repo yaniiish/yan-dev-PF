@@ -92,6 +92,11 @@ export default function FrRootLayout({
     <html
       lang={HTML_LANG[LOCALE]}
       className={`${fontVariables} h-full antialiased`}
+      // `data-loader-seen` est posé par le script inline ci-dessous, avant
+      // l'hydratation. Sans ceci, React considère l'attribut comme un écart
+      // avec le HTML serveur et le retire : le CSS de masquage cesse alors de
+      // s'appliquer et l'écran de chargement réapparaît à chaque navigation.
+      suppressHydrationWarning
     >
       <body
         className="flex min-h-full flex-col"
@@ -101,7 +106,21 @@ export default function FrRootLayout({
         // niveau et ignore ces attributs externes. Sans effet sur le rendu.
         suppressHydrationWarning
       >
+        {/* Synchrone et avant l'écran de chargement : si la session l'a
+            déjà vu, l'attribut est posé avant le premier paint et le CSS le
+            masque, ce qui évite tout clignotement à chaque navigation. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('yd:loader-seen')==='1'){document.documentElement.setAttribute('data-loader-seen','')}}catch(e){}",
+          }}
+        />
         <SiteLoader locale={LOCALE} />
+        {/* Sans JS, Motion ne joue jamais l'entrée du Hero et son état
+            initial resterait appliqué : le H1 serait invisible. */}
+        <noscript>
+          <style>{`#hero * { transform: none !important; opacity: 1 !important; }`}</style>
+        </noscript>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-ink-950 focus:px-4 focus:py-2 focus:text-ink-50 focus:outline-2 focus:outline-offset-2 focus:outline-mint-700"

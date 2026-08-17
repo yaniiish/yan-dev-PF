@@ -4,7 +4,12 @@ import type { Locale } from "@/content/locales";
 import { METIERS_PAGE } from "@/content/metiers";
 import { PILIERS } from "@/content/piliers";
 import { pricingContent } from "@/content/pricing";
-import { CONTACT_EMAIL, siteContent, SITE_NAME } from "@/content/site";
+import {
+  CITY,
+  CONTACT_EMAIL,
+  siteContent,
+  SITE_NAME,
+} from "@/content/site";
 import { anchorHref, route } from "@/lib/routes";
 
 export function Footer({ locale }: { locale: Locale }) {
@@ -96,16 +101,22 @@ export function Footer({ locale }: { locale: Locale }) {
             <p className="font-mono text-xs uppercase tracking-widest text-ink-300">
               {footer.contactTitle}
             </p>
-            <ul className="mt-4 flex flex-col gap-2">
-              <li>
-                <a
-                  href={`mailto:${CONTACT_EMAIL}`}
-                  className="break-words text-sm text-ink-50 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
-                >
-                  {CONTACT_EMAIL}
-                </a>
-              </li>
-            </ul>
+            {/* <address> : balise sémantique attendue autour des coordonnées
+                de contact (SEO.md §4). `not-italic` neutralise l'italique que
+                les navigateurs y appliquent par défaut. */}
+            <address className="mt-4 not-italic">
+              <ul className="flex flex-col gap-2">
+                <li>
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="break-words text-sm text-ink-50 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                </li>
+                <li className="text-sm text-ink-300">{CITY}, France</li>
+              </ul>
+            </address>
           </div>
         </div>
 

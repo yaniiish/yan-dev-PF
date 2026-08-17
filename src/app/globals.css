@@ -81,6 +81,12 @@ body {
    l'écran sort.
 ---------------------------------------------------------------------------- */
 
+/* Posé par le script inline des root layouts quand la session a déjà vu
+   l'écran : le masque disparaît avant le premier paint, sans attendre React. */
+html[data-loader-seen] .site-loader {
+  display: none !important;
+}
+
 :root {
   --loader-intro: 1s;
   --loader-ease: cubic-bezier(0.22, 1, 0.36, 1);

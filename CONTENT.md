@@ -108,6 +108,10 @@ Placé **dans le hero, entre le lead et les CTA**. Hiérarchie en trois niveaux 
 
 Déclenchées par la sortie de l'écran de chargement (hook `useSiteLoaded`), pas au scroll : en `whileInView` elles se jouaient derrière l'overlay et personne ne les voyait.
 
+> **L'écran de chargement ne se joue plus qu'une fois par session** (2026-08-17, constat P2-4). Il rejouait à **chaque navigation**, parce que toute la navigation interne utilise des `<a>` natifs et non `next/link` : chaque clic recharge la page entière. Une clé `sessionStorage` le neutralise pour le reste de la session, et un script inline synchrone pose `data-loader-seen` sur `<html>` avant le premier paint pour qu'il n'y ait aucun clignotement. Il revient à la visite suivante, c'est un élément de marque assumé.
+
+> Un `<noscript>` dans les deux root layouts neutralise l'état initial de Motion sur `#hero`. Sans lui, un visiteur sans JavaScript verrait la page amputée de son H1, celui-ci étant servi avec `translateY(110%)` dans un conteneur `overflow-hidden`.
+
 Séquence, stagger 0.09s : les deux lignes du H1 montent derrière un masque (`overflow-hidden`, translation Y 110% → 0), puis le lead, puis les CTA, puis la card. `useReducedMotion` dégrade tout en simple fondu.
 
 ### Background hero

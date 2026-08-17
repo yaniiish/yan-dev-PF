@@ -18,6 +18,22 @@ const MIN_DURATION_MS = 1000;
 const MAX_DURATION_MS = 2200;
 const REDUCED_DURATION_MS = 300;
 
+/**
+ * Clé de session. L'écran ne se joue qu'à la **première arrivée** sur le site,
+ * pas à chaque navigation.
+ *
+ * C'est nécessaire parce que toute la navigation interne se fait en `<a>`
+ * natifs et non en `next/link` : chaque clic recharge la page entièrement, ce
+ * qui rejouait l'écran à chaque fois. `sessionStorage` et non `localStorage` :
+ * l'écran doit revenir à la prochaine visite, c'est un élément de marque.
+ *
+ * Le masquage immédiat est assuré par le script inline des root layouts, qui
+ * pose LOADER_SEEN_ATTRIBUTE sur <html> avant le premier paint. Sans lui,
+ * l'écran apparaîtrait un instant avant que React ne le retire.
+ */
+export const LOADER_SESSION_KEY = "yd:loader-seen";
+export const LOADER_SEEN_ATTRIBUTE = "data-loader-seen";
+
 /** Cadre du logo (public/logo.svg) redessiné en path pour animer le tracé. */
 const FRAME_PATH =
   "M 29 9 H 71 A 20 20 0 0 1 91 29 V 71 A 20 20 0 0 1 71 91 H 29 A 20 20 0 0 1 9 71 V 29 A 20 20 0 0 1 29 9 Z";
@@ -37,8 +53,36 @@ export function SiteLoader({ locale }: { locale: Locale }) {
     const release = () => {
       setIsVisible(false);
       document.documentElement.setAttribute(SITE_LOADED_ATTRIBUTE, "");
+      document.documentElement.setAttribute(LOADER_SEEN_ATTRIBUTE, "");
+      try {
+        sessionStorage.setItem(LOADER_SESSION_KEY, "1");
+      } catch {
+        // Navigation privée ou stockage refusé : l'écran se rejouera, ce
+        // n'est pas bloquant.
+      }
       window.dispatchEvent(new Event(SITE_LOADED_EVENT));
     };
+
+    // Déjà vu dans cette session : on libère tout de suite, sans rien
+    // afficher. L'overlay est de toute façon masqué par le CSS dès le premier
+    // paint (cf. `html[data-loader-seen]`), donc ce relâchement différé d'un
+    // tick n'a aucun effet visible ; il sert à débloquer le scroll et à
+    // signaler au Hero qu'il peut jouer ses entrées.
+    // On interroge sessionStorage plutôt que l'attribut du <html> : c'est la
+    // source de vérité, et elle ne dépend pas de ce que React fait de
+    // l'attribut pendant l'hydratation.
+    let alreadySeen = false;
+    try {
+      alreadySeen = sessionStorage.getItem(LOADER_SESSION_KEY) === "1";
+    } catch {
+      // Stockage indisponible : l'écran se rejouera, ce n'est pas bloquant.
+    }
+
+    if (alreadySeen) {
+      document.documentElement.setAttribute(LOADER_SEEN_ATTRIBUTE, "");
+      const seenTimer = window.setTimeout(release, 0);
+      return () => window.clearTimeout(seenTimer);
+    }
 
     const finish = () => {
       const elapsed = performance.now() - startedAt;
@@ -96,7 +140,7 @@ export function SiteLoader({ locale }: { locale: Locale }) {
                     transition: { duration: 0.45, ease: easings.out },
                   }
             }
-            className="fixed inset-0 z-[60] flex flex-col items-center justify-center overflow-hidden bg-ink-50"
+            className="site-loader fixed inset-0 z-[60] flex flex-col items-center justify-center overflow-hidden bg-ink-50"
           >
             <BGPattern
               variant="grid"
