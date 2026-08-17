@@ -5,6 +5,7 @@ import { SiteLoader } from "@/components/layout/SiteLoader";
 import { HTML_LANG, OG_LOCALE } from "@/content/locales";
 import { uiContent } from "@/content/ui";
 import { fontVariables } from "@/lib/fonts";
+import { websiteLd } from "@/lib/jsonld";
 import { languageAlternates, ROUTES } from "@/lib/routes";
 import {
   OG_IMAGE,
@@ -101,6 +102,12 @@ export default function EnRootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(professionalServiceLd(LOCALE)),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteLd(LOCALE)),
           }}
         />
       </body>

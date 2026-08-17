@@ -1,5 +1,6 @@
+import { HTML_LANG, type Locale } from "@/content/locales";
 import { SITE_NAME } from "@/content/site";
-import { SITE_URL } from "@/lib/seo";
+import { ORGANIZATION_ID, SITE_URL, WEBSITE_ID } from "@/lib/seo";
 
 /**
  * Builders de données structurées (JSON-LD) par type de page.
@@ -79,11 +80,9 @@ export function serviceLd({ name, description, path, minPrice }: ServiceInput) {
     serviceType: name,
     description,
     url: absolute(path),
-    provider: {
-      "@type": "ProfessionalService",
-      name: SITE_NAME,
-      url: SITE_URL,
-    },
+    // Référence au noeud global du layout plutôt qu'un second
+    // ProfessionalService inline : une seule entité dans le graphe.
+    provider: { "@id": ORGANIZATION_ID },
     areaServed: { "@type": "Country", name: "France" },
     ...(minPrice
       ? {
@@ -99,5 +98,23 @@ export function serviceLd({ name, description, path, minPrice }: ServiceInput) {
           },
         }
       : {}),
+  };
+}
+
+/**
+ * Noeud WebSite du graphe, injecté dans les deux root layouts.
+ *
+ * Pas de `SearchAction` : le site n'a aucune recherche interne, en déclarer
+ * une serait une assertion fausse (cf. SEO.md §5, règle de véracité).
+ */
+export function websiteLd(locale: Locale) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    url: SITE_URL,
+    name: SITE_NAME,
+    inLanguage: HTML_LANG[locale],
+    publisher: { "@id": ORGANIZATION_ID },
   };
 }

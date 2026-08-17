@@ -5,6 +5,7 @@ import { SiteLoader } from "@/components/layout/SiteLoader";
 import { HTML_LANG } from "@/content/locales";
 import { uiContent } from "@/content/ui";
 import { fontVariables } from "@/lib/fonts";
+import { websiteLd } from "@/lib/jsonld";
 import { languageAlternates } from "@/lib/routes";
 import {
   OG_IMAGE,
@@ -116,6 +117,12 @@ export default function FrRootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(professionalServiceLd(LOCALE)),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteLd(LOCALE)),
           }}
         />
       </body>

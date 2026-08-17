@@ -100,14 +100,17 @@ export default function MetiersIndexPage() {
                     />
                   </div>
                   <div className="flex flex-1 items-center justify-between gap-3 p-5 md:p-6">
-                    <span className="min-w-0">
-                      <span className="block font-serif text-xl font-medium leading-tight text-ink-950">
+                    {/* h3 et non span : la page n'avait aucun titre de niveau 3
+                        et les noms de métier sont son seul vocabulaire de
+                        requête. Le h2 parent existe, aucun saut de niveau. */}
+                    <div className="min-w-0">
+                      <h3 className="font-serif text-xl font-medium leading-tight text-ink-950">
                         {metier.navLabel}
-                      </span>
+                      </h3>
                       <span className="mt-1 block text-sm text-ink-500">
                         {metier.breadcrumbLabel}
                       </span>
-                    </span>
+                    </div>
                     <ArrowRight
                       size={18}
                       aria-hidden="true"

@@ -36,6 +36,14 @@ export const OG_IMAGE: Record<Locale, string> = {
 
 export const OG_IMAGE_SIZE = { width: 1200, height: 630 };
 
+/**
+ * Identifiants stables du graphe schema.org. Sans eux, chaque `Service`
+ * redéclarait son `provider` en inline : les moteurs voyaient deux noeuds
+ * `ProfessionalService` distincts décrivant la même entreprise, sans lien.
+ */
+export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
+
 /** Doit décrire ce que l'image affiche réellement. */
 export const OG_IMAGE_ALT: Record<Locale, string> = {
   fr: "Yan-dev : sites web créatifs et produits digitaux, freelance à Caen",
@@ -123,6 +131,7 @@ export function professionalServiceLd(locale: Locale) {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    "@id": ORGANIZATION_ID,
     name: SITE_NAME,
     description: copy.description,
     url: SITE_URL,
