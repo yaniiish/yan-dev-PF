@@ -2,6 +2,7 @@ import Image from "next/image";
 import { LEGAL } from "@/content/legal";
 import type { Locale } from "@/content/locales";
 import { METIERS_PAGE } from "@/content/metiers";
+import { PILIERS } from "@/content/piliers";
 import { pricingContent } from "@/content/pricing";
 import { CONTACT_EMAIL, siteContent, SITE_NAME } from "@/content/site";
 import { anchorHref, route } from "@/lib/routes";
@@ -67,14 +68,26 @@ export function Footer({ locale }: { locale: Locale }) {
                   local et n'a pas d'équivalent anglais. On n'envoie pas un
                   visiteur anglophone sur une page qu'il ne peut pas lire. */}
               {locale === "fr" ? (
-                <li>
-                  <a
-                    href={METIERS_PAGE.path}
-                    className="text-sm text-ink-50 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
-                  >
-                    {METIERS_PAGE.navLabel}
-                  </a>
-                </li>
+                <>
+                  <li>
+                    <a
+                      href={METIERS_PAGE.path}
+                      className="text-sm text-ink-50 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+                    >
+                      {METIERS_PAGE.navLabel}
+                    </a>
+                  </li>
+                  {PILIERS.map((pilier) => (
+                    <li key={pilier.path}>
+                      <a
+                        href={pilier.path}
+                        className="text-sm text-ink-50 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+                      >
+                        {pilier.navLabel}
+                      </a>
+                    </li>
+                  ))}
+                </>
               ) : null}
             </ul>
           </div>

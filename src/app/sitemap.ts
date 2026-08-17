@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { LEGAL } from "@/content/legal";
 import { HREFLANG } from "@/content/locales";
 import { METIERS, METIERS_PAGE, metierPath } from "@/content/metiers";
+import { PILIER_CREATIF, PILIER_PRODUIT } from "@/content/piliers";
 import { ROUTES, type RouteKey } from "@/lib/routes";
 import { SITE_URL } from "@/lib/seo";
 
@@ -69,6 +70,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
+    {
+      url: absolute(PILIER_CREATIF.path),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: absolute(PILIER_PRODUIT.path),
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
     {
       url: absolute(LEGAL.path),
       lastModified,
