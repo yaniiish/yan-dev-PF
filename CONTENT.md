@@ -585,3 +585,44 @@ Cette affirmation n'est vraie que tant qu'aucun analytics n'est ajouté (`CLAUDE
 
 ### Maillage
 Lien dans la barre basse du footer, affiché dans **les deux langues** (l'identité de l'éditeur doit rester joignable depuis toute page), avec `lang="fr"` sur le lien et le libellé `Legal notice (French)` côté anglais.
+
+---
+
+## 15. Pages piliers `/site-web-creatif` et `/produit-digital`
+
+> Pages FR uniquement, sans équivalent anglais (`SEO.md` §7). Source unique du contenu : `src/content/piliers.ts`. Structure partagée : `src/components/pages/PilierPage.tsx`, calquée sur la page prix.
+>
+> **Pourquoi elles existent (constat P2-10 de l'audit).** Le site annonce trois piliers, mais seul le pilier vitrine avait une page d'atterrissage (`/prix-site-vitrine`) et un réseau de pages d'intention (`/site-internet/*`). Les requêtes de l'étage 2 côté créatif et produit (`SEO.md` §2) n'avaient aucune page vers laquelle pointer.
+>
+> **Règles de véracité appliquées :** aucun tarif chiffré (les deux offres sont sur devis, donc le `Service` JSON-LD ne porte **pas** d'`offers`), aucun délai annoncé, aucune statistique, aucun témoignage. Les projets qui illustrent ces pages ne sont jamais présentés comme des commandes client.
+
+### Structure commune
+
+H1, chapô, puis : bloc de 4 points en H3, bloc de mise en perspective en 2 ou 3 paragraphes, exemples, FAQ de 5 questions, CTA. JSON-LD `BreadcrumbList` + `Service` + `FAQPage`.
+
+### `/site-web-creatif`
+
+- **Meta title (57 car.) :** `Site web créatif sur mesure, par un développeur freelance`
+- **Meta description (152 car.) :** `Un site avec une vraie direction artistique : animations, interactions et univers sur mesure, sans sacrifier la lisibilité. Sur devis. Freelance à Caen.`
+- **H1 :** `Un site web créatif, pensé comme une expérience`
+- **Les 4 points :** direction artistique poussée, animations et interactions utiles, expérience immersive, intégrations spécifiques. Repris des features de la carte `Site créatif` (§6).
+- **Bloc de perspective :** `Site vitrine ou site créatif ?`, qui assume de dire qu'un site vitrine suffit dans beaucoup de cas.
+- **Exemples :** BeerBee, Madman Tattoo, Atelier Lumé, liés vers leur version en ligne.
+- **FAQ :** prix sur devis, différence avec le site vitrine à 490 €, impact des animations sur la vitesse, référencement d'un site créatif, autonomie de modification.
+
+### `/produit-digital`
+
+- **Meta title (57 car.) :** `Développement de produit digital : MVP, SaaS, application`
+- **Meta description (145 car.) :** `De l'idée au produit en ligne : MVP, SaaS, application web ou mobile, dashboard et intégrations IA. Conçu et développé en direct, sur devis.`
+- **H1 :** `Transformer une idée en produit digital`
+- **Les 4 points :** conception produit et MVP, SaaS et application web, application mobile, dashboard et automatisations. Repris de la carte `Produit digital` (§6).
+- **Bloc de perspective :** `Comment se passe un projet produit` (cadrage, première version réduite, avancement par étapes).
+- **Exemples :** CleanAI et BetaWall. BetaWall étant en construction, sa carte n'a **pas** de lien : on ne fabrique pas une destination inexistante.
+- **FAQ :** coût après cadrage, contact au stade de l'idée, évolution du périmètre, propriété du produit, travail à distance.
+
+### Maillage
+
+- **Section Tarifs de la home :** un lien contextuel sous chaque carte, en miroir de celui du pilier vitrine. `Ce que comprend un site créatif` et `Comment se passe un projet produit`. Affichés **en français seulement**, les pages n'existant pas en anglais.
+- **Footer :** les deux pages rejoignent la colonne `Ressources`, elle aussi conditionnée à `locale === "fr"`.
+- **Sitemap :** ajoutées avec `priority: 0.8`, ce qui porte le sitemap à 15 URLs.
+

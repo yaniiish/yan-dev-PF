@@ -21,6 +21,8 @@ export type RouteKey = keyof typeof ROUTES;
  */
 export const FR_ONLY_ROUTES = {
   metiers: "/site-internet",
+  creatif: "/site-web-creatif",
+  produit: "/produit-digital",
   legal: "/mentions-legales",
 } as const;
 
