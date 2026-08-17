@@ -1,57 +1,24 @@
-"use client";
-
 import Image from "next/image";
-import { motion, useReducedMotion, type Variants } from "motion/react";
 import { BGPattern } from "@/components/backgrounds/BGPattern";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { heroContent } from "@/content/hero";
 import type { Locale } from "@/content/locales";
-import { durations, easings } from "@/lib/motion";
-import { useSiteLoaded } from "@/lib/useSiteLoaded";
 import { cn } from "@/lib/utils";
 
+/**
+ * L'entrée est animée en CSS (cf. globals.css, section « Entrée du Hero »).
+ *
+ * Elle était pilotée par Motion et attendait le signal de sortie de l'écran de
+ * chargement, donc le téléchargement puis l'hydratation du bundle. Le texte du
+ * hero étant l'élément LCP de la page, cette attente le retardait d'environ une
+ * seconde et demie. En CSS, l'animation démarre dès l'application de la
+ * feuille de style.
+ *
+ * `--hero-step` décale chaque élément pour reproduire la cascade d'origine.
+ */
 export function Hero({ locale }: { locale: Locale }) {
   const content = heroContent(locale);
-  const isLoaded = useSiteLoaded();
-  const reduce = useReducedMotion();
-
-  // Orchestration : le titre monte ligne par ligne, puis le lead, les CTA et
-  // la card. Sert la hiérarchie de lecture, dans l'ordre où on lit la page.
-  const container: Variants = {
-    hidden: {},
-    show: {
-      transition: reduce ? {} : { staggerChildren: 0.09, delayChildren: 0.04 },
-    },
-  };
-
-  const line: Variants = {
-    hidden: reduce ? { opacity: 0 } : { y: "110%" },
-    show: {
-      opacity: 1,
-      y: "0%",
-      transition: { duration: 0.75, ease: easings.out },
-    },
-  };
-
-  const rise: Variants = {
-    hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 20 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: durations.base, ease: easings.out },
-    },
-  };
-
-  const card: Variants = {
-    hidden: reduce ? { opacity: 0 } : { opacity: 0, x: 40, rotate: -8 },
-    show: {
-      opacity: 1,
-      x: 0,
-      rotate: reduce ? 0 : -3,
-      transition: { duration: 0.8, ease: easings.out },
-    },
-  };
 
   return (
     <>
@@ -72,12 +39,7 @@ export function Hero({ locale }: { locale: Locale }) {
           fill="color-mix(in oklch, var(--color-ink-300) 50%, transparent)"
         />
 
-        <motion.div
-          className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-16"
-          variants={container}
-          initial={false}
-          animate={isLoaded ? "show" : "hidden"}
-        >
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-16">
           {/* Le split ne s'active qu'a partir de lg : en dessous, le H1 sur
               deux lignes ne tient pas dans une colonne 7/12. */}
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center lg:gap-8">
@@ -88,10 +50,10 @@ export function Hero({ locale }: { locale: Locale }) {
                   la ligne la plus longue avec une marge de securite, puisque
                   whitespace-nowrap ferait deborder au lieu de replier. */}
               <h1 className="font-serif text-[8.5cqw] font-medium leading-[1.05] tracking-tight text-ink-950">
-                <MaskedLine variants={line}>
+                <MaskedLine step="0s">
                   <span className="whitespace-nowrap">{content.h1Line1}</span>
                 </MaskedLine>
-                <MaskedLine variants={line}>
+                <MaskedLine step="0.09s">
                   <span className="whitespace-nowrap">
                     {content.h1Line2Pre}{" "}
                     <span className="underline decoration-mint-500 decoration-[3px] underline-offset-[6px]">
@@ -106,22 +68,22 @@ export function Hero({ locale }: { locale: Locale }) {
               {/* La mesure vient buter sur le bord de la colonne, donc sur le
                   bord droit de la deuxieme ligne du titre. */}
               <div data-hero-measure className="mt-8 max-w-[40rem] md:mt-12">
-                <motion.p
-                  variants={rise}
-                  className="text-[clamp(1.125rem,0.6vw+0.9rem,1.5rem)] leading-relaxed text-ink-700"
+                <p
+                  style={{ "--hero-step": "0.18s" } as React.CSSProperties}
+                  className="hero-rise text-[clamp(1.125rem,0.6vw+0.9rem,1.5rem)] leading-relaxed text-ink-700"
                 >
                   {content.lead}
-                </motion.p>
-                <motion.p
-                  variants={rise}
-                  className="mt-4 text-[clamp(1rem,0.2vw+0.95rem,1.125rem)] leading-relaxed text-ink-500"
+                </p>
+                <p
+                  style={{ "--hero-step": "0.27s" } as React.CSSProperties}
+                  className="hero-rise mt-4 text-[clamp(1rem,0.2vw+0.95rem,1.125rem)] leading-relaxed text-ink-500"
                 >
                   {content.intro}
-                </motion.p>
+                </p>
               </div>
-              <motion.div
-                variants={rise}
-                className="mt-8 flex flex-col gap-3 sm:flex-row md:mt-12"
+              <div
+                style={{ "--hero-step": "0.36s" } as React.CSSProperties}
+                className="hero-rise mt-8 flex flex-col gap-3 sm:flex-row md:mt-12"
               >
                 <Button href="#travail" size="lg">
                   {content.ctaPrimary}
@@ -129,19 +91,23 @@ export function Hero({ locale }: { locale: Locale }) {
                 <Button href="#contact" size="lg" variant="secondary">
                   {content.ctaSecondary}
                 </Button>
-              </motion.div>
+              </div>
             </div>
 
-            <motion.div
-              variants={card}
-              whileHover={reduce ? undefined : { rotate: 0 }}
-              transition={{ duration: 0.5, ease: easings.out }}
-              className="mx-auto w-full max-w-md lg:col-span-5 lg:mx-0 lg:max-w-none"
+            {/* Deux niveaux : l'entrée anime le wrapper, l'inclinaison et son
+                redressement au survol vivent sur l'élément interne. Sur un seul
+                niveau, l'animation et la transition se disputeraient
+                `transform`. */}
+            <div
+              style={{ "--hero-step": "0.45s" } as React.CSSProperties}
+              className="hero-card mx-auto w-full max-w-md lg:col-span-5 lg:mx-0 lg:max-w-none"
             >
-              <PresentationCard content={content.card} avatarAlt={content.avatarAlt} />
-            </motion.div>
+              <div className="-rotate-3 transition-transform duration-500 ease-out hover:rotate-0 motion-reduce:rotate-0 motion-reduce:transition-none">
+                <PresentationCard content={content.card} avatarAlt={content.avatarAlt} />
+              </div>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </section>
     </>
   );
@@ -153,16 +119,20 @@ export function Hero({ locale }: { locale: Locale }) {
  */
 function MaskedLine({
   children,
-  variants,
+  step,
 }: {
   children: React.ReactNode;
-  variants: Variants;
+  /** Décalage de la cascade, injecté en variable CSS. */
+  step: string;
 }) {
   return (
     <span className="block overflow-hidden pb-[0.12em]">
-      <motion.span className="block" variants={variants}>
+      <span
+        style={{ "--hero-step": step } as React.CSSProperties}
+        className="hero-line block"
+      >
         {children}
-      </motion.span>
+      </span>
     </span>
   );
 }
