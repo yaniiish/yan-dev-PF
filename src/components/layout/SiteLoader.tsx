@@ -9,11 +9,14 @@ import { easings } from "@/lib/motion";
 import { SITE_LOADED_ATTRIBUTE, SITE_LOADED_EVENT } from "@/lib/siteLoaded";
 
 /**
- * Durée plancher : évite un flash de 80ms quand la page est déjà en cache.
- * Doit rester alignée sur `--loader-intro` (globals.css) pour que le tracé du
- * logo et la barre finissent au moment exact où l'écran sort.
+ * Durée plancher avant la sortie.
+ *
+ * Volontairement plus longue que `--loader-intro` (0,6 s) : le tracé du logo
+ * se termine, puis l'écran respire environ 350 ms avant de sortir. Sans cette
+ * pause, le logo finissait de se dessiner et disparaissait dans le même
+ * mouvement, ce qui rendait la transition sèche.
  */
-const MIN_DURATION_MS = 600;
+const MIN_DURATION_MS = 950;
 /** Filet de sécurité : on ne bloque jamais l'écran plus longtemps que ça. */
 const MAX_DURATION_MS = 2200;
 const REDUCED_DURATION_MS = 300;
@@ -131,13 +134,17 @@ export function SiteLoader({ locale }: { locale: Locale }) {
             role="status"
             aria-live="polite"
             initial={false}
+            // Sortie en fondu long : le contenu de la page se découvre
+            // progressivement au lieu d'apparaître d'un coup. Le léger
+            // agrandissement donne l'impression que l'écran s'efface vers
+            // l'avant plutôt qu'il ne se coupe.
             exit={
               reduceMotion
                 ? { opacity: 0, transition: { duration: 0.15 } }
                 : {
                     opacity: 0,
-                    y: -12,
-                    transition: { duration: 0.45, ease: easings.out },
+                    scale: 1.04,
+                    transition: { duration: 0.75, ease: easings.inOut },
                   }
             }
             className="site-loader fixed inset-0 z-[60] flex flex-col items-center justify-center overflow-hidden bg-ink-50"

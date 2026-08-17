@@ -108,7 +108,7 @@ Placé **dans le hero, entre le lead et les CTA**. Hiérarchie en trois niveaux 
 
 Animées **en CSS** (cf. `globals.css`, section « Entrée du Hero »), pas en Motion et pas au scroll. Une animation CSS démarre dès l'application de la feuille de style, alors que Motion attend le téléchargement puis l'hydratation du bundle : le texte du hero étant l'élément LCP de la page, cette attente le retardait d'environ 1,5 s. Le Hero n'est plus un composant client.
 
-> La variable `--hero-delay` laisse passer l'écran de chargement (600 ms). Quand la session l'a déjà vu, `html[data-loader-seen]` ramène ce délai à zéro. LCP de la home mesuré en local : 2 856 ms avant, 720 ms après.
+> La variable `--hero-delay` (0,85 s) cale le démarrage de l'entrée **pendant** le fondu de sortie de l'écran de chargement, et non après : les deux mouvements se croisent, le contenu émerge au lieu d'apparaître d'un bloc. Quand la session a déjà vu l'écran, `html[data-loader-seen]` ramène ce délai à zéro. LCP de la home mesuré en local : 2 856 ms avant le chantier, sous la seconde depuis.
 
 > **L'écran de chargement ne se joue plus qu'une fois par session** (2026-08-17, constat P2-4). Il rejouait à **chaque navigation**, parce que toute la navigation interne utilise des `<a>` natifs et non `next/link` : chaque clic recharge la page entière. Une clé `sessionStorage` le neutralise pour le reste de la session, et un script inline synchrone pose `data-loader-seen` sur `<html>` avant le premier paint pour qu'il n'y ait aucun clignotement. Il revient à la visite suivante, c'est un élément de marque assumé.
 
