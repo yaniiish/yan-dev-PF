@@ -87,6 +87,26 @@ html[data-loader-seen] .site-loader {
   display: none !important;
 }
 
+@keyframes loader-out {
+  to {
+    opacity: 0;
+    transform: scale(1.04);
+    visibility: hidden;
+  }
+}
+
+/* La sortie est en CSS et non en Motion : elle doit partir à un instant fixe
+   de la timeline du document, pas au montage d'un effet React. */
+.site-loader {
+  animation: loader-out var(--loader-out) var(--hero-ease) var(--loader-hold)
+    both;
+}
+
+/* Dès que le fondu commence, l'écran ne doit plus intercepter les clics. */
+.site-loader {
+  pointer-events: none;
+}
+
 :root {
   --loader-intro: 0.6s;
   --loader-ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -164,15 +184,24 @@ html[data-loader-seen] .site-loader {
    l'hydratation du bundle. Le texte du hero étant l'élément LCP de la page,
    cette attente coûtait environ une seconde et demie.
 
-   `--hero-delay` laisse passer l'écran de chargement. Quand la session l'a
-   déjà vu, l'attribut posé sur <html> ramène le délai à zéro et l'entrée se
-   joue immédiatement.
+   `--hero-delay` est calé pour que l'entrée démarre pendant le fondu de sortie
+   de l'écran de chargement, et non après : les deux mouvements se croisent, le
+   contenu émerge au lieu d'apparaître d'un bloc. Quand la session a déjà vu
+   l'écran, l'attribut posé sur <html> ramène le délai à zéro.
 
    Les durées sont neutralisées par le bloc prefers-reduced-motion plus bas.
 ---------------------------------------------------------------------------- */
 
 :root {
-  --hero-delay: 0.6s;
+  /* Timeline commune à l'écran de chargement et à l'entrée du Hero. Les deux
+     sont en CSS et démarrent donc au même instant (application de la feuille
+     de style), ce qui garantit leur chevauchement. Piloter la sortie de
+     l'écran en JavaScript la calait sur l'hydratation, un instant variable :
+     l'entrée du Hero se jouait alors entièrement derrière un écran encore
+     opaque, et la page apparaissait d'un bloc. */
+  --loader-hold: 0.95s;
+  --loader-out: 0.75s;
+  --hero-delay: 0.85s;
   --hero-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -212,17 +241,17 @@ html[data-loader-seen] {
 }
 
 .hero-line {
-  animation: hero-line 0.75s var(--hero-ease) both;
+  animation: hero-line 0.9s var(--hero-ease) both;
   animation-delay: calc(var(--hero-delay) + var(--hero-step, 0s));
 }
 
 .hero-rise {
-  animation: hero-rise 0.5s var(--hero-ease) both;
+  animation: hero-rise 0.65s var(--hero-ease) both;
   animation-delay: calc(var(--hero-delay) + var(--hero-step, 0s));
 }
 
 .hero-card {
-  animation: hero-card 0.8s var(--hero-ease) both;
+  animation: hero-card 0.9s var(--hero-ease) both;
   animation-delay: calc(var(--hero-delay) + var(--hero-step, 0s));
 }
 

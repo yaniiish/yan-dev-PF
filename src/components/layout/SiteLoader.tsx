@@ -1,22 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { BGPattern } from "@/components/backgrounds/BGPattern";
 import type { Locale } from "@/content/locales";
 import { uiContent } from "@/content/ui";
-import { easings } from "@/lib/motion";
 import { SITE_LOADED_ATTRIBUTE, SITE_LOADED_EVENT } from "@/lib/siteLoaded";
 
 /**
- * Durée plancher : évite un flash de 80ms quand la page est déjà en cache.
- * Doit rester alignée sur `--loader-intro` (globals.css) pour que le tracé du
- * logo et la barre finissent au moment exact où l'écran sort.
+ * Timing de l'écran, **aligné sur `globals.css`** (`--loader-hold` et
+ * `--loader-out`). Le fondu de sortie est joué en CSS : il part à un instant
+ * fixe de la timeline du document, comme l'entrée du Hero, donc les deux
+ * mouvements se croisent toujours.
+ *
+ * Ces constantes ne servent qu'à retirer l'écran du DOM une fois le fondu
+ * terminé, et à rendre le scroll au moment où il commence.
  */
-const MIN_DURATION_MS = 600;
-/** Filet de sécurité : on ne bloque jamais l'écran plus longtemps que ça. */
-const MAX_DURATION_MS = 2200;
-const REDUCED_DURATION_MS = 300;
+/** Au delà, on retire l'écran quoi qu'il arrive. */
+const MAX_DURATION_MS = 4000;
 
 /**
  * Clé de session. L'écran ne se joue qu'à la **première arrivée** sur le site,
@@ -39,38 +39,21 @@ const FRAME_PATH =
   "M 29 9 H 71 A 20 20 0 0 1 91 29 V 71 A 20 20 0 0 1 71 91 H 29 A 20 20 0 0 1 9 71 V 29 A 20 20 0 0 1 29 9 Z";
 const DOTS_X = [25, 36, 47];
 
+function markLoaded() {
+  document.documentElement.setAttribute(SITE_LOADED_ATTRIBUTE, "");
+  window.dispatchEvent(new Event(SITE_LOADED_EVENT));
+  try {
+    sessionStorage.setItem(LOADER_SESSION_KEY, "1");
+  } catch {
+    // Navigation privée ou stockage refusé : l'écran se rejouera.
+  }
+}
+
 export function SiteLoader({ locale }: { locale: Locale }) {
   const [isVisible, setIsVisible] = useState(true);
-  const reduceMotion = useReducedMotion();
+  const [isReleased, setIsReleased] = useState(false);
 
   useEffect(() => {
-    const minDuration = reduceMotion ? REDUCED_DURATION_MS : MIN_DURATION_MS;
-    const startedAt = performance.now();
-    let holdTimer: number | undefined;
-
-    // Le Hero attend ce signal pour jouer ses entrées, sinon elles se
-    // dérouleraient derrière l'overlay.
-    const release = () => {
-      setIsVisible(false);
-      document.documentElement.setAttribute(SITE_LOADED_ATTRIBUTE, "");
-      document.documentElement.setAttribute(LOADER_SEEN_ATTRIBUTE, "");
-      try {
-        sessionStorage.setItem(LOADER_SESSION_KEY, "1");
-      } catch {
-        // Navigation privée ou stockage refusé : l'écran se rejouera, ce
-        // n'est pas bloquant.
-      }
-      window.dispatchEvent(new Event(SITE_LOADED_EVENT));
-    };
-
-    // Déjà vu dans cette session : on libère tout de suite, sans rien
-    // afficher. L'overlay est de toute façon masqué par le CSS dès le premier
-    // paint (cf. `html[data-loader-seen]`), donc ce relâchement différé d'un
-    // tick n'a aucun effet visible ; il sert à débloquer le scroll et à
-    // signaler au Hero qu'il peut jouer ses entrées.
-    // On interroge sessionStorage plutôt que l'attribut du <html> : c'est la
-    // source de vérité, et elle ne dépend pas de ce que React fait de
-    // l'attribut pendant l'hydratation.
     let alreadySeen = false;
     try {
       alreadySeen = sessionStorage.getItem(LOADER_SESSION_KEY) === "1";
@@ -78,44 +61,37 @@ export function SiteLoader({ locale }: { locale: Locale }) {
       // Stockage indisponible : l'écran se rejouera, ce n'est pas bloquant.
     }
 
+    // NE PAS poser LOADER_SEEN_ATTRIBUTE ici : il pilote `--hero-delay`, et
+    // l'ajouter à chaud ferait sauter l'entrée du Hero à son état final. Seul
+    // le script inline des layouts le pose, avant le premier paint.
     if (alreadySeen) {
-      document.documentElement.setAttribute(LOADER_SEEN_ATTRIBUTE, "");
-      const seenTimer = window.setTimeout(release, 0);
-      return () => window.clearTimeout(seenTimer);
+      const t = window.setTimeout(() => {
+        setIsReleased(true);
+        setIsVisible(false);
+        markLoaded();
+      }, 0);
+      return () => window.clearTimeout(t);
     }
 
-    const finish = () => {
-      const elapsed = performance.now() - startedAt;
-      holdTimer = window.setTimeout(
-        release,
-        Math.max(0, minDuration - elapsed),
-      );
-    };
-
-    if (document.readyState === "complete") {
-      finish();
-    } else {
-      window.addEventListener("load", finish, { once: true });
-    }
-
-    const capTimer = window.setTimeout(release, MAX_DURATION_MS);
-
-    return () => {
-      window.removeEventListener("load", finish);
-      window.clearTimeout(holdTimer);
-      window.clearTimeout(capTimer);
-    };
-  }, [reduceMotion]);
+    // Filet de sécurité : si l'animation CSS ne se déclenche pas (feuille de
+    // style absente, moteur exotique), l'écran ne doit pas rester bloqué.
+    const failsafe = window.setTimeout(() => {
+      setIsReleased(true);
+      setIsVisible(false);
+      markLoaded();
+    }, MAX_DURATION_MS);
+    return () => window.clearTimeout(failsafe);
+  }, []);
 
   // Verrouille le scroll tant que l'écran de chargement couvre la page.
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || isReleased) return;
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = original;
     };
-  }, [isVisible]);
+  }, [isVisible, isReleased]);
 
   return (
     <>
@@ -124,22 +100,24 @@ export function SiteLoader({ locale }: { locale: Locale }) {
         <style>{"[data-site-loader]{display:none!important}"}</style>
       </noscript>
 
-      <AnimatePresence>
-        {isVisible ? (
-          <motion.div
-            data-site-loader
-            role="status"
-            aria-live="polite"
-            initial={false}
-            exit={
-              reduceMotion
-                ? { opacity: 0, transition: { duration: 0.15 } }
-                : {
-                    opacity: 0,
-                    y: -12,
-                    transition: { duration: 0.45, ease: easings.out },
-                  }
+      {isVisible ? (
+        <div
+          data-site-loader
+          role="status"
+          aria-live="polite"
+          // C'est l'animation CSS qui pilote, pas un minuteur : elle seule
+          // connaît l'instant exact où le fondu commence et se termine. Un
+          // `setTimeout` calé sur l'hydratation démontait l'écran avant la fin
+          // du fondu, ce qui le faisait disparaître d'un coup.
+          onAnimationStart={(e) => {
+            if (e.target === e.currentTarget) {
+              setIsReleased(true);
+              markLoaded();
             }
+          }}
+          onAnimationEnd={(e) => {
+            if (e.target === e.currentTarget) setIsVisible(false);
+          }}
             className="site-loader fixed inset-0 z-[60] flex flex-col items-center justify-center overflow-hidden bg-ink-50"
           >
             <BGPattern
@@ -198,9 +176,8 @@ export function SiteLoader({ locale }: { locale: Locale }) {
             </div>
 
             <span className="sr-only">{uiContent(locale).loader}</span>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+        </div>
+      ) : null}
     </>
   );
 }
