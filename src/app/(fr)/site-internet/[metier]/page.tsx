@@ -93,7 +93,7 @@ export default async function MetierPage({ params }: Params) {
           name: metier.serviceName,
           description: metier.metaDescription,
           path,
-          price: "490",
+          minPrice: "490",
         })}
       />
       <JsonLd data={faqLd(metier.faq)} />

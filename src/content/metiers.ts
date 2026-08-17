@@ -189,8 +189,8 @@ export const METIERS: readonly Metier[] = [
         body: "Photos de vos plats, de la salle, de l'ambiance : on donne envie de venir avant même de pousser la porte.",
       },
       {
-        title: "Une carte qui évolue sans surcoût",
-        body: "Vous changez de menu chaque saison ? La mise à jour de la carte est comprise dans l'abonnement de 30 €/mois, il suffit de me l'envoyer.",
+        title: "Une carte qui évolue facilement",
+        body: "Vous changez de menu chaque saison ? Avec l'option Sérénité à 30 €/mois, la mise à jour de la carte est comprise : il suffit de me l'envoyer.",
       },
       {
         title: "Réservation et contact simplifiés",
@@ -218,7 +218,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Puis-je changer ma carte régulièrement ?",
         answer:
-          "Oui. La mise à jour de votre carte est comprise dans l'abonnement de 30 €/mois : vous m'envoyez les changements et je les mets en ligne.",
+          "Oui. Si vous prenez l'option Sérénité à 30 €/mois, la mise à jour de votre carte est comprise : vous m'envoyez les changements et je les mets en ligne.",
       },
       {
         question: "Peut-on ajouter la réservation en ligne ?",
@@ -391,8 +391,8 @@ export const METIERS: readonly Metier[] = [
         body: "Photos de la salle, du comptoir, de l'assiette : on retrouve en ligne l'esprit convivial qui fait revenir vos habitués.",
       },
       {
-        title: "Une ardoise qui change sans surcoût",
-        body: "Plat du jour, formule de midi, suggestions : la mise à jour de votre carte est comprise dans l'abonnement de 30 €/mois, il suffit de me l'envoyer.",
+        title: "Une ardoise qui change facilement",
+        body: "Plat du jour, formule de midi, suggestions : avec l'option Sérénité à 30 €/mois, la mise à jour de votre carte est comprise, il suffit de me l'envoyer.",
       },
       {
         title: "Réservation et contact simplifiés",
@@ -420,7 +420,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Puis-je changer mon ardoise et mes formules régulièrement ?",
         answer:
-          "Oui. La mise à jour de votre carte et de votre plat du jour est comprise dans l'abonnement de 30 €/mois : vous m'envoyez les changements et je les mets en ligne.",
+          "Oui. Si vous prenez l'option Sérénité à 30 €/mois, la mise à jour de votre carte et de votre plat du jour est comprise : vous m'envoyez les changements et je les mets en ligne.",
       },
       {
         question: "Peut-on ajouter la réservation en ligne ?",
