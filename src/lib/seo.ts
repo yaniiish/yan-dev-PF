@@ -18,6 +18,30 @@ import { languageAlternates, type RouteKey } from "@/lib/routes";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://yan-dev.fr";
 
+/**
+ * Images OpenGraph figées dans `public/`, une par langue (1200x630).
+ *
+ * Elles remplacent les anciennes routes `opengraph-image.tsx` : celles-ci
+ * servaient l'image sous un chemin haché, donc instable, ce qui laissait
+ * `ProfessionalService.image` pointer vers un 404 et privait de vignette les
+ * 10 pages qui n'utilisent pas la convention de fichier.
+ *
+ * Pour les regénérer après un changement de copy : voir l'entête de
+ * `src/lib/og.tsx`.
+ */
+export const OG_IMAGE: Record<Locale, string> = {
+  fr: "/og-image.png",
+  en: "/og-image-en.png",
+};
+
+export const OG_IMAGE_SIZE = { width: 1200, height: 630 };
+
+/** Doit décrire ce que l'image affiche réellement. */
+export const OG_IMAGE_ALT: Record<Locale, string> = {
+  fr: "Yan-dev : sites web créatifs et produits digitaux, freelance à Caen",
+  en: "Yan-dev: creative websites and digital products, freelance in Caen, France",
+};
+
 type ProfessionalServiceCopy = {
   description: string;
   offers: {
@@ -30,8 +54,10 @@ type ProfessionalServiceCopy = {
 
 const PROFESSIONAL_SERVICE_COPY: Record<Locale, ProfessionalServiceCopy> = {
   fr: {
+    // Doit rester cohérente avec les 4 `makesOffer` ci-dessous : c'est la
+    // phrase que les moteurs de réponse lisent pour définir l'entité.
     description:
-      "Studio web freelance basé à Caen. Sites vitrines modernes pour artisans, commerçants et indépendants partout en France.",
+      "Développeur web indépendant basé à Caen. Sites vitrines, sites créatifs sur mesure et produits digitaux, pour des clients partout en France.",
     offers: {
       vitrine: {
         name: "Site vitrine",
@@ -57,7 +83,7 @@ const PROFESSIONAL_SERVICE_COPY: Record<Locale, ProfessionalServiceCopy> = {
   },
   en: {
     description:
-      "Independent web studio based in Caen, France. Modern websites for makers, shop owners and small businesses, anywhere.",
+      "Independent web developer based in Caen, France. Business websites, bespoke creative sites and digital products, for clients anywhere.",
     offers: {
       vitrine: {
         name: "Business site",
@@ -100,7 +126,7 @@ export function professionalServiceLd(locale: Locale) {
     name: SITE_NAME,
     description: copy.description,
     url: SITE_URL,
-    image: `${SITE_URL}/opengraph-image`,
+    image: `${SITE_URL}${OG_IMAGE[locale]}`,
     priceRange: "€€",
     areaServed: [
       { "@type": "City", name: "Caen" },
@@ -196,8 +222,17 @@ type BuildMetadataInput = {
    * déclarer un alternate anglais qui n'existe pas serait une erreur.
    */
   routeKey?: RouteKey;
-  /** Image OG absolue ou relative. Défaut : OG dynamique du route group. */
+  /** Image OG absolue ou relative. Défaut : l'image figée de la locale. */
   image?: string;
+  /**
+   * Neutralise le suffixe « | Yan-dev » du template de layout.
+   *
+   * À utiliser sur les pages dont le titre porte déjà une requête longue
+   * (fiches métier, index métiers, page prix) : le suffixe leur coûtait 10
+   * caractères et poussait le titre au-delà de la limite d'affichage, tronquant
+   * l'argument de clic (« dès 490 € ») plutôt que la marque.
+   */
+  titleAbsolute?: boolean;
 };
 
 /**
@@ -212,12 +247,17 @@ export function buildMetadata({
   locale,
   routeKey,
   image,
+  titleAbsolute,
 }: BuildMetadataInput): Metadata {
   const url = new URL(path, SITE_URL).toString();
-  const images = image ? [{ url: image }] : undefined;
+  // Repli sur l'image figée de la locale : sans lui, toute page construite par
+  // ce helper partait sans vignette sociale (l'objet `openGraph` explicite
+  // ci-dessous prend le pas sur toute convention de fichier).
+  const ogImage = image ?? OG_IMAGE[locale];
+  const images = [{ url: ogImage, ...OG_IMAGE_SIZE }];
 
   return {
-    title,
+    title: titleAbsolute ? { absolute: title } : title,
     description,
     alternates: {
       canonical: path,
@@ -230,13 +270,13 @@ export function buildMetadata({
       siteName: SITE_NAME,
       title: `${title} | ${SITE_NAME}`,
       description,
-      ...(images ? { images } : {}),
+      images,
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} | ${SITE_NAME}`,
       description,
-      ...(image ? { images: [image] } : {}),
+      images: [ogImage],
     },
   };
 }

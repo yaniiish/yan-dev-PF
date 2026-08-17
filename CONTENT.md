@@ -10,12 +10,30 @@
 > Source de vérité en code : `src/app/(fr)/layout.tsx` et `src/app/(en)/layout.tsx`.
 
 - **Nom commercial :** Yan-dev
-- **Title FR par défaut :** `Yan-dev : création de sites vitrines modernes | Freelance à Caen`
-- **Description FR :**
-  > *"Studio web freelance basé à Caen, opérant partout en France. Sites vitrines modernes et rapides pour artisans, commerçants et indépendants : du site simple au site premium sur mesure. À partir de 490 €."*
-- **Title EN par défaut :** `Yan-dev: modern websites for small businesses | Freelance in France`
+- **Title FR par défaut (60 car.) :** `Développeur web freelance à Caen, sites et produits digitaux`
+- **Description FR (154 car.) :**
+  > *"Sites vitrines dès 490 €, sites créatifs sur mesure et produits digitaux. Développeur indépendant à Caen, en direct sans intermédiaire, partout en France."*
+- **Title EN par défaut (59 car.) :** `Freelance web developer in France: web and digital products`
+- **Description EN (149 car.) :**
+  > *"Business websites from €490, bespoke creative sites and digital products. Independent developer based in Caen, France, working with clients anywhere."*
+- **Titre OG et Twitter FR :** `Yan-dev : sites web créatifs et produits digitaux` (EN : `Yan-dev: creative websites and digital products`)
 
-> **[À ARBITRER] Décalage de positionnement.** Ce title et cette description datent d'avant la refonte : ils vendent un « studio web » de sites vitrines, avec un vocabulaire « site premium » qui n'existe plus dans l'offre (les trois piliers sont désormais site vitrine, site créatif, produit digital). Le H1 de la home, lui, porte le nouveau positionnement. Conséquence : le snippet affiché dans Google ne correspond pas au site que le visiteur découvre en arrivant. À reprendre lors du chantier SEO, en gardant `Caen` dans le title (cf. `SEO.md` §2, règle d'or géographique).
+> **Arbitrage retenu (2026-08-17) : « équilibré ».** Le métier et la ville ouvrent le title (ancrage local, `SEO.md` §2), les trois piliers suivent. L'ancienne version vendait un « studio web » de sites vitrines avec un vocabulaire « site premium » disparu de l'offre, pendant que le H1 portait déjà le nouveau positionnement : le snippet Google ne correspondait plus au site.
+>
+> **Règles de longueur (`SEO.md` §3) :** title 50 à 60 caractères, description 140 à 160, **template `| Yan-dev` compris**. Ce suffixe coûte 10 caractères : les pages dont le titre porte déjà une requête longue (fiches métier, index métiers, page prix) le neutralisent via `titleAbsolute: true` dans `buildMetadata`, plutôt que de sacrifier l'argument de clic « dès 490 € ». Toutes les pages ont été ramenées dans ces bornes, mesurées sur le HTML rendu.
+>
+> **Pas de `<meta name="keywords">`** : les deux blocs ont été supprimés des layouts (sans effet, signal de spam).
+
+### Image OpenGraph
+
+Figée en PNG 1200x630 : `public/og-image.png` (FR) et `public/og-image-en.png` (EN), déclarées via `OG_IMAGE` dans `src/lib/seo.ts` et utilisées par défaut par `buildMetadata`.
+
+- **Kicker :** `01 / Développeur indépendant` (EN : `01 / Independent developer`)
+- **Titre :** `Sites web créatifs &` puis `produits digitaux.` souligné (EN : `Creative websites &` puis `digital products.`)
+- **Lead :** `Du site vitrine au produit digital sur mesure. Basé à Caen, projets partout en France.`
+- **Bas de carte :** `Disponible actuellement` et `Site vitrine dès 490 €`
+
+> Les routes `opengraph-image.tsx` ont été supprimées : elles servaient l'image sous un chemin haché, donc instable, ce qui laissait `ProfessionalService.image` en 404 et privait de vignette les 10 pages n'utilisant pas la convention de fichier. La procédure de regénération est documentée dans l'entête de `src/lib/og.tsx`. **Toute modification de la copy OG impose de regénérer les deux PNG**, sinon l'image et le texte divergent.
 
 ---
 

@@ -6,7 +6,13 @@ import { HTML_LANG } from "@/content/locales";
 import { uiContent } from "@/content/ui";
 import { fontVariables } from "@/lib/fonts";
 import { languageAlternates } from "@/lib/routes";
-import { professionalServiceLd, SITE_URL } from "@/lib/seo";
+import {
+  OG_IMAGE,
+  OG_IMAGE_ALT,
+  OG_IMAGE_SIZE,
+  professionalServiceLd,
+  SITE_URL,
+} from "@/lib/seo";
 import "../globals.css";
 
 /**
@@ -20,12 +26,15 @@ import "../globals.css";
 
 const LOCALE = "fr" as const;
 
+// Le title garde l'ancrage « Caen » (règle d'or géographique, SEO.md §2) et
+// annonce les trois piliers. Longueurs calées sur SEO.md §3 : title 60 car,
+// description 154 car, donc affichées en entier dans les résultats.
 const TITLE_DEFAULT =
-  "Yan-dev : création de sites vitrines modernes | Freelance à Caen";
+  "Développeur web freelance à Caen, sites et produits digitaux";
 const DESCRIPTION =
-  "Studio web freelance basé à Caen, opérant partout en France. Sites vitrines modernes et rapides pour artisans, commerçants et indépendants : du site simple au site premium sur mesure. À partir de 490 €.";
+  "Sites vitrines dès 490 €, sites créatifs sur mesure et produits digitaux. Développeur indépendant à Caen, en direct sans intermédiaire, partout en France.";
 const OG_DESCRIPTION =
-  "Sites vitrines modernes pour artisans, commerçants et indépendants. Basé à Caen, j'opère partout en France. SEO local inclus. À partir de 490 €.";
+  "Sites vitrines dès 490 €, sites créatifs et produits digitaux. Développeur indépendant à Caen, projets partout en France.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -34,16 +43,6 @@ export const metadata: Metadata = {
     template: "%s | Yan-dev",
   },
   description: DESCRIPTION,
-  keywords: [
-    "création site internet Caen",
-    "site vitrine Caen",
-    "site vitrine Calvados",
-    "développeur web freelance Caen",
-    "site web artisan",
-    "site internet commerçant",
-    "freelance site web one page",
-    "site vitrine sur mesure",
-  ],
   authors: [{ name: "Yan", url: SITE_URL }],
   creator: "Yan",
   publisher: "Yan-dev",
@@ -56,14 +55,17 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: SITE_URL,
     siteName: "Yan-dev",
-    title: "Yan-dev : sites vitrines modernes | Freelance à Caen",
+    title: "Yan-dev : sites web créatifs et produits digitaux",
     description: OG_DESCRIPTION,
+    images: [
+      { url: OG_IMAGE.fr, ...OG_IMAGE_SIZE, alt: OG_IMAGE_ALT.fr },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yan-dev : sites vitrines modernes",
-    description:
-      "Sites vitrines clairs et rapides pour commerçants et indépendants. Freelance à Caen.",
+    title: "Yan-dev : sites web créatifs et produits digitaux",
+    description: OG_DESCRIPTION,
+    images: [OG_IMAGE.fr],
   },
   // Indexation ouverte depuis la mise en ligne sur yan-dev.fr (Phase 3.3).
   robots: { index: true, follow: true },

@@ -162,7 +162,7 @@ const CONTENT: Record<Locale, PricingContent> = {
     page: {
       metaTitle: "Prix d'un site vitrine : combien ça coûte ? Dès 490 €",
       metaDescription:
-        "Le prix d'un site vitrine professionnel : à partir de 490 €, avec une option de suivi à 30 €/mois. Tarifs clairs, sans devis à rallonge ni frais cachés. Freelance à Caen, partout en France.",
+        "Le prix d'un site vitrine : à partir de 490 €, option de suivi à 30 €/mois. Tarifs clairs, sans devis à rallonge ni frais cachés. Freelance à Caen.",
       breadcrumbLabel: "Prix d'un site vitrine",
       breadcrumbHome: "Accueil",
       serviceName: "Création de site vitrine",
@@ -295,7 +295,7 @@ const CONTENT: Record<Locale, PricingContent> = {
     page: {
       metaTitle: "How much does a business website cost? From €490",
       metaDescription:
-        "What a professional business website costs: from €490, with an optional €30/month care plan. Clear pricing, no endless quotes, no hidden fees. Independent developer based in Caen, France.",
+        "What a business website costs: from €490, with an optional €30/month care plan. Clear pricing, no endless quotes, no hidden fees. Based in Caen, France.",
       breadcrumbLabel: "Website pricing",
       breadcrumbHome: "Home",
       serviceName: "Business website design",

@@ -48,9 +48,9 @@ type SiteContent = {
 
 const CONTENT: Record<Locale, SiteContent> = {
   fr: {
-    tagline: "Studio web indépendant, basé à Caen",
+    tagline: "Développeur web indépendant, basé à Caen",
     description:
-      "Studio web freelance basé à Caen, opérant partout en France. Sites vitrines modernes et rapides pour artisans, commerçants et indépendants : du site simple au site premium sur mesure.",
+      "Développeur web indépendant basé à Caen, opérant partout en France. Sites vitrines, sites créatifs sur mesure et produits digitaux.",
     navLinks: [
       { id: "hero", label: "Accueil", href: "#hero" },
       { id: "travail", label: "Mon travail", href: "#travail" },
@@ -69,9 +69,9 @@ const CONTENT: Record<Locale, SiteContent> = {
     },
   },
   en: {
-    tagline: "Independent web studio, based in Caen, France",
+    tagline: "Independent web developer, based in Caen, France",
     description:
-      "Independent web studio based in Caen, France, working with clients anywhere. Fast, modern websites for makers, shop owners and small businesses: from a simple one-pager to a fully bespoke premium site.",
+      "Independent web developer based in Caen, France, working with clients anywhere. Business websites, bespoke creative sites and digital products.",
     navLinks: [
       { id: "hero", label: "Home", href: "#hero" },
       { id: "travail", label: "My work", href: "#travail" },

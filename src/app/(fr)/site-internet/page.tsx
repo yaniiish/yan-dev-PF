@@ -21,6 +21,7 @@ export const metadata: Metadata = buildMetadata({
   title: METIERS_PAGE.metaTitle,
   description: METIERS_PAGE.metaDescription,
   path: METIERS_PAGE.path,
+  titleAbsolute: true,
 });
 
 const H2_CLASSES =
