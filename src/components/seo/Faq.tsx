@@ -2,8 +2,6 @@
 
 import { useId, useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { easings } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export type FaqItem = { question: string; answer: string };
@@ -11,11 +9,19 @@ export type FaqItem = { question: string; answer: string };
 /**
  * Accordéon FAQ réutilisable. Le JSON-LD FAQPage est injecté séparément
  * côté page serveur via faqLd() (mêmes items).
+ *
+ * IMPORTANT : les réponses sont TOUJOURS rendues dans le DOM, et seulement
+ * repliées visuellement (grid-template-rows 0fr → 1fr). Ne pas revenir à un
+ * montage conditionnel : le JSON-LD FAQPage affirme ces réponses, et Google
+ * exige que le contenu balisé soit présent dans la page. C'est aussi ce qui
+ * rend ces réponses lisibles par les moteurs de réponse, qui ne cliquent pas.
+ *
+ * `inert` retire le panneau replié du tab order et de l'arbre d'accessibilité
+ * sans le retirer du HTML servi.
  */
 export function Faq({ items }: { items: ReadonlyArray<FaqItem> }) {
   const [openIndex, setOpenIndex] = useState<number>(-1);
   const baseId = useId();
-  const reduceMotion = useReducedMotion();
 
   function toggle(index: number) {
     setOpenIndex((current) => (current === index ? -1 : index));
@@ -65,33 +71,25 @@ export function Faq({ items }: { items: ReadonlyArray<FaqItem> }) {
               </button>
             </h3>
 
-            <AnimatePresence initial={false}>
-              {isOpen ? (
-                <motion.div
-                  key="panel"
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={headerId}
-                  initial={
-                    reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }
-                  }
-                  animate={
-                    reduceMotion
-                      ? { opacity: 1 }
-                      : { height: "auto", opacity: 1 }
-                  }
-                  exit={reduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3, ease: easings.out }}
-                  className="overflow-hidden"
-                >
-                  <div className="border-t border-ink-300/60 px-5 py-5 md:px-6 md:py-6">
-                    <p className="text-base leading-relaxed text-ink-700">
-                      {item.answer}
-                    </p>
-                  </div>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
+            <div
+              id={panelId}
+              role="region"
+              aria-labelledby={headerId}
+              inert={!isOpen}
+              className={cn(
+                "grid transition-[grid-template-rows] duration-300 ease-out",
+                "motion-reduce:transition-none",
+                isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
+              )}
+            >
+              <div className="min-h-0 overflow-hidden">
+                <div className="border-t border-ink-300/60 px-5 py-5 md:px-6 md:py-6">
+                  <p className="text-base leading-relaxed text-ink-700">
+                    {item.answer}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         );
       })}
