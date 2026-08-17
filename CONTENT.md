@@ -106,7 +106,9 @@ Placé **dans le hero, entre le lead et les CTA**. Hiérarchie en trois niveaux 
 
 ### Animations d'entrée du hero
 
-Déclenchées par la sortie de l'écran de chargement (hook `useSiteLoaded`), pas au scroll : en `whileInView` elles se jouaient derrière l'overlay et personne ne les voyait.
+Jouées **au montage** (`initial="hidden"` / `animate="show"`), pas au scroll. Elles étaient auparavant déclenchées par la sortie de l'écran de chargement ; celui-ci a été retiré le 2026-08-17 (constat P2-4 de l'audit : il masquait la page 1 à 2,2 s à chaque visite, sur toutes les URLs, y compris pour un visiteur arrivant en organique sur une fiche métier).
+
+> Un `<noscript>` dans les deux root layouts neutralise l'état initial de Motion sur `#hero`. Sans lui, un visiteur sans JavaScript verrait la page amputée de son H1, celui-ci étant servi avec `translateY(110%)` dans un conteneur `overflow-hidden`.
 
 Séquence, stagger 0.09s : les deux lignes du H1 montent derrière un masque (`overflow-hidden`, translation Y 110% → 0), puis le lead, puis les CTA, puis la card. `useReducedMotion` dégrade tout en simple fondu.
 

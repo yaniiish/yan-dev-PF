@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
-import { SiteLoader } from "@/components/layout/SiteLoader";
 import { HTML_LANG } from "@/content/locales";
 import { uiContent } from "@/content/ui";
 import { fontVariables } from "@/lib/fonts";
@@ -101,7 +100,11 @@ export default function FrRootLayout({
         // niveau et ignore ces attributs externes. Sans effet sur le rendu.
         suppressHydrationWarning
       >
-        <SiteLoader locale={LOCALE} />
+        {/* Sans JS, Motion ne joue jamais l'entrée du Hero et son état
+            initial resterait appliqué : le H1 serait invisible. */}
+        <noscript>
+          <style>{`#hero * { transform: none !important; opacity: 1 !important; }`}</style>
+        </noscript>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-ink-950 focus:px-4 focus:py-2 focus:text-ink-50 focus:outline-2 focus:outline-offset-2 focus:outline-mint-700"

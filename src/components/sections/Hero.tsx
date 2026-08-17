@@ -8,12 +8,10 @@ import { Card } from "@/components/ui/Card";
 import { heroContent } from "@/content/hero";
 import type { Locale } from "@/content/locales";
 import { durations, easings } from "@/lib/motion";
-import { useSiteLoaded } from "@/lib/useSiteLoaded";
 import { cn } from "@/lib/utils";
 
 export function Hero({ locale }: { locale: Locale }) {
   const content = heroContent(locale);
-  const isLoaded = useSiteLoaded();
   const reduce = useReducedMotion();
 
   // Orchestration : le titre monte ligne par ligne, puis le lead, les CTA et
@@ -72,11 +70,14 @@ export function Hero({ locale }: { locale: Locale }) {
           fill="color-mix(in oklch, var(--color-ink-300) 50%, transparent)"
         />
 
+        {/* L'entrée se joue au montage. Elle était auparavant déclenchée par
+            la sortie de l'écran de chargement ; celui-ci ayant été retiré, il
+            n'y a plus rien à attendre. */}
         <motion.div
           className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-10 lg:px-16"
           variants={container}
-          initial={false}
-          animate={isLoaded ? "show" : "hidden"}
+          initial="hidden"
+          animate="show"
         >
           {/* Le split ne s'active qu'a partir de lg : en dessous, le H1 sur
               deux lignes ne tient pas dans une colonne 7/12. */}
