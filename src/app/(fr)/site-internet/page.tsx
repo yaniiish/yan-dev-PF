@@ -74,6 +74,50 @@ export default function MetiersIndexPage() {
       <section className="py-16 md:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
           <FadeIn>
+            <SectionLabel>{METIERS_PAGE.contenuLabel}</SectionLabel>
+            <h2 className={H2_CLASSES}>{METIERS_PAGE.contenuTitle}</h2>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-700">
+              {METIERS_PAGE.contenuLead}
+            </p>
+          </FadeIn>
+
+          <Stagger
+            className="mt-10 grid grid-cols-1 gap-6 md:mt-12 md:grid-cols-2 lg:gap-8"
+            staggerChildren={0.12}
+          >
+            {METIERS_PAGE.contenuItems.map((item) => (
+              <FadeIn key={item.title} inside y={24}>
+                <div className="h-full rounded-3xl border border-ink-300/60 bg-card p-6 shadow-sm md:p-7">
+                  <h3 className="font-serif text-xl font-medium leading-tight text-ink-950">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-base leading-relaxed text-ink-700">
+                    {item.body}
+                  </p>
+                </div>
+              </FadeIn>
+            ))}
+          </Stagger>
+
+          <FadeIn>
+            <h2 className={`${H2_CLASSES} mt-16 md:mt-20`}>
+              {METIERS_PAGE.metierTitle}
+            </h2>
+            {METIERS_PAGE.metierBody.map((paragraph) => (
+              <p
+                key={paragraph}
+                className="mt-5 max-w-3xl text-base leading-relaxed text-ink-700"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </FadeIn>
+        </div>
+      </section>
+
+      <section className="pb-16 md:pb-20 lg:pb-24">
+        <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
+          <FadeIn>
             <SectionLabel>{METIERS_PAGE.gridLabel}</SectionLabel>
             <h2 className={H2_CLASSES}>{METIERS_PAGE.gridTitle}</h2>
           </FadeIn>

@@ -399,7 +399,13 @@ Réutilise les trois cartes validées (`Site vitrine` dès 490 € avec option S
 >
 > **7 métiers en ligne** (FR uniquement, cf. `SEO.md` §7) : coffee shop, restaurant, boulangerie, architecte d'intérieur, bistrot et brasserie, tatoueur, brasserie artisanale.
 >
-> **Point de vigilance duplication :** la réponse à la question prix et la question « Je ne suis pas à Caen, c'est possible ? » sont aujourd'hui **identiques mot pour mot sur les 7 fiches**, soit la moitié de chaque FAQ. Toute nouvelle fiche doit apporter des questions réellement spécifiques au métier.
+> **Duplication traitée le 2026-08-17 (constat P1-6 de l'audit).** La réponse à la question prix et la question « Je ne suis pas à Caen, c'est possible ? » étaient identiques mot pour mot sur les 7 fiches, soit la moitié de chaque FAQ. Les 14 textes ont été différenciés :
+> - **Réponse prix** : les faits ne changent pas (dès 490 €, tarif variable, option Sérénité facultative à 30 €/mois) mais chaque fiche explique ce qui fait varier le prix **pour ce métier** (l'ampleur de la galerie pour un tatoueur, le nombre de projets pour un architecte, la taille de la gamme pour une brasserie).
+> - **Question sur la distance** : formulation et réponse propres à chaque métier, en conservant l'information utile (travail à distance, référencement sur la ville du client).
+>
+> Il reste environ 97 mots communs aux 7 fiches, mais ce sont désormais des **libellés de navigation** (fil d'ariane, bloc « À voir aussi », CTA, rappel tarif, baseline du footer), pas du contenu rédactionnel. C'est incompressible et légitime.
+>
+> **Toute nouvelle fiche doit apporter des questions et des réponses réellement spécifiques au métier.** Ne jamais recopier le bloc FAQ d'une fiche existante en changeant seulement le nom du métier.
 
 ### Coffee shop (`/site-internet/coffee-shop`)
 Cible aussi `site internet café`. Devanture (vignette de la grille index) : Lumio `https://lumio-coffee.vercel.app/` (visuel `/projects/lumio.png`). Section exemple de l'article : carrousel de deux exemples, Lumio puis GreenCP `https://greencp-test.vercel.app/` (visuel `/projects/coffee.png`).
@@ -529,14 +535,16 @@ Angle de différenciation vs bistrot et brasserie : ici on parle de production (
 
 ## 13. Page index métiers `/site-internet` (landing « tous métiers »)
 
-> Landing SEO large (cible `site internet commerçant / artisan`) + hub des pages métier. Source : `METIERS_PAGE` dans `src/content/metiers.ts`. Le fil d'ariane des pages métier passe à 3 niveaux (`Accueil › Sites internet par métier › métier`).
+> Landing SEO large (cible `site internet commerçant / artisan`) + hub des pages métier. La page ne faisait qu'environ 130 mots pour un titre à intention commerciale forte : c'était le principal risque de contenu mince du site. Portée à environ 520 mots le 2026-08-17. Ne pas y ajouter de contenu géographique (pas de pages ni de listes de villes, cf. `SEO.md` §10). Source : `METIERS_PAGE` dans `src/content/metiers.ts`. Le fil d'ariane des pages métier passe à 3 niveaux (`Accueil › Sites internet par métier › métier`).
 
 - **Meta title :** `Création de site internet pour commerçants et artisans, dès 490 €`
 - **Meta description :** `Un site vitrine moderne pour votre commerce, quel que soit votre métier : visibilité sur Google, infos à jour, dès 490 €. Exemples par métier. Freelance à Caen, partout en France.`
 - **Fil d'ariane :** `Accueil › Sites internet par métier`
 - **H1 :** `Un site internet pour votre métier`
 - **Chapô :** `Coffee shop, restaurant, boulangerie ou toute autre activité : je conçois des sites vitrines clairs et modernes, adaptés à votre métier, qui vous rendent visible sur Google. Dès 490 €.`
-- **Grille :** une carte par métier (visuel + nom), lien vers chaque page métier.
+- **Bloc « Le principe » (ajouté le 2026-08-17, constat P1-6) :** H2 `Ce que contient un site vitrine de commerçant`, chapô, puis 4 cartes (H3) : `Vos informations pratiques`, `Ce que vous proposez`, `Des photos de votre univers`, `Un moyen simple de vous joindre`. Contenu commun à tous les métiers, sans doublon avec les fiches.
+- **Bloc « Ce qui change d'un métier à l'autre » :** H2 + 2 paragraphes expliquant où se déplace l'accent selon l'activité (carte et réservation pour un restaurant, portfolio pour un architecte, gamme et points de vente pour une brasserie), et introduisant la grille.
+- **Grille :** une carte par métier (visuel + nom en **H3**), lien vers chaque page métier.
 - **Bloc « tous métiers » (clôture, point clé demandé par Yan) :** titre `Votre métier n'est pas dans la liste ?`, texte `Ce ne sont que des exemples. Je conçois un site pour n'importe quelle activité : artisan, indépendant, profession libérale, association... Le principe reste le même, adapté à vos besoins.`, boutons `Parler de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
 - **Footer :** la colonne `Ressources` liste désormais `Prix d'un site vitrine` + un seul lien `Tous les métiers` (→ `/site-internet`), au lieu de lister chaque métier.
 
