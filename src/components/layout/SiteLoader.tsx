@@ -6,14 +6,14 @@ import { BGPattern } from "@/components/backgrounds/BGPattern";
 import type { Locale } from "@/content/locales";
 import { uiContent } from "@/content/ui";
 import { easings } from "@/lib/motion";
-import { SITE_LOADED_ATTRIBUTE, SITE_LOADED_EVENT } from "@/lib/useSiteLoaded";
+import { SITE_LOADED_ATTRIBUTE, SITE_LOADED_EVENT } from "@/lib/siteLoaded";
 
 /**
  * Durée plancher : évite un flash de 80ms quand la page est déjà en cache.
  * Doit rester alignée sur `--loader-intro` (globals.css) pour que le tracé du
  * logo et la barre finissent au moment exact où l'écran sort.
  */
-const MIN_DURATION_MS = 1000;
+const MIN_DURATION_MS = 600;
 /** Filet de sécurité : on ne bloque jamais l'écran plus longtemps que ça. */
 const MAX_DURATION_MS = 2200;
 const REDUCED_DURATION_MS = 300;

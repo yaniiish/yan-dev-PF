@@ -339,6 +339,27 @@ Un seul nœud global, `ProfessionalService`. Aucun `WebSite`. Aucun `@id` : chaq
 ### P2-3 — Aucune page de mentions légales, aucun SIRET nulle part
 `/mentions-legales` renvoie **404**. Grep sur `src/` : aucune occurrence de SIRET ni de forme juridique. SEO.md §3 place l'identifiabilité de l'entité parmi les conditions de citabilité GEO. C'est aussi une obligation légale. **Correction :** créer la page, l'ajouter au sitemap dans le même commit, la lier depuis le footer, référencer le SIRET dans le JSON-LD. Contrainte : pas d'adresse postale complète, pas de téléphone. **Risque : nul en SEO.**
 
+### P2-4 et P2-9 — TRAITÉS le 2026-08-17, avec mesures
+
+> **Mesuré, contrairement à ce que ce rapport pouvait faire.** Lighthouse mobile sur `yan-dev.fr` : performances **90**, accessibilité 97, bonnes pratiques 100, SEO 100. **TBT au maximum du score** : le poids du JavaScript ne pénalise pas l'interactivité, P2-9 est donc classé sans suite en tant que tel.
+>
+> En revanche, l'analyse a montré que le JS était sur le **chemin critique du LCP** : le texte du hero, élément LCP de la page, était peint par Motion, donc après téléchargement et hydratation du bundle.
+>
+> **LCP de la home, médiane sur 3 essais (Playwright, local) :**
+>
+> | | avant | après |
+> |---|---|---|
+> | 1re visite (écran de chargement joué) | 2 856 ms | **720 ms** |
+> | session ayant déjà vu l'écran | 1 988 ms | **592 ms** |
+>
+> **Deux correctifs :** durée de l'écran de chargement ramenée de 1 000 à 600 ms (elle pesait 868 ms de LCP, mesurés), et **entrée du Hero passée de Motion à des animations CSS**, qui démarrent dès l'application de la feuille de style au lieu d'attendre l'hydratation. Le Hero n'est de ce fait plus un composant client.
+>
+> **Ce qui n'a pas bougé :** le poids transféré (335 Ko sur la home), Motion restant chargé par les autres composants clients. C'est cohérent, le gain visé était le délai et non le volume.
+>
+> **Nuance importante :** PageSpeed n'a **aucune donnée de terrain** pour ce site, faute de trafic suffisant. Les Core Web Vitals ne sont donc pas un signal de classement actif ici, et ce chantier relève du confort visiteur plus que du SEO.
+
+---
+
 ### P2-4 — L'écran de chargement bloque la page 1 000 à 2 200 ms sur toutes les URLs
 `src/components/layout/SiteLoader.tsx` : `MIN_DURATION_MS = 1000`, `MAX_DURATION_MS = 2200`, overlay opaque `fixed inset-0 z-[60]`, `body.style.overflow = "hidden"`. Monté dans **les deux** root layouts, donc actif aussi sur les fiches métier. Un `<noscript>` le neutralise sans JS, bon réflexe.
 
