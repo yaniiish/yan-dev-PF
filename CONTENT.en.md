@@ -26,13 +26,16 @@
 
 ## 1. Métadonnées globales — `src/app/(en)/layout.tsx`
 
-- **Title par défaut :** `Yan-dev: modern websites for small businesses | Freelance in France`
+- **Title par défaut (59 car.) :** `Freelance web developer in France: web and digital products`
 - **Template :** `%s | Yan-dev`
-- **Description :** *"Independent web studio based in Caen, France, working with clients anywhere. Fast, modern websites for makers, shop owners and small businesses: from a simple one-pager to a fully bespoke premium site. From €490."*
-- **OG description :** *"Modern websites for makers, shop owners and small businesses. Based in Caen, France, working anywhere. From €490."*
-- **Twitter :** `Yan-dev: modern websites for small businesses` / *"Clear, fast websites for shop owners and independents. Freelance developer based in Caen, France."*
-- **Keywords :** freelance web developer France, website for small business, bespoke website designer, creative developer freelance, one page website freelance, modern business website
-- **Tagline :** `Independent web studio, based in Caen, France`
+- **Description (149 car.) :** *"Business websites from €490, bespoke creative sites and digital products. Independent developer based in Caen, France, working with clients anywhere."*
+- **OG description :** *"Business websites from €490, creative sites and digital products. Independent developer in Caen, France, projects anywhere."*
+- **Twitter :** `Yan-dev: creative websites and digital products` avec la même description que l'OG.
+- **Keywords :** supprimées (cf. `CONTENT.md` §1).
+- **Tagline :** `Independent web developer, based in Caen, France`
+- **Image OG :** `public/og-image-en.png`, figée. Alt : `Yan-dev: creative websites and digital products, freelance in Caen, France`.
+
+> Mise à jour le 2026-08-17 : l'ancienne version vendait un « independent web studio » de sites vitrines pour « makers, shop owners and small businesses », avec un « premium site » disparu de l'offre. L'anglais reste un **confort de lecture, pas un canal SEO** (`SEO.md` §7) : on traduit l'intention du français, on ne cible aucun mot-clé anglais et on n'étend pas le périmètre.
 
 ---
 
@@ -215,9 +218,11 @@ une ligne `Langue : anglais` pour qu'il sache dans quelle langue répondre.
 
 ---
 
-## 11. Image OpenGraph — `src/lib/og.tsx`
+## 11. Image OpenGraph — `src/lib/og.tsx`, figée dans `public/og-image-en.png`
 
-- **Kicker :** `01 / Independent web studio`
-- **Titre :** *"A website that is clear, **modern and fast.**"*
-- **Lead :** *"Websites for makers, shop owners and small businesses. Based in Caen, France, working anywhere."*
-- **Bas de page :** `Available right now` / `From €490`
+- **Kicker :** `01 / Independent developer`
+- **Titre :** *"Creative websites & **digital products.**"*
+- **Lead :** *"From a simple business site to a full digital product. Based in Caen, France, working anywhere."*
+- **Bas de page :** `Available right now` et `Websites from €490`
+
+> L'image n'est plus servie par une route dynamique : elle est figée en PNG 1200x630. Toute modification de cette copy impose de regénérer le PNG, procédure dans l'entête de `src/lib/og.tsx`.

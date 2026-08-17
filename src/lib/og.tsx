@@ -2,9 +2,24 @@ import { ImageResponse } from "next/og";
 import type { Locale } from "@/content/locales";
 
 /**
- * Rendu partagé de l'image OpenGraph (1200×630, ratio standard
- * Facebook/Twitter/LinkedIn). Les deux route groups exposent chacun un
- * `opengraph-image.tsx` mince qui appelle ce rendu avec sa baseline.
+ * Rendu de l'image OpenGraph (1200x630, ratio standard des réseaux sociaux).
+ *
+ * ATTENTION : ce rendu n'est plus servi par une route. Les images sont figées
+ * dans `public/og-image.png` (FR) et `public/og-image-en.png` (EN), déclarées
+ * via `OG_IMAGE` dans `src/lib/seo.ts`. Les anciennes routes
+ * `opengraph-image.tsx` servaient l'image sous un chemin haché, donc instable :
+ * le JSON-LD pointait vers un 404 et 10 pages partaient sans vignette.
+ *
+ * Pour REGENERER les PNG après avoir modifié `OG_COPY` ci-dessous :
+ *   1. recréer temporairement une route `src/app/(fr)/opengraph-image.tsx` qui
+ *      exporte `runtime = "edge"`, `size = OG_SIZE` et appelle `renderOgImage`
+ *   2. `npx next build && npx next start -p 3210`
+ *   3. relever l'URL hachée dans le HTML de `/` puis de `/en`
+ *   4. `curl -o public/og-image.png "<url>"` (idem `og-image-en.png` pour /en)
+ *   5. supprimer la route temporaire, rebuilder
+ *
+ * Piège Satori : tout `div` à plusieurs enfants doit porter un `display`
+ * explicite, sinon le rendu échoue en 500 et l'aperçu social est vide.
  */
 
 export const OG_SIZE = { width: 1200, height: 630 };
@@ -22,22 +37,22 @@ type OgCopy = {
 
 export const OG_COPY: Record<Locale, OgCopy> = {
   fr: {
-    alt: "Yan-dev : studio web freelance à Caen",
-    kicker: "01 / Studio web indépendant",
-    headlinePre: "Un site web clair,",
-    headlineAccent: "moderne et rapide.",
-    lead: "Sites vitrines pour artisans, commerçants et indépendants. Basé à Caen, partout en France.",
+    alt: "Yan-dev : sites web créatifs et produits digitaux, freelance à Caen",
+    kicker: "01 / Développeur indépendant",
+    headlinePre: "Sites web créatifs &",
+    headlineAccent: "produits digitaux.",
+    lead: "Du site vitrine au produit digital sur mesure. Basé à Caen, projets partout en France.",
     availability: "Disponible actuellement",
-    price: "À partir de 490 €",
+    price: "Site vitrine dès 490 €",
   },
   en: {
-    alt: "Yan-dev: independent web studio in Caen, France",
-    kicker: "01 / Independent web studio",
-    headlinePre: "A website that is clear,",
-    headlineAccent: "modern and fast.",
-    lead: "Websites for makers, shop owners and small businesses. Based in Caen, France, working anywhere.",
+    alt: "Yan-dev: creative websites and digital products, freelance in Caen, France",
+    kicker: "01 / Independent developer",
+    headlinePre: "Creative websites &",
+    headlineAccent: "digital products.",
+    lead: "From a simple business site to a full digital product. Based in Caen, France, working anywhere.",
     availability: "Available right now",
-    price: "From €490",
+    price: "Websites from €490",
   },
 };
 

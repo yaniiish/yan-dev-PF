@@ -47,6 +47,7 @@ export async function generateMetadata({
     title: metier.metaTitle,
     description: metier.metaDescription,
     path: metierPath(slug),
+    titleAbsolute: true,
   });
 }
 

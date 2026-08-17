@@ -67,9 +67,9 @@ export const METIERS_PAGE = {
   /** Libellé du lien footer + niveau de fil d'ariane intermédiaire. */
   navLabel: "Tous les métiers",
   breadcrumbLabel: "Sites internet par métier",
-  metaTitle: "Création de site internet pour commerçants et artisans, dès 490 €",
+  metaTitle: "Création de site internet commerçant ou artisan, dès 490 €",
   metaDescription:
-    "Un site vitrine moderne pour votre commerce, quel que soit votre métier : visibilité sur Google, infos à jour, dès 490 €. Exemples par métier. Freelance à Caen, partout en France.",
+    "Un site vitrine moderne pour votre commerce, quel que soit votre métier : visibilité sur Google, infos à jour, dès 490 €. Exemples par métier. Freelance à Caen.",
   h1: "Un site internet pour votre métier",
   lead: "Coffee shop, restaurant, boulangerie ou toute autre activité : je conçois des sites vitrines clairs et modernes, adaptés à votre métier, qui vous rendent visible sur Google. Dès 490 €.",
   gridLabel: "Exemples",
@@ -87,7 +87,7 @@ export const METIERS: readonly Metier[] = [
     serviceName: "Création de site internet pour coffee shop",
     metaTitle: "Création de site internet pour coffee shop, dès 490 €",
     metaDescription:
-      "Un site web moderne pour votre coffee shop ou votre café : carte, horaires, ambiance et visibilité sur Google. Dès 490 €, livré rapidement. Freelance à Caen, partout en France.",
+      "Un site web moderne pour votre coffee shop ou votre café : carte, horaires, ambiance et visibilité sur Google. Dès 490 €, livré rapidement. Freelance à Caen.",
     breadcrumbLabel: "Site internet pour coffee shop",
     h1: "Un site internet pour votre coffee shop",
     lead: "Votre coffee shop mérite mieux qu'une simple page Instagram. Un site clair qui met en avant votre carte, votre ambiance et vos horaires, et qui vous rend visible sur Google quand on cherche un café dans le coin. Dès 490 €.",
@@ -174,7 +174,7 @@ export const METIERS: readonly Metier[] = [
     serviceName: "Création de site internet pour restaurant",
     metaTitle: "Création de site internet pour restaurant, dès 490 €",
     metaDescription:
-      "Un site web moderne pour votre restaurant : carte, horaires, réservation et visibilité sur Google. Changement de carte compris dans l'option de suivi. Dès 490 €. Freelance à Caen, partout en France.",
+      "Un site moderne pour votre restaurant : carte, horaires, réservation, visibilité sur Google. Changement de carte compris dans l'option Sérénité. Dès 490 €.",
     breadcrumbLabel: "Site internet pour restaurant",
     h1: "Un site internet pour votre restaurant",
     lead: "Vos clients regardent votre carte et vos horaires en ligne avant de réserver. Un site clair et moderne les rassure, met l'eau à la bouche et vous rend visible sur Google quand on cherche où manger dans le coin. Dès 490 €.",
@@ -241,7 +241,7 @@ export const METIERS: readonly Metier[] = [
     serviceName: "Création de site internet pour boulangerie",
     metaTitle: "Création de site internet pour boulangerie, dès 490 €",
     metaDescription:
-      "Un site web moderne pour votre boulangerie : produits, horaires, commandes et visibilité sur Google. Dès 490 €, livré rapidement. Freelance à Caen, partout en France.",
+      "Un site web moderne pour votre boulangerie : produits, horaires, commandes et visibilité sur Google. Dès 490 €, livré rapidement. Freelance à Caen.",
     breadcrumbLabel: "Site internet pour boulangerie",
     h1: "Un site internet pour votre boulangerie",
     lead: "Vos clients cherchent vos horaires, vos produits et savoir si vous prenez les commandes avant de passer. Un site clair les renseigne et vous rend visible sur Google quand on cherche une boulangerie dans le coin. Dès 490 €.",
@@ -306,9 +306,9 @@ export const METIERS: readonly Metier[] = [
     slug: "architecte-interieur",
     navLabel: "Architecte d'intérieur",
     serviceName: "Création de site internet pour architecte d'intérieur",
-    metaTitle: "Création de site internet pour architecte d'intérieur, dès 490 €",
+    metaTitle: "Création de site pour architecte d'intérieur, dès 490 €",
     metaDescription:
-      "Un site web soigné pour architecte ou décorateur d'intérieur : portfolio de vos réalisations, identité forte et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.",
+      "Un site web soigné pour architecte ou décorateur d'intérieur : portfolio de vos réalisations, identité forte et visibilité sur Google. Dès 490 €.",
     breadcrumbLabel: "Site internet pour architecte d'intérieur",
     h1: "Un site internet pour votre activité d'architecte d'intérieur",
     lead: "Pour un architecte d'intérieur, le site n'est pas un détail : c'est la première preuve de votre sens du design. Un site clair, épuré et soigné met en valeur vos réalisations, inspire confiance et vous rend visible sur Google quand on cherche un architecte ou un décorateur d'intérieur. Dès 490 €.",
@@ -374,9 +374,9 @@ export const METIERS: readonly Metier[] = [
     slug: "bistrot-brasserie",
     navLabel: "Bistrot et brasserie",
     serviceName: "Création de site internet pour bistrot et brasserie",
-    metaTitle: "Création de site internet pour bistrot ou brasserie, dès 490 €",
+    metaTitle: "Création de site pour bistrot ou brasserie, dès 490 €",
     metaDescription:
-      "Un site web convivial pour votre bistrot ou brasserie : ardoise du jour, formules, horaires et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.",
+      "Un site web convivial pour votre bistrot ou brasserie : ardoise du jour, formules, horaires et visibilité sur Google. Dès 490 €. Freelance à Caen.",
     breadcrumbLabel: "Site internet pour bistrot ou brasserie",
     h1: "Un site internet pour votre bistrot ou brasserie",
     lead: "Un bon bistrot se vit autant qu'il se mange. Un site clair et chaleureux met en avant votre ardoise du jour, vos formules et votre ambiance, et vous rend visible sur Google quand on cherche un bistrot ou une brasserie dans le coin. Dès 490 €.",
@@ -443,7 +443,7 @@ export const METIERS: readonly Metier[] = [
     serviceName: "Création de site internet pour tatoueur",
     metaTitle: "Création de site internet pour tatoueur, dès 490 €",
     metaDescription:
-      "Un site web à l'image de votre studio de tatouage : galerie de vos réalisations, univers, prise de rendez-vous et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.",
+      "Un site web à l'image de votre studio de tatouage : galerie de vos réalisations, univers, prise de rendez-vous et visibilité sur Google. Dès 490 €.",
     breadcrumbLabel: "Site internet pour tatoueur",
     h1: "Un site internet pour votre activité de tatoueur",
     lead: "Pour un tatoueur, le site est le prolongement de votre univers : c'est là qu'on juge votre style avant de vous confier sa peau. Un site à votre image met en valeur votre galerie, affirme votre identité et vous rend visible sur Google quand on cherche un tatoueur dans le coin. Dès 490 €.",
@@ -509,9 +509,9 @@ export const METIERS: readonly Metier[] = [
     slug: "brasserie-artisanale",
     navLabel: "Brasserie artisanale",
     serviceName: "Création de site internet pour brasserie artisanale",
-    metaTitle: "Création de site internet pour brasserie artisanale, dès 490 €",
+    metaTitle: "Création de site pour brasserie artisanale, dès 490 €",
     metaDescription:
-      "Un site web moderne pour votre brasserie artisanale : gamme de bières, savoir-faire, points de vente et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.",
+      "Un site web moderne pour votre brasserie artisanale : gamme de bières, savoir-faire, points de vente et visibilité sur Google. Dès 490 €. Freelance à Caen.",
     breadcrumbLabel: "Site internet pour brasserie artisanale",
     h1: "Un site internet pour votre brasserie artisanale",
     lead: "Votre bière se boit d'abord avec les yeux. Un site clair et soigné présente votre gamme, raconte votre savoir-faire et indique où vous trouver, tout en vous rendant visible sur Google quand on cherche une bière artisanale ou une brasserie dans la région. Dès 490 €.",

@@ -12,6 +12,7 @@ export const metadata: Metadata = buildMetadata({
   path: route("pricing", LOCALE),
   locale: LOCALE,
   routeKey: "pricing",
+  titleAbsolute: true,
 });
 
 export default function PrixSiteVitrinePage() {

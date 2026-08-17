@@ -6,7 +6,13 @@ import { HTML_LANG, OG_LOCALE } from "@/content/locales";
 import { uiContent } from "@/content/ui";
 import { fontVariables } from "@/lib/fonts";
 import { languageAlternates, ROUTES } from "@/lib/routes";
-import { professionalServiceLd, SITE_URL } from "@/lib/seo";
+import {
+  OG_IMAGE,
+  OG_IMAGE_ALT,
+  OG_IMAGE_SIZE,
+  professionalServiceLd,
+  SITE_URL,
+} from "@/lib/seo";
 import "../globals.css";
 
 /**
@@ -19,12 +25,14 @@ import "../globals.css";
 
 const LOCALE = "en" as const;
 
+// Miroir du français. L'anglais reste un confort de lecture et ne cible aucun
+// mot-clé (SEO.md §7) : on traduit l'intention, on n'optimise pas.
 const TITLE_DEFAULT =
-  "Yan-dev: modern websites for small businesses | Freelance in France";
+  "Freelance web developer in France: web and digital products";
 const DESCRIPTION =
-  "Independent web studio based in Caen, France, working with clients anywhere. Fast, modern websites for makers, shop owners and small businesses: from a simple one-pager to a fully bespoke premium site. From €490.";
+  "Business websites from €490, bespoke creative sites and digital products. Independent developer based in Caen, France, working with clients anywhere.";
 const OG_DESCRIPTION =
-  "Modern websites for makers, shop owners and small businesses. Based in Caen, France, working anywhere. From €490.";
+  "Business websites from €490, creative sites and digital products. Independent developer in Caen, France, projects anywhere.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -33,14 +41,6 @@ export const metadata: Metadata = {
     template: "%s | Yan-dev",
   },
   description: DESCRIPTION,
-  keywords: [
-    "freelance web developer France",
-    "website for small business",
-    "bespoke website designer",
-    "creative developer freelance",
-    "one page website freelance",
-    "modern business website",
-  ],
   authors: [{ name: "Yan", url: SITE_URL }],
   creator: "Yan",
   publisher: "Yan-dev",
@@ -53,14 +53,15 @@ export const metadata: Metadata = {
     locale: OG_LOCALE[LOCALE],
     url: new URL(ROUTES.home.en, SITE_URL).toString(),
     siteName: "Yan-dev",
-    title: "Yan-dev: modern websites for small businesses",
+    title: "Yan-dev: creative websites and digital products",
     description: OG_DESCRIPTION,
+    images: [{ url: OG_IMAGE.en, ...OG_IMAGE_SIZE, alt: OG_IMAGE_ALT.en }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Yan-dev: modern websites for small businesses",
-    description:
-      "Clear, fast websites for shop owners and independents. Freelance developer based in Caen, France.",
+    title: "Yan-dev: creative websites and digital products",
+    description: OG_DESCRIPTION,
+    images: [OG_IMAGE.en],
   },
   robots: { index: true, follow: true },
 };
