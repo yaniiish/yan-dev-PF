@@ -66,7 +66,7 @@ export const PILIER_CREATIF: Pilier = {
   points: [
     {
       title: "Une direction artistique poussée",
-      body: "Typographie, couleurs, composition, rythme des pages : le site est dessiné pour votre marque plutôt qu'adapté d'un modèle. C'est ce qui fait qu'on le reconnaît, et qu'il ne ressemble pas au site du concurrent d'en face.",
+      body: "Typographie, couleurs, composition, rythme des pages : chaque choix est fait pour votre marque et porte son univers. C'est ce qui fait qu'on reconnaît le site, et qu'il ne ressemble pas à celui du concurrent d'en face.",
     },
     {
       title: "Des animations et des interactions utiles",
@@ -105,7 +105,7 @@ export const PILIER_CREATIF: Pilier = {
     {
       question: "En quoi est-ce différent d'un site vitrine à 490 € ?",
       answer:
-        "Le site vitrine part d'une structure éprouvée que j'adapte à votre activité. Le site créatif part de votre univers : la mise en page, les animations et le parcours sont conçus pour vous. C'est surtout du temps de conception en plus, avant même la première ligne de code.",
+        "Les deux sont conçus et développés sur mesure : je ne pars jamais d'un modèle, quelle que soit l'offre. Ce qui change, c'est l'ambition visuelle. Un site vitrine va à l'essentiel, avec une mise en page claire et efficace. Un site créatif ajoute un vrai travail de direction artistique, des animations et un parcours pensé comme une expérience. C'est surtout du temps de conception en plus, avant la première ligne de code.",
     },
     {
       question: "Les animations ne vont-elles pas ralentir le site ?",
@@ -124,7 +124,7 @@ export const PILIER_CREATIF: Pilier = {
     },
   ],
 
-  ctaTitle: "Un projet qui mérite mieux qu'un modèle ?",
+  ctaTitle: "Un projet qui mérite une vraie direction artistique ?",
   ctaText:
     "Décrivez-moi votre activité et l'effet que vous cherchez, je vous réponds avec une proposition claire.",
   ctaLabel: "Parler de mon projet",

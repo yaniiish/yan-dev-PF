@@ -594,6 +594,8 @@ Lien dans la barre basse du footer, affiché dans **les deux langues** (l'identi
 >
 > **Pourquoi elles existent (constat P2-10 de l'audit).** Le site annonce trois piliers, mais seul le pilier vitrine avait une page d'atterrissage (`/prix-site-vitrine`) et un réseau de pages d'intention (`/site-internet/*`). Les requêtes de l'étage 2 côté créatif et produit (`SEO.md` §2) n'avaient aucune page vers laquelle pointer.
 >
+> **Ne jamais opposer le créatif au vitrine sur le sur-mesure.** Les trois offres sont conçues et développées sur mesure : aucun site, même à 490 €, ne part d'un modèle. Écrire que le vitrine serait « adapté d'un modèle » ou bâti sur une « structure éprouvée » dévalorise l'offre d'entrée et est factuellement faux. Le seul critère de distinction est **l'ambition visuelle** : temps de direction artistique, animations, parcours.
+>
 > **Règles de véracité appliquées :** aucun tarif chiffré (les deux offres sont sur devis, donc le `Service` JSON-LD ne porte **pas** d'`offers`), aucun délai annoncé, aucune statistique, aucun témoignage. Les projets qui illustrent ces pages ne sont jamais présentés comme des commandes client.
 
 ### Structure commune
