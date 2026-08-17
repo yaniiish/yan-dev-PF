@@ -414,11 +414,11 @@ Exemple en ligne : `https://site-pf-2.vercel.app/` (visuel `/projects/restaurant
 - **Enjeux (Pourquoi un site pour votre restaurant) :**
   - `Être trouvé sur Google` : `Quand on cherche un restaurant dans votre ville, un site bien référencé vous fait apparaître, avec votre adresse, vos horaires et votre carte.`
   - `Donner envie de réserver` : `Photos de vos plats, de la salle, de l'ambiance : on donne envie de venir avant même de pousser la porte.`
-  - `Une carte qui évolue sans surcoût` : `Vous changez de menu chaque saison ? La mise à jour de la carte est comprise dans l'abonnement de 30 €/mois, il suffit de me l'envoyer.`
+  - `Une carte qui évolue facilement` : `Vous changez de menu chaque saison ? Avec l'option Sérénité à 30 €/mois, la mise à jour de la carte est comprise : il suffit de me l'envoyer.`
   - `Réservation et contact simplifiés` : `Numéro de téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.`
 - **FAQ :**
   1. **Combien coûte un site pour un restaurant ?** → `À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.`
-  2. **Puis-je changer ma carte régulièrement ?** → `Oui. La mise à jour de votre carte est comprise dans l'abonnement de 30 €/mois : vous m'envoyez les changements et je les mets en ligne.`
+  2. **Puis-je changer ma carte régulièrement ?** → `Oui. Si vous prenez l'option Sérénité à 30 €/mois, la mise à jour de votre carte est comprise : vous m'envoyez les changements et je les mets en ligne.`
   3. **Peut-on ajouter la réservation en ligne ?** → `Oui : lien vers votre outil de réservation, numéro de téléphone cliquable ou formulaire de contact, selon ce que vous préférez.`
   4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
 - **CTA :** titre `Envie d'un site pour votre restaurant ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`, boutons `Discuter de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
@@ -466,11 +466,11 @@ Cible `site internet bistrot` et `brasserie`. Angle de différenciation vs resta
 - **Enjeux (Pourquoi un site pour votre bistrot ou brasserie) :**
   - `Sortir sur Google` : `Quand on cherche un bistrot ou une brasserie près de soi, un site bien référencé vous fait apparaître, avec votre adresse, vos horaires et votre carte.`
   - `Faire passer l'ambiance` : `Photos de la salle, du comptoir, de l'assiette : on retrouve en ligne l'esprit convivial qui fait revenir vos habitués.`
-  - `Une ardoise qui change sans surcoût` : `Plat du jour, formule de midi, suggestions : la mise à jour de votre carte est comprise dans l'abonnement de 30 €/mois, il suffit de me l'envoyer.`
+  - `Une ardoise qui change facilement` : `Plat du jour, formule de midi, suggestions : avec l'option Sérénité à 30 €/mois, la mise à jour de votre carte est comprise, il suffit de me l'envoyer.`
   - `Réservation et contact simplifiés` : `Numéro de téléphone cliquable, formulaire, lien vers votre outil de réservation : on met en avant ce qui aide à remplir la salle.`
 - **FAQ :**
   1. **Combien coûte un site pour un bistrot ou une brasserie ?** → `À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.`
-  2. **Puis-je changer mon ardoise et mes formules régulièrement ?** → `Oui. La mise à jour de votre carte et de votre plat du jour est comprise dans l'abonnement de 30 €/mois : vous m'envoyez les changements et je les mets en ligne.`
+  2. **Puis-je changer mon ardoise et mes formules régulièrement ?** → `Oui. Si vous prenez l'option Sérénité à 30 €/mois, la mise à jour de votre carte et de votre plat du jour est comprise : vous m'envoyez les changements et je les mets en ligne.`
   3. **Peut-on ajouter la réservation en ligne ?** → `Oui : lien vers votre outil de réservation, numéro de téléphone cliquable ou formulaire de contact, selon ce que vous préférez.`
   4. **Je ne suis pas à Caen, c'est possible ?** → `Oui. Je travaille à distance partout en France, le site se livre sans déplacement.`
 - **CTA :** titre `Envie d'un site pour votre bistrot ?`, texte `Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.`, boutons `Discuter de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).

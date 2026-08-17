@@ -45,7 +45,7 @@ export default function MetiersIndexPage() {
           name: "Création de site internet",
           description: METIERS_PAGE.metaDescription,
           path: METIERS_PAGE.path,
-          price: "490",
+          minPrice: "490",
         })}
       />
       <JsonLd data={itemListLd(metierItems)} />

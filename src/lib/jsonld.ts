@@ -61,12 +61,17 @@ type ServiceInput = {
   description: string;
   /** Chemin relatif de la page (ex: "/prix-site-vitrine"). */
   path: string;
-  /** Prix de départ optionnel (ex: "490"). */
-  price?: string;
+  /**
+   * Prix de départ optionnel (ex: "490"). Émis en `minPrice` et jamais en
+   * `price` : le tarif est un point de départ qui varie selon le périmètre,
+   * l'annoncer comme montant ferme serait faux et contredirait le texte
+   * visible des pages. Même règle que `professionalServiceLd` (src/lib/seo.ts).
+   */
+  minPrice?: string;
 };
 
 /** Page d'offre/service (Service) rattachée au ProfessionalService Yan-dev. */
-export function serviceLd({ name, description, path, price }: ServiceInput) {
+export function serviceLd({ name, description, path, minPrice }: ServiceInput) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -80,13 +85,17 @@ export function serviceLd({ name, description, path, price }: ServiceInput) {
       url: SITE_URL,
     },
     areaServed: { "@type": "Country", name: "France" },
-    ...(price
+    ...(minPrice
       ? {
           offers: {
             "@type": "Offer",
-            price,
             priceCurrency: "EUR",
             url: absolute(path),
+            priceSpecification: {
+              "@type": "PriceSpecification",
+              minPrice,
+              priceCurrency: "EUR",
+            },
           },
         }
       : {}),

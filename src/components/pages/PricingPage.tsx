@@ -40,7 +40,7 @@ export function PricingPage({ locale }: { locale: Locale }) {
           name: page.serviceName,
           description: page.metaDescription,
           path,
-          price: "490",
+          minPrice: "490",
         })}
       />
       <JsonLd data={faqLd(page.faq)} />
