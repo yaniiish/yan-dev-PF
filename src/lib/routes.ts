@@ -21,6 +21,7 @@ export type RouteKey = keyof typeof ROUTES;
  */
 export const FR_ONLY_ROUTES = {
   metiers: "/site-internet",
+  legal: "/mentions-legales",
 } as const;
 
 export function route(key: RouteKey, locale: Locale): string {

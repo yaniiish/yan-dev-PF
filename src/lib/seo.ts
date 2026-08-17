@@ -129,6 +129,14 @@ export function professionalServiceLd(locale: Locale) {
       areaServed: "FR",
     },
     founder: { "@type": "Person", name: "Yan" },
+    // SIRET : identifiant d'entreprise vérifiable au répertoire SIRENE. C'est
+    // ce qui rend l'entité identifiable pour les moteurs et les moteurs de
+    // réponse (cf. SEO.md §3). Doit rester cohérent avec /mentions-legales.
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "SIRET",
+      value: "10398679000014",
+    },
     sameAs: [CONTACT_INSTAGRAM_URL],
     makesOffer: [
       {

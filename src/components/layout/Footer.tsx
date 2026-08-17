@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LEGAL } from "@/content/legal";
 import type { Locale } from "@/content/locales";
 import { METIERS_PAGE } from "@/content/metiers";
 import { pricingContent } from "@/content/pricing";
@@ -95,10 +96,20 @@ export function Footer({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-ink-700/40 pt-8 text-sm text-ink-300">
+        <div className="mt-12 flex flex-col gap-3 border-t border-ink-700/40 pt-8 text-sm text-ink-300 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {SITE_NAME}. {footer.rights}
           </p>
+          {/* Page française, mais lien affiché dans les deux langues :
+              l'identité de l'éditeur doit rester joignable depuis toute page.
+              Le libellé anglais précise que la page est en français. */}
+          <a
+            href={LEGAL.path}
+            lang="fr"
+            className="text-ink-300 transition-colors hover:text-mint-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint-700"
+          >
+            {footer.legalLabel}
+          </a>
         </div>
       </div>
     </footer>
