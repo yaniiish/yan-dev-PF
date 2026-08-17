@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { LEGAL } from "@/content/legal";
 import { HREFLANG } from "@/content/locales";
 import { METIERS, METIERS_PAGE, metierPath } from "@/content/metiers";
 import { ROUTES, type RouteKey } from "@/lib/routes";
@@ -68,6 +69,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
-    // À ajouter quand créée : /mentions-legales...
+    {
+      url: absolute(LEGAL.path),
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.2,
+    },
   ];
 }

@@ -521,3 +521,41 @@ Angle de différenciation vs bistrot et brasserie : ici on parle de production (
 - **Grille :** une carte par métier (visuel + nom), lien vers chaque page métier.
 - **Bloc « tous métiers » (clôture, point clé demandé par Yan) :** titre `Votre métier n'est pas dans la liste ?`, texte `Ce ne sont que des exemples. Je conçois un site pour n'importe quelle activité : artisan, indépendant, profession libérale, association... Le principe reste le même, adapté à vos besoins.`, boutons `Parler de mon projet` (→ `/#contact`) + `Voir les tarifs` (→ `/prix-site-vitrine`).
 - **Footer :** la colonne `Ressources` liste désormais `Prix d'un site vitrine` + un seul lien `Tous les métiers` (→ `/site-internet`), au lieu de lister chaque métier.
+
+---
+
+## 14. Page `/mentions-legales`
+
+> Page FR uniquement, sans équivalent anglais (cf. `SEO.md` §7). Source unique du contenu : `src/content/legal.ts`. Créée suite au constat P2-3 de l'audit SEO. Laissée **indexable** à dessein : elle identifie l'entité, ce qui est un signal de confiance pour Google comme pour les moteurs de réponse (`SEO.md` §3). Présente au sitemap avec `priority: 0.2` et `changeFrequency: yearly`.
+>
+> **[LIMITE ASSUMÉE] Identité de l'éditeur.** La LCEN impose d'identifier l'éditeur par son nom de personne physique et par l'adresse de son siège. Yan a décidé le 2026-08-17 de ne publier **ni son nom, ni sa rue**, après avoir été informé que la page resterait de ce fait incomplète au regard de cette obligation, et que son nom est de toute façon associé publiquement au SIRET au répertoire SIRENE. Ce n'est pas un oubli : ne pas ajouter de nom ni d'adresse sans son accord explicite.
+
+- **Meta title :** `Mentions légales`
+- **Meta description :** `Mentions légales du site yan-dev.fr : éditeur, hébergeur, propriété intellectuelle et traitement des données personnelles.`
+- **Fil d'ariane :** `Accueil › Mentions légales`
+- **H1 :** `Mentions légales`
+- **Chapô :** `Informations légales relatives au site yan-dev.fr et à son éditeur.`
+
+### Éditeur du site
+Dénomination `Yan-dev` · Forme juridique `Entreprise individuelle` · SIRET `103 986 790 00014` · Siège `Caen (14000), France` · Contact `contact@yan-dev.fr` · TVA `TVA non applicable, article 293 B du Code général des impôts`.
+Corps : `Les prix indiqués sur ce site sont donc nets de taxe.`
+
+### Directeur de la publication
+`La direction de la publication est assurée par le représentant légal de Yan-dev, joignable à l'adresse contact@yan-dev.fr.`
+
+### Hébergeur
+Société `Vercel Inc.` · Adresse `440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis` · Site `vercel.com`.
+Relevé le 2026-08-17 depuis la politique de confidentialité de Vercel. À revérifier si Vercel change d'entité.
+
+### Propriété intellectuelle
+Deux paragraphes : propriété des contenus du site, et statut des sites présentés à titre d'exemple (ils restent la propriété de leurs auteurs).
+
+### Données personnelles
+Trois paragraphes : ce que collecte le formulaire de contact (email, activité, message, téléphone facultatif), l'usage exclusif de réponse à la demande sans revente ni publicité, et les droits RGPD exerçables à `contact@yan-dev.fr`.
+
+### Cookies et mesure d'audience
+`Ce site n'utilise aucun cookie de mesure d'audience, aucun traceur publicitaire et aucun outil d'analyse tiers. Aucun bandeau de consentement n'est donc nécessaire.`
+Cette affirmation n'est vraie que tant qu'aucun analytics n'est ajouté (`CLAUDE.md` §5). Si un outil de mesure arrive un jour, cette section doit être reprise **avant** la mise en ligne.
+
+### Maillage
+Lien dans la barre basse du footer, affiché dans **les deux langues** (l'identité de l'éditeur doit rester joignable depuis toute page), avec `lang="fr"` sur le lien et le libellé `Legal notice (French)` côté anglais.

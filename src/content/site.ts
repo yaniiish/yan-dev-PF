@@ -36,6 +36,13 @@ type SiteContent = {
     contactTitle: string;
     navLabel: string;
     rights: string;
+    /**
+     * Libellé du lien vers /mentions-legales. La page n'existe qu'en français
+     * (mention légale française), mais le lien est affiché dans les deux
+     * langues : l'identité de l'éditeur doit rester joignable depuis n'importe
+     * quelle page, y compris anglaise.
+     */
+    legalLabel: string;
   };
 };
 
@@ -58,6 +65,7 @@ const CONTENT: Record<Locale, SiteContent> = {
       contactTitle: "Contact",
       navLabel: "Liens du site",
       rights: "Tous droits réservés.",
+      legalLabel: "Mentions légales",
     },
   },
   en: {
@@ -78,6 +86,7 @@ const CONTENT: Record<Locale, SiteContent> = {
       contactTitle: "Contact",
       navLabel: "Site links",
       rights: "All rights reserved.",
+      legalLabel: "Legal notice (French)",
     },
   },
 };
