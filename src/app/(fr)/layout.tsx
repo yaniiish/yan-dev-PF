@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { SiteLoader } from "@/components/layout/SiteLoader";
 import { HTML_LANG } from "@/content/locales";
 import { uiContent } from "@/content/ui";
 import { fontVariables } from "@/lib/fonts";
@@ -100,6 +101,16 @@ export default function FrRootLayout({
         // niveau et ignore ces attributs externes. Sans effet sur le rendu.
         suppressHydrationWarning
       >
+        {/* Synchrone et avant l'écran de chargement : si la session l'a
+            déjà vu, l'attribut est posé avant le premier paint et le CSS le
+            masque, ce qui évite tout clignotement à chaque navigation. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('yd:loader-seen')==='1'){document.documentElement.setAttribute('data-loader-seen','')}}catch(e){}",
+          }}
+        />
+        <SiteLoader locale={LOCALE} />
         {/* Sans JS, Motion ne joue jamais l'entrée du Hero et son état
             initial resterait appliqué : le H1 serait invisible. */}
         <noscript>
