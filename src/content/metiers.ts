@@ -72,6 +72,38 @@ export const METIERS_PAGE = {
     "Un site vitrine moderne pour votre commerce, quel que soit votre métier : visibilité sur Google, infos à jour, dès 490 €. Exemples par métier. Freelance à Caen.",
   h1: "Un site internet pour votre métier",
   lead: "Coffee shop, restaurant, boulangerie ou toute autre activité : je conçois des sites vitrines clairs et modernes, adaptés à votre métier, qui vous rendent visible sur Google. Dès 490 €.",
+  /**
+   * Blocs de contenu de fond. La page n'était qu'une grille de vignettes
+   * (environ 130 mots), pour un titre qui cible une requête commerciale :
+   * c'était le principal risque de contenu mince du site.
+   */
+  contenuLabel: "Le principe",
+  contenuTitle: "Ce que contient un site vitrine de commerçant",
+  contenuLead:
+    "Quel que soit votre métier, un visiteur qui arrive sur votre site cherche presque toujours les mêmes choses, et dans le même ordre. Un bon site vitrine y répond sans le faire chercher.",
+  contenuItems: [
+    {
+      title: "Vos informations pratiques",
+      body: "Adresse, horaires, jours de fermeture, téléphone : ce sont les premières choses qu'on vient vérifier, souvent depuis un téléphone et souvent juste avant de se déplacer. Elles doivent être lisibles sans zoomer et sans scroller longtemps.",
+    },
+    {
+      title: "Ce que vous proposez",
+      body: "Votre carte, vos prestations, votre gamme ou vos réalisations selon votre activité. C'est ce qui permet au visiteur de se décider, et c'est aussi ce que Google lit pour comprendre de quoi parle votre site.",
+    },
+    {
+      title: "Des photos de votre univers",
+      body: "Votre lieu, vos produits, votre travail. Sur un site de commerce, les photos font une bonne partie de la décision : elles montrent ce qu'un texte ne peut pas dire.",
+    },
+    {
+      title: "Un moyen simple de vous joindre",
+      body: "Un numéro cliquable depuis un mobile, un formulaire, un lien vers votre outil de réservation ou vers vos réseaux. L'objectif est qu'un visiteur intéressé n'ait jamais à chercher comment vous contacter.",
+    },
+  ],
+  metierTitle: "Ce qui change d'un métier à l'autre",
+  metierBody: [
+    "Le socle est commun, mais l'accent ne se met pas au même endroit. Un restaurant a besoin d'une carte facile à mettre à jour et d'un accès direct à la réservation. Un architecte d'intérieur a besoin d'un portfolio qui met ses réalisations en valeur, parce que son site est la première preuve de son sens du design. Une brasserie artisanale a besoin de présenter sa gamme et d'indiquer où trouver ses bières.",
+    "C'est à cela que servent les pages ci-dessous : elles montrent, métier par métier, ce qui compte vraiment et à quoi ressemble le résultat. Si votre activité n'y figure pas, le principe reste exactement le même.",
+  ],
   gridLabel: "Exemples",
   gridTitle: "Des exemples par métier",
   allTitle: "Votre métier n'est pas dans la liste ?",
@@ -146,7 +178,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour un coffee shop ?",
         answer:
-          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
+          "À partir de 490 €. Le tarif dépend surtout de ce que vous voulez montrer : une page avec votre carte, vos horaires et quelques photos coûte moins qu'un site avec galerie complète et agenda d'événements. L'option Sérénité à 30 €/mois prend ensuite en charge le domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer.",
       },
       {
         question: "J'ai déjà un Instagram, ai-je vraiment besoin d'un site ?",
@@ -159,9 +191,9 @@ export const METIERS: readonly Metier[] = [
           "Oui : carte, horaires, adresse, galerie photo et liens vers vos réseaux, tout est prévu.",
       },
       {
-        question: "Je ne suis pas à Caen, c'est possible ?",
+        question: "Mon coffee shop n'est pas à Caen, est-ce que ça change quelque chose ?",
         answer:
-          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+          "Non. Tout se fait à distance : vous m'envoyez vos photos, votre carte et vos infos, et on échange par message ou en visio. Le référencement, lui, cible bien votre ville et pas la mienne.",
       },
     ],
     ctaTitle: "Envie d'un site pour votre coffee shop ?",
@@ -213,7 +245,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour un restaurant ?",
         answer:
-          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
+          "À partir de 490 €. Le tarif dépend du nombre de pages et des fonctionnalités : une carte et vos horaires coûtent moins qu'un site avec menus détaillés, réservation en ligne et galerie. L'option Sérénité à 30 €/mois couvre ensuite le domaine, l'hébergement et les mises à jour de carte, si vous préférez ne rien gérer.",
       },
       {
         question: "Puis-je changer ma carte régulièrement ?",
@@ -226,9 +258,9 @@ export const METIERS: readonly Metier[] = [
           "Oui : lien vers votre outil de réservation, numéro de téléphone cliquable ou formulaire de contact, selon ce que vous préférez.",
       },
       {
-        question: "Je ne suis pas à Caen, c'est possible ?",
+        question: "Faut-il qu'on se rencontre pour lancer le projet ?",
         answer:
-          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+          "Ce n'est pas nécessaire. Je travaille à distance avec des restaurants partout en France : vous m'envoyez votre carte et vos photos, on cale le reste par message ou en visio.",
       },
     ],
     ctaTitle: "Envie d'un site pour votre restaurant ?",
@@ -280,7 +312,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour une boulangerie ?",
         answer:
-          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
+          "À partir de 490 €. Le tarif dépend de ce que vous présentez : vos horaires et vos produits phares coûtent moins qu'un site détaillant toute votre gamme avec un système de commande. L'option Sérénité à 30 €/mois prend ensuite en charge le domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer.",
       },
       {
         question: "Puis-je afficher mes produits et mes horaires ?",
@@ -293,9 +325,9 @@ export const METIERS: readonly Metier[] = [
           "Oui : numéro de téléphone cliquable ou formulaire de réservation pour que vos clients commandent facilement.",
       },
       {
-        question: "Je ne suis pas à Caen, c'est possible ?",
+        question: "Ma boulangerie n'est pas dans le Calvados, c'est possible ?",
         answer:
-          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+          "Oui, sans difficulté. Le site se conçoit et se livre à distance, et il est référencé sur votre commune, pas sur la mienne.",
       },
     ],
     ctaTitle: "Envie d'un site pour votre boulangerie ?",
@@ -348,7 +380,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour un architecte d'intérieur ?",
         answer:
-          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
+          "À partir de 490 €. Pour ce métier, le tarif dépend surtout du portfolio : le nombre de projets à présenter, la quantité de photos et le soin apporté à leur mise en page. L'option Sérénité à 30 €/mois couvre ensuite le domaine, l'hébergement et l'ajout de vos nouveaux projets, si vous préférez ne rien gérer.",
       },
       {
         question: "Pourquoi un site soigné est-il si important pour ce métier ?",
@@ -361,9 +393,9 @@ export const METIERS: readonly Metier[] = [
           "Oui : galeries de projets, photos avant/après, descriptions de chantiers et témoignages clients, tout est prévu pour valoriser votre travail.",
       },
       {
-        question: "Je ne suis pas à Caen, c'est possible ?",
+        question: "Travaillez-vous avec des architectes hors de Normandie ?",
         answer:
-          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+          "Oui. C'est même le cas le plus fréquent pour ce métier : tout se fait à distance, à partir des photos de vos projets et de quelques échanges sur l'univers que vous voulez donner au site.",
       },
     ],
     ctaTitle: "Envie d'un site à la hauteur de vos projets ?",
@@ -415,7 +447,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour un bistrot ou une brasserie ?",
         answer:
-          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
+          "À partir de 490 €. Le tarif dépend du nombre de pages et des fonctionnalités : vos formules et vos horaires coûtent moins qu'un site avec ardoise détaillée, réservation et galerie. L'option Sérénité à 30 €/mois couvre ensuite le domaine, l'hébergement et les mises à jour de carte, si vous préférez ne rien gérer.",
       },
       {
         question: "Puis-je changer mon ardoise et mes formules régulièrement ?",
@@ -428,9 +460,9 @@ export const METIERS: readonly Metier[] = [
           "Oui : lien vers votre outil de réservation, numéro de téléphone cliquable ou formulaire de contact, selon ce que vous préférez.",
       },
       {
-        question: "Je ne suis pas à Caen, c'est possible ?",
+        question: "Mon établissement n'est pas à Caen, est-ce un problème ?",
         answer:
-          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+          "Non. Je travaille à distance partout en France, sans déplacement, et le site est référencé sur votre ville.",
       },
     ],
     ctaTitle: "Envie d'un site pour votre bistrot ?",
@@ -483,7 +515,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour un tatoueur ?",
         answer:
-          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
+          "À partir de 490 €. Le tarif dépend surtout de votre galerie : le nombre de réalisations à présenter et le travail graphique nécessaire pour que le site porte vraiment votre univers. L'option Sérénité à 30 €/mois couvre ensuite le domaine, l'hébergement et l'ajout de vos nouvelles pièces, si vous préférez ne rien gérer.",
       },
       {
         question: "Peut-on présenter ma galerie et mes flashs ?",
@@ -496,9 +528,9 @@ export const METIERS: readonly Metier[] = [
           "Instagram complète bien un site mais ne le remplace pas : vous n'apparaissez pas sur Google et vous dépendez de l'algorithme. Un site vous rend trouvable, affirme votre univers et reste à vous.",
       },
       {
-        question: "Je ne suis pas à Caen, c'est possible ?",
+        question: "Mon studio est loin de Caen, comment on travaille ?",
         answer:
-          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+          "À distance, par message ou en visio. Vous m'envoyez vos photos et vos références visuelles, je vous propose une direction, et on ajuste jusqu'à ce que le site vous ressemble.",
       },
     ],
     ctaTitle: "Envie d'un site à l'image de votre studio ?",
@@ -551,7 +583,7 @@ export const METIERS: readonly Metier[] = [
       {
         question: "Combien coûte un site pour une brasserie artisanale ?",
         answer:
-          "À partir de 490 €, selon le nombre de pages, le niveau de personnalisation et les fonctionnalités. Une option de suivi à 30 €/mois prend en charge le nom de domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer. Le détail est sur la page des tarifs.",
+          "À partir de 490 €. Le tarif dépend de l'ampleur de votre gamme : quelques bières et vos points de vente coûtent moins qu'un site avec une fiche par référence et vos brassins de saison. L'option Sérénité à 30 €/mois couvre ensuite le domaine, l'hébergement et les mises à jour, si vous préférez ne rien gérer.",
       },
       {
         question: "Puis-je présenter toute ma gamme de bières ?",
@@ -564,9 +596,9 @@ export const METIERS: readonly Metier[] = [
           "Oui : liste de vos points de vente et bars partenaires, informations sur les visites et dégustations, et un formulaire ou un numéro cliquable pour vous contacter.",
       },
       {
-        question: "Je ne suis pas à Caen, c'est possible ?",
+        question: "Ma brasserie n'est pas en Normandie, est-ce possible ?",
         answer:
-          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+          "Oui. Tout se fait à distance, et le site met en avant vos points de vente et votre zone à vous, quelle qu'elle soit.",
       },
     ],
     ctaTitle: "Envie d'un site pour votre brasserie ?",
