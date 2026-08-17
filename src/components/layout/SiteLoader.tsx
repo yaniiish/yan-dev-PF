@@ -68,7 +68,18 @@ export function SiteLoader({ locale }: { locale: Locale }) {
     // paint (cf. `html[data-loader-seen]`), donc ce relâchement différé d'un
     // tick n'a aucun effet visible ; il sert à débloquer le scroll et à
     // signaler au Hero qu'il peut jouer ses entrées.
-    if (document.documentElement.hasAttribute(LOADER_SEEN_ATTRIBUTE)) {
+    // On interroge sessionStorage plutôt que l'attribut du <html> : c'est la
+    // source de vérité, et elle ne dépend pas de ce que React fait de
+    // l'attribut pendant l'hydratation.
+    let alreadySeen = false;
+    try {
+      alreadySeen = sessionStorage.getItem(LOADER_SESSION_KEY) === "1";
+    } catch {
+      // Stockage indisponible : l'écran se rejouera, ce n'est pas bloquant.
+    }
+
+    if (alreadySeen) {
+      document.documentElement.setAttribute(LOADER_SEEN_ATTRIBUTE, "");
       const seenTimer = window.setTimeout(release, 0);
       return () => window.clearTimeout(seenTimer);
     }

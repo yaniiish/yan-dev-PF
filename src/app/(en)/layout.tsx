@@ -84,6 +84,11 @@ export default function EnRootLayout({
     <html
       lang={HTML_LANG[LOCALE]}
       className={`${fontVariables} h-full antialiased`}
+      // `data-loader-seen` est posé par le script inline ci-dessous, avant
+      // l'hydratation. Sans ceci, React considère l'attribut comme un écart
+      // avec le HTML serveur et le retire : le CSS de masquage cesse alors de
+      // s'appliquer et l'écran de chargement réapparaît à chaque navigation.
+      suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col" suppressHydrationWarning>
         {/* Synchrone et avant l'écran de chargement : si la session l'a
