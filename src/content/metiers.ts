@@ -605,6 +605,74 @@ export const METIERS: readonly Metier[] = [
     ctaText:
       "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
   },
+  {
+    slug: "prothesiste-ongulaire",
+    navLabel: "Prothésiste ongulaire",
+    serviceName: "Création de site internet pour prothésiste ongulaire",
+    metaTitle: "Création de site internet pour prothésiste ongulaire, dès 490 €",
+    metaDescription:
+      "Un site web moderne pour votre activité de prothésiste ongulaire : prestations, galerie, prise de rendez-vous et visibilité sur Google. Dès 490 €. Freelance à Caen, partout en France.",
+    breadcrumbLabel: "Site internet pour prothésiste ongulaire",
+    h1: "Un site internet pour votre activité de prothésiste ongulaire",
+    lead: "Vos clients choisissent avec les yeux et réservent en ligne. Un site clair présente vos prestations, met en avant vos réalisations et facilite la prise de rendez-vous, tout en vous rendant visible sur Google quand on cherche une prothésiste ongulaire ou une manucure dans le coin. Dès 490 €.",
+    enjeuxTitle: "Pourquoi un site pour votre activité de prothésiste ongulaire",
+    enjeux: [
+      {
+        title: "Être trouvé sur Google",
+        body: "Quand on cherche une prothésiste ongulaire ou un salon de manucure près de chez soi, un site bien référencé vous fait apparaître, avec vos prestations, vos horaires et votre adresse.",
+      },
+      {
+        title: "Présenter vos prestations et vos tarifs",
+        body: "Pose gel, semi-permanent, nail art, remplissage, dépose : chaque prestation avec sa description, sa durée et son prix. Vos clients savent à quoi s'attendre avant de réserver.",
+      },
+      {
+        title: "Mettre vos réalisations en valeur",
+        body: "Une belle galerie de vos poses et de votre nail art donne envie et prouve votre savoir-faire, mieux qu'un long discours.",
+      },
+      {
+        title: "Faciliter la prise de rendez-vous",
+        body: "Lien vers votre agenda en ligne, formulaire de demande ou numéro cliquable : on met en avant ce qui déclenche la réservation, sans allers-retours par message.",
+      },
+    ],
+    examples: [
+      {
+        description:
+          "NACRE, un site exemple pour prothésiste ongulaire au style soigné, en ligne.",
+        href: "https://ongle-nine.vercel.app/",
+        image: {
+          src: "/projects/nacre.jpg",
+          alt: "Aperçu du site exemple pour prothésiste ongulaire NACRE",
+          width: 1618,
+          height: 910,
+        },
+      },
+    ],
+    faq: [
+      {
+        question: "Combien coûte un site pour une prothésiste ongulaire ?",
+        answer:
+          "À partir de 490 € à la création, puis 30 €/mois pour le nom de domaine, l'hébergement et les mises à jour. Le détail est sur la page des tarifs.",
+      },
+      {
+        question: "Puis-je présenter mes prestations et mes tarifs ?",
+        answer:
+          "Oui : une liste claire de vos prestations avec description, durée et prix, que l'on met à jour quand vos tarifs évoluent.",
+      },
+      {
+        question: "Peut-on ajouter la prise de rendez-vous en ligne ?",
+        answer:
+          "Oui : lien vers votre outil de réservation, formulaire de demande ou numéro de téléphone cliquable, selon ce que vous préférez.",
+      },
+      {
+        question: "Je ne suis pas à Caen, c'est possible ?",
+        answer:
+          "Oui. Je travaille à distance partout en France, le site se livre sans déplacement.",
+      },
+    ],
+    ctaTitle: "Envie d'un site pour votre activité ?",
+    ctaText:
+      "Dites-moi en deux lignes votre projet, je vous réponds avec une estimation claire.",
+  },
 ];
 
 export function getMetier(slug: string): Metier | undefined {
