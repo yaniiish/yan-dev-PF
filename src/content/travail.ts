@@ -207,6 +207,7 @@ const PRODUCT_SOURCES: readonly ProductSource[] = [
       fr: "Un SaaS B2B pensé pour les salles d'escalade. En cours de construction.",
       en: "A B2B SaaS built for climbing gyms. Currently in the works.",
     },
+    href: "https://betawall.app/",
     image: {
       src: "/products/betawall.png",
       alt: {
