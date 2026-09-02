@@ -207,11 +207,12 @@ const PRODUCT_SOURCES: readonly ProductSource[] = [
       fr: "Un SaaS B2B pensé pour les salles d'escalade. En cours de construction.",
       en: "A B2B SaaS built for climbing gyms. Currently in the works.",
     },
+    href: "https://betawall.app/",
     image: {
-      src: "/products/betawall.png",
+      src: "/products/betawall.jpg",
       alt: {
-        fr: "Logo de BetaWall, SaaS B2B pour les salles d'escalade",
-        en: "BetaWall logo, a B2B SaaS for climbing gyms",
+        fr: "Landing page de BetaWall, SaaS B2B pour les salles d'escalade",
+        en: "BetaWall landing page, a B2B SaaS for climbing gyms",
       },
       width: 1618,
       height: 910,
