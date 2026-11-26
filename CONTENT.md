@@ -166,7 +166,7 @@ Les anciens libellés `Projet 01`, `Projet 02`… ont disparu : numéroter des t
 
 | Produit | Nature | État | Lien |
 |---------|--------|------|------|
-| **BetaWall** | `SaaS B2B` | Phase pilote | [betawall.app](https://betawall.app/) |
+| **BetaWall** | `SaaS B2B` | En ligne | [betawall.app](https://betawall.app/) |
 | **CleanAI** | `iOS App` | En ligne | [cleanaiapp.com](https://cleanaiapp.com) |
 
 - CleanAI : « Nettoie les images et vidéos générées par IA avant publication sur TikTok ou Instagram. Traitement natif iOS, directement sur l'appareil. » Visuel `public/products/cleanai.jpg`, capture du site.
