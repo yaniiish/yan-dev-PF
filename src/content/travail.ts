@@ -177,27 +177,6 @@ export type Product = {
 
 const PRODUCT_SOURCES: readonly ProductSource[] = [
   {
-    id: "cleanai",
-    title: "CleanAI",
-    kind: "iOS App",
-    status: "live",
-    statusLabel: { fr: "En ligne", en: "Live" },
-    description: {
-      fr: "Nettoie les images et vidéos générées par IA avant publication sur TikTok ou Instagram. Traitement natif iOS, directement sur l'appareil.",
-      en: "Cleans up AI-generated images and videos before you post them on TikTok or Instagram. Native iOS processing, entirely on device.",
-    },
-    href: "https://cleanaiapp.com",
-    image: {
-      src: "/products/cleanai.jpg",
-      alt: {
-        fr: "Aperçu du site de CleanAI, application iOS de nettoyage des contenus générés par IA",
-        en: "Preview of the CleanAI website, an iOS app that cleans up AI-generated content",
-      },
-      width: 1618,
-      height: 910,
-    },
-  },
-  {
     id: "betawall",
     title: "BetaWall",
     kind: "SaaS B2B",
@@ -213,6 +192,27 @@ const PRODUCT_SOURCES: readonly ProductSource[] = [
       alt: {
         fr: "Landing page de BetaWall, SaaS B2B pour les salles d'escalade",
         en: "BetaWall landing page, a B2B SaaS for climbing gyms",
+      },
+      width: 1618,
+      height: 910,
+    },
+  },
+  {
+    id: "cleanai",
+    title: "CleanAI",
+    kind: "iOS App",
+    status: "live",
+    statusLabel: { fr: "En ligne", en: "Live" },
+    description: {
+      fr: "Nettoie les images et vidéos générées par IA avant publication sur TikTok ou Instagram. Traitement natif iOS, directement sur l'appareil.",
+      en: "Cleans up AI-generated images and videos before you post them on TikTok or Instagram. Native iOS processing, entirely on device.",
+    },
+    href: "https://cleanaiapp.com",
+    image: {
+      src: "/products/cleanai.jpg",
+      alt: {
+        fr: "Aperçu du site de CleanAI, application iOS de nettoyage des contenus générés par IA",
+        en: "Preview of the CleanAI website, an iOS app that cleans up AI-generated content",
       },
       width: 1618,
       height: 910,
