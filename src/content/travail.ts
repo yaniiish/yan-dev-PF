@@ -183,7 +183,7 @@ const PRODUCT_SOURCES: readonly ProductSource[] = [
     status: "live",
     statusLabel: { fr: "Phase pilote", en: "Pilot phase" },
     description: {
-      fr: "L'app aux couleurs de chaque salle d'escalade : les grimpeurs explorent les blocs, suivent leur progression et partagent leurs réussites. Sur iOS et Android.",
+      fr: "L'app aux couleurs de chaque salle d'escalade\u00a0: les grimpeurs explorent les blocs, suivent leur progression et partagent leurs réussites. Sur iOS et Android.",
       en: "A climbing gym app in each gym's own colours: members explore boulders, track their progress and celebrate sends together. On iOS and Android.",
     },
     href: "https://betawall.app/",
