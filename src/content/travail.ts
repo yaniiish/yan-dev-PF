@@ -177,6 +177,27 @@ export type Product = {
 
 const PRODUCT_SOURCES: readonly ProductSource[] = [
   {
+    id: "betawall",
+    title: "BetaWall",
+    kind: "SaaS B2B",
+    status: "live",
+    statusLabel: { fr: "En ligne", en: "Live" },
+    description: {
+      fr: "L'app aux couleurs de chaque salle d'escalade\u00a0: les grimpeurs explorent les blocs, suivent leur progression et partagent leurs réussites. Sur iOS et Android.",
+      en: "A climbing gym app in each gym's own colours: members explore boulders, track their progress and celebrate sends together. On iOS and Android.",
+    },
+    href: "https://betawall.app/",
+    image: {
+      src: "/products/betawall.jpg",
+      alt: {
+        fr: "Aperçu du site de BetaWall, application personnalisable pour les salles d'escalade",
+        en: "Preview of the BetaWall website, a branded app for climbing gyms",
+      },
+      width: 1618,
+      height: 910,
+    },
+  },
+  {
     id: "cleanai",
     title: "CleanAI",
     kind: "iOS App",
@@ -192,27 +213,6 @@ const PRODUCT_SOURCES: readonly ProductSource[] = [
       alt: {
         fr: "Aperçu du site de CleanAI, application iOS de nettoyage des contenus générés par IA",
         en: "Preview of the CleanAI website, an iOS app that cleans up AI-generated content",
-      },
-      width: 1618,
-      height: 910,
-    },
-  },
-  {
-    id: "betawall",
-    title: "BetaWall",
-    kind: "SaaS B2B",
-    status: "construction",
-    statusLabel: { fr: "En construction", en: "In progress" },
-    description: {
-      fr: "Un SaaS B2B pensé pour les salles d'escalade. En cours de construction.",
-      en: "A B2B SaaS built for climbing gyms. Currently in the works.",
-    },
-    href: "https://betawall.app/",
-    image: {
-      src: "/products/betawall.jpg",
-      alt: {
-        fr: "Landing page de BetaWall, SaaS B2B pour les salles d'escalade",
-        en: "BetaWall landing page, a B2B SaaS for climbing gyms",
       },
       width: 1618,
       height: 910,

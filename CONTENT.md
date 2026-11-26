@@ -166,11 +166,11 @@ Les anciens libellés `Projet 01`, `Projet 02`… ont disparu : numéroter des t
 
 | Produit | Nature | État | Lien |
 |---------|--------|------|------|
+| **BetaWall** | `SaaS B2B` | En ligne | [betawall.app](https://betawall.app/) |
 | **CleanAI** | `iOS App` | En ligne | [cleanaiapp.com](https://cleanaiapp.com) |
-| **BetaWall** | `SaaS B2B` | En construction | pas de lien |
 
 - CleanAI : « Nettoie les images et vidéos générées par IA avant publication sur TikTok ou Instagram. Traitement natif iOS, directement sur l'appareil. » Visuel `public/products/cleanai.jpg`, capture du site.
-- BetaWall : « Un SaaS B2B pensé pour les salles d'escalade. En cours de construction. » Visuel `public/products/betawall.png` : lockup logo + wordmark extrait de la planche fournie par Yan (`betawall logo.png` à la racine, non commitée), détouré et composé sur un canvas 16/9 blanc pour tenir le même gabarit que la card CleanAI.
+- BetaWall : « L'app aux couleurs de chaque salle d'escalade : les grimpeurs explorent les blocs, suivent leur progression et partagent leurs réussites. Sur iOS et Android. » EN : « A climbing gym app in each gym's own colours: members explore boulders, track their progress and celebrate sends together. On iOS and Android. » Visuel `public/products/betawall.jpg`, capture du hero de betawall.app (nouvelle DA).
 - Le point coloré à côté de l'état n'est pas décoratif : il distingue un produit en ligne d'un chantier.
 - **Même présentation que la colonne gauche** : un produit en grand plus une bande de vignettes. La nature du produit prend la place de la catégorie du site, la description celle du secteur.
 
@@ -627,7 +627,7 @@ H1, chapô, puis : bloc de 4 points en H3, bloc de mise en perspective en 2 ou 3
 - **H1 :** `Transformer une idée en produit digital`
 - **Les 4 points :** conception produit et MVP, SaaS et application web, application mobile, dashboard et automatisations. Repris de la carte `Produit digital` (§6).
 - **Bloc de perspective :** `Comment se passe un projet produit` (cadrage, première version réduite, avancement par étapes).
-- **Exemples :** CleanAI et BetaWall. BetaWall étant en construction, sa carte n'a **pas** de lien : on ne fabrique pas une destination inexistante.
+- **Exemples :** CleanAI et BetaWall. Les deux cartes pointent vers le site du produit.
 - **FAQ :** coût après cadrage, contact au stade de l'idée, évolution du périmètre, propriété du produit, travail à distance.
 
 ### Maillage
